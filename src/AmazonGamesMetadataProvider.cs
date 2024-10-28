@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AmazonGamesLibrary
+namespace NileLibraryNS
 {
     public class AmazonGamesMetadataProvider : LibraryMetadataProvider
     {

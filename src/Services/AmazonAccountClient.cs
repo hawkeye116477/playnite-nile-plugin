@@ -1,4 +1,4 @@
-﻿using AmazonGamesLibrary.Models;
+﻿using NileLibraryNS.Models;
 using Microsoft.Win32;
 using Playnite.Common;
 using Playnite.SDK;
@@ -14,16 +14,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace AmazonGamesLibrary.Services
+namespace NileLibraryNS.Services
 {
     public class AmazonAccountClient
     {
         private static readonly ILogger logger = LogManager.GetLogger();
-        private AmazonGamesLibrary library;
+        private NileLibrary library;
         private const string loginUrl = @"https://www.amazon.com/ap/signin?openid.ns=http://specs.openid.net/auth/2.0&openid.claimed_id=http://specs.openid.net/auth/2.0/identifier_select&openid.identity=http://specs.openid.net/auth/2.0/identifier_select&openid.mode=checkid_setup&openid.oa2.scope=device_auth_access&openid.ns.oa2=http://www.amazon.com/ap/ext/oauth/2&openid.oa2.response_type=token&openid.oa2.client_id=device:6330386435633439383366623032393938313066303133343139383335313266234132554D56484F58375550345637&language=en_US&marketPlaceId=ATVPDKIKX0DER&openid.return_to=https://www.amazon.com&openid.pape.max_auth_age=0&openid.assoc_handle=amzn_sonic_games_launcher&pageId=amzn_sonic_games_launcher";
         private readonly string tokensPath;
 
-        public AmazonAccountClient(AmazonGamesLibrary library)
+        public AmazonAccountClient(NileLibrary library)
         {
             this.library = library;
             tokensPath = Path.Combine(library.GetPluginUserDataPath(), "tokens.json");

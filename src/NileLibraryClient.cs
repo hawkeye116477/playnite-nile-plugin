@@ -7,15 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AmazonGamesLibrary
+namespace NileLibraryNS
 {
-    public class AmazonGamesLibraryClient : LibraryClient
+    public class NileLibraryClient : LibraryClient
     {
         private static readonly ILogger logger = LogManager.GetLogger();
 
-        public override string Icon => AmazonGames.Icon;
+        public override string Icon => Nile.Icon;
 
-        public override bool IsInstalled => AmazonGames.IsInstalled;
+        public override bool IsInstalled => Nile.IsInstalled;
 
         public bool IsRunning
         {
@@ -24,7 +24,7 @@ namespace AmazonGamesLibrary
 
         public override void Open()
         {
-            AmazonGames.StartClient();
+            Nile.StartClient();
         }
 
         public override void Shutdown()

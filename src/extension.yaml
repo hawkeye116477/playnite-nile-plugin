@@ -1,7 +1,7 @@
-﻿Id: AmazonLibrary_Builtin
-Name: AmazonGames library integration
-Author: Playnite
+﻿Id: NileLibrary
+Name: Nile (Amazon) library integration
+Author: hawkeye116477
 Version: 2.8
-Module: AmazonGamesLibrary.dll
+Module: NileLibrary.dll
 Type: GameLibrary
-Icon: icon.png
+Icon: Resources\icon.svg

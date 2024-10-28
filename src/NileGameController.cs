@@ -1,4 +1,4 @@
-﻿using AmazonGamesLibrary.Models;
+﻿using NileLibraryNS.Models;
 using Playnite;
 using Playnite.Common;
 using Playnite.SDK;
@@ -13,15 +13,15 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AmazonGamesLibrary
+namespace NileLibraryNS
 {
-    public class AmazonInstallController : InstallController
+    public class NileInstallController : InstallController
     {
         private static readonly ILogger logger = LogManager.GetLogger();
-        private readonly AmazonGamesLibrary library;
+        private readonly NileLibrary library;
         private CancellationTokenSource watcherToken;
 
-        public AmazonInstallController(Game game, AmazonGamesLibrary library) : base(game)
+        public NileInstallController(Game game, NileLibrary library) : base(game)
         {
             Name = "Install using Amazon client";
             this.library = library;
@@ -34,13 +34,13 @@ namespace AmazonGamesLibrary
 
         public override void Install(InstallActionArgs args)
         {
-            if (!AmazonGames.IsInstalled)
+            if (!Nile.IsInstalled)
             {
                 ProcessStarter.StartUrl(@"https://www.amazongames.com/en-us/support/prime-gaming/articles/download-and-install-the-amazon-games-app");
             }
-            else if (!AmazonGames.IsRunning)
+            else if (!Nile.IsRunning)
             {
-                AmazonGames.StartClient();
+                Nile.StartClient();
             }
 
             StartInstallWatcher();
@@ -109,13 +109,13 @@ namespace AmazonGamesLibrary
         }
     }
 
-    public class AmazonUninstallController : UninstallController
+    public class NileUninstallController : UninstallController
     {
         private static readonly ILogger logger = LogManager.GetLogger();
-        private readonly AmazonGamesLibrary library;
+        private readonly NileLibrary library;
         private CancellationTokenSource watcherToken;
 
-        public AmazonUninstallController(Game game, AmazonGamesLibrary library) : base(game)
+        public NileUninstallController(Game game, NileLibrary library) : base(game)
         {
             Name = "Uninstall using Amazon client";
             this.library = library;
@@ -128,9 +128,9 @@ namespace AmazonGamesLibrary
 
         public override void Uninstall(UninstallActionArgs args)
         {
-            if (AmazonGames.IsInstalled)
+            if (Nile.IsInstalled)
             {
-                AmazonGames.StartClient();
+                Nile.StartClient();
                 StartUninstallWatcher();
             }
             else

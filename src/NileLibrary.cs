@@ -1,5 +1,5 @@
-﻿using AmazonGamesLibrary.Models;
-using AmazonGamesLibrary.Services;
+﻿using NileLibraryNS.Models;
+using NileLibraryNS.Services;
 using Playnite.Common;
 using Playnite.SDK;
 using Playnite.SDK.Models;
@@ -13,21 +13,21 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-namespace AmazonGamesLibrary
+namespace NileLibraryNS
 {
     [LoadPlugin]
-    public class AmazonGamesLibrary : LibraryPluginBase<AmazonGamesLibrarySettingsViewModel>
+    public class NileLibrary : LibraryPluginBase<NileLibrarySettingsViewModel>
     {
-        public AmazonGamesLibrary(IPlayniteAPI api) : base(
-            "Amazon Games",
-            Guid.Parse("402674cd-4af6-4886-b6ec-0e695bfa0688"),
+        public NileLibrary(IPlayniteAPI api) : base(
+            "Nile (Amazon)",
+            Guid.Parse("5901B4B4-774D-411A-9CCE-807C5CA49D88"),
             new LibraryPluginProperties { CanShutdownClient = true, HasSettings = true },
-            new AmazonGamesLibraryClient(),
-            AmazonGames.Icon,
-            (_) => new AmazonGamesLibrarySettingsView(),
+            new NileLibraryClient(),
+            Nile.Icon,
+            (_) => new NileLibrarySettingsView(),
             api)
         {
-            SettingsViewModel = new AmazonGamesLibrarySettingsViewModel(this, PlayniteApi);
+            SettingsViewModel = new NileLibrarySettingsViewModel(this, PlayniteApi);
         }
 
         public override ISettings GetSettings(bool firstRunSettings)
@@ -48,7 +48,7 @@ namespace AmazonGamesLibrary
                 yield break;
             }
 
-            yield return new AmazonInstallController(args.Game, this);
+            yield return new NileInstallController(args.Game, this);
         }
 
         public override IEnumerable<UninstallController> GetUninstallActions(GetUninstallActionsArgs args)
@@ -58,7 +58,7 @@ namespace AmazonGamesLibrary
                 yield break;
             }
 
-            yield return new AmazonUninstallController(args.Game, this);
+            yield return new NileUninstallController(args.Game, this);
         }
 
         public override IEnumerable<PlayController> GetPlayActions(GetPlayActionsArgs args)
@@ -68,14 +68,14 @@ namespace AmazonGamesLibrary
                 yield break;
             }
 
-            var gameConfig = AmazonGames.GetGameConfiguration(args.Game.InstallDirectory);
-            if (AmazonGames.GetGameRequiresClient(gameConfig) || !SettingsViewModel.Settings.StartGamesWithoutLauncher)
+            var gameConfig = Nile.GetGameConfiguration(args.Game.InstallDirectory);
+            if (Nile.GetGameRequiresClient(gameConfig) || !SettingsViewModel.Settings.StartGamesWithoutLauncher)
             {
                 yield return new AutomaticPlayController(args.Game)
                 {
                     Type = AutomaticPlayActionType.Url,
                     TrackingMode = TrackingMode.Directory,
-                    Name = ResourceProvider.GetString(LOC.AmazonStartUsingClient).Format("Amazon"),
+                    Name = ResourceProvider.GetString(LOC.AmazonStartUsingClient).Format("Nile"),
                     TrackingPath = args.Game.InstallDirectory,
                     Path = $"amazon-games://play/{args.Game.GameId}"
                 };
@@ -185,12 +185,12 @@ namespace AmazonGamesLibrary
                 try
                 {
                     installedGames = GetInstalledGames();
-                    Logger.Debug($"Found {installedGames.Count} installed Amazon games.");
+                    Logger.Debug($"Found {installedGames.Count} installed Nile games.");
                     allGames.AddRange(installedGames.Values.ToList());
                 }
                 catch (Exception e) when (!PlayniteApi.ApplicationInfo.ThrowAllErrors)
                 {
-                    Logger.Error(e, "Failed to import installed Amazon games.");
+                    Logger.Error(e, "Failed to import installed Nile games.");
                     importError = e;
                 }
             }
@@ -200,7 +200,7 @@ namespace AmazonGamesLibrary
                 try
                 {
                     var libraryGames = GetLibraryGames();
-                    Logger.Debug($"Found {libraryGames.Count} library Amazon games.");
+                    Logger.Debug($"Found {libraryGames.Count} library Nile games.");
 
                     if (!SettingsViewModel.Settings.ImportUninstalledGames)
                     {
@@ -222,7 +222,7 @@ namespace AmazonGamesLibrary
                 }
                 catch (Exception e) when (!PlayniteApi.ApplicationInfo.ThrowAllErrors)
                 {
-                    Logger.Error(e, "Failed to import linked account Amazon games details.");
+                    Logger.Error(e, "Failed to import linked account Nile games details.");
                     importError = e;
                 }
             }

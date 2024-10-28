@@ -1,4 +1,4 @@
-﻿using AmazonGamesLibrary.Models;
+﻿using NileLibraryNS.Models;
 using Playnite.Common;
 using Playnite.SDK.Data;
 using System;
@@ -10,9 +10,9 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AmazonGamesLibrary
+namespace NileLibraryNS
 {
-    public class AmazonGames
+    public class Nile
     {
         public static bool IsRunning => Process.GetProcessesByName("Amazon Games").Length > 0;
 

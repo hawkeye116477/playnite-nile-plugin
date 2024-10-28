@@ -13,11 +13,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace AmazonGamesLibrary
+namespace NileLibraryNS
 {
-    public partial class AmazonGamesLibrarySettingsView : UserControl
+    public partial class NileLibrarySettingsView : UserControl
     {
-        public AmazonGamesLibrarySettingsView()
+        public NileLibrarySettingsView()
         {
             InitializeComponent();
         }

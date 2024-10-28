@@ -1,4 +1,4 @@
-﻿using AmazonGamesLibrary.Services;
+﻿using NileLibraryNS.Services;
 using Playnite.SDK;
 using Playnite.SDK.Data;
 using System;
@@ -8,9 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AmazonGamesLibrary
+namespace NileLibraryNS
 {
-    public class AmazonGamesLibrarySettings
+    public class NileLibrarySettings
     {
         public int Version { get; set; }
         public bool ImportInstalledGames { get; set; } = true;
@@ -19,7 +19,7 @@ namespace AmazonGamesLibrary
         public bool StartGamesWithoutLauncher { get; set; } = false;
     }
 
-    public class AmazonGamesLibrarySettingsViewModel : PluginSettingsViewModel<AmazonGamesLibrarySettings, AmazonGamesLibrary>
+    public class NileLibrarySettingsViewModel : PluginSettingsViewModel<NileLibrarySettings, NileLibrary>
     {
         public bool IsFirstRunUse { get; set; }
 
@@ -48,7 +48,7 @@ namespace AmazonGamesLibrary
             });
         }
 
-        public AmazonGamesLibrarySettingsViewModel(AmazonGamesLibrary library, IPlayniteAPI api) : base(library, api)
+        public NileLibrarySettingsViewModel(NileLibrary library, IPlayniteAPI api) : base(library, api)
         {
             var savedSettings = LoadSavedSettings();
             if (savedSettings != null)
@@ -67,7 +67,7 @@ namespace AmazonGamesLibrary
             }
             else
             {
-                Settings = new AmazonGamesLibrarySettings() { Version = 1 };
+                Settings = new NileLibrarySettings() { Version = 1 };
             }
         }
 
