@@ -37,30 +37,8 @@
 
             <StackPanel Orientation="Horizontal"
                         DockPanel.Dock="Top" Margin="0,15,5,5" HorizontalAlignment="Left">
-                <Button Content="{DynamicResource LOCNile3P_AmazonAuthenticateLabel}" HorizontalAlignment="Left"
-                        Command="{Binding LoginCommand}"/>
-                <TextBlock VerticalAlignment="Center" Margin="10,5,5,5">
-                    <TextBlock.Tag>
-                        <PriorityBinding>
-                            <Binding Path="IsUserLoggedIn" IsAsync="True" />
-                            <Binding Source="{x:Null}" />
-                        </PriorityBinding>
-                    </TextBlock.Tag>
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
-                            <Style.Triggers>
-                                <Trigger Property="Tag" Value="{StaticResource True}">
-                                    <Setter Property="Text" Value="{DynamicResource LOCNile3P_AmazonLoggedIn}" />
-                                </Trigger>
-                                <Trigger Property="Tag" Value="{StaticResource False}">
-                                    <Setter Property="Text" Value="{DynamicResource LOCNile3P_AmazonNotLoggedIn}" />
-                                </Trigger>
-                                <Trigger Property="Tag" Value="{x:Null}">
-                                    <Setter Property="Text" Value="{DynamicResource LOCNile3P_AmazonLoginChecking}" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
+                <ToggleButton HorizontalAlignment="Left" Name="LoginBtn" Content="{DynamicResource LOCNile3P_AmazonAuthenticateLabel}" IsChecked="False" Click="LoginBtn_Click" />
+                <TextBlock VerticalAlignment="Center" Margin="10,5,5,5"  Name="AuthStatusTB" Text="{DynamicResource LOCNile3P_AmazonLoginChecking}">
                 </TextBlock>
             </StackPanel>
         </StackPanel>

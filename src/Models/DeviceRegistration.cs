@@ -44,23 +44,53 @@ namespace NileLibraryNS.Models
             {
                 public class Tokens
                 {
-                    public class Bearer
-                    {
-                        public string access_token;
-                        public string refresh_token;
-                    }
-
-                    public Bearer bearer;
+                    public Mac_Dms mac_dms { get; set; }
+                    public Bearer bearer { get; set; }
                 }
 
-                public Tokens tokens;
+                public class Mac_Dms
+                {
+                    public string device_private_key { get; set; }
+                }
+
+                public class Bearer
+                {
+                    public string access_token { get; set; }
+                    public string refresh_token { get; set; }
+                    public long expires_in { get; set; }
+                }
+
+                public class Extensions
+                {
+                    public Device_Info device_info { get; set; }
+                    public Customer_Info customer_info { get; set; }
+                }
+
+                public class Device_Info
+                {
+                    public string device_name { get; set; }
+                    public string device_serial_number { get; set; }
+                    public string device_type { get; set; }
+                }
+
+                public class Customer_Info
+                {
+                    public string account_pool { get; set; }
+                    public string user_id { get; set; }
+                    public string home_region { get; set; }
+                    public string name { get; set; }
+                    public string given_name { get; set; }
+                }
+
+                public Tokens tokens { get; set; }
+                public Extensions extensions { get; set; }
+                public string customer_id { get; set; }
             }
 
             public Success success;
         }
 
         public Response response;
-        public string request_id;
     }
 
     public class ProfileInfo

@@ -77,5 +77,44 @@ namespace NileLibraryNS
             return !config.Main.ClientId.IsNullOrEmpty() &&
                     config.Main.AuthScopes.HasItems();
         }
+
+        public static string TokensPath
+        {
+            get
+            {
+                return Path.Combine(ConfigPath, "user.json");
+            }
+        }
+
+        public static string ConfigPath
+        {
+            get
+            {
+                var nileConfigPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "nile");
+                var heroicNileConfigPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "heroic", "nile_config", "nile");
+                var originalNileInstallListPath = Path.Combine(nileConfigPath, "installed.json");
+                var heroicNileInstallListPath = Path.Combine(heroicNileConfigPath, "installed.json");
+                if (File.Exists(heroicNileInstallListPath))
+                {
+                    if (File.Exists(originalNileInstallListPath))
+                    {
+                        if (File.GetLastWriteTime(heroicNileInstallListPath) > File.GetLastWriteTime(originalNileInstallListPath))
+                        {
+                            nileConfigPath = heroicNileConfigPath;
+                        }
+                    }
+                    else
+                    {
+                        nileConfigPath = heroicNileConfigPath;
+                    }
+                }
+                var envNileConfigPath = Environment.GetEnvironmentVariable("NILE_CONFIG_PATH");
+                if (!envNileConfigPath.IsNullOrWhiteSpace() && Directory.Exists(envNileConfigPath))
+                {
+                    nileConfigPath = envNileConfigPath;
+                }
+                return nileConfigPath;
+            }
+        }
     }
 }

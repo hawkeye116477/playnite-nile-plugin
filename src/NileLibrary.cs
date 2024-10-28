@@ -21,6 +21,8 @@ namespace NileLibraryNS
     public class NileLibrary : LibraryPluginBase<NileLibrarySettingsViewModel>
     {
         private static readonly ILogger logger = LogManager.GetLogger();
+        public static NileLibrary Instance { get; set; }
+
         public NileLibrary(IPlayniteAPI api) : base(
             "Nile (Amazon)",
             Guid.Parse("5901B4B4-774D-411A-9CCE-807C5CA49D88"),
@@ -30,6 +32,7 @@ namespace NileLibraryNS
             (_) => new NileLibrarySettingsView(),
             api)
         {
+            Instance = this;
             SettingsViewModel = new NileLibrarySettingsViewModel(this, PlayniteApi);
             LoadExtraLocalization();
         }
@@ -38,6 +41,11 @@ namespace NileLibraryNS
         {
             SettingsViewModel.IsFirstRunUse = firstRunSettings;
             return SettingsViewModel;
+        }
+
+        public static NileLibrarySettings GetSettings()
+        {
+            return Instance.SettingsViewModel?.Settings ?? null;
         }
 
         public override LibraryMetadataProvider GetMetadataDownloader()

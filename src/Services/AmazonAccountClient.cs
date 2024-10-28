@@ -3,13 +3,10 @@ using Microsoft.Win32;
 using Playnite.Common;
 using Playnite.SDK;
 using Playnite.SDK.Data;
-using PlayniteExtensions.Common;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
-using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -26,7 +23,21 @@ namespace NileLibraryNS.Services
         public AmazonAccountClient(NileLibrary library)
         {
             this.library = library;
-            tokensPath = Path.Combine(library.GetPluginUserDataPath(), "tokens.json");
+            tokensPath = Nile.TokensPath;
+        }
+
+        public void LogOut()
+        {
+            using var webView = library.PlayniteApi.WebViews.CreateView(new WebViewSettings
+            {
+                WindowWidth = 580,
+                WindowHeight = 700,
+            });
+            webView.DeleteDomainCookies(".amazon.com");
+            if (File.Exists(Nile.TokensPath))
+            {
+                File.Delete(Nile.TokensPath);
+            }
         }
 
         public async Task Login()
@@ -90,29 +101,29 @@ namespace NileLibraryNS.Services
                 var authData = Serialization.FromJson<DeviceRegistrationResponse>(authResponseContent);
                 if (authData.response?.success != null)
                 {
-                    Encryption.EncryptToFile(
-                        tokensPath,
-                        Serialization.ToJson(authData.response.success.tokens.bearer),
-                        Encoding.UTF8,
-                        WindowsIdentity.GetCurrent().User.Value);
+                    if (!Directory.Exists(Path.GetDirectoryName(tokensPath)))
+                    {
+                        FileSystem.CreateDirectory(Path.GetDirectoryName(tokensPath));
+                    }
+                    File.WriteAllText(tokensPath, Serialization.ToJson(authData.response.success));
                 }
             }
         }
 
         public async Task<List<Entitlement>> GetAccountEntitlements()
         {
-            if (!(await GetIsUserLoggedIn()))
+            if (!await GetIsUserLoggedIn())
             {
                 throw new Exception("User is not authenticated.");
             }
 
             var entitlements = new List<Entitlement>();
-            var token = LoadToken();
+            var tokens = LoadTokens();
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Add("User-Agent", "com.amazon.agslauncher.win/3.0.9124.0");
                 client.DefaultRequestHeaders.Add("X-Amz-Target", "com.amazon.animusdistributionservice.entitlement.AnimusEntitlementsService.GetEntitlements");
-                client.DefaultRequestHeaders.Add("x-amzn-token", token.access_token);
+                client.DefaultRequestHeaders.Add("x-amzn-token", tokens.tokens.bearer.access_token);
 
                 string nextToken = null;
                 var reqData = new EntitlementsRequest
@@ -146,17 +157,27 @@ namespace NileLibraryNS.Services
             }
         }
 
-        private DeviceRegistrationResponse.Response.Success.Tokens.Bearer LoadToken()
+        public string GetUsername()
+        {
+            var tokens = LoadTokens();
+            var username = "";
+            if (tokens != null)
+            {
+                if (!tokens.extensions.customer_info.given_name.IsNullOrEmpty())
+                {
+                    username = tokens.extensions.customer_info.given_name;
+                }
+            }
+            return username;
+        }
+
+        private DeviceRegistrationResponse.Response.Success LoadTokens()
         {
             if (File.Exists(tokensPath))
             {
                 try
                 {
-                    return Serialization.FromJson<DeviceRegistrationResponse.Response.Success.Tokens.Bearer>(
-                        Encryption.DecryptFromFile(
-                            tokensPath,
-                            Encoding.UTF8,
-                            WindowsIdentity.GetCurrent().User.Value));
+                    return Serialization.FromJson<DeviceRegistrationResponse.Response.Success>(FileSystem.ReadFileAsStringSafe(tokensPath));
                 }
                 catch (Exception e)
                 {
@@ -167,9 +188,9 @@ namespace NileLibraryNS.Services
             return null;
         }
 
-        private async Task<DeviceRegistrationResponse.Response.Success.Tokens.Bearer> RefreshTokens()
+        private async Task<DeviceRegistrationResponse.Response.Success> RefreshTokens()
         {
-            var token = LoadToken();
+            var tokens = LoadTokens();
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Add("User-Agent", "com.amazon.agslauncher.win/1.1.133.2-9e2c3a3");
@@ -177,7 +198,7 @@ namespace NileLibraryNS.Services
                 {
                     app_name = "AGSLauncher",
                     app_version = "1.1.133.2-9e2c3a3",
-                    source_token = token.refresh_token,
+                    source_token = tokens.tokens.bearer.refresh_token,
                     requested_token_type = "access_token",
                     source_token_type = "refresh_token"
                 };
@@ -191,30 +212,26 @@ namespace NileLibraryNS.Services
                     strcont);
 
                 var authResponseContent = await authResponse.Content.ReadAsStringAsync();
-                var authData = Serialization.FromJson<DeviceRegistrationResponse.Response.Success.Tokens.Bearer>(authResponseContent);
-                token.access_token = authData.access_token;
-                Encryption.EncryptToFile(
-                    tokensPath,
-                    Serialization.ToJson(token),
-                    Encoding.UTF8,
-                    WindowsIdentity.GetCurrent().User.Value);
-                return token;
+                var authData = Serialization.FromJson<DeviceRegistrationResponse.Response.Success.Bearer>(authResponseContent);
+                tokens.tokens.bearer.access_token = authData.access_token;
+                File.WriteAllText(tokensPath, Serialization.ToJson(tokens));
+                return tokens;
             }
         }
 
         public async Task<bool> GetIsUserLoggedIn()
         {
-            var token = LoadToken();
-            if (token == null)
+            var tokens = LoadTokens();
+            if (tokens == null)
             {
                 return false;
             }
 
-            token = await RefreshTokens();
+            tokens = await RefreshTokens();
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Add("User-Agent", "AGSLauncher/1.0.0");
-                client.DefaultRequestHeaders.Add("Authorization", "bearer " + token.access_token);
+                client.DefaultRequestHeaders.Add("Authorization", "bearer " + tokens.tokens.bearer.access_token);
                 client.DefaultRequestHeaders.Add("Accept", "application/json");
                 var infoResponse = await client.GetAsync(@"https://api.amazon.com/user/profile");
                 var infoResponseContent = await infoResponse.Content.ReadAsStringAsync();
