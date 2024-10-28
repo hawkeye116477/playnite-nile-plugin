@@ -88,5 +88,10 @@ namespace NileLibraryNS
                 }
             }
         }
+
+        private void AmazonConnectAccountChk_Checked(object sender, RoutedEventArgs e)
+        {
+            UpdateAuthStatus();
+        }
     }
 }

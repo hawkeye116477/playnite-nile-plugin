@@ -18,19 +18,19 @@
     </UserControl.Resources>
 
     <StackPanel Margin="20">
-        <CheckBox DockPanel.Dock="Top" Name="CheckAmazonImportInstalled"
+        <CheckBox DockPanel.Dock="Top" Name="AmazonImportInstalledChk"
                   Margin="0,0,0,15"
                   IsChecked="{Binding Settings.ImportInstalledGames}"
                   Content="{DynamicResource LOCNile3P_AmazonSettingsImportInstalledLabel}"/>
 
-        <CheckBox DockPanel.Dock="Top" Name="CheckAmazonConnectAccount"
+        <CheckBox DockPanel.Dock="Top" Name="AmazonConnectAccountChk"
                   IsChecked="{Binding Settings.ConnectAccount}"
-                  Content="{DynamicResource LOCNile3P_AmazonSettingsConnectAccount}"/>
+                  Content="{DynamicResource LOCNile3P_AmazonSettingsConnectAccount}" Checked="AmazonConnectAccountChk_Checked"/>
 
         <StackPanel DockPanel.Dock="Top" Margin="40,5,5,5"
-                    IsEnabled="{Binding IsChecked, ElementName=CheckAmazonConnectAccount}">
+                    IsEnabled="{Binding IsChecked, ElementName=AmazonConnectAccountChk}">
 
-            <CheckBox DockPanel.Dock="Top" Name="CheckAmazonImportUninstalled"
+            <CheckBox DockPanel.Dock="Top" Name="AmazonImportUninstalledChk"
                       IsChecked="{Binding Settings.ImportUninstalledGames}"
                       Margin="0,10,0,0"
                       Content="{DynamicResource LOCNile3P_AmazonSettingsImportUninstalledLabel}"/>
