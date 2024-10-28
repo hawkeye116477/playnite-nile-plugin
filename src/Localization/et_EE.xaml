@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+  <sys:String x:Key="LOCAmazonSettingsImportInstalledLabel">Impordi paigaldatud mängud</sys:String>
+  <sys:String x:Key="LOCAmazonSettingsImportUninstalledLabel">Impordi paigaldamata mängud</sys:String>
+  <sys:String x:Key="LOCAmazonSettingsConnectAccount">Ühenda konto</sys:String>
+  <sys:String x:Key="LOCAmazonLoginChecking">Autentimise oleku kontrollimine…</sys:String>
+  <sys:String x:Key="LOCAmazonLoggedIn">Kasutaja on autenditud</sys:String>
+  <sys:String x:Key="LOCAmazonNotLoggedIn">Vajalik on autentimine</sys:String>
+  <sys:String x:Key="LOCAmazonNotLoggedInError">Kasutaja autentimine ebaõnnestus.</sys:String>
+  <sys:String x:Key="LOCAmazonAuthenticateLabel">Autendi</sys:String>
+  <sys:String x:Key="LOCAmazonSettingsStartGameDirectly">Käivita mängud otseselt, ilma ametlikku klienti avamata</sys:String>
+  <sys:String x:Key="LOCAmazonTroubleShootingAccountLink">Konto sünkroonimise probleemide tõrkeotsing</sys:String>
+  <sys:String x:Key="LOCAmazonTroubleShootingIssues">Probleemide tõrkeotsing</sys:String>
+  <sys:String x:Key="LOCAmazonSettingsImportLibraryLabel">Impordi kõik mängud</sys:String>
+  <sys:String x:Key="LOCAmazonPrivateAccount">Privaatne konto</sys:String>
+  <sys:String x:Key="LOCAmazonPublicAccount">Avalik konto</sys:String>
+  <sys:String x:Key="LOCAmazonAPIKey">API võti</sys:String>
+  <sys:String x:Key="LOCAmazonStartUsingClient">Käivita klienti {0} kasutades</sys:String>
+  <sys:String x:Key="LOCAmazonImportPlaytime">Impordi mänguaeg</sys:String>
+  <sys:String x:Key="LOCAmazonAccountID">Konto ID</sys:String>
+  <sys:String x:Key="LOCAmazonMetadataLanguageLabel">Metaandmete keel:</sys:String>
+</ResourceDictionary>

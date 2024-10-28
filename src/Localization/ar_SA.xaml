@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+  <sys:String x:Key="LOCAmazonSettingsImportInstalledLabel">استيراد الألعاب المثبتة</sys:String>
+  <sys:String x:Key="LOCAmazonSettingsImportUninstalledLabel">استيراد الألعاب الغير المثبتة</sys:String>
+  <sys:String x:Key="LOCAmazonSettingsConnectAccount">ربط الحساب</sys:String>
+  <sys:String x:Key="LOCAmazonLoginChecking">جاري التحقق من حالة المصادقة…</sys:String>
+  <sys:String x:Key="LOCAmazonLoggedIn">تم مصادقة المستخدم</sys:String>
+  <sys:String x:Key="LOCAmazonNotLoggedIn">يتطلب المصادقة</sys:String>
+  <sys:String x:Key="LOCAmazonNotLoggedInError">فشل في مصادقة المستخدم.</sys:String>
+  <sys:String x:Key="LOCAmazonAuthenticateLabel">مصادقة</sys:String>
+  <sys:String x:Key="LOCAmazonSettingsStartGameDirectly">بدء تشغيل الألعاب مباشرة دون تشغيل المنصة الرسمية</sys:String>
+  <sys:String x:Key="LOCAmazonTroubleShootingAccountLink">استكشاف مشاكل مزامنة الحساب وإصلاحها</sys:String>
+  <sys:String x:Key="LOCAmazonTroubleShootingIssues">استكشاف الأخطاء وإصلاحها</sys:String>
+  <sys:String x:Key="LOCAmazonSettingsImportLibraryLabel">استيراد جميع الألعاب</sys:String>
+  <sys:String x:Key="LOCAmazonPrivateAccount">حساب خاص</sys:String>
+  <sys:String x:Key="LOCAmazonPublicAccount">حساب عام</sys:String>
+  <sys:String x:Key="LOCAmazonAPIKey">مفتاح API</sys:String>
+  <sys:String x:Key="LOCAmazonStartUsingClient">بدء باستخدام {0} عميل</sys:String>
+  <sys:String x:Key="LOCAmazonImportPlaytime">استيراد وقت التشغيل</sys:String>
+  <sys:String x:Key="LOCAmazonAccountID">تعريف الحساب</sys:String>
+  <sys:String x:Key="LOCAmazonMetadataLanguageLabel">لغة بيانات التعريف:</sys:String>
+</ResourceDictionary>
