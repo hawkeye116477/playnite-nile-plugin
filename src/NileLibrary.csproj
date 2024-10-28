@@ -170,7 +170,6 @@
     <Compile Include="Services\AmazonAccountClient.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="addon.yaml" />
     <None Include="extension.yaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -205,8 +204,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\icon.svg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="Resources\icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
