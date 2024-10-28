@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+  Automatically generated via update_3p_localization.py script using files from https://github.com/JosefNemec/PlayniteExtensions/tree/7c471edfeea4ed1384f97c14ad76c48988453248 and https://github.com/JosefNemec/Playnite/tree/2afc8359d8c45e80c66404add4221037ce600d43.
+  DO NOT MODIFY, CUZ IT MIGHT BE OVERWRITTEN DURING NEXT RUN!
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsLabel">Instellingen</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsGeneralLabel">Algemeen</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsAdvancedLabel">Geavanceerd</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">Uitvoerbaar bestand</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Selecteer bestand...</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Selecteer map...</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsImportInstalledLabel">Importeer geïnstalleerde spellen</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsImportUninstalledLabel">Importeer niet-geïnstalleerde spellen</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsConnectAccount">Accounts koppelen</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonLoginChecking">Verificatiestatus aan het controleren...</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonLoggedIn">De gebruiker is geverifieerd.</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonNotLoggedIn">Verificatie vereist</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonNotLoggedInError">Kan gebruiker niet verifiëren</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonAuthenticateLabel">Verifiëren</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsStartGameDirectly">Start games zonder de officiële client op te starten.</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonTroubleShootingAccountLink">Probleemoplossing account synchronisatie</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonTroubleShootingIssues">Probleemoplossing</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsImportLibraryLabel">Importeer alle spellen</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonPrivateAccount">Privé-account</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonPublicAccount">Openbaar Account</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonAPIKey">API Sleutel</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonStartUsingClient">Starten met {0} client</sys:String>
+</ResourceDictionary>

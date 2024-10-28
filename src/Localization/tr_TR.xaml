@@ -1,22 +1,23 @@
-<?xml version="1.0"?>
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
-  <sys:String x:Key="LOCAmazonSettingsImportInstalledLabel">Kurulu oyunları içeri aktar</sys:String>
-  <sys:String x:Key="LOCAmazonSettingsImportUninstalledLabel">Kurulu olmayan oyunları içe aktar</sys:String>
-  <sys:String x:Key="LOCAmazonSettingsConnectAccount">Hesap bağla</sys:String>
-  <sys:String x:Key="LOCAmazonLoginChecking">Kimlik doğrulama durumu kontrol ediliyor…</sys:String>
-  <sys:String x:Key="LOCAmazonLoggedIn">Kullanıcı kimliği doğrulandı</sys:String>
-  <sys:String x:Key="LOCAmazonNotLoggedIn">Kimlik doğrulaması gerektiriyor</sys:String>
-  <sys:String x:Key="LOCAmazonNotLoggedInError">Kullanıcı kimliği doğrulanamadı.</sys:String>
-  <sys:String x:Key="LOCAmazonAuthenticateLabel">Kimlik Doğrulaması</sys:String>
-  <sys:String x:Key="LOCAmazonSettingsStartGameDirectly">Oyunu resmi istemciyi çalıştırmadan doğrudan başlat</sys:String>
-  <sys:String x:Key="LOCAmazonTroubleShootingAccountLink">Hesap eşitleme sorunlarını giderme</sys:String>
-  <sys:String x:Key="LOCAmazonTroubleShootingIssues">Sorunları giderme</sys:String>
-  <sys:String x:Key="LOCAmazonSettingsImportLibraryLabel">Tüm oyunları içeri aktar</sys:String>
-  <sys:String x:Key="LOCAmazonPrivateAccount">Özel Hesap</sys:String>
-  <sys:String x:Key="LOCAmazonPublicAccount">Genel Hesap</sys:String>
-  <sys:String x:Key="LOCAmazonAPIKey">API Anahtarı</sys:String>
-  <sys:String x:Key="LOCAmazonStartUsingClient">{0} istemcisini kullanarak başlat</sys:String>
-  <sys:String x:Key="LOCAmazonImportPlaytime">Oynama zamanını içe aktar</sys:String>
-  <sys:String x:Key="LOCAmazonAccountID">Hesap kimliği</sys:String>
-  <sys:String x:Key="LOCAmazonMetadataLanguageLabel">Üst veri dili:</sys:String>
+<?xml version='1.0' encoding='utf-8'?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <sys:String x:Key="LOCNileGamesInstallationPath">Oyunların Kurulum Yolu</sys:String>
+  <sys:String x:Key="LOCNileDownloadSize">İndirme Boyutu:</sys:String>
+  <sys:String x:Key="LOCNileInstallSize">Kurulum Boyutu:</sys:String>
+  <sys:String x:Key="LOCNileSpaceAvailable">Mevcut Alan:</sys:String>
+  <sys:String x:Key="LOCNileAfterInstalling">Kurulumdan Sonra:</sys:String>
+  <sys:String x:Key="LOCNileRepair">Onar</sys:String>
+  <sys:String x:Key="LOCNilePathNotExistsError">Belirtilen yol mevcut değil.</sys:String>
+  <sys:String x:Key="LOCNileSignOut">Oturumu kapat</sys:String>
+  <sys:String x:Key="LOCNileTroubleshootingInformation">Sorun giderme bilgisi</sys:String>
+  <sys:String x:Key="LOCNilePlayniteVersion">Playnite sürümü</sys:String>
+  <sys:String x:Key="LOCNilePluginVersion">Eklenti sürümü</sys:String>
+  <sys:String x:Key="LOCNileCopyRawDataToClipboard">Ham verileri panoya kopyala</sys:String>
+  <sys:String x:Key="LOCNileLogFilesPath">Günlük Dosyaları Yolu</sys:String>
+  <sys:String x:Key="LOCNileReportBug">Bir hata bildir</sys:String>
+  <sys:String x:Key="LOCNileNewVersionAvailable">Yeni bir sürüm mevcut: {0} {1}.</sys:String>
+  <sys:String x:Key="LOCNileNoUpdatesAvailable">Güncelleme yok.</sys:String>
+  <sys:String x:Key="LOCNileViewChangelog">Değişiklikleri görüntüle</sys:String>
+  <sys:String x:Key="LOCNileSignedInAs">{0} olarak oturum açıldı</sys:String>
+  <sys:String x:Key="LOCNileSignOutConfirm">Oturumu kapatmak istiyor musunuz?</sys:String>
+  <sys:String x:Key="LOCNileGames">Oyunlar</sys:String>
 </ResourceDictionary>

@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+  Automatically generated via update_3p_localization.py script using files from https://github.com/JosefNemec/PlayniteExtensions/tree/7c471edfeea4ed1384f97c14ad76c48988453248 and https://github.com/JosefNemec/Playnite/tree/2afc8359d8c45e80c66404add4221037ce600d43.
+  DO NOT MODIFY, CUZ IT MIGHT BE OVERWRITTEN DURING NEXT RUN!
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsLabel">Cài đặt</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsGeneralLabel">Cài đặt chung</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsAdvancedLabel">Nâng cao</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">Thực hiện</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Chọn tập tin…</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Chọn thư mục…</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsImportInstalledLabel">Nhập vào các trò chơi đã được cài đặt</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsImportUninstalledLabel">Nhập vào các trò chơi chưa được cài đặt</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsConnectAccount">Kết nối tài khoản</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonLoginChecking">Đang kiểm tra trạng thái xác thực…</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonLoggedIn">Người dùng được xác thực</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonNotLoggedIn">Yêu cầu xác thực</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonNotLoggedInError">Không xác thực được người dùng.</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonAuthenticateLabel">Xác thực</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsStartGameDirectly">Bắt đầu trò chơi trực tiếp mà không cần chạy ứng dụng khách chính thức</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonTroubleShootingAccountLink">Khắc phục sự cố đồng bộ hóa tài khoản</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonTroubleShootingIssues">Khắc phục sự cố</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsImportLibraryLabel">Nhập vào tất cả các trò chơi</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonPrivateAccount">Tài khoản cá nhân</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonPublicAccount">Tài khoản công khai</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonAPIKey">Khóa API</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonStartUsingClient">Bắt đầu sử dụng ứng dụng khách {0}</sys:String>
+</ResourceDictionary>

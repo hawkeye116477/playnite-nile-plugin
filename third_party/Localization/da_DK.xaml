@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+  Automatically generated via update_3p_localization.py script using files from https://github.com/JosefNemec/PlayniteExtensions/tree/7c471edfeea4ed1384f97c14ad76c48988453248 and https://github.com/JosefNemec/Playnite/tree/2afc8359d8c45e80c66404add4221037ce600d43.
+  DO NOT MODIFY, CUZ IT MIGHT BE OVERWRITTEN DURING NEXT RUN!
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsLabel">Indstillinger</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsGeneralLabel">Generelt</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsAdvancedLabel">Avanceret</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">Eksekverings-fil</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip"></sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip"></sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsImportInstalledLabel">Importer installerede spil</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsImportUninstalledLabel">Importer ikke installerede spil</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsConnectAccount">Forbind konto</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonLoginChecking">Tjekker godkendelsesstatus…</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonLoggedIn">Brugeren er verificeret</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonNotLoggedIn">Kræver verificering</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonNotLoggedInError">Det lykkedes ikke at verificere brugeren</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonAuthenticateLabel">Verificering</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsStartGameDirectly">Start spil direkte uden at køre officiel klient</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonTroubleShootingAccountLink">Fejlfinding for konto synkroniserings problemer</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsImportLibraryLabel">Importer alle spil</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonPrivateAccount">Privat konto</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonPublicAccount">Offentlig Konto</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonAPIKey">API Nøgle</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonStartUsingClient">Begynd at bruge {0} klient</sys:String>
+</ResourceDictionary>

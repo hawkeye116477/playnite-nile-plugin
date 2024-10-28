@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+  Automatically generated via update_3p_localization.py script using files from https://github.com/JosefNemec/PlayniteExtensions/tree/7c471edfeea4ed1384f97c14ad76c48988453248 and https://github.com/JosefNemec/Playnite/tree/2afc8359d8c45e80c66404add4221037ce600d43.
+  DO NOT MODIFY, CUZ IT MIGHT BE OVERWRITTEN DURING NEXT RUN!
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsLabel">Einstellungen</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsGeneralLabel">Allgemein</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsAdvancedLabel">Erweitert</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">Ausführbare Datei</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Datei auswählen …</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Ordner auswählen …</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsImportInstalledLabel">Installierte Spiele importieren</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsImportUninstalledLabel">Nicht installierte Spiele importieren</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsConnectAccount">Nutzerkonto verbinden</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonLoginChecking">Authentifizierungsstatus wird überprüft …</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonLoggedIn">Nutzer ist authentifiziert</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonNotLoggedIn">Authentifizierung erforderlich</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonNotLoggedInError">Nutzer konnte nicht authentifiziert werden.</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonAuthenticateLabel">Authentifizieren</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsStartGameDirectly">Spiele direkt starten ohne offiziellen Client</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonTroubleShootingAccountLink">Beheben von Problemen mit der Kontosynchronisation</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonTroubleShootingIssues">Problembehebung</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsImportLibraryLabel">Alle Spiele importieren</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonPrivateAccount">Privates Konto</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonPublicAccount">Öffentliches Konto</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonAPIKey">API-Schlüssel</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonStartUsingClient">Mit {0}-Client starten</sys:String>
+</ResourceDictionary>

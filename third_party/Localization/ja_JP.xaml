@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+  Automatically generated via update_3p_localization.py script using files from https://github.com/JosefNemec/PlayniteExtensions/tree/7c471edfeea4ed1384f97c14ad76c48988453248 and https://github.com/JosefNemec/Playnite/tree/2afc8359d8c45e80c66404add4221037ce600d43.
+  DO NOT MODIFY, CUZ IT MIGHT BE OVERWRITTEN DURING NEXT RUN!
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsLabel">設定</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsGeneralLabel">一般設定</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsAdvancedLabel">詳細設定</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">実行ファイル</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">ファイルを選択</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">フォルダを選択…</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsImportInstalledLabel">インストール済みのゲームをインポート</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsImportUninstalledLabel">インストールされていないゲームをインポート</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsConnectAccount">アカウントに接続</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonLoginChecking">認証ステータスを確認しています...</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonLoggedIn">ユーザーは認証されています</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonNotLoggedIn">認証が必要です</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonNotLoggedInError">ユーザー認証に失敗しました。</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonAuthenticateLabel">認証</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsStartGameDirectly">公式クライアントを起動しないでゲームを直接起動する</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonTroubleShootingAccountLink">アカウント同期問題のトラブルシューティング</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonTroubleShootingIssues">問題のトラブルシューティング</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsImportLibraryLabel">すべてのゲームをインポート</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonPrivateAccount">非公開アカウント</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonPublicAccount">公開アカウント</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonAPIKey">API キー</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonStartUsingClient">{0} クライアントの使用を開始</sys:String>
+</ResourceDictionary>

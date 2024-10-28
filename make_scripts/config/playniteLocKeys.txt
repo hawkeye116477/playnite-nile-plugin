@@ -1,0 +1,6 @@
+LOCSettingsLabel
+LOCSettingsGeneralLabel
+LOCSettingsAdvancedLabel
+LOCSelectDirectoryTooltip
+LOCSelectFileTooltip
+LOCExecutableTitle

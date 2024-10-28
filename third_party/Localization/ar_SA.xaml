@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+  Automatically generated via update_3p_localization.py script using files from https://github.com/JosefNemec/PlayniteExtensions/tree/7c471edfeea4ed1384f97c14ad76c48988453248 and https://github.com/JosefNemec/Playnite/tree/2afc8359d8c45e80c66404add4221037ce600d43.
+  DO NOT MODIFY, CUZ IT MIGHT BE OVERWRITTEN DURING NEXT RUN!
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsLabel">إعدادات</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsGeneralLabel">عامة</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsAdvancedLabel">متقدم</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">قابل للتنفيذ</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">تحديد الملف...</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">تحديد المجلد</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsImportInstalledLabel">استيراد الألعاب المثبتة</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsImportUninstalledLabel">استيراد الألعاب الغير المثبتة</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsConnectAccount">ربط الحساب</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonLoginChecking">جاري التحقق من حالة المصادقة…</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonLoggedIn">تم مصادقة المستخدم</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonNotLoggedIn">يتطلب المصادقة</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonNotLoggedInError">فشل في مصادقة المستخدم.</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonAuthenticateLabel">مصادقة</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsStartGameDirectly">بدء تشغيل الألعاب مباشرة دون تشغيل المنصة الرسمية</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonTroubleShootingAccountLink">استكشاف مشاكل مزامنة الحساب وإصلاحها</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonTroubleShootingIssues">استكشاف الأخطاء وإصلاحها</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsImportLibraryLabel">استيراد جميع الألعاب</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonPrivateAccount">حساب خاص</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonPublicAccount">حساب عام</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonAPIKey">مفتاح API</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonStartUsingClient">بدء باستخدام {0} عميل</sys:String>
+</ResourceDictionary>

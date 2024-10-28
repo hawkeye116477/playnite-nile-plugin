@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+  Automatically generated via update_3p_localization.py script using files from https://github.com/JosefNemec/PlayniteExtensions/tree/7c471edfeea4ed1384f97c14ad76c48988453248 and https://github.com/JosefNemec/Playnite/tree/2afc8359d8c45e80c66404add4221037ce600d43.
+  DO NOT MODIFY, CUZ IT MIGHT BE OVERWRITTEN DURING NEXT RUN!
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsLabel">Seaded</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsGeneralLabel">Üldine</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsAdvancedLabel">Täpsem</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">Täitmisprogramm</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Vali fail…</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Vali kaust…</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsImportInstalledLabel">Impordi paigaldatud mängud</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsImportUninstalledLabel">Impordi paigaldamata mängud</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsConnectAccount">Ühenda konto</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonLoginChecking">Autentimise oleku kontrollimine…</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonLoggedIn">Kasutaja on autenditud</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonNotLoggedIn">Vajalik on autentimine</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonNotLoggedInError">Kasutaja autentimine ebaõnnestus.</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonAuthenticateLabel">Autendi</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsStartGameDirectly">Käivita mängud otseselt, ilma ametlikku klienti avamata</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonTroubleShootingAccountLink">Konto sünkroonimise probleemide tõrkeotsing</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonTroubleShootingIssues">Probleemide tõrkeotsing</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsImportLibraryLabel">Impordi kõik mängud</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonPrivateAccount">Privaatne konto</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonPublicAccount">Avalik konto</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonAPIKey">API võti</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonStartUsingClient">Käivita klienti {0} kasutades</sys:String>
+</ResourceDictionary>

@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+  Automatically generated via update_3p_localization.py script using files from https://github.com/JosefNemec/PlayniteExtensions/tree/7c471edfeea4ed1384f97c14ad76c48988453248 and https://github.com/JosefNemec/Playnite/tree/2afc8359d8c45e80c66404add4221037ce600d43.
+  DO NOT MODIFY, CUZ IT MIGHT BE OVERWRITTEN DURING NEXT RUN!
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsLabel">Налаштування</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsGeneralLabel">Загальні</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsAdvancedLabel">Додатково</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">Виконуваний файл</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Обрати файл...</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Обрати теку...</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsImportInstalledLabel">Імпортувати встановлені ігри</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsImportUninstalledLabel">Імпортувати не встановлені ігри</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsConnectAccount">Під'єднати обліковий запис</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonLoginChecking">Перевірка стану автентифікації...</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonLoggedIn">Користувача автентифіковано</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonNotLoggedIn">Необхідна автентифікація</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonNotLoggedInError">Не вдалося автентифікувати користувача.</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonAuthenticateLabel">Автентифікація</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsStartGameDirectly">Запускати гру напряму без запуску офіційного клієнту</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonTroubleShootingAccountLink">Вирішення проблем із синхронізацією облікового запису</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonTroubleShootingIssues">Вирішення проблем</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonSettingsImportLibraryLabel">Імпортувати всі ігри</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonPrivateAccount">Приватний обліковий запис</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonPublicAccount">Загальнодоступний обліковий запис</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonAPIKey">Ключ API</sys:String>
+  <sys:String x:Key="LOCNile3P_AmazonStartUsingClient">Запустити клієнтом {0}</sys:String>
+</ResourceDictionary>

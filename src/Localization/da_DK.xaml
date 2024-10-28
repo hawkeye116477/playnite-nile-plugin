@@ -1,21 +1,23 @@
-<?xml version="1.0"?>
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
-  <sys:String x:Key="LOCAmazonSettingsImportInstalledLabel">Importer installerede spil</sys:String>
-  <sys:String x:Key="LOCAmazonSettingsImportUninstalledLabel">Importer ikke installerede spil</sys:String>
-  <sys:String x:Key="LOCAmazonSettingsConnectAccount">Forbind konto</sys:String>
-  <sys:String x:Key="LOCAmazonLoginChecking">Tjekker godkendelsesstatus…</sys:String>
-  <sys:String x:Key="LOCAmazonLoggedIn">Brugeren er verificeret</sys:String>
-  <sys:String x:Key="LOCAmazonNotLoggedIn">Kræver verificering</sys:String>
-  <sys:String x:Key="LOCAmazonNotLoggedInError">Det lykkedes ikke at verificere brugeren</sys:String>
-  <sys:String x:Key="LOCAmazonAuthenticateLabel">Verificering</sys:String>
-  <sys:String x:Key="LOCAmazonSettingsStartGameDirectly">Start spil direkte uden at køre officiel klient</sys:String>
-  <sys:String x:Key="LOCAmazonTroubleShootingAccountLink">Fejlfinding for konto synkroniserings problemer</sys:String>
-  <sys:String x:Key="LOCAmazonSettingsImportLibraryLabel">Importer alle spil</sys:String>
-  <sys:String x:Key="LOCAmazonPrivateAccount">Privat konto</sys:String>
-  <sys:String x:Key="LOCAmazonPublicAccount">Offentlig Konto</sys:String>
-  <sys:String x:Key="LOCAmazonAPIKey">API Nøgle</sys:String>
-  <sys:String x:Key="LOCAmazonStartUsingClient">Begynd at bruge {0} klient</sys:String>
-  <sys:String x:Key="LOCAmazonImportPlaytime">Importer spilletid</sys:String>
-  <sys:String x:Key="LOCAmazonAccountID">Konto ID</sys:String>
-  <sys:String x:Key="LOCAmazonMetadataLanguageLabel">Metadata sprog:</sys:String>
+<?xml version='1.0' encoding='utf-8'?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <sys:String x:Key="LOCNileGamesInstallationPath"></sys:String>
+  <sys:String x:Key="LOCNileDownloadSize"></sys:String>
+  <sys:String x:Key="LOCNileInstallSize"></sys:String>
+  <sys:String x:Key="LOCNileSpaceAvailable"></sys:String>
+  <sys:String x:Key="LOCNileAfterInstalling"></sys:String>
+  <sys:String x:Key="LOCNileRepair"></sys:String>
+  <sys:String x:Key="LOCNilePathNotExistsError"></sys:String>
+  <sys:String x:Key="LOCNileSignOut"></sys:String>
+  <sys:String x:Key="LOCNileTroubleshootingInformation"></sys:String>
+  <sys:String x:Key="LOCNilePlayniteVersion"></sys:String>
+  <sys:String x:Key="LOCNilePluginVersion"></sys:String>
+  <sys:String x:Key="LOCNileCopyRawDataToClipboard"></sys:String>
+  <sys:String x:Key="LOCNileLogFilesPath"></sys:String>
+  <sys:String x:Key="LOCNileReportBug"></sys:String>
+  <sys:String x:Key="LOCNileNewVersionAvailable"></sys:String>
+  <sys:String x:Key="LOCNileNoUpdatesAvailable"></sys:String>
+  <sys:String x:Key="LOCNileViewChangelog"></sys:String>
+  <sys:String x:Key="LOCNileSignedInAs"></sys:String>
+  <sys:String x:Key="LOCNileSignOutConfirm"></sys:String>
+  <sys:String x:Key="LOCNileGames"></sys:String>
 </ResourceDictionary>

@@ -8,9 +8,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace NileLibraryNS
@@ -18,6 +20,7 @@ namespace NileLibraryNS
     [LoadPlugin]
     public class NileLibrary : LibraryPluginBase<NileLibrarySettingsViewModel>
     {
+        private static readonly ILogger logger = LogManager.GetLogger();
         public NileLibrary(IPlayniteAPI api) : base(
             "Nile (Amazon)",
             Guid.Parse("5901B4B4-774D-411A-9CCE-807C5CA49D88"),
@@ -28,6 +31,7 @@ namespace NileLibraryNS
             api)
         {
             SettingsViewModel = new NileLibrarySettingsViewModel(this, PlayniteApi);
+            LoadExtraLocalization();
         }
 
         public override ISettings GetSettings(bool firstRunSettings)
@@ -75,7 +79,7 @@ namespace NileLibraryNS
                 {
                     Type = AutomaticPlayActionType.Url,
                     TrackingMode = TrackingMode.Directory,
-                    Name = ResourceProvider.GetString(LOC.AmazonStartUsingClient).Format("Nile"),
+                    Name = ResourceProvider.GetString(LOC.Nile3P_AmazonStartUsingClient).Format("Nile"),
                     TrackingPath = args.Game.InstallDirectory,
                     Path = $"amazon-games://play/{args.Game.GameId}"
                 };
@@ -242,6 +246,57 @@ namespace NileLibraryNS
             }
 
             return allGames;
+        }
+
+        public void LoadExtraLocalization()
+        {
+            var currentLanguage = PlayniteApi.ApplicationSettings.Language;
+            var dictionaries = Application.Current.Resources.MergedDictionaries;
+
+            void loadString(string xamlPath)
+            {
+                ResourceDictionary res = null;
+                try
+                {
+                    res = Xaml.FromFile<ResourceDictionary>(xamlPath);
+                    res.Source = new Uri(xamlPath, UriKind.Absolute);
+                    foreach (var key in res.Keys)
+                    {
+                        if (res[key] is string locString && locString.IsNullOrEmpty())
+                        {
+                            res.Remove(key);
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    logger.Error(e, $"Failed to parse localization file {xamlPath}");
+                    return;
+                }
+                dictionaries.Add(res);
+            }
+
+            var extraLocDir = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Localization\third_party");
+            if (!Directory.Exists(extraLocDir))
+            {
+                return;
+            }
+
+            var enXaml = Path.Combine(extraLocDir, "en_US.xaml");
+            if (!File.Exists(enXaml))
+            {
+                return;
+            }
+
+            loadString(enXaml);
+            if (currentLanguage != "en_US")
+            {
+                var langXaml = Path.Combine(extraLocDir, $"{currentLanguage}.xaml");
+                if (File.Exists(langXaml))
+                {
+                    loadString(langXaml);
+                }
+            }
         }
     }
 }

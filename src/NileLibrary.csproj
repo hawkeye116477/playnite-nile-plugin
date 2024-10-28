@@ -147,6 +147,9 @@
     <Compile Include="..\third_party\PlayniteExtensions\source\Generic\PlayniteExtensions.Common\PluginSettingsViewModel.cs">
       <Link>Shared\Playnite\PluginSettingsViewModel.cs</Link>
     </Compile>
+    <Compile Include="..\third_party\PlayniteExtensions\PlayniteRepo\source\Playnite\Common\Xaml.cs">
+      <Link>Shared\Playnite\Xaml.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Nile.cs" />
@@ -186,6 +189,12 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="..\third_party\Localization\*.xaml">
+      <Link>Localization\third_party\%(Filename)%(Extension)</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Page Include="NileLibrarySettingsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -196,7 +205,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\icon.svg" />
+    <Content Include="Resources\icon.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

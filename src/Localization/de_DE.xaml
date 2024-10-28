@@ -1,22 +1,23 @@
-<?xml version="1.0"?>
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
-  <sys:String x:Key="LOCAmazonSettingsImportInstalledLabel">Installierte Spiele importieren</sys:String>
-  <sys:String x:Key="LOCAmazonSettingsImportUninstalledLabel">Nicht installierte Spiele importieren</sys:String>
-  <sys:String x:Key="LOCAmazonSettingsConnectAccount">Nutzerkonto verbinden</sys:String>
-  <sys:String x:Key="LOCAmazonLoginChecking">Authentifizierungsstatus wird überprüft …</sys:String>
-  <sys:String x:Key="LOCAmazonLoggedIn">Nutzer ist authentifiziert</sys:String>
-  <sys:String x:Key="LOCAmazonNotLoggedIn">Authentifizierung erforderlich</sys:String>
-  <sys:String x:Key="LOCAmazonNotLoggedInError">Nutzer konnte nicht authentifiziert werden.</sys:String>
-  <sys:String x:Key="LOCAmazonAuthenticateLabel">Authentifizieren</sys:String>
-  <sys:String x:Key="LOCAmazonSettingsStartGameDirectly">Spiele direkt starten ohne offiziellen Client</sys:String>
-  <sys:String x:Key="LOCAmazonTroubleShootingAccountLink">Beheben von Problemen mit der Kontosynchronisation</sys:String>
-  <sys:String x:Key="LOCAmazonTroubleShootingIssues">Problembehebung</sys:String>
-  <sys:String x:Key="LOCAmazonSettingsImportLibraryLabel">Alle Spiele importieren</sys:String>
-  <sys:String x:Key="LOCAmazonPrivateAccount">Privates Konto</sys:String>
-  <sys:String x:Key="LOCAmazonPublicAccount">Öffentliches Konto</sys:String>
-  <sys:String x:Key="LOCAmazonAPIKey">API-Schlüssel</sys:String>
-  <sys:String x:Key="LOCAmazonStartUsingClient">Mit {0}-Client starten</sys:String>
-  <sys:String x:Key="LOCAmazonImportPlaytime">Spielzeit importieren</sys:String>
-  <sys:String x:Key="LOCAmazonAccountID">Konto-ID</sys:String>
-  <sys:String x:Key="LOCAmazonMetadataLanguageLabel">Metadatensprache:</sys:String>
+<?xml version='1.0' encoding='utf-8'?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <sys:String x:Key="LOCNileGamesInstallationPath">Spiele-Installationspfad</sys:String>
+  <sys:String x:Key="LOCNileDownloadSize">Downloadgröße:</sys:String>
+  <sys:String x:Key="LOCNileInstallSize">Installationsgröße:</sys:String>
+  <sys:String x:Key="LOCNileSpaceAvailable">Verfügbarer Speicherplatz:</sys:String>
+  <sys:String x:Key="LOCNileAfterInstalling">Nach der Installation:</sys:String>
+  <sys:String x:Key="LOCNileRepair">Reparieren</sys:String>
+  <sys:String x:Key="LOCNilePathNotExistsError">Der angegebene Pfad existiert nicht.</sys:String>
+  <sys:String x:Key="LOCNileSignOut">Abmelden</sys:String>
+  <sys:String x:Key="LOCNileTroubleshootingInformation">Informationen zur Fehlerbehebung</sys:String>
+  <sys:String x:Key="LOCNilePlayniteVersion">Playnite Version</sys:String>
+  <sys:String x:Key="LOCNilePluginVersion">Plugin-Version</sys:String>
+  <sys:String x:Key="LOCNileCopyRawDataToClipboard">Rohdaten in die Zwischenablage kopieren</sys:String>
+  <sys:String x:Key="LOCNileLogFilesPath">Log-Dateipfad</sys:String>
+  <sys:String x:Key="LOCNileReportBug">Einen Fehler melden</sys:String>
+  <sys:String x:Key="LOCNileNewVersionAvailable">Eine neue Version ist verfügbar: {0} {1}.</sys:String>
+  <sys:String x:Key="LOCNileNoUpdatesAvailable">Keine Aktualisierungen verfügbar</sys:String>
+  <sys:String x:Key="LOCNileViewChangelog">Änderungsprotokoll anzeigen</sys:String>
+  <sys:String x:Key="LOCNileSignedInAs">Angemeldet als {0}</sys:String>
+  <sys:String x:Key="LOCNileSignOutConfirm">Sind Sie sicher, dass Sie sich abmelden möchten?</sys:String>
+  <sys:String x:Key="LOCNileGames">Spiele</sys:String>
 </ResourceDictionary>
