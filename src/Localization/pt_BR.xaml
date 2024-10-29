@@ -11,6 +11,8 @@
   <sys:String x:Key="LOCNileTroubleshootingInformation">Informações para solução de problemas</sys:String>
   <sys:String x:Key="LOCNilePlayniteVersion">Versão do Playnite</sys:String>
   <sys:String x:Key="LOCNilePluginVersion">Versão do plugin</sys:String>
+  <sys:String x:Key="LOCNileLauncherVersion">Versão do inicializador</sys:String>
+  <sys:String x:Key="LOCNileLauncherBinary">Executável do inicializador</sys:String>
   <sys:String x:Key="LOCNileCopyRawDataToClipboard">Copiar para a área de transferência</sys:String>
   <sys:String x:Key="LOCNileLogFilesPath">Caminho para Arquivos de Log</sys:String>
   <sys:String x:Key="LOCNileReportBug">Reportar um erro</sys:String>

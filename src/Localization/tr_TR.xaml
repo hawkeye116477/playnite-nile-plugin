@@ -11,6 +11,8 @@
   <sys:String x:Key="LOCNileTroubleshootingInformation">Sorun giderme bilgisi</sys:String>
   <sys:String x:Key="LOCNilePlayniteVersion">Playnite sürümü</sys:String>
   <sys:String x:Key="LOCNilePluginVersion">Eklenti sürümü</sys:String>
+  <sys:String x:Key="LOCNileLauncherVersion">Başlatıcı sürümü</sys:String>
+  <sys:String x:Key="LOCNileLauncherBinary">Başlatıcı binary</sys:String>
   <sys:String x:Key="LOCNileCopyRawDataToClipboard">Ham verileri panoya kopyala</sys:String>
   <sys:String x:Key="LOCNileLogFilesPath">Günlük Dosyaları Yolu</sys:String>
   <sys:String x:Key="LOCNileReportBug">Bir hata bildir</sys:String>

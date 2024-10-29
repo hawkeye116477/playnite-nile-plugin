@@ -4,3 +4,8 @@ LOCSettingsAdvancedLabel
 LOCSelectDirectoryTooltip
 LOCSelectFileTooltip
 LOCExecutableTitle
+LOCOpen
+LOCCheckForUpdates
+LOCOKLabel
+LOCUpdaterWindowTitle
+LOCUpdateCheckFailMessage

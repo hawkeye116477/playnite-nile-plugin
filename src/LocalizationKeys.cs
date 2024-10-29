@@ -6,6 +6,10 @@ namespace System
     public static class LOC
     {
         /// <summary>
+        /// Nile is not installed.
+        /// </summary>
+        public const string NileNotInstalled = "LOCNileNotInstalled";
+        /// <summary>
         /// Games Installation Path
         /// </summary>
         public const string NileGamesInstallationPath = "LOCNileGamesInstallationPath";
@@ -50,6 +54,14 @@ namespace System
         /// </summary>
         public const string NilePluginVersion = "LOCNilePluginVersion";
         /// <summary>
+        /// Launcher version
+        /// </summary>
+        public const string NileLauncherVersion = "LOCNileLauncherVersion";
+        /// <summary>
+        /// Launcher binary
+        /// </summary>
+        public const string NileLauncherBinary = "LOCNileLauncherBinary";
+        /// <summary>
         /// Copy raw data to clipboard
         /// </summary>
         public const string NileCopyRawDataToClipboard = "LOCNileCopyRawDataToClipboard";
@@ -86,6 +98,10 @@ namespace System
         /// </summary>
         public const string NileGames = "LOCNileGames";
         /// <summary>
+        /// OK
+        /// </summary>
+        public const string Nile3P_PlayniteOKLabel = "LOCNile3P_PlayniteOKLabel";
+        /// <summary>
         /// Settings
         /// </summary>
         public const string Nile3P_PlayniteSettingsLabel = "LOCNile3P_PlayniteSettingsLabel";
@@ -102,6 +118,18 @@ namespace System
         /// </summary>
         public const string Nile3P_PlayniteExecutableTitle = "LOCNile3P_PlayniteExecutableTitle";
         /// <summary>
+        /// Update Available
+        /// </summary>
+        public const string Nile3P_PlayniteUpdaterWindowTitle = "LOCNile3P_PlayniteUpdaterWindowTitle";
+        /// <summary>
+        /// Check for Updates
+        /// </summary>
+        public const string Nile3P_PlayniteCheckForUpdates = "LOCNile3P_PlayniteCheckForUpdates";
+        /// <summary>
+        /// Failed to check for new version.
+        /// </summary>
+        public const string Nile3P_PlayniteUpdateCheckFailMessage = "LOCNile3P_PlayniteUpdateCheckFailMessage";
+        /// <summary>
         /// Select file…
         /// </summary>
         public const string Nile3P_PlayniteSelectFileTooltip = "LOCNile3P_PlayniteSelectFileTooltip";
@@ -109,6 +137,10 @@ namespace System
         /// Select folder…
         /// </summary>
         public const string Nile3P_PlayniteSelectDirectoryTooltip = "LOCNile3P_PlayniteSelectDirectoryTooltip";
+        /// <summary>
+        /// Open
+        /// </summary>
+        public const string Nile3P_PlayniteOpen = "LOCNile3P_PlayniteOpen";
         /// <summary>
         /// Import installed games
         /// </summary>

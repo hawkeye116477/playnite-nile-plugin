@@ -12,6 +12,7 @@ main_path = pn(script_path + "/..")
 
 third_party_loc_file = pn(
     pj(main_path, "third_party", r"Localization\en_US.xaml"))
+nile_loc_file = pn(pj(main_path, r"src\Localization\en_US-nile.xaml"))
 shared_loc_file = pn(pj(main_path, r"src\Localization\en_US.xaml"))
 loc_keys_file = pj(main_path, "src", "LocalizationKeys.cs")
 
@@ -27,7 +28,7 @@ namespace System
 '''
 
 x_ns = "{http://schemas.microsoft.com/winfx/2006/xaml}"
-loc_files = [shared_loc_file, third_party_loc_file]
+loc_files = [nile_loc_file, shared_loc_file, third_party_loc_file]
 for loc_file in loc_files:
     loc_parse = ET.parse(loc_file)
     for child in loc_parse.getroot():

@@ -11,6 +11,8 @@
   <sys:String x:Key="LOCNileTroubleshootingInformation">Информация о поиске неисправностей</sys:String>
   <sys:String x:Key="LOCNilePlayniteVersion">Версия Playnite</sys:String>
   <sys:String x:Key="LOCNilePluginVersion">Версия плагина Nile</sys:String>
+  <sys:String x:Key="LOCNileLauncherVersion">Версия лаунчера</sys:String>
+  <sys:String x:Key="LOCNileLauncherBinary">Двоичный файл запуска</sys:String>
   <sys:String x:Key="LOCNileCopyRawDataToClipboard">Копирование исходных данных в буфер обмена</sys:String>
   <sys:String x:Key="LOCNileLogFilesPath">Путь к файлам журнала</sys:String>
   <sys:String x:Key="LOCNileReportBug">Сообщить об ошибке</sys:String>

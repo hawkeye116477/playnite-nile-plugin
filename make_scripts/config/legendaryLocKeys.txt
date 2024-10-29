@@ -18,3 +18,5 @@ LOCLegendarySpaceAvailable
 LOCLegendaryInstallSize
 LOCLegendaryDownloadSize
 LOCLegendaryGames
+LOCLegendaryLauncherVersion
+LOCLegendaryLauncherBinary

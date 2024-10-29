@@ -4,12 +4,17 @@
   DO NOT MODIFY, CUZ IT MIGHT BE OVERWRITTEN DURING NEXT RUN!
 -->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <sys:String x:Key="LOCNile3P_PlayniteOKLabel">TAMAM</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsLabel">Ayarlar</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsGeneralLabel">Genel</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsAdvancedLabel">Gelişmiş</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">Uygulama</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">Güncelleme Mevcut</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">Güncelleştirmeleri Denetle</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUpdateCheckFailMessage">Yeni sürüm kontrol edilemedi.</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Dosya seç…</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Klasör seç…</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOpen">Aç</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportInstalledLabel">Kurulu oyunları içeri aktar</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportUninstalledLabel">Kurulu olmayan oyunları içe aktar</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsConnectAccount">Hesap bağla</sys:String>

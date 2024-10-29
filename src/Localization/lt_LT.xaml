@@ -11,6 +11,8 @@
   <sys:String x:Key="LOCNileTroubleshootingInformation"></sys:String>
   <sys:String x:Key="LOCNilePlayniteVersion"></sys:String>
   <sys:String x:Key="LOCNilePluginVersion"></sys:String>
+  <sys:String x:Key="LOCNileLauncherVersion"></sys:String>
+  <sys:String x:Key="LOCNileLauncherBinary"></sys:String>
   <sys:String x:Key="LOCNileCopyRawDataToClipboard"></sys:String>
   <sys:String x:Key="LOCNileLogFilesPath"></sys:String>
   <sys:String x:Key="LOCNileReportBug"></sys:String>

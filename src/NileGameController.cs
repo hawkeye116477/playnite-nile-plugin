@@ -23,7 +23,7 @@ namespace NileLibraryNS
 
         public NileInstallController(Game game, NileLibrary library) : base(game)
         {
-            Name = "Install using Amazon client";
+            Name = "Install using Nile client";
             this.library = library;
         }
 
@@ -34,15 +34,6 @@ namespace NileLibraryNS
 
         public override void Install(InstallActionArgs args)
         {
-            if (!Nile.IsInstalled)
-            {
-                ProcessStarter.StartUrl(@"https://www.amazongames.com/en-us/support/prime-gaming/articles/download-and-install-the-amazon-games-app");
-            }
-            else if (!Nile.IsRunning)
-            {
-                Nile.StartClient();
-            }
-
             StartInstallWatcher();
         }
 

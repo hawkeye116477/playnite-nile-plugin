@@ -4,12 +4,17 @@
   DO NOT MODIFY, CUZ IT MIGHT BE OVERWRITTEN DURING NEXT RUN!
 -->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <sys:String x:Key="LOCNile3P_PlayniteOKLabel">OK</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsLabel">Configurações</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsGeneralLabel">Geral</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsAdvancedLabel">Avançado</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">Executável</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">Atualização disponível</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">Verificar se há atualizações</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUpdateCheckFailMessage">Falha ao verificar se há uma nova versão.</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Selecionar arquivo...</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Selecionar pasta...</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOpen">Abrir</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportInstalledLabel">Importar jogos instalados</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportUninstalledLabel">Importar jogos não instalados</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsConnectAccount">Conectar conta</sys:String>

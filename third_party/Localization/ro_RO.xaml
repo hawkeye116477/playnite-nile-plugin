@@ -4,12 +4,17 @@
   DO NOT MODIFY, CUZ IT MIGHT BE OVERWRITTEN DURING NEXT RUN!
 -->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <sys:String x:Key="LOCNile3P_PlayniteOKLabel">OK</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsLabel">Setări</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsGeneralLabel">General</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsAdvancedLabel">Avansat</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">Executabil</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">Versiune nouă disponibilă</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">Verificați dacă sunt disponibile Actualizări</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUpdateCheckFailMessage">Nu s-a putut căuta versiunea nouă.</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip"></sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOpen"></sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportInstalledLabel">Importați jocurile instalate</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportUninstalledLabel">Importanți jocurile neinstalate</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsConnectAccount">Conectare cont</sys:String>

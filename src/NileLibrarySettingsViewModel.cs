@@ -17,6 +17,8 @@ namespace NileLibraryNS
         public bool ConnectAccount { get; set; } = false;
         public bool ImportUninstalledGames { get; set; } = false;
         public bool StartGamesWithoutLauncher { get; set; } = false;
+        public string GamesInstallationPath { get; set; } = "";
+        public string SelectedNilePath { get; set; } = "";
     }
 
     public class NileLibrarySettingsViewModel : PluginSettingsViewModel<NileLibrarySettings, NileLibrary>

@@ -26,7 +26,7 @@ namespace NileLibraryNS
         public NileLibrary(IPlayniteAPI api) : base(
             "Nile (Amazon)",
             Guid.Parse("5901B4B4-774D-411A-9CCE-807C5CA49D88"),
-            new LibraryPluginProperties { CanShutdownClient = true, HasSettings = true },
+            new LibraryPluginProperties { CanShutdownClient = false, HasSettings = true },
             new NileLibraryClient(),
             Nile.Icon,
             (_) => new NileLibrarySettingsView(),
@@ -305,6 +305,29 @@ namespace NileLibraryNS
                     loadString(langXaml);
                 }
             }
+
+            // Load Nile specific strings
+            extraLocDir = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Localization");
+            enXaml = Path.Combine(extraLocDir, "en_US-nile.xaml");
+            loadString(enXaml);
+            if (currentLanguage != "en_US")
+            {
+                var langXaml = Path.Combine(extraLocDir, $"{currentLanguage}-nile.xaml");
+                if (File.Exists(langXaml))
+                {
+                    loadString(langXaml);
+                }
+            }
+        }
+
+        public string GetCachePath(string dirName)
+        {
+            var cacheDir = Path.Combine(GetPluginUserDataPath(), "cache", dirName);
+            if (!Directory.Exists(cacheDir))
+            {
+                Directory.CreateDirectory(cacheDir);
+            }
+            return cacheDir;
         }
     }
 }
