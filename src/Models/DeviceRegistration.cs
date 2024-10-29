@@ -84,7 +84,13 @@ namespace NileLibraryNS.Models
 
                 public Tokens tokens { get; set; }
                 public Extensions extensions { get; set; }
+
+                public class Nile
+                {
+                    public long token_obtain_time { get; set; }
+                }
                 public string customer_id { get; set; }
+                public Nile NILE { get; set; } = new Nile();
             }
 
             public Success success;

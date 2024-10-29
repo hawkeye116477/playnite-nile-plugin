@@ -105,6 +105,7 @@ namespace NileLibraryNS.Services
                     {
                         FileSystem.CreateDirectory(Path.GetDirectoryName(tokensPath));
                     }
+                    authData.response.success.NILE.token_obtain_time = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
                     File.WriteAllText(tokensPath, Serialization.ToJson(authData.response.success));
                 }
             }
@@ -214,6 +215,7 @@ namespace NileLibraryNS.Services
                 var authResponseContent = await authResponse.Content.ReadAsStringAsync();
                 var authData = Serialization.FromJson<DeviceRegistrationResponse.Response.Success.Bearer>(authResponseContent);
                 tokens.tokens.bearer.access_token = authData.access_token;
+                tokens.NILE.token_obtain_time = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
                 File.WriteAllText(tokensPath, Serialization.ToJson(tokens));
                 return tokens;
             }
