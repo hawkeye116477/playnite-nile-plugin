@@ -138,6 +138,22 @@ namespace System
         /// </summary>
         public const string NileRepairFinished = "LOCNileRepairFinished";
         /// <summary>
+        /// Import installed game
+        /// </summary>
+        public const string NileImportInstalledGame = "LOCNileImportInstalledGame";
+        /// <summary>
+        /// Importing {0}...
+        /// </summary>
+        public const string NileImportingGame = "LOCNileImportingGame";
+        /// <summary>
+        /// Import finished. Have fun.
+        /// </summary>
+        public const string NileImportFinished = "LOCNileImportFinished";
+        /// <summary>
+        /// Failed to import game. Reason: {0}.
+        /// </summary>
+        public const string NileGameImportFailure = "LOCNileGameImportFailure";
+        /// <summary>
         /// Download Manager
         /// </summary>
         public const string NileDownloadManager = "LOCNileDownloadManager";

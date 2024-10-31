@@ -27,6 +27,10 @@
   <sys:String x:Key="LOCNileInstallationFinished">Instalacja została zakończona. Dobrej zabawy.</sys:String>
   <sys:String x:Key="LOCNileUpdateFinished">Aktualizacja zakończona. Dobrej zabawy.</sys:String>
   <sys:String x:Key="LOCNileRepairFinished">Naprawa zakończona. Dobrej zabawy.</sys:String>
+  <sys:String x:Key="LOCNileImportInstalledGame">Importuj zainstalowaną grę</sys:String>
+  <sys:String x:Key="LOCNileImportingGame">Importowanie gry {0}...</sys:String>
+  <sys:String x:Key="LOCNileImportFinished">Importowanie zakończone. Dobrej zabawy.</sys:String>
+  <sys:String x:Key="LOCNileGameImportFailure">Nie udało się zaimportować gry. Powód: {0}.</sys:String>
   <sys:String x:Key="LOCNileDownloadManager">Menedżer pobierania</sys:String>
   <sys:String x:Key="LOCNileDownloadStatus">Stan</sys:String>
   <sys:String x:Key="LOCNileProgress">Postęp</sys:String>

@@ -1,4 +1,5 @@
 ﻿using CliWrap;
+using CliWrap.Buffered;
 using NileLibraryNS.Enums;
 using NileLibraryNS.Models;
 using NileLibraryNS.Services;
@@ -480,57 +481,57 @@ namespace NileLibraryNS
                     }
                     else
                     {
-                        //yield return new GameMenuItem
-                        //{
-                        //    Description = ResourceProvider.GetString(LOC.NileImportInstalledGame),
-                        //    Icon = "AddGameIcon",
-                        //    Action = async (args) =>
-                        //    {
-                        //        if (!NileLauncher.IsInstalled)
-                        //        {
-                        //            throw new Exception(ResourceProvider.GetString(LOC.NileLauncherNotInstalled));
-                        //        }
+                        yield return new GameMenuItem
+                        {
+                            Description = ResourceProvider.GetString(LOC.NileImportInstalledGame),
+                            Icon = "AddGameIcon",
+                            Action = (args) =>
+                            {
+                                if (!Nile.IsInstalled)
+                                {
+                                    throw new Exception(ResourceProvider.GetString(LOC.NileNotInstalled));
+                                }
 
-                        //        var path = PlayniteApi.Dialogs.SelectFolder();
-                        //        if (path != "")
-                        //        {
-                        //            bool canContinue = StopDownloadManager(true);
-                        //            if (!canContinue)
-                        //            {
-                        //                return;
-                        //            }
-                        //            await NileDownloadManager.WaitUntilNileCloses();
-                        //            GlobalProgressOptions importProgressOptions = new GlobalProgressOptions(ResourceProvider.GetString(LOC.NileImportingGame).Format(game.Name), false) { IsIndeterminate = true };
-                        //            PlayniteApi.Dialogs.ActivateGlobalProgress(async (a) =>
-                        //            {
-                        //                var importCmd = await Cli.Wrap(NileLauncher.ClientExecPath)
-                        //                                         .WithArguments(new[] { "-y", "import", game.GameId, path })
-                        //                                         .WithEnvironmentVariables(NileLauncher.DefaultEnvironmentVariables)
-                        //                                         .AddCommandToLog()
-                        //                                         .WithValidation(CommandResultValidation.None)
-                        //                                         .ExecuteBufferedAsync();
-                        //                logger.Debug("[Nile] " + importCmd.StandardError);
-                        //                if (importCmd.StandardError.Contains("has been imported"))
-                        //                {
-                        //                    var installedAppList = NileLauncher.GetInstalledAppList();
-                        //                    if (installedAppList.ContainsKey(game.GameId))
-                        //                    {
-                        //                        var installedGameInfo = installedAppList[game.GameId];
-                        //                        game.InstallDirectory = installedGameInfo.Install_path;
-                        //                        game.Version = installedGameInfo.Version;
-                        //                        game.InstallSize = (ulong?)installedGameInfo.Install_size;
-                        //                        game.IsInstalled = true;
-                        //                    }
-                        //                    PlayniteApi.Dialogs.ShowMessage(LOC.NileImportFinished);
-                        //                }
-                        //                else
-                        //                {
-                        //                    PlayniteApi.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.NileGameImportFailure).Format(LOC.NileCheckLog));
-                        //                }
-                        //            }, importProgressOptions);
-                        //        }
-                        //    }
-                        //};
+                                var path = PlayniteApi.Dialogs.SelectFolder();
+                                if (path != "")
+                                {
+                                    bool canContinue = StopDownloadManager(true);
+                                    if (!canContinue)
+                                    {
+                                        return;
+                                    }
+                                    GlobalProgressOptions importProgressOptions = new GlobalProgressOptions(ResourceProvider.GetString(LOC.NileImportingGame).Format(game.Name), false) { IsIndeterminate = true };
+                                    PlayniteApi.Dialogs.ActivateGlobalProgress(async (a) =>
+                                    {
+                                        var importCmd = await Cli.Wrap(Nile.ClientExecPath)
+                                                                 .WithArguments(new[] { "import", game.GameId, "--path", path })
+                                                                 .WithEnvironmentVariables(Nile.DefaultEnvironmentVariables)
+                                                                 .AddCommandToLog()
+                                                                 .WithValidation(CommandResultValidation.None)
+                                                                 .ExecuteBufferedAsync();
+                                        logger.Debug("[Nile] " + importCmd.StandardError);
+                                        if (importCmd.StandardError.Contains("Imported"))
+                                        {
+                                            var installedAppList = Nile.GetInstalledAppList();
+                                            var wantedItem = installedAppList.FirstOrDefault(g => g.id == game.GameId);
+                                            if (wantedItem != null)
+                                            {
+                                                var installedGameInfo = wantedItem;
+                                                game.InstallDirectory = installedGameInfo.path;
+                                                game.Version = installedGameInfo.version;
+                                                game.InstallSize = (ulong?)installedGameInfo.size;
+                                                game.IsInstalled = true;
+                                            }
+                                            PlayniteApi.Dialogs.ShowMessage(LOC.NileImportFinished);
+                                        }
+                                        else
+                                        {
+                                            PlayniteApi.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.NileGameImportFailure).Format(LOC.NileCheckLog));
+                                        }
+                                    }, importProgressOptions);
+                                }
+                            }
+                        };
                     }
                     if (game.IsInstalled)
                     {

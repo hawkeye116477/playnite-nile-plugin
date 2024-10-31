@@ -27,6 +27,10 @@
   <sys:String x:Key="LOCNileInstallationFinished"></sys:String>
   <sys:String x:Key="LOCNileUpdateFinished"></sys:String>
   <sys:String x:Key="LOCNileRepairFinished"></sys:String>
+  <sys:String x:Key="LOCNileImportInstalledGame"></sys:String>
+  <sys:String x:Key="LOCNileImportingGame"></sys:String>
+  <sys:String x:Key="LOCNileImportFinished"></sys:String>
+  <sys:String x:Key="LOCNileGameImportFailure"></sys:String>
   <sys:String x:Key="LOCNileDownloadManager"></sys:String>
   <sys:String x:Key="LOCNileDownloadStatus"></sys:String>
   <sys:String x:Key="LOCNileProgress"></sys:String>

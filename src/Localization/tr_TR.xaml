@@ -27,6 +27,10 @@
   <sys:String x:Key="LOCNileInstallationFinished">Kurulum tamamlandı. İyi eğlenceler.</sys:String>
   <sys:String x:Key="LOCNileUpdateFinished">Güncelleme tamamlandı. İyi eğlenceler.</sys:String>
   <sys:String x:Key="LOCNileRepairFinished">Onarım tamamlandı. İyi eğlenceler.</sys:String>
+  <sys:String x:Key="LOCNileImportInstalledGame">Kurulu oyunu içe aktar</sys:String>
+  <sys:String x:Key="LOCNileImportingGame">İçe aktarılıyor {0}...</sys:String>
+  <sys:String x:Key="LOCNileImportFinished">İçe aktarma tamamlandı. İyi eğlenceler.</sys:String>
+  <sys:String x:Key="LOCNileGameImportFailure">Oyun içe aktarılamadı. Sebep: {0}.</sys:String>
   <sys:String x:Key="LOCNileDownloadManager">İndirme Yöneticisi</sys:String>
   <sys:String x:Key="LOCNileDownloadStatus">Durum</sys:String>
   <sys:String x:Key="LOCNileProgress">İlerleyiş</sys:String>
