@@ -3,6 +3,7 @@
   <sys:String x:Key="LOCNileGamesInstallationPath"></sys:String>
   <sys:String x:Key="LOCNileDownloadSize"></sys:String>
   <sys:String x:Key="LOCNileInstallSize"></sys:String>
+  <sys:String x:Key="LOCNileUninstallGameConfirm"></sys:String>
   <sys:String x:Key="LOCNileMaxWorkers"></sys:String>
   <sys:String x:Key="LOCNileSystemShutdownCountdown"></sys:String>
   <sys:String x:Key="LOCNileSystemRestartCountdown"></sys:String>
@@ -64,9 +65,13 @@
   <sys:String x:Key="LOCNileNewVersionAvailable"></sys:String>
   <sys:String x:Key="LOCNileNoUpdatesAvailable"></sys:String>
   <sys:String x:Key="LOCNileViewChangelog"></sys:String>
+  <sys:String x:Key="LOCNileRemoveGameLaunchSettings"></sys:String>
   <sys:String x:Key="LOCNileSignedInAs"></sys:String>
   <sys:String x:Key="LOCNileSignOutConfirm"></sys:String>
   <sys:String x:Key="LOCNilePermissionError"></sys:String>
   <sys:String x:Key="LOCNileNotEnoughSpace"></sys:String>
+  <sys:String x:Key="LOCNileUninstallSuccess"></sys:String>
+  <sys:String x:Key="LOCNileUninstallSuccessOther"></sys:String>
+  <sys:String x:Key="LOCNileUninstallErrorOther"></sys:String>
   <sys:String x:Key="LOCNileGames"></sys:String>
 </ResourceDictionary>

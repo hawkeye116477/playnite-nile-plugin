@@ -7,6 +7,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteFilterActiveLabel">Suodatin käytössä</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteFilters">Suodattimet</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallError">Peliä ei voida asentaa: {0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteGameUninstallError">Peliä ei voida poistaa: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallSizeLabel">Koko asennettuna</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteAddedLabel">Lisätty</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOKLabel">OK</sys:String>
@@ -28,11 +29,13 @@
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Nimi</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Asennushakemisto</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Tietojen lataaminen epäonnistui: {0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Poistetaan</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">Päivitys saatavilla</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">Lataa ja asenna päivitys</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">Tarkista päivitykset</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdateCheckFailMessage">Uuden version tarkistaminen epäonnistui.</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallGame">Asenna</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstallGame">Poista asennus</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">Älä näytä uudelleen</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Valitse tiedosto…</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Valitse kansio...</sys:String>

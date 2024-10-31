@@ -7,6 +7,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteFilterActiveLabel">Filter aktif</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteFilters">Filter</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallError">Gagal menginstal game: {0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteGameUninstallError">Gagal menguninstall game: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallSizeLabel">Besar Instalasi</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteAddedLabel">Ditambahkan</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOKLabel">OK</sys:String>
@@ -28,11 +29,13 @@
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Nama</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Direktori Instalasi</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Gagal mendownload metadata: {0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Menguninstal</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">Update Tersedia</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">Install Update</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">Periksa Pembaruan</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdateCheckFailMessage">Gagal memeriksa pembaruan.</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallGame">Instal</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstallGame">Uninstal</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">Jangan Tampilkan Lagi</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Pilih file…</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Pilih folder…</sys:String>

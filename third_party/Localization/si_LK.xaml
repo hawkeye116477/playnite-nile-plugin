@@ -7,6 +7,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteFilterActiveLabel">පෙරහන ක්‍රියාත්මකයි</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteFilters">පෙරහන්</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallError"></sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteGameUninstallError"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteAddedLabel"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOKLabel">හරි</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSaveLabel">සුරකින්න</sys:String>
@@ -27,11 +28,13 @@
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError"></sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstalling"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdateCheckFailMessage"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallGame"></sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstallGame"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip"></sys:String>

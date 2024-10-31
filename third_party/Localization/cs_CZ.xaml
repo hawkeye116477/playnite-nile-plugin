@@ -7,6 +7,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteFilterActiveLabel">Filtr Aktivován</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteFilters">Filtry</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallError">Nelze nainstalovat hru: {0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteGameUninstallError">Nelze odinstalovat hru: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallSizeLabel">Velikost instalace</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteAddedLabel">Přidáno</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOKLabel">OK</sys:String>
@@ -28,11 +29,13 @@
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Jméno</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Instalační Adresář</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Selhalo stahování metadat: {0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Probíhá odinstalace</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">Dostupná Aktualizace</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">Stáhnout a Nainstalovat Aktualizaci</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">Zkontrolovat Aktualizace</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdateCheckFailMessage">Nepodařilo se zkontrolovat aktualizace.</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallGame">Instalovat</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstallGame">Odinstalovat</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">Příště Nezobrazovat</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Vybrat soubor...</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Vybrat adresář...</sys:String>

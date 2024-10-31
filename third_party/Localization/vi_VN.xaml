@@ -7,6 +7,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteFilterActiveLabel">Bộ lọc đang được sử dụng</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteFilters">Bộ lọc</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallError">Không thể cài đặt trò chơi: {0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteGameUninstallError">Không thể gỡ cài đặt trò chơi: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallSizeLabel">Dung Lượng Cài Đặt</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteAddedLabel">Đã thêm vào.</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOKLabel">OK</sys:String>
@@ -28,11 +29,13 @@
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Tên</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Thư mục cài đặt cửa hàng</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Không tải xuống được siêu dữ liệu: {0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Gỡ cài đặt</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">Bản cập nhật có sẵn</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">Tải xuống và cài đặt bản cập nhật</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">Kiểm Tra Cập Nhật</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdateCheckFailMessage">Không thể kiểm tra phiên bản mới.</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallGame">Cài đặt</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstallGame">Gỡ cài đặt</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">Không hiện thị lại</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Chọn tập tin…</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Chọn thư mục…</sys:String>

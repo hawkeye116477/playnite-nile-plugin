@@ -7,6 +7,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteFilterActiveLabel">Филтърът е активен</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteFilters">Филтри</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallError">Не може да се инсталира играта: {0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteGameUninstallError">Не може да се деинсталира играта: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallSizeLabel">Размер на инсталиране</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteAddedLabel">Добавено</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOKLabel">OK</sys:String>
@@ -28,11 +29,13 @@
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Име</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Инсталационна папка</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Неуспешно изтегляне на метаданни: {0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Деинсталиране</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">Налична актуализация</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">Изтеглете и инсталирайте актуализация</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">Проверка за актуализации</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdateCheckFailMessage">Неуспешна проверка за нова версия.</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallGame">Инсталиране</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstallGame">Деинсталиране</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">Не показвай отново</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Изберете файл...</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Изберете папка...</sys:String>

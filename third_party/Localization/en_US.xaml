@@ -7,6 +7,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteFilterActiveLabel">Filter Active</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteFilters">Filters</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallError">Cannot install game: {0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteGameUninstallError">Cannot un-install game: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallSizeLabel">Install Size</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteAddedLabel">Added</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOKLabel">OK</sys:String>
@@ -28,11 +29,13 @@
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Name</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Installation Folder</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Failed to download metadata: {0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Uninstalling</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">Update Available</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">Download and Install Update</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">Check for Updates</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdateCheckFailMessage">Failed to check for new version.</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallGame">Install</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstallGame">Uninstall</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">Don't Show Again</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Select file…</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Select folder…</sys:String>

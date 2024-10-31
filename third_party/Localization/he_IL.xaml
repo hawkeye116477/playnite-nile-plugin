@@ -7,6 +7,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteFilterActiveLabel">סינון פעיל</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteFilters">מסננים</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallError">לא ניתן להתקין את המשחק: {0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteGameUninstallError">לא ניתן להסיר את המשחק: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallSizeLabel">גודל ההתקנה</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteAddedLabel">נוסף</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOKLabel">אישור</sys:String>
@@ -28,11 +29,13 @@
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">שם</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">תיקיית התקנה</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">נכשלה הורדת נתונים: {0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstalling">מסיר התקנה</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">עדכון זמין</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">הורד והתקן עדכון</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">חפש עדכונים</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdateCheckFailMessage">נכשל בחיפוש גרסה חדשה.</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallGame">התקן</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstallGame">הסר התקנה</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">אל תציג שוב</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">בחר קובץ...</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">בחר תיקיה...</sys:String>

@@ -7,6 +7,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteFilterActiveLabel">Фильтр активен</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteFilters">Фильтры</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallError">Не удалось установить игру: {0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteGameUninstallError">Не удалось удалить игру: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallSizeLabel">Размер игры</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteAddedLabel">Добавлено</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOKLabel">Окей</sys:String>
@@ -28,11 +29,13 @@
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Название игры</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Путь установки</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Не удалось скачать метаданные: {0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Удаление</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">Вышла новая версия</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">Скачать и обновить</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">Проверить наличие обновлений</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdateCheckFailMessage">Не удалось проверить наличие новой версии.</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallGame">Установить</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstallGame">Удалить с устройства</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">Больше не показывать</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Выбрать файл…</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Выбрать папку…</sys:String>

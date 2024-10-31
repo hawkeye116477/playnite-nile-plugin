@@ -7,6 +7,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteFilterActiveLabel">Filtro ativado</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteFilters">Filtros</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallError">Não foi possível instalar o jogo: {0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteGameUninstallError">Não foi possível desinstalar o jogo: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallSizeLabel">Tamanho da Instalação</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteAddedLabel">Adicionado</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOKLabel">OK</sys:String>
@@ -28,11 +29,13 @@
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Nome</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Local de instalação</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Falha ao baixar metadados: {0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Desinstalando</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">Atualização disponível</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">Baixar e instalar atualização</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">Verificar se há atualizações</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdateCheckFailMessage">Falha ao verificar se há uma nova versão.</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallGame">Instalar</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstallGame">Desinstalar</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">Não mostrar novamente</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Selecionar arquivo...</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Selecionar pasta...</sys:String>

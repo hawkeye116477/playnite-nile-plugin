@@ -3,6 +3,7 @@
   <sys:String x:Key="LOCNileGamesInstallationPath">Путь установки игр</sys:String>
   <sys:String x:Key="LOCNileDownloadSize">Размер загрузки:</sys:String>
   <sys:String x:Key="LOCNileInstallSize">Размер установки:</sys:String>
+  <sys:String x:Key="LOCNileUninstallGameConfirm">Вы уверены, что хотите удалить {0}?</sys:String>
   <sys:String x:Key="LOCNileMaxWorkers">Максимальное количество рабочих процессов</sys:String>
   <sys:String x:Key="LOCNileSystemShutdownCountdown"></sys:String>
   <sys:String x:Key="LOCNileSystemRestartCountdown"></sys:String>
@@ -64,9 +65,13 @@
   <sys:String x:Key="LOCNileNewVersionAvailable">Доступна новая версия: {0} {1}.</sys:String>
   <sys:String x:Key="LOCNileNoUpdatesAvailable">Обновления отсутствуют.</sys:String>
   <sys:String x:Key="LOCNileViewChangelog">Список изменений</sys:String>
+  <sys:String x:Key="LOCNileRemoveGameLaunchSettings">Удаление настроек запуска</sys:String>
   <sys:String x:Key="LOCNileSignedInAs">Вы вошли как {0}</sys:String>
   <sys:String x:Key="LOCNileSignOutConfirm">Вы действительно хотите выйти?</sys:String>
   <sys:String x:Key="LOCNilePermissionError">Пользователь не имеет права записи по указанному пути. Измените права или запустите Playnite от имени администратора.</sys:String>
   <sys:String x:Key="LOCNileNotEnoughSpace">Недостаточно свободного места на диске.</sys:String>
+  <sys:String x:Key="LOCNileUninstallSuccess">{0} была успешно удалена.</sys:String>
+  <sys:String x:Key="LOCNileUninstallSuccessOther">Следующие игры были успешно удалены: {0}.</sys:String>
+  <sys:String x:Key="LOCNileUninstallErrorOther">Не удается удалить следующие игры: {0}.</sys:String>
   <sys:String x:Key="LOCNileGames">Игры</sys:String>
 </ResourceDictionary>

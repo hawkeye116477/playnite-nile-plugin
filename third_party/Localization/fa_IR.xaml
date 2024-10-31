@@ -7,6 +7,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteFilterActiveLabel">فیلتر فعال</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteFilters">فیلترها</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallError">بازی نصب نشد: {0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteGameUninstallError">بازی حذف نصب نشد: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallSizeLabel">اندازه نصب</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteAddedLabel">اضافه شد</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOKLabel">بله</sys:String>
@@ -28,11 +29,13 @@
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">نام</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">محل نصب</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">بارگیری ابرداده انجام نشد: {0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstalling">در حال حذف نصب</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">به روزرسانی موجود است</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">دانلود و نصب بروزرسانی</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">بررسی برای بروزرسانی</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdateCheckFailMessage">بررسی نسخه جدید انجام نشد.</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallGame">نصب</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstallGame">حذف نصب</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">دوباره نمایش نده</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">انتخاب فایل…</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">انتخاب پوشه…</sys:String>

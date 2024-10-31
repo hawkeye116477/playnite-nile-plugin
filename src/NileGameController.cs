@@ -1,4 +1,6 @@
-﻿using NileLibraryNS.Enums;
+﻿using CliWrap;
+using CliWrap.Buffered;
+using NileLibraryNS.Enums;
 using NileLibraryNS.Models;
 using Playnite;
 using Playnite.Common;
@@ -84,64 +86,110 @@ namespace NileLibraryNS
     public class NileUninstallController : UninstallController
     {
         private static readonly ILogger logger = LogManager.GetLogger();
-        private readonly NileLibrary library;
-        private CancellationTokenSource watcherToken;
 
-        public NileUninstallController(Game game, NileLibrary library) : base(game)
+        public NileUninstallController(Game game) : base(game)
         {
-            Name = "Uninstall using Amazon client";
-            this.library = library;
-        }
-
-        public override void Dispose()
-        {
-            watcherToken?.Cancel();
+            Name = "Uninstall using Nile";
         }
 
         public override void Uninstall(UninstallActionArgs args)
         {
-            if (Nile.IsInstalled)
+            Dispose();
+            var games = new List<Game>
             {
-                Nile.StartClient();
-                StartUninstallWatcher();
-            }
-            else
-            {
-                throw new Exception("Can't uninstall game. Amazon Games client not found.");
-            }
+                Game
+            };
+            LaunchUninstaller(games);
+            Game.IsUninstalling = false;
         }
 
-        public async void StartUninstallWatcher()
+        public static void LaunchUninstaller(List<Game> games)
         {
-            watcherToken = new CancellationTokenSource();
-
-            while (true)
+            if (!Nile.IsInstalled)
             {
-                if (watcherToken.IsCancellationRequested)
+                throw new Exception(ResourceProvider.GetString(LOC.NileNotInstalled));
+            }
+            var playniteAPI = API.Instance;
+            string gamesCombined = string.Join(", ", games.Select(item => item.Name));
+            var result = MessageCheckBoxDialog.ShowMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteUninstallGame), ResourceProvider.GetString(LOC.NileUninstallGameConfirm).Format(gamesCombined), LOC.NileRemoveGameLaunchSettings, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result.Result)
+            {
+                var canContinue = NileLibrary.Instance.StopDownloadManager(true);
+                if (!canContinue)
                 {
                     return;
                 }
-
-                Dictionary<string, GameMetadata> installedGames = null;
-                try
+                var uninstalledGames = new List<Game>();
+                var notUninstalledGames = new List<Game>();
+                GlobalProgressOptions globalProgressOptions = new GlobalProgressOptions($"{ResourceProvider.GetString(LOC.Nile3P_PlayniteUninstalling)}... ", false);
+                playniteAPI.Dialogs.ActivateGlobalProgress(async (a) =>
                 {
-                    installedGames = library.GetInstalledGames();
-                }
-                catch (Exception e)
-                {
-                    logger.Error(e, "Failed to get info about installed Amazon games.");
-                }
-
-                if (installedGames != null)
-                {
-                    if (!installedGames.TryGetValue(Game.GameId, out var installData))
+                    a.IsIndeterminate = false;
+                    a.ProgressMaxValue = games.Count;
+                    using (playniteAPI.Database.BufferedUpdate())
                     {
-                        InvokeOnUninstalled(new GameUninstalledEventArgs());
-                        return;
+                        var counter = 0;
+                        foreach (var game in games)
+                        {
+                            a.Text = $"{ResourceProvider.GetString(LOC.Nile3P_PlayniteUninstalling)} {game.Name}... ";
+                            var cmd = await Cli.Wrap(Nile.ClientExecPath)
+                                               .WithArguments(new[] { "-y", "uninstall", game.GameId })
+                                               .WithEnvironmentVariables(Nile.DefaultEnvironmentVariables)
+                                               .AddCommandToLog()
+                                               .WithValidation(CommandResultValidation.None)
+                                               .ExecuteBufferedAsync();
+                            if (cmd.StandardError.Contains("removed successfully") || cmd.StandardError.Contains("isn't installed"))
+                            {
+                                if (result.CheckboxChecked)
+                                {
+                                    var gameSettingsFile = Path.Combine(Path.Combine(NileLibrary.Instance.GetPluginUserDataPath(), "GamesSettings", $"{game.GameId}.json"));
+                                    if (File.Exists(gameSettingsFile))
+                                    {
+                                        File.Delete(gameSettingsFile);
+                                    }
+                                }
+                                game.IsInstalled = false;
+                                game.InstallDirectory = "";
+                                game.Version = "";
+                                playniteAPI.Database.Games.Update(game);
+                                uninstalledGames.Add(game);
+                            }
+                            else
+                            {
+                                notUninstalledGames.Add(game);
+                                logger.Debug("[Nile] " + cmd.StandardError);
+                                logger.Error("[Nile] exit code: " + cmd.ExitCode);
+                            }
+                            counter += 1;
+                            a.CurrentProgressValue = counter;
+                        }
+                    }
+                }, globalProgressOptions);
+                if (uninstalledGames.Count > 0)
+                {
+                    if (uninstalledGames.Count == 1)
+                    {
+                        playniteAPI.Dialogs.ShowMessage(ResourceProvider.GetString(LOC.NileUninstallSuccess).Format(uninstalledGames[0].Name));
+                    }
+                    else
+                    {
+                        string uninstalledGamesCombined = string.Join(", ", uninstalledGames.Select(item => item.Name));
+                        playniteAPI.Dialogs.ShowMessage(ResourceProvider.GetString(LOC.NileUninstallSuccessOther).Format(uninstalledGamesCombined));
+                    }
+
+                }
+                if (notUninstalledGames.Count > 0)
+                {
+                    if (notUninstalledGames.Count == 1)
+                    {
+                        playniteAPI.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteGameUninstallError).Format(ResourceProvider.GetString(LOC.NileCheckLog)), notUninstalledGames[0].Name);
+                    }
+                    else
+                    {
+                        string notUninstalledGamesCombined = string.Join(", ", notUninstalledGames.Select(item => item.Name));
+                        playniteAPI.Dialogs.ShowMessage($"{ResourceProvider.GetString(LOC.NileUninstallErrorOther).Format(notUninstalledGamesCombined)} {ResourceProvider.GetString(LOC.NileCheckLog)}");
                     }
                 }
-
-                await Task.Delay(2000);
             }
         }
     }

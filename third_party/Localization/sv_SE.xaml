@@ -7,6 +7,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteFilterActiveLabel">Filtret aktivt</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteFilters">Filter</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallError">Kan inte installera spel: {0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteGameUninstallError">Kan inte avinstallera spel: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallSizeLabel">Installerad storlek</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteAddedLabel">Tillagd</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOKLabel">Ok</sys:String>
@@ -28,11 +29,13 @@
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Titel</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Installationskatalog</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Det gick inte att hämta metadata: {0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Avinstallerar</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">Uppdatering tillgänglig</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">Installera uppdatering</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">Sök efter uppdateringar</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdateCheckFailMessage">Misslyckades med att söka efter en ny version.</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallGame">Installera</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstallGame">Avinstallera</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">Visa Inte Igen</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Välj fil…</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Välj mapp…</sys:String>

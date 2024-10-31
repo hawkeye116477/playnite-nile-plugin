@@ -1,4 +1,5 @@
-﻿using NileLibraryNS.Models;
+﻿using NileLibraryNS.Enums;
+using NileLibraryNS.Models;
 using NileLibraryNS.Services;
 using Playnite.Common;
 using Playnite.SDK;
@@ -81,7 +82,7 @@ namespace NileLibraryNS
                 yield break;
             }
 
-            yield return new NileUninstallController(args.Game, this);
+            yield return new NileUninstallController(args.Game);
         }
 
         public override IEnumerable<PlayController> GetPlayActions(GetPlayActionsArgs args)
@@ -361,6 +362,36 @@ namespace NileLibraryNS
         public override IEnumerable<SidebarItem> GetSidebarItems()
         {
             yield return downloadManagerSidebarItem;
+        }
+
+        public bool StopDownloadManager(bool displayConfirm = false)
+        {
+            NileDownloadManagerView downloadManager = GetNileDownloadManager();
+            var runningAndQueuedDownloads = downloadManager.downloadManagerData.downloads.Where(i => i.status == DownloadStatus.Running
+                                                                                                     || i.status == DownloadStatus.Queued).ToList();
+            if (runningAndQueuedDownloads.Count > 0)
+            {
+                if (displayConfirm)
+                {
+                    var stopConfirm = PlayniteApi.Dialogs.ShowMessage(ResourceProvider.GetString(LOC.NileInstanceNotice), "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (stopConfirm == MessageBoxResult.No)
+                    {
+                        return false;
+                    }
+                }
+                foreach (var download in runningAndQueuedDownloads)
+                {
+                    if (download.status == DownloadStatus.Running)
+                    {
+                        downloadManager.gracefulInstallerCTS?.Cancel();
+                        downloadManager.gracefulInstallerCTS?.Dispose();
+                        downloadManager.forcefulInstallerCTS?.Dispose();
+                    }
+                    download.status = DownloadStatus.Paused;
+                }
+                downloadManager.SaveData();
+            }
+            return true;
         }
     }
 }

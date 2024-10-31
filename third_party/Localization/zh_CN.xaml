@@ -7,6 +7,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteFilterActiveLabel">筛选器激活</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteFilters">筛选</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallError">无法安装游戏：{0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteGameUninstallError">无法卸载游戏：{0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallSizeLabel">占用空间</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteAddedLabel">添加日期</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOKLabel">好的</sys:String>
@@ -28,11 +29,13 @@
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">名称</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">安装目录</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">下载资料数据失败：{0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstalling">正在卸载</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">有可用的更新</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">下载并安装更新</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">检查更新</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdateCheckFailMessage">检查新版本失败。</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallGame">安装</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstallGame">卸载</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">不再显示</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">选择文件…</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">选择文件夹…</sys:String>

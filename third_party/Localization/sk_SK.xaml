@@ -7,6 +7,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteFilterActiveLabel">Filter je aktívny</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteFilters">Filtre</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallError">Hra sa nedá nainštalovať: {0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteGameUninstallError">Hra sa nedá odinštalovať: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallSizeLabel">Veľkosť inštalácie</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteAddedLabel">Pridané</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOKLabel">OK</sys:String>
@@ -28,11 +29,13 @@
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Meno</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Inštalačný priečinok</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Nepodarilo sa prevziať metadáta: {0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Prebieha odinštalácia</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">Dostupná aktualizácia</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">Prevziať a nainštalovať aktualizáciu</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">Skontrolovať aktualizácie</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdateCheckFailMessage">Nepodarilo sa skontrolovať aktualizácie.</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallGame">Inštalovať</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstallGame">Odinštalovať</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">Nabudúce nezobrazovať</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip"></sys:String>

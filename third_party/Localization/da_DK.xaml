@@ -7,6 +7,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteFilterActiveLabel">Filter aktivt</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteFilters">Filtre</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallError">Kan ikke installere spil: {0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteGameUninstallError">Kan ikke afinstallere spil: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallSizeLabel">Installationsstørrelse</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteAddedLabel">Tilføjet</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOKLabel">OK</sys:String>
@@ -28,11 +29,13 @@
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Navn</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError"></sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Afinstallerer</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdateCheckFailMessage"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallGame">Installér</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstallGame">Afinstaller</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip"></sys:String>

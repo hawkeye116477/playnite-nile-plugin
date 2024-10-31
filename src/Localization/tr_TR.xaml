@@ -3,6 +3,7 @@
   <sys:String x:Key="LOCNileGamesInstallationPath">Oyunların Kurulum Yolu</sys:String>
   <sys:String x:Key="LOCNileDownloadSize">İndirme Boyutu:</sys:String>
   <sys:String x:Key="LOCNileInstallSize">Kurulum Boyutu:</sys:String>
+  <sys:String x:Key="LOCNileUninstallGameConfirm">{0} kaldırılacak, bundan emin misiniz?</sys:String>
   <sys:String x:Key="LOCNileMaxWorkers">En fazla çalışan işlem sayısı</sys:String>
   <sys:String x:Key="LOCNileSystemShutdownCountdown">Sistem yakında kapatılacak...</sys:String>
   <sys:String x:Key="LOCNileSystemRestartCountdown">Sistem yakında yeniden başlatılacak...</sys:String>
@@ -64,9 +65,13 @@
   <sys:String x:Key="LOCNileNewVersionAvailable">Yeni bir sürüm mevcut: {0} {1}.</sys:String>
   <sys:String x:Key="LOCNileNoUpdatesAvailable">Güncelleme yok.</sys:String>
   <sys:String x:Key="LOCNileViewChangelog">Değişiklikleri görüntüle</sys:String>
+  <sys:String x:Key="LOCNileRemoveGameLaunchSettings">Başlatma ayarlarını kaldır</sys:String>
   <sys:String x:Key="LOCNileSignedInAs">{0} olarak oturum açıldı</sys:String>
   <sys:String x:Key="LOCNileSignOutConfirm">Oturumu kapatmak istiyor musunuz?</sys:String>
   <sys:String x:Key="LOCNilePermissionError">Kullanıcının belirtilen yola yazma erişimi yok. İzinleri değiştirin veya Playnite programını yönetici olarak başlatın.</sys:String>
   <sys:String x:Key="LOCNileNotEnoughSpace">Yeterli boş disk alanı yok.</sys:String>
+  <sys:String x:Key="LOCNileUninstallSuccess">{0} başarıyla kaldırıldı.</sys:String>
+  <sys:String x:Key="LOCNileUninstallSuccessOther">Aşağıdaki oyunlar başarıyla kaldırıldı: {0}.</sys:String>
+  <sys:String x:Key="LOCNileUninstallErrorOther">Aşağıdaki oyunlar kaldırılamıyor: {0}.</sys:String>
   <sys:String x:Key="LOCNileGames">Oyunlar</sys:String>
 </ResourceDictionary>

@@ -7,6 +7,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteFilterActiveLabel">التصفية نشطة</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteFilters">تصفيات</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallError">تعذّر تثبيت اللعبة:{0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteGameUninstallError">تعذّر إلغاء تثبيت اللعبة:{0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallSizeLabel">حجم التثبيت</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteAddedLabel">أضيف</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOKLabel">موافق</sys:String>
@@ -28,11 +29,13 @@
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">الاسم</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">دليل التثبيت</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">فشل تحميل بيانات التعريف:{0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstalling">جاري إلغاء التثبيت</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">التحديث متوفر</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">تحميل و تثبيت التحديثات</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">تحقق من التحديثات</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdateCheckFailMessage">فشل التحقق من الإصدار الجديد.</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallGame">تثبيت</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstallGame">إلغاء التثبيت</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">لا تُظهر مجدّدًا</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">تحديد الملف...</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">تحديد المجلد</sys:String>

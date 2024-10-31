@@ -26,6 +26,10 @@ namespace System
         /// </summary>
         public const string NileDownloadManagerWhatsUp = "LOCNileDownloadManagerWhatsUp";
         /// <summary>
+        /// Only one instance of Nile may install/import/move applications at a time. Do you want to pause download manager tasks to continue?
+        /// </summary>
+        public const string NileInstanceNotice = "LOCNileInstanceNotice";
+        /// <summary>
         /// Games Installation Path
         /// </summary>
         public const string NileGamesInstallationPath = "LOCNileGamesInstallationPath";
@@ -37,6 +41,10 @@ namespace System
         /// Install Size:
         /// </summary>
         public const string NileInstallSize = "LOCNileInstallSize";
+        /// <summary>
+        /// Are you sure you want to uninstall {0}?
+        /// </summary>
+        public const string NileUninstallGameConfirm = "LOCNileUninstallGameConfirm";
         /// <summary>
         /// Maximum number of worker processes
         /// </summary>
@@ -282,6 +290,10 @@ namespace System
         /// </summary>
         public const string NileViewChangelog = "LOCNileViewChangelog";
         /// <summary>
+        /// Remove launch settings
+        /// </summary>
+        public const string NileRemoveGameLaunchSettings = "LOCNileRemoveGameLaunchSettings";
+        /// <summary>
         /// Signed in as {0}
         /// </summary>
         public const string NileSignedInAs = "LOCNileSignedInAs";
@@ -298,6 +310,18 @@ namespace System
         /// </summary>
         public const string NileNotEnoughSpace = "LOCNileNotEnoughSpace";
         /// <summary>
+        /// {0} has been successfully uninstalled.
+        /// </summary>
+        public const string NileUninstallSuccess = "LOCNileUninstallSuccess";
+        /// <summary>
+        /// Following games have been successfully uninstalled: {0}.
+        /// </summary>
+        public const string NileUninstallSuccessOther = "LOCNileUninstallSuccessOther";
+        /// <summary>
+        /// Cannot uninstall following games: {0}.
+        /// </summary>
+        public const string NileUninstallErrorOther = "LOCNileUninstallErrorOther";
+        /// <summary>
         /// Games
         /// </summary>
         public const string NileGames = "LOCNileGames";
@@ -313,6 +337,10 @@ namespace System
         /// Cannot install game: {0}
         /// </summary>
         public const string Nile3P_PlayniteGameInstallError = "LOCNile3P_PlayniteGameInstallError";
+        /// <summary>
+        /// Cannot un-install game: {0}
+        /// </summary>
+        public const string Nile3P_PlayniteGameUninstallError = "LOCNile3P_PlayniteGameUninstallError";
         /// <summary>
         /// Install Size
         /// </summary>
@@ -398,6 +426,10 @@ namespace System
         /// </summary>
         public const string Nile3P_PlayniteMetadataDownloadError = "LOCNile3P_PlayniteMetadataDownloadError";
         /// <summary>
+        /// Uninstalling
+        /// </summary>
+        public const string Nile3P_PlayniteUninstalling = "LOCNile3P_PlayniteUninstalling";
+        /// <summary>
         /// Update Available
         /// </summary>
         public const string Nile3P_PlayniteUpdaterWindowTitle = "LOCNile3P_PlayniteUpdaterWindowTitle";
@@ -417,6 +449,10 @@ namespace System
         /// Install
         /// </summary>
         public const string Nile3P_PlayniteInstallGame = "LOCNile3P_PlayniteInstallGame";
+        /// <summary>
+        /// Uninstall
+        /// </summary>
+        public const string Nile3P_PlayniteUninstallGame = "LOCNile3P_PlayniteUninstallGame";
         /// <summary>
         /// Don't Show Again
         /// </summary>

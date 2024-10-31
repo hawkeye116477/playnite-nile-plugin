@@ -7,6 +7,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteFilterActiveLabel">Filtre Etkin</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteFilters">Filtreler</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallError">Oyun kurulamıyor: {0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteGameUninstallError">Oyun kaldırılamıyor: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallSizeLabel">Kurulu Boyut</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteAddedLabel">Eklenme</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOKLabel">TAMAM</sys:String>
@@ -28,11 +29,13 @@
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">İsim</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Kurulum Klasörü</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Üst veriler indirilemedi: {0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Kaldırılıyor</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">Güncelleme Mevcut</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">Güncellemeyi İndir ve Kur</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">Güncelleştirmeleri Denetle</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdateCheckFailMessage">Yeni sürüm kontrol edilemedi.</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallGame">Kur</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstallGame">Kurulumu Kaldır</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">Bir Daha Gösterme</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Dosya seç…</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Klasör seç…</sys:String>

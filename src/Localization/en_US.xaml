@@ -3,6 +3,7 @@
   <sys:String x:Key="LOCNileGamesInstallationPath">Games Installation Path</sys:String>
   <sys:String x:Key="LOCNileDownloadSize">Download Size:</sys:String>
   <sys:String x:Key="LOCNileInstallSize">Install Size:</sys:String>
+  <sys:String x:Key="LOCNileUninstallGameConfirm">Are you sure you want to uninstall {0}?</sys:String>
   <sys:String x:Key="LOCNileMaxWorkers">Maximum number of worker processes</sys:String>
   <sys:String x:Key="LOCNileSystemShutdownCountdown">System will be turned off soon...</sys:String>
   <sys:String x:Key="LOCNileSystemRestartCountdown">System will be restarted soon...</sys:String>
@@ -64,9 +65,13 @@
   <sys:String x:Key="LOCNileNewVersionAvailable">A new version is available: {0} {1}.</sys:String>
   <sys:String x:Key="LOCNileNoUpdatesAvailable">No updates available.</sys:String>
   <sys:String x:Key="LOCNileViewChangelog">View changelog</sys:String>
+  <sys:String x:Key="LOCNileRemoveGameLaunchSettings">Remove launch settings</sys:String>
   <sys:String x:Key="LOCNileSignedInAs">Signed in as {0}</sys:String>
   <sys:String x:Key="LOCNileSignOutConfirm">Are you sure you want to sign out?</sys:String>
   <sys:String x:Key="LOCNilePermissionError">User doesn't have write access to the specified path. Change permissions or launch Playnite as administrator.</sys:String>
   <sys:String x:Key="LOCNileNotEnoughSpace">Not enough free disk space.</sys:String>
+  <sys:String x:Key="LOCNileUninstallSuccess">{0} has been successfully uninstalled.</sys:String>
+  <sys:String x:Key="LOCNileUninstallSuccessOther">Following games have been successfully uninstalled: {0}.</sys:String>
+  <sys:String x:Key="LOCNileUninstallErrorOther">Cannot uninstall following games: {0}.</sys:String>
   <sys:String x:Key="LOCNileGames">Games</sys:String>
 </ResourceDictionary>

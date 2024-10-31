@@ -7,6 +7,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteFilterActiveLabel">Фільтр Активний</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteFilters">Фільтри</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallError">Не вдається встановити гру: {0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteGameUninstallError">Не вдається видалити гру: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallSizeLabel">Розмір встановлення</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteAddedLabel">Додано</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOKLabel">ОК</sys:String>
@@ -28,11 +29,13 @@
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Назва</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Тека встановлення</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Не вдалося завантажити метадані: {0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Видалення</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">Доступне оновлення</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">Завантажити та встановити оновлення</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">Перевірити наявність оновлень</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdateCheckFailMessage">Не вдалося перевірити наявність нової версії.</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallGame">Встановити</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstallGame">Видалити</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">Не показувати знову</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Обрати файл...</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Обрати теку...</sys:String>

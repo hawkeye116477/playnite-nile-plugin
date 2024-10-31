@@ -7,6 +7,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteFilterActiveLabel">필터 적용 중</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteFilters">필터</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallError">게임을 설치할 수 없습니다: {0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteGameUninstallError">게임을 삭제할 수 없습니다: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallSizeLabel">설치 용량</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteAddedLabel">추가일</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOKLabel">확인</sys:String>
@@ -28,11 +29,13 @@
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">이름</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">설치 경로</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">메타 데이터 다운로드 실패 : {0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstalling">설치 제거 중</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">업데이트 사용 가능</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">업데이트 다운로드 및 설치</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">업데이트 확인</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdateCheckFailMessage">새로운 버전 확인에 실패했습니다.</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallGame">설치</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstallGame">설치 제거</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">다시 표시 안함</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">파일 선택...</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">폴더 선택...</sys:String>

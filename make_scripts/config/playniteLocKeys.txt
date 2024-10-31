@@ -32,3 +32,6 @@ LOCMenuHibernateSystem
 LOCMenuSuspendSystem
 LOCSaveLabel
 LOCUpdaterInstallUpdate
+LOCUninstallGame
+LOCUninstalling
+LOCGameUninstallError

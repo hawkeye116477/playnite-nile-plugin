@@ -7,6 +7,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteFilterActiveLabel">Filter aktiivne</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteFilters">Filtrid</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallError">Ei saa installida mängu: {0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteGameUninstallError">Ei saa desinstallida mängu: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallSizeLabel">Installi suurus</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteAddedLabel">Lisatud</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOKLabel">OK</sys:String>
@@ -28,11 +29,13 @@
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Nimi</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Paigalduse asukoht</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Metaandmete allalaadimine ebaõnnestus: {0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Desinstallimine</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">Värskendus on saadaval</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">Laadi alla ja paigalda värskendus</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">Otsi värskendusi</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdateCheckFailMessage">Uue versiooni olemasolu kontroll ebaõnnestus.</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallGame">Paigalda</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstallGame">Desinstalli</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">Ära enam näita</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Vali fail…</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Vali kaust…</sys:String>

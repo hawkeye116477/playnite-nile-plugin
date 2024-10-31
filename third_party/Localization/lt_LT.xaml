@@ -7,6 +7,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteFilterActiveLabel">Filtras aktyvus</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteFilters">Filtrai</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallError">Nepavyko įrašyti žaidimo: {0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteGameUninstallError">Nepavyko ištrinti žaidimo: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallSizeLabel">Įdiegtas dydis</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteAddedLabel">Pridėta</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOKLabel">Gerai</sys:String>
@@ -28,11 +29,13 @@
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Pavadinimas</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Žaidimo direktorija</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Nepavyko atsisiųsti metadata: {0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Išdiegti</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">Galimas atnaujinimas</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">Įrašyti atnaujinimą</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">Tikrinti, ar yra atnaujinimų</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdateCheckFailMessage">Nepavyko patikrinti ar yra naujinimų.</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallGame">Įrašyti</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUninstallGame">Ištrinti</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">Daugiau neberodyti</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Pasirinkite failą...</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Pasirinkite aplanką...</sys:String>
