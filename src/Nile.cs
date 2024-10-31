@@ -86,10 +86,6 @@ namespace NileLibraryNS
                             var playniteAPI = API.Instance;
                             savedLauncherPath = savedLauncherPath.Replace(playniteDirectoryVariable, playniteAPI.Paths.ApplicationPath);
                         }
-                        if (Directory.Exists(savedLauncherPath))
-                        {
-                            launcherPath = savedLauncherPath;
-                        }
                     }
                 }
                 if (!File.Exists(launcherPath))
