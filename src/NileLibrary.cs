@@ -393,5 +393,299 @@ namespace NileLibraryNS
             }
             return true;
         }
+
+        public override IEnumerable<GameMenuItem> GetGameMenuItems(GetGameMenuItemsArgs args)
+        {
+            var NileGames = args.Games.Where(i => i.PluginId == Id).ToList();
+            if (NileGames.Count > 0)
+            {
+                if (NileGames.Count == 1)
+                {
+                    Game game = NileGames.FirstOrDefault();
+                    if (game.IsInstalled)
+                    {
+                        //yield return new GameMenuItem
+                        //{
+                        //    Description = ResourceProvider.GetString(LOC.NileLauncherSettings),
+                        //    Icon = "ModifyLaunchSettingsIcon",
+                        //    Action = (args) =>
+                        //    {
+                        //        if (!NileLauncher.IsInstalled)
+                        //        {
+                        //            throw new Exception(ResourceProvider.GetString(LOC.NileLauncherNotInstalled));
+                        //        }
+                        //        Window window = PlayniteApi.Dialogs.CreateWindow(new WindowCreationOptions
+                        //        {
+                        //            ShowMaximizeButton = false
+                        //        });
+                        //        window.DataContext = game;
+                        //        window.Title = $"{ResourceProvider.GetString(LOC.NileLauncherSettings)} - {game.Name}";
+                        //        window.Content = new NileGameSettingsView();
+                        //        window.Owner = PlayniteApi.Dialogs.GetCurrentAppWindow();
+                        //        window.SizeToContent = SizeToContent.WidthAndHeight;
+                        //        window.MinWidth = 600;
+                        //        window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                        //        window.ShowDialog();
+                        //    }
+                        //};
+                        //yield return new GameMenuItem
+                        //{
+                        //    Description = ResourceProvider.GetString(LOC.Nile3P_PlayniteCheckForUpdates),
+                        //    Icon = "UpdateDbIcon",
+                        //    Action = (args) =>
+                        //    {
+                        //        if (!NileLauncher.IsInstalled)
+                        //        {
+                        //            throw new Exception(ResourceProvider.GetString(LOC.NileLauncherNotInstalled));
+                        //        }
+
+                        //        NileUpdateController NileUpdateController = new NileUpdateController();
+                        //        var gamesToUpdate = new Dictionary<string, UpdateInfo>();
+                        //        GlobalProgressOptions updateCheckProgressOptions = new GlobalProgressOptions(ResourceProvider.GetString(LOC.NileCheckingForUpdates), false) { IsIndeterminate = true };
+                        //        PlayniteApi.Dialogs.ActivateGlobalProgress(async (a) =>
+                        //        {
+                        //            gamesToUpdate = await NileUpdateController.CheckGameUpdates(game.Name, game.GameId);
+                        //        }, updateCheckProgressOptions);
+                        //        if (gamesToUpdate.Count > 0)
+                        //        {
+                        //            var successUpdates = gamesToUpdate.Where(i => i.Value.Success).ToDictionary(i => i.Key, i => i.Value);
+                        //            if (successUpdates.Count > 0)
+                        //            {
+                        //                Window window = PlayniteApi.Dialogs.CreateWindow(new WindowCreationOptions
+                        //                {
+                        //                    ShowMaximizeButton = false,
+                        //                });
+                        //                window.DataContext = successUpdates;
+                        //                window.Title = $"{ResourceProvider.GetString(LOC.Nile3P_PlayniteExtensionsUpdates)}";
+                        //                window.Content = new NileUpdater();
+                        //                window.Owner = PlayniteApi.Dialogs.GetCurrentAppWindow();
+                        //                window.SizeToContent = SizeToContent.WidthAndHeight;
+                        //                window.MinWidth = 600;
+                        //                window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                        //                window.ShowDialog();
+                        //            }
+                        //            else
+                        //            {
+                        //                PlayniteApi.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteUpdateCheckFailMessage), game.Name);
+                        //            }
+                        //        }
+                        //        else
+                        //        {
+                        //            PlayniteApi.Dialogs.ShowMessage(ResourceProvider.GetString(LOC.NileNoUpdatesAvailable), game.Name);
+                        //        }
+                        //    }
+                        //};
+                    }
+                    else
+                    {
+                        //yield return new GameMenuItem
+                        //{
+                        //    Description = ResourceProvider.GetString(LOC.NileImportInstalledGame),
+                        //    Icon = "AddGameIcon",
+                        //    Action = async (args) =>
+                        //    {
+                        //        if (!NileLauncher.IsInstalled)
+                        //        {
+                        //            throw new Exception(ResourceProvider.GetString(LOC.NileLauncherNotInstalled));
+                        //        }
+
+                        //        var path = PlayniteApi.Dialogs.SelectFolder();
+                        //        if (path != "")
+                        //        {
+                        //            bool canContinue = StopDownloadManager(true);
+                        //            if (!canContinue)
+                        //            {
+                        //                return;
+                        //            }
+                        //            await NileDownloadManager.WaitUntilNileCloses();
+                        //            GlobalProgressOptions importProgressOptions = new GlobalProgressOptions(ResourceProvider.GetString(LOC.NileImportingGame).Format(game.Name), false) { IsIndeterminate = true };
+                        //            PlayniteApi.Dialogs.ActivateGlobalProgress(async (a) =>
+                        //            {
+                        //                var importCmd = await Cli.Wrap(NileLauncher.ClientExecPath)
+                        //                                         .WithArguments(new[] { "-y", "import", game.GameId, path })
+                        //                                         .WithEnvironmentVariables(NileLauncher.DefaultEnvironmentVariables)
+                        //                                         .AddCommandToLog()
+                        //                                         .WithValidation(CommandResultValidation.None)
+                        //                                         .ExecuteBufferedAsync();
+                        //                logger.Debug("[Nile] " + importCmd.StandardError);
+                        //                if (importCmd.StandardError.Contains("has been imported"))
+                        //                {
+                        //                    var installedAppList = NileLauncher.GetInstalledAppList();
+                        //                    if (installedAppList.ContainsKey(game.GameId))
+                        //                    {
+                        //                        var installedGameInfo = installedAppList[game.GameId];
+                        //                        game.InstallDirectory = installedGameInfo.Install_path;
+                        //                        game.Version = installedGameInfo.Version;
+                        //                        game.InstallSize = (ulong?)installedGameInfo.Install_size;
+                        //                        game.IsInstalled = true;
+                        //                    }
+                        //                    PlayniteApi.Dialogs.ShowMessage(LOC.NileImportFinished);
+                        //                }
+                        //                else
+                        //                {
+                        //                    PlayniteApi.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.NileGameImportFailure).Format(LOC.NileCheckLog));
+                        //                }
+                        //            }, importProgressOptions);
+                        //        }
+                        //    }
+                        //};
+                    }
+                    if (game.IsInstalled)
+                    {
+                        //yield return new GameMenuItem
+                        //{
+                        //    Description = ResourceProvider.GetString(LOC.NileMove),
+                        //    Icon = "MoveIcon",
+                        //    Action = (args) =>
+                        //    {
+                        //        if (!NileLauncher.IsInstalled)
+                        //        {
+                        //            throw new Exception(ResourceProvider.GetString(LOC.NileLauncherNotInstalled));
+                        //        }
+
+                        //        var newPath = PlayniteApi.Dialogs.SelectFolder();
+                        //        if (newPath != "")
+                        //        {
+                        //            var oldPath = game.InstallDirectory;
+                        //            if (Directory.Exists(oldPath) && Directory.Exists(newPath))
+                        //            {
+                        //                string sepChar = Path.DirectorySeparatorChar.ToString();
+                        //                string altChar = Path.AltDirectorySeparatorChar.ToString();
+                        //                if (!oldPath.EndsWith(sepChar) && !oldPath.EndsWith(altChar))
+                        //                {
+                        //                    oldPath += sepChar;
+                        //                }
+                        //                var folderName = Path.GetFileName(Path.GetDirectoryName(oldPath));
+                        //                newPath = Path.Combine(newPath, folderName);
+                        //                var moveConfirm = PlayniteApi.Dialogs.ShowMessage(ResourceProvider.GetString(LOC.NileMoveConfirm).Format(game.Name, newPath), ResourceProvider.GetString(LOC.NileMove), MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        //                if (moveConfirm == MessageBoxResult.Yes)
+                        //                {
+                        //                    GlobalProgressOptions globalProgressOptions = new GlobalProgressOptions(ResourceProvider.GetString(LOC.NileMovingGame).Format(game.Name, newPath), false);
+                        //                    PlayniteApi.Dialogs.ActivateGlobalProgress((a) =>
+                        //                    {
+                        //                        a.ProgressMaxValue = 3;
+                        //                        a.CurrentProgressValue = 0;
+                        //                        _ = (Application.Current.Dispatcher?.BeginInvoke((Action)async delegate
+                        //                        {
+                        //                            try
+                        //                            {
+                        //                                bool canContinue = StopDownloadManager(true);
+                        //                                if (!canContinue)
+                        //                                {
+                        //                                    return;
+                        //                                }
+                        //                                await NileDownloadManager.WaitUntilNileCloses();
+                        //                                Directory.Move(oldPath, newPath);
+                        //                                a.CurrentProgressValue = 1;
+                        //                                var rewriteResult = await Cli.Wrap(NileLauncher.ClientExecPath)
+                        //                                                             .WithArguments(new[] { "move", game.GameId, newPath, "--skip-move" })
+                        //                                                             .WithEnvironmentVariables(NileLauncher.DefaultEnvironmentVariables)
+                        //                                                             .AddCommandToLog()
+                        //                                                             .ExecuteBufferedAsync();
+                        //                                var errorMessage = rewriteResult.StandardError;
+                        //                                if (rewriteResult.ExitCode != 0 || errorMessage.Contains("ERROR") || errorMessage.Contains("CRITICAL") || errorMessage.Contains("Error"))
+                        //                                {
+                        //                                    logger.Error($"[Nile] {errorMessage}");
+                        //                                    logger.Error($"[Nile] exit code: {rewriteResult.ExitCode}");
+                        //                                }
+                        //                                a.CurrentProgressValue = 2;
+                        //                                game.InstallDirectory = newPath;
+                        //                                PlayniteApi.Database.Games.Update(game);
+                        //                                a.CurrentProgressValue = 3;
+                        //                                PlayniteApi.Dialogs.ShowMessage(ResourceProvider.GetString(LOC.NileMoveGameSuccess).Format(game.Name, newPath));
+                        //                            }
+                        //                            catch (Exception e)
+                        //                            {
+                        //                                a.CurrentProgressValue = 3;
+                        //                                PlayniteApi.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.NileMoveGameError).Format(game.Name, newPath));
+                        //                                logger.Error(e.Message);
+                        //                            }
+                        //                        }));
+                        //                    }, globalProgressOptions);
+                        //                }
+                        //            }
+                        //        }
+                        //    }
+                        //};
+                    }
+                }
+
+                var notInstalledNileGames = NileGames.Where(i => i.IsInstalled == false).ToList();
+                if (notInstalledNileGames.Count > 0)
+                {
+                    if (NileGames.Count > 1)
+                    {
+                        var installData = new List<DownloadManagerData.Download>();
+                        foreach (var notInstalledNileGame in notInstalledNileGames)
+                        {
+                            var installProperties = new DownloadProperties { downloadAction = DownloadAction.Install };
+                            installData.Add(new DownloadManagerData.Download { gameID = notInstalledNileGame.GameId, name = notInstalledNileGame.Name, downloadProperties = installProperties });
+                        }
+                        yield return new GameMenuItem
+                        {
+                            Description = ResourceProvider.GetString(LOC.Nile3P_PlayniteInstallGame),
+                            Icon = "InstallIcon",
+                            Action = (args) =>
+                            {
+                                NileInstallController.LaunchInstaller(installData);
+                            }
+                        };
+                    }
+                }
+                var installedNileGames = NileGames.Where(i => i.IsInstalled).ToList();
+                if (installedNileGames.Count > 0)
+                {
+                    yield return new GameMenuItem
+                    {
+                        Description = ResourceProvider.GetString(LOC.NileRepair),
+                        Icon = "RepairIcon",
+                        Action = (args) =>
+                        {
+                            if (!Nile.IsInstalled)
+                            {
+                                throw new Exception(ResourceProvider.GetString(LOC.NileNotInstalled));
+                            }
+
+                            Window window = PlayniteApi.Dialogs.CreateWindow(new WindowCreationOptions
+                            {
+                                ShowMaximizeButton = false,
+                            });
+
+                            var installData = new List<DownloadManagerData.Download>();
+                            foreach (var game in installedNileGames)
+                            {
+                                var installProperties = new DownloadProperties { downloadAction = DownloadAction.Repair };
+                                installData.Add(new DownloadManagerData.Download { gameID = game.GameId, name = game.Name, downloadProperties = installProperties });
+                            }
+                            window.DataContext = installData;
+                            window.Content = new NileGameInstallerView();
+                            window.Owner = PlayniteApi.Dialogs.GetCurrentAppWindow();
+                            window.SizeToContent = SizeToContent.WidthAndHeight;
+                            window.MinWidth = 600;
+                            window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                            var title = ResourceProvider.GetString(LOC.NileRepair);
+                            if (installedNileGames.Count == 1)
+                            {
+                                title = installedNileGames[0].Name;
+                            }
+                            window.Title = title;
+                            window.ShowDialog();
+                        }
+                    };
+                    if (NileGames.Count > 1)
+                    {
+                        yield return new GameMenuItem
+                        {
+                            Description = ResourceProvider.GetString(LOC.Nile3P_PlayniteUninstallGame),
+                            Icon = "UninstallIcon",
+                            Action = (args) =>
+                            {
+                                NileUninstallController.LaunchUninstaller(installedNileGames);
+                            }
+                        };
+                    }
+                }
+            }
+        }
     }
 }
