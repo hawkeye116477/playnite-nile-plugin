@@ -10,6 +10,22 @@ namespace System
         /// </summary>
         public const string NileNotInstalled = "LOCNileNotInstalled";
         /// <summary>
+        /// {0} is already in the download list. You can see status of the download by accessing Nile Panel via Menu => View or sidebar.
+        /// </summary>
+        public const string NileDownloadAlreadyExists = "LOCNileDownloadAlreadyExists";
+        /// <summary>
+        /// Following games are already in the download list: {0}. You can see status of the download by accessing Nile Panel via Menu => View or sidebar.
+        /// </summary>
+        public const string NileDownloadAlreadyExistsOther = "LOCNileDownloadAlreadyExistsOther";
+        /// <summary>
+        /// Nile Panel
+        /// </summary>
+        public const string NilePanel = "LOCNilePanel";
+        /// <summary>
+        /// The download will start soon. You can see its status by accessing Nile Panel via Menu => View or sidebar.
+        /// </summary>
+        public const string NileDownloadManagerWhatsUp = "LOCNileDownloadManagerWhatsUp";
+        /// <summary>
         /// Games Installation Path
         /// </summary>
         public const string NileGamesInstallationPath = "LOCNileGamesInstallationPath";
@@ -22,6 +38,26 @@ namespace System
         /// </summary>
         public const string NileInstallSize = "LOCNileInstallSize";
         /// <summary>
+        /// Maximum number of worker processes
+        /// </summary>
+        public const string NileMaxWorkers = "LOCNileMaxWorkers";
+        /// <summary>
+        /// System will be turned off soon...
+        /// </summary>
+        public const string NileSystemShutdownCountdown = "LOCNileSystemShutdownCountdown";
+        /// <summary>
+        /// System will be restarted soon...
+        /// </summary>
+        public const string NileSystemRestartCountdown = "LOCNileSystemRestartCountdown";
+        /// <summary>
+        /// System will be hibernated soon...
+        /// </summary>
+        public const string NileSystemHibernateCountdown = "LOCNileSystemHibernateCountdown";
+        /// <summary>
+        /// System will be suspended soon...
+        /// </summary>
+        public const string NileSystemSuspendCountdown = "LOCNileSystemSuspendCountdown";
+        /// <summary>
         /// Space Available:
         /// </summary>
         public const string NileSpaceAvailable = "LOCNileSpaceAvailable";
@@ -30,13 +66,173 @@ namespace System
         /// </summary>
         public const string NileAfterInstalling = "LOCNileAfterInstalling";
         /// <summary>
+        /// Downloaded
+        /// </summary>
+        public const string NileDownloaded = "LOCNileDownloaded";
+        /// <summary>
+        /// ETA:
+        /// </summary>
+        public const string NileETA = "LOCNileETA";
+        /// <summary>
+        /// Download Speed:
+        /// </summary>
+        public const string NileDownloadSpeed = "LOCNileDownloadSpeed";
+        /// <summary>
+        /// Disk Usage:
+        /// </summary>
+        public const string NileDiskSpeed = "LOCNileDiskSpeed";
+        /// <summary>
+        /// Elapsed:
+        /// </summary>
+        public const string NileElapsed = "LOCNileElapsed";
+        /// <summary>
+        /// Verifying...
+        /// </summary>
+        public const string NileVerifying = "LOCNileVerifying";
+        /// <summary>
+        /// Downloading update...
+        /// </summary>
+        public const string NileDownloadingUpdate = "LOCNileDownloadingUpdate";
+        /// <summary>
+        /// Finishing installation...
+        /// </summary>
+        public const string NileFinishingInstallation = "LOCNileFinishingInstallation";
+        /// <summary>
+        /// Finishing update...
+        /// </summary>
+        public const string NileFinishingUpdate = "LOCNileFinishingUpdate";
+        /// <summary>
+        /// Finishing repair...
+        /// </summary>
+        public const string NileFinishingRepair = "LOCNileFinishingRepair";
+        /// <summary>
+        /// Pause
+        /// </summary>
+        public const string NilePauseDownload = "LOCNilePauseDownload";
+        /// <summary>
+        /// Resume
+        /// </summary>
+        public const string NileResumeDownload = "LOCNileResumeDownload";
+        /// <summary>
+        /// Paused
+        /// </summary>
+        public const string NileDownloadPaused = "LOCNileDownloadPaused";
+        /// <summary>
+        /// Installation finished. Have fun.
+        /// </summary>
+        public const string NileInstallationFinished = "LOCNileInstallationFinished";
+        /// <summary>
+        /// Update finished. Have fun.
+        /// </summary>
+        public const string NileUpdateFinished = "LOCNileUpdateFinished";
+        /// <summary>
+        /// Repair finished. Have fun.
+        /// </summary>
+        public const string NileRepairFinished = "LOCNileRepairFinished";
+        /// <summary>
+        /// Download Manager
+        /// </summary>
+        public const string NileDownloadManager = "LOCNileDownloadManager";
+        /// <summary>
+        /// Status
+        /// </summary>
+        public const string NileDownloadStatus = "LOCNileDownloadStatus";
+        /// <summary>
+        /// Progress
+        /// </summary>
+        public const string NileProgress = "LOCNileProgress";
+        /// <summary>
+        /// Completed
+        /// </summary>
+        public const string NileDownloadCompletedColumn = "LOCNileDownloadCompletedColumn";
+        /// <summary>
+        /// Queued
+        /// </summary>
+        public const string NileDownloadQueued = "LOCNileDownloadQueued";
+        /// <summary>
+        /// Running
+        /// </summary>
+        public const string NileDownloadRunning = "LOCNileDownloadRunning";
+        /// <summary>
+        /// Canceled
+        /// </summary>
+        public const string NileDownloadCanceled = "LOCNileDownloadCanceled";
+        /// <summary>
+        /// Completed
+        /// </summary>
+        public const string NileDownloadCompleted = "LOCNileDownloadCompleted";
+        /// <summary>
+        /// Remove entry
+        /// </summary>
+        public const string NileRemoveEntry = "LOCNileRemoveEntry";
+        /// <summary>
+        /// Are you sure you want to remove {0} from list?
+        /// </summary>
+        public const string NileRemoveEntryConfirm = "LOCNileRemoveEntryConfirm";
+        /// <summary>
+        /// Move entry to top
+        /// </summary>
+        public const string NileMoveEntryTop = "LOCNileMoveEntryTop";
+        /// <summary>
+        /// Move entry up
+        /// </summary>
+        public const string NileMoveEntryUp = "LOCNileMoveEntryUp";
+        /// <summary>
+        /// Move entry down
+        /// </summary>
+        public const string NileMoveEntryDown = "LOCNileMoveEntryDown";
+        /// <summary>
+        /// Move entry to bottom
+        /// </summary>
+        public const string NileMoveEntryBottom = "LOCNileMoveEntryBottom";
+        /// <summary>
+        /// Remove completed downloads
+        /// </summary>
+        public const string NileRemoveCompletedDownloads = "LOCNileRemoveCompletedDownloads";
+        /// <summary>
+        /// Are you sure you want to remove all completed downloads from list?
+        /// </summary>
+        public const string NileRemoveCompletedDownloadsConfirm = "LOCNileRemoveCompletedDownloadsConfirm";
+        /// <summary>
+        /// Are you sure you want to remove selected entries from list?
+        /// </summary>
+        public const string NileRemoveSelectedEntriesConfirm = "LOCNileRemoveSelectedEntriesConfirm";
+        /// <summary>
+        /// Select all entries
+        /// </summary>
+        public const string NileSelectAllEntries = "LOCNileSelectAllEntries";
+        /// <summary>
         /// Repair
         /// </summary>
         public const string NileRepair = "LOCNileRepair";
         /// <summary>
+        /// Advanced Options
+        /// </summary>
+        public const string NileAdvancedOptions = "LOCNileAdvancedOptions";
+        /// <summary>
+        /// Check the log files for more information.
+        /// </summary>
+        public const string NileCheckLog = "LOCNileCheckLog";
+        /// <summary>
+        /// Edit entry properties
+        /// </summary>
+        public const string NileEditSelectedDownloadProperties = "LOCNileEditSelectedDownloadProperties";
+        /// <summary>
+        /// Open download directory
+        /// </summary>
+        public const string NileOpenDownloadDirectory = "LOCNileOpenDownloadDirectory";
+        /// <summary>
         /// The specified path does not exist.
         /// </summary>
         public const string NilePathNotExistsError = "LOCNilePathNotExistsError";
+        /// <summary>
+        /// Task
+        /// </summary>
+        public const string NileTask = "LOCNileTask";
+        /// <summary>
+        /// Download Properties
+        /// </summary>
+        public const string NileDownloadProperties = "LOCNileDownloadProperties";
         /// <summary>
         /// Sign out
         /// </summary>
@@ -94,13 +290,81 @@ namespace System
         /// </summary>
         public const string NileSignOutConfirm = "LOCNileSignOutConfirm";
         /// <summary>
+        /// User doesn't have write access to the specified path. Change permissions or launch Playnite as administrator.
+        /// </summary>
+        public const string NilePermissionError = "LOCNilePermissionError";
+        /// <summary>
+        /// Not enough free disk space.
+        /// </summary>
+        public const string NileNotEnoughSpace = "LOCNileNotEnoughSpace";
+        /// <summary>
         /// Games
         /// </summary>
         public const string NileGames = "LOCNileGames";
         /// <summary>
+        /// Filter Active
+        /// </summary>
+        public const string Nile3P_PlayniteFilterActiveLabel = "LOCNile3P_PlayniteFilterActiveLabel";
+        /// <summary>
+        /// Filters
+        /// </summary>
+        public const string Nile3P_PlayniteFilters = "LOCNile3P_PlayniteFilters";
+        /// <summary>
+        /// Cannot install game: {0}
+        /// </summary>
+        public const string Nile3P_PlayniteGameInstallError = "LOCNile3P_PlayniteGameInstallError";
+        /// <summary>
+        /// Install Size
+        /// </summary>
+        public const string Nile3P_PlayniteInstallSizeLabel = "LOCNile3P_PlayniteInstallSizeLabel";
+        /// <summary>
+        /// Added
+        /// </summary>
+        public const string Nile3P_PlayniteAddedLabel = "LOCNile3P_PlayniteAddedLabel";
+        /// <summary>
         /// OK
         /// </summary>
         public const string Nile3P_PlayniteOKLabel = "LOCNile3P_PlayniteOKLabel";
+        /// <summary>
+        /// Save
+        /// </summary>
+        public const string Nile3P_PlayniteSaveLabel = "LOCNile3P_PlayniteSaveLabel";
+        /// <summary>
+        /// Cancel
+        /// </summary>
+        public const string Nile3P_PlayniteCancelLabel = "LOCNile3P_PlayniteCancelLabel";
+        /// <summary>
+        /// Yes
+        /// </summary>
+        public const string Nile3P_PlayniteYesLabel = "LOCNile3P_PlayniteYesLabel";
+        /// <summary>
+        /// No
+        /// </summary>
+        public const string Nile3P_PlayniteNoLabel = "LOCNile3P_PlayniteNoLabel";
+        /// <summary>
+        /// Downloading…
+        /// </summary>
+        public const string Nile3P_PlayniteDownloadingLabel = "LOCNile3P_PlayniteDownloadingLabel";
+        /// <summary>
+        /// Loading…
+        /// </summary>
+        public const string Nile3P_PlayniteLoadingLabel = "LOCNile3P_PlayniteLoadingLabel";
+        /// <summary>
+        /// Restart System
+        /// </summary>
+        public const string Nile3P_PlayniteMenuRestartSystem = "LOCNile3P_PlayniteMenuRestartSystem";
+        /// <summary>
+        /// Turn Off System
+        /// </summary>
+        public const string Nile3P_PlayniteMenuShutdownSystem = "LOCNile3P_PlayniteMenuShutdownSystem";
+        /// <summary>
+        /// Suspend System
+        /// </summary>
+        public const string Nile3P_PlayniteMenuSuspendSystem = "LOCNile3P_PlayniteMenuSuspendSystem";
+        /// <summary>
+        /// Hibernate System
+        /// </summary>
+        public const string Nile3P_PlayniteMenuHibernateSystem = "LOCNile3P_PlayniteMenuHibernateSystem";
         /// <summary>
         /// Settings
         /// </summary>
@@ -114,13 +378,33 @@ namespace System
         /// </summary>
         public const string Nile3P_PlayniteSettingsAdvancedLabel = "LOCNile3P_PlayniteSettingsAdvancedLabel";
         /// <summary>
+        /// Authentification required
+        /// </summary>
+        public const string Nile3P_PlayniteLoginRequired = "LOCNile3P_PlayniteLoginRequired";
+        /// <summary>
         /// Executable
         /// </summary>
         public const string Nile3P_PlayniteExecutableTitle = "LOCNile3P_PlayniteExecutableTitle";
         /// <summary>
+        /// Name
+        /// </summary>
+        public const string Nile3P_PlayniteGameNameTitle = "LOCNile3P_PlayniteGameNameTitle";
+        /// <summary>
+        /// Installation Folder
+        /// </summary>
+        public const string Nile3P_PlayniteGameInstallDirTitle = "LOCNile3P_PlayniteGameInstallDirTitle";
+        /// <summary>
+        /// Failed to download metadata: {0}
+        /// </summary>
+        public const string Nile3P_PlayniteMetadataDownloadError = "LOCNile3P_PlayniteMetadataDownloadError";
+        /// <summary>
         /// Update Available
         /// </summary>
         public const string Nile3P_PlayniteUpdaterWindowTitle = "LOCNile3P_PlayniteUpdaterWindowTitle";
+        /// <summary>
+        /// Download and Install Update
+        /// </summary>
+        public const string Nile3P_PlayniteUpdaterInstallUpdate = "LOCNile3P_PlayniteUpdaterInstallUpdate";
         /// <summary>
         /// Check for Updates
         /// </summary>
@@ -129,6 +413,14 @@ namespace System
         /// Failed to check for new version.
         /// </summary>
         public const string Nile3P_PlayniteUpdateCheckFailMessage = "LOCNile3P_PlayniteUpdateCheckFailMessage";
+        /// <summary>
+        /// Install
+        /// </summary>
+        public const string Nile3P_PlayniteInstallGame = "LOCNile3P_PlayniteInstallGame";
+        /// <summary>
+        /// Don't Show Again
+        /// </summary>
+        public const string Nile3P_PlayniteDontShowAgainTitle = "LOCNile3P_PlayniteDontShowAgainTitle";
         /// <summary>
         /// Select file…
         /// </summary>

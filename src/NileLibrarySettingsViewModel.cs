@@ -1,4 +1,5 @@
-﻿using NileLibraryNS.Services;
+﻿using NileLibraryNS.Enums;
+using NileLibraryNS.Services;
 using Playnite.SDK;
 using Playnite.SDK.Data;
 using System;
@@ -19,6 +20,11 @@ namespace NileLibraryNS
         public bool StartGamesWithoutLauncher { get; set; } = false;
         public string GamesInstallationPath { get; set; } = "";
         public string SelectedNilePath { get; set; } = "";
+        public int MaxWorkers { get; set; } = 0;
+        public bool UnattendedInstall { get; set; } = false;
+        public DownloadCompleteAction DoActionAfterDownloadComplete { get; set; } = DownloadCompleteAction.Nothing;
+        public bool DisplayDownloadSpeedInBits { get; set; } = false;
+        public bool DisplayDownloadTaskFinishedNotifications { get; set; } = true;
     }
 
     public class NileLibrarySettingsViewModel : PluginSettingsViewModel<NileLibrarySettings, NileLibrary>

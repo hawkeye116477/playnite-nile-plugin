@@ -1,4 +1,5 @@
-﻿using NileLibraryNS.Models;
+﻿using NileLibraryNS.Enums;
+using NileLibraryNS.Models;
 using Playnite;
 using Playnite.Common;
 using Playnite.SDK;
@@ -12,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace NileLibraryNS
 {
@@ -19,7 +21,6 @@ namespace NileLibraryNS
     {
         private static readonly ILogger logger = LogManager.GetLogger();
         private readonly NileLibrary library;
-        private CancellationTokenSource watcherToken;
 
         public NileInstallController(Game game, NileLibrary library) : base(game)
         {
@@ -27,76 +28,56 @@ namespace NileLibraryNS
             this.library = library;
         }
 
-        public override void Dispose()
-        {
-            watcherToken?.Cancel();
-        }
-
         public override void Install(InstallActionArgs args)
         {
-            StartInstallWatcher();
+            var installProperties = new DownloadProperties { downloadAction = DownloadAction.Install };
+            var installData = new List<DownloadManagerData.Download>
+            {
+                new DownloadManagerData.Download { gameID = Game.GameId, name = Game.Name, downloadProperties = installProperties }
+            };
+            LaunchInstaller(installData);
+            Game.IsInstalling = false;
         }
 
-        public async void StartInstallWatcher()
+        public static void LaunchInstaller(List<DownloadManagerData.Download> installData)
         {
-            watcherToken = new CancellationTokenSource();
-            await Task.Run(async () =>
+            if (!Nile.IsInstalled)
             {
-                while (true)
+                throw new Exception(ResourceProvider.GetString(LOC.NileNotInstalled));
+            }
+            var playniteAPI = API.Instance;
+            Window window = null;
+            if (playniteAPI.ApplicationInfo.Mode == ApplicationMode.Desktop)
+            {
+                window = playniteAPI.Dialogs.CreateWindow(new WindowCreationOptions
                 {
-                    if (watcherToken.IsCancellationRequested)
-                    {
-                        return;
-                    }
-
-                    var isServicesInitialized = Process.GetProcessesByName("Amazon Games Services").Length > 0;
-                    var isUiInitialized = Process.GetProcessesByName("Amazon Games UI").Length == 4;
-                    if (isServicesInitialized && isUiInitialized)
-                    {
-                        // The install URI only works when this service is running and
-                        // all the UI processes have been initialized, otherwise it will
-                        // just start the launcher without any further action
-                        ProcessStarter.StartUrl($"amazon-games://install/{Game.GameId}");
-                        break;
-                    }
-
-                    await Task.Delay(1000);
-                }
-
-                while (true)
+                    ShowMaximizeButton = false,
+                });
+            }
+            else
+            {
+                window = new Window
                 {
-                    if (watcherToken.IsCancellationRequested)
-                    {
-                        return;
-                    }
-                    
-                    Dictionary<string, GameMetadata> installedGames = null;
-                    try
-                    {
-                        installedGames = library.GetInstalledGames();
-                    }
-                    catch (Exception e)
-                    {
-                        logger.Error(e, "Failed to get info about installed Amazon games.");
-                    }
-
-                    if (installedGames != null)
-                    {
-                        if (installedGames.TryGetValue(Game.GameId, out var installData))
-                        {
-                            var installInfo = new GameInstallationData()
-                            {
-                                InstallDirectory = installData.InstallDirectory
-                            };
-
-                            InvokeOnInstalled(new GameInstalledEventArgs(installInfo));
-                            return;
-                        }
-                    }
-
-                    await Task.Delay(10000);
-                }
-            });
+                    Background = System.Windows.Media.Brushes.DodgerBlue
+                };
+            }
+            window.DataContext = installData;
+            window.Content = new NileGameInstallerView();
+            window.Owner = playniteAPI.Dialogs.GetCurrentAppWindow();
+            window.SizeToContent = SizeToContent.WidthAndHeight;
+            window.MinWidth = 600;
+            window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            var title = ResourceProvider.GetString(LOC.Nile3P_PlayniteInstallGame);
+            if (installData[0].downloadProperties.downloadAction == DownloadAction.Repair)
+            {
+                title = ResourceProvider.GetString(LOC.NileRepair);
+            }
+            if (installData.Count == 1)
+            {
+                title = installData[0].name;
+            }
+            window.Title = title;
+            window.ShowDialog();
         }
     }
 

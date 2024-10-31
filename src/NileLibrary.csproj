@@ -34,6 +34,9 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ByteSize, Version=2.1.2.0, Culture=neutral, PublicKeyToken=036f71e5fc483cd1, processorArchitecture=MSIL">
+      <HintPath>packages\ByteSize.2.1.2\lib\net45\ByteSize.dll</HintPath>
+    </Reference>
     <Reference Include="CliWrap, Version=3.6.7.0, Culture=neutral, PublicKeyToken=1c4a4fc2d6886e5a, processorArchitecture=MSIL">
       <HintPath>packages\CliWrap.3.6.7\lib\net462\CliWrap.dll</HintPath>
     </Reference>
@@ -69,6 +72,7 @@
       <HintPath>packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -79,6 +83,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup Label="compileInclude3p">
+    <Compile Include="..\third_party\PlayniteExtensions\PlayniteRepo\source\playnite\WindowsNotifyIconManager.cs">
+      <Link>Shared\Playnite\WindowsNotifyIconManager.cs</Link>
+    </Compile>
     <Compile Include="..\third_party\PlayniteExtensions\PlayniteRepo\source\playnite\native\Fileapi.cs">
       <Link>Shared\Playnite\Native\Fileapi.cs</Link>
     </Compile>
@@ -178,8 +185,34 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CliWrapCommandExtensions.cs" />
+    <Compile Include="Converters\DownloadStatusEnumToStringConverter.cs" />
+    <Compile Include="Converters\LongToDateConverter.cs" />
+    <Compile Include="Converters\NumericalSizeToStringConverter.cs" />
+    <Compile Include="Enums\DownloadAction.cs" />
+    <Compile Include="Enums\DownloadCompleteAction.cs" />
+    <Compile Include="Enums\DownloadStatus.cs" />
+    <Compile Include="Helpers.cs" />
+    <Compile Include="MessageCheckBoxDialog.xaml.cs">
+      <DependentUpon>MessageCheckBoxDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DownloadManagerData.cs" />
+    <Compile Include="Models\GameDownloadInfo.cs" />
+    <Compile Include="Models\GameSettings.cs" />
+    <Compile Include="Models\Installed.cs" />
     <Compile Include="Models\LauncherVersion.cs" />
     <Compile Include="Nile.cs" />
+    <Compile Include="NileDownloadCompleteActionView.xaml.cs">
+      <DependentUpon>NileDownloadCompleteActionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NileDownloadManagerView.xaml.cs">
+      <DependentUpon>NileDownloadManagerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NileDownloadProperties.xaml.cs">
+      <DependentUpon>NileDownloadProperties.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NileGameInstallerView.xaml.cs">
+      <DependentUpon>NileGameInstallerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="NileLibraryClient.cs" />
     <Compile Include="NileLibrary.cs" />
     <Compile Include="NileLibrarySettingsViewModel.cs" />
@@ -191,7 +224,11 @@
     <Compile Include="Models\EntitlementsRequest.cs" />
     <Compile Include="Models\EntitlementsResponse.cs" />
     <Compile Include="Models\GameConfiguration.cs" />
+    <Compile Include="NileMessagesSettings.cs" />
     <Compile Include="NileTroubleshootingInformation.cs" />
+    <Compile Include="NumericInput.xaml.cs">
+      <DependentUpon>NumericInput.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="NileGameController.cs" />
     <Compile Include="AmazonGamesMetadataProvider.cs" />
@@ -222,11 +259,35 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Page Include="MessageCheckBoxDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NileDownloadCompleteActionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NileDownloadManagerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NileDownloadProperties.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NileGameInstallerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="NileLibrarySettingsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NumericInput.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

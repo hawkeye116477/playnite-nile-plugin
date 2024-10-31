@@ -4,6 +4,7 @@ using NileLibraryNS.Models;
 using Playnite.Common;
 using Playnite.SDK;
 using Playnite.SDK.Data;
+using Playnite.SDK.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -105,6 +106,7 @@ namespace NileLibraryNS
         {
             ProcessStarter.StartProcess("cmd", $"/K {ClientExecPath} -h", Path.GetDirectoryName(ClientExecPath));
         }
+
         public static GameConfiguration GetGameConfiguration(string gameDir)
         {
             var configFile = Path.Combine(gameDir, GameConfiguration.ConfigFileName);
@@ -228,7 +230,7 @@ namespace NileLibraryNS
             if (!File.Exists(cacheVersionFile))
             {
                 var httpClient = new HttpClient();
-                httpClient.DefaultRequestHeaders.Add("User-Agent", Nile.UserAgent);
+                httpClient.DefaultRequestHeaders.Add("User-Agent", UserAgent);
                 var response = await httpClient.GetAsync("https://api.github.com/repos/imLinguin/nile/releases/latest");
                 if (response.IsSuccessStatusCode)
                 {
@@ -254,6 +256,129 @@ namespace NileLibraryNS
                 newVersionInfoContent = versionInfoContent;
             }
             return newVersionInfoContent;
+        }
+
+        public static Dictionary<string, string> DefaultEnvironmentVariables
+        {
+            get
+            {
+                var envDict = new Dictionary<string, string>();
+                var heroicNileConfigPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "heroic", "nile_config", "nile");
+                if (ConfigPath == heroicNileConfigPath)
+                {
+                    envDict.Add("NILE_CONFIG_PATH", Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "heroic", "nile_config"));
+                }
+                return envDict;
+            }
+        }
+
+        public static async Task<GameDownloadInfo> GetGameInfo(DownloadManagerData.Download gameData, bool skipRefreshing = false, bool silently = false, bool forceRefreshCache = false)
+        {
+            var gameID = gameData.gameID;
+            var manifest = new GameDownloadInfo();
+            var playniteAPI = API.Instance;
+            var logger = LogManager.GetLogger();
+            var cacheInfoPath = NileLibrary.Instance.GetCachePath("infocache");
+            var cacheInfoFile = Path.Combine(cacheInfoPath, gameID + ".json");
+            if (!Directory.Exists(cacheInfoPath))
+            {
+                Directory.CreateDirectory(cacheInfoPath);
+            }
+            bool correctJson = false;
+            if (File.Exists(cacheInfoFile))
+            {
+                if (!skipRefreshing)
+                {
+                    if (File.GetLastWriteTime(cacheInfoFile) < DateTime.Now.AddDays(-7) || forceRefreshCache)
+                    {
+                        var metadataFile = Path.Combine(ConfigPath, "metadata", gameID + ".json");
+                        if (File.Exists(metadataFile))
+                        {
+                            File.Delete(metadataFile);
+                        }
+                        File.Delete(cacheInfoFile);
+                    }
+                }
+            }
+            if (File.Exists(cacheInfoFile))
+            {
+                var content = FileSystem.ReadFileAsStringSafe(cacheInfoFile);
+                if (!content.IsNullOrWhiteSpace() && Serialization.TryFromJson(content, out manifest))
+                {
+                    if (manifest != null && manifest.download_size != 0)
+                    {
+                        correctJson = true;
+                    }
+                }
+            }
+            if (!correctJson)
+            {
+                BufferedCommandResult syncLibResult = await Cli.Wrap(ClientExecPath)
+                         .WithArguments(new[] { "library", "sync" })
+                         .WithEnvironmentVariables(DefaultEnvironmentVariables)
+                         .AddCommandToLog()
+                         .WithValidation(CommandResultValidation.None)
+                         .ExecuteBufferedAsync();
+                var syncErrorMessage = syncLibResult.StandardError;
+                if (syncLibResult.ExitCode != 0 || syncErrorMessage.Contains("Error"))
+                {
+                    if (syncErrorMessage.Contains("not logged in"))
+                    {
+                        playniteAPI.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteMetadataDownloadError).Format(ResourceProvider.GetString(LOC.Nile3P_PlayniteLoginRequired)), gameData.name);
+                    }
+                    else
+                    {
+                        playniteAPI.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteMetadataDownloadError).Format(ResourceProvider.GetString(LOC.NileCheckLog)), gameData.name);
+                    }
+                    logger.Error(syncErrorMessage);
+                    manifest.errorDisplayed = true;
+                    return manifest;
+                }
+                BufferedCommandResult result = await Cli.Wrap(ClientExecPath)
+                                      .WithArguments(new[] { "install", gameID, "--info", "--json" })
+                                      .WithEnvironmentVariables(DefaultEnvironmentVariables)
+                                      .AddCommandToLog()
+                                      .WithValidation(CommandResultValidation.None)
+                                      .ExecuteBufferedAsync();
+                var errorMessage = result.StandardError;
+                if (result.ExitCode != 0 || errorMessage.Contains("ERROR") || errorMessage.Contains("CRITICAL") || errorMessage.Contains("Error"))
+                {
+                    logger.Error(result.StandardError);
+                    if (!silently)
+                    {
+                        if (result.StandardError.Contains("not logged in"))
+                        {
+                            playniteAPI.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteMetadataDownloadError).Format(ResourceProvider.GetString(LOC.Nile3P_PlayniteLoginRequired)), gameData.name);
+                        }
+                        else
+                        {
+                            playniteAPI.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteMetadataDownloadError).Format(ResourceProvider.GetString(LOC.NileCheckLog)), gameData.name);
+                        }
+                    }
+                    manifest.errorDisplayed = true;
+                }
+                else
+                {
+                    File.WriteAllText(cacheInfoFile, result.StandardOutput);
+                    manifest = Serialization.FromJson<GameDownloadInfo>(result.StandardOutput);
+                }
+            }
+            return manifest;
+        }
+
+        public static List<InstalledGames.Installed> GetInstalledAppList()
+        {
+            var installListPath = Path.Combine(ConfigPath, "installed.json");
+            var list = new List<InstalledGames.Installed>();
+            if (File.Exists(installListPath))
+            {
+                var content = FileSystem.ReadFileAsStringSafe(installListPath);
+                if (!content.IsNullOrWhiteSpace() && Serialization.TryFromJson(content, out List<InstalledGames.Installed> nonEmptyList))
+                {
+                    list = nonEmptyList;
+                }
+            }
+            return list;
         }
     }
 }

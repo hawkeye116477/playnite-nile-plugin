@@ -22,6 +22,8 @@ namespace NileLibraryNS
     {
         private static readonly ILogger logger = LogManager.GetLogger();
         public static NileLibrary Instance { get; set; }
+        public NileDownloadManagerView NileDownloadManagerView { get; set; }
+        private readonly SidebarItem downloadManagerSidebarItem;
 
         public NileLibrary(IPlayniteAPI api) : base(
             "Nile (Amazon)",
@@ -35,6 +37,15 @@ namespace NileLibraryNS
             Instance = this;
             SettingsViewModel = new NileLibrarySettingsViewModel(this, PlayniteApi);
             LoadExtraLocalization();
+            downloadManagerSidebarItem = new SidebarItem
+            {
+                Title = ResourceProvider.GetString(LOC.NilePanel),
+                Icon = Nile.Icon,
+                Type = SiderbarItemType.View,
+                Opened = () => GetNileDownloadManager(),
+                ProgressValue = 0,
+                ProgressMaximum = 100,
+            };
         }
 
         public override ISettings GetSettings(bool firstRunSettings)
@@ -122,39 +133,51 @@ namespace NileLibraryNS
             }
         }
 
+        public static NileDownloadManagerView GetNileDownloadManager()
+        {
+            if (Instance.NileDownloadManagerView == null)
+            {
+                Instance.NileDownloadManagerView = new NileDownloadManagerView();
+            }
+            return Instance.NileDownloadManagerView;
+        }
+
+
         internal Dictionary<string, GameMetadata> GetInstalledGames()
         {
             var games = new Dictionary<string, GameMetadata>();
-            var installSqlPath = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                @"Amazon Games\Data\Games\Sql\GameInstallInfo.sqlite");
-            if (!File.Exists(installSqlPath))
-            {
-                Logger.Warn("Amazon games install game info file not found.");
-                return games;
-            }
+            var appList = Nile.GetInstalledAppList();
 
-            using (var sql = Playnite.SDK.Data.SQLite.OpenDatabase(installSqlPath, Playnite.SDK.Data.SqliteOpenFlags.ReadOnly))
+            foreach (InstalledGames.Installed installedGame in appList)
             {
-                foreach (var program in sql.Query<InstallGameInfo>(@"SELECT * FROM DbSet WHERE Installed = 1;"))
+                var app = installedGame;
+                var installLocation = app.path;
+                if (installLocation.IsNullOrEmpty())
                 {
-                    if (!Directory.Exists(program.InstallDirectory))
-                    {
-                        continue;
-                    }
-
-                    var game = new GameMetadata()
-                    {
-                        InstallDirectory = Paths.FixSeparators(program.InstallDirectory),
-                        GameId = program.Id,
-                        Source = new MetadataNameProperty("Amazon"),
-                        Name = program.ProductTitle.RemoveTrademarks(),
-                        IsInstalled = true,
-                        Platforms = new HashSet<MetadataProperty> { new MetadataSpecProperty("pc_windows") }
-                    };
-
-                    games.Add(game.GameId, game);
+                    continue;
                 }
+
+                installLocation = Paths.FixSeparators(installLocation);
+                if (!Directory.Exists(installLocation))
+                {
+                    logger.Error($"Amazon game {app.id} installation directory {installLocation} not detected.");
+                    continue;
+                }
+                var gameName = new DirectoryInfo(installLocation).Name;
+
+                var game = new GameMetadata()
+                {
+                    Source = new MetadataNameProperty("Amazon"),
+                    Name = gameName,
+                    GameId = app.id,
+                    Version = app.version,
+                    InstallSize = (ulong?)app.size,
+                    InstallDirectory = installLocation,
+                    IsInstalled = true,
+                    Platforms = new HashSet<MetadataProperty> { new MetadataSpecProperty("pc_windows") }
+                };
+
+                games.Add(game.GameId, game);
             }
 
             return games;
@@ -328,6 +351,16 @@ namespace NileLibraryNS
                 Directory.CreateDirectory(cacheDir);
             }
             return cacheDir;
+        }
+
+        public static SidebarItem GetPanel()
+        {
+            return Instance.downloadManagerSidebarItem;
+        }
+
+        public override IEnumerable<SidebarItem> GetSidebarItems()
+        {
+            yield return downloadManagerSidebarItem;
         }
     }
 }

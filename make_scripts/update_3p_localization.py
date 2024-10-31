@@ -110,9 +110,9 @@ for filename in os.listdir(pj(main_path, "..", "PlayniteExtensions", "PlayniteRe
                 xml_root.append(new_key)
 
     if filename not in ["LocSource.xaml", "LocalizationKeys.cs", "locstatus.json"]:
-        gog_loc = ET.parse(pj(main_path, "..", "PlayniteExtensions",
+        amazon_loc = ET.parse(pj(main_path, "..", "PlayniteExtensions",
                             "source", "Libraries", "AmazonGamesLibrary", "Localization", filename))
-        for child in gog_loc.getroot():
+        for child in amazon_loc.getroot():
             key = child.get(ET.QName(xmlns_x, "Key"))
             if key in amazon_loc_keys:
                 key_text = child.text

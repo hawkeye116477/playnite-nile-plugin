@@ -4,14 +4,36 @@
   DO NOT MODIFY, CUZ IT MIGHT BE OVERWRITTEN DURING NEXT RUN!
 -->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <sys:String x:Key="LOCNile3P_PlayniteFilterActiveLabel">Filter Active</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteFilters">Filters</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteGameInstallError">Cannot install game: {0}</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteInstallSizeLabel">Install Size</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteAddedLabel">Added</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOKLabel">OK</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSaveLabel">Save</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteCancelLabel">Cancel</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteYesLabel">Yes</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteNoLabel">No</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteDownloadingLabel">Downloading…</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteLoadingLabel">Loading…</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteMenuRestartSystem">Restart System</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteMenuShutdownSystem">Turn Off System</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteMenuSuspendSystem">Suspend System</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteMenuHibernateSystem">Hibernate System</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsLabel">Settings</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsGeneralLabel">General</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsAdvancedLabel">Advanced</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteLoginRequired">Authentification required</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">Executable</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Name</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Installation Folder</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Failed to download metadata: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">Update Available</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">Download and Install Update</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">Check for Updates</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdateCheckFailMessage">Failed to check for new version.</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteInstallGame">Install</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">Don't Show Again</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Select file…</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Select folder…</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOpen">Open</sys:String>
