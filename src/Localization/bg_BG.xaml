@@ -65,6 +65,11 @@
   <sys:String x:Key="LOCNileNewVersionAvailable"></sys:String>
   <sys:String x:Key="LOCNileNoUpdatesAvailable"></sys:String>
   <sys:String x:Key="LOCNileViewChangelog"></sys:String>
+  <sys:String x:Key="LOCNileMove"></sys:String>
+  <sys:String x:Key="LOCNileMoveConfirm"></sys:String>
+  <sys:String x:Key="LOCNileMovingGame"></sys:String>
+  <sys:String x:Key="LOCNileMoveGameSuccess"></sys:String>
+  <sys:String x:Key="LOCNileMoveGameError"></sys:String>
   <sys:String x:Key="LOCNileRemoveGameLaunchSettings"></sys:String>
   <sys:String x:Key="LOCNileSignedInAs"></sys:String>
   <sys:String x:Key="LOCNileSignOutConfirm"></sys:String>

@@ -1,8 +1,10 @@
-﻿using NileLibraryNS.Enums;
+﻿using CliWrap;
+using NileLibraryNS.Enums;
 using NileLibraryNS.Models;
 using NileLibraryNS.Services;
 using Playnite.Common;
 using Playnite.SDK;
+using Playnite.SDK.Data;
 using Playnite.SDK.Models;
 using Playnite.SDK.Plugins;
 using System;
@@ -532,81 +534,84 @@ namespace NileLibraryNS
                     }
                     if (game.IsInstalled)
                     {
-                        //yield return new GameMenuItem
-                        //{
-                        //    Description = ResourceProvider.GetString(LOC.NileMove),
-                        //    Icon = "MoveIcon",
-                        //    Action = (args) =>
-                        //    {
-                        //        if (!NileLauncher.IsInstalled)
-                        //        {
-                        //            throw new Exception(ResourceProvider.GetString(LOC.NileLauncherNotInstalled));
-                        //        }
+                        yield return new GameMenuItem
+                        {
+                            Description = ResourceProvider.GetString(LOC.NileMove),
+                            Icon = "MoveIcon",
+                            Action = (args) =>
+                            {
+                                if (!Nile.IsInstalled)
+                                {
+                                    throw new Exception(ResourceProvider.GetString(LOC.NileNotInstalled));
+                                }
 
-                        //        var newPath = PlayniteApi.Dialogs.SelectFolder();
-                        //        if (newPath != "")
-                        //        {
-                        //            var oldPath = game.InstallDirectory;
-                        //            if (Directory.Exists(oldPath) && Directory.Exists(newPath))
-                        //            {
-                        //                string sepChar = Path.DirectorySeparatorChar.ToString();
-                        //                string altChar = Path.AltDirectorySeparatorChar.ToString();
-                        //                if (!oldPath.EndsWith(sepChar) && !oldPath.EndsWith(altChar))
-                        //                {
-                        //                    oldPath += sepChar;
-                        //                }
-                        //                var folderName = Path.GetFileName(Path.GetDirectoryName(oldPath));
-                        //                newPath = Path.Combine(newPath, folderName);
-                        //                var moveConfirm = PlayniteApi.Dialogs.ShowMessage(ResourceProvider.GetString(LOC.NileMoveConfirm).Format(game.Name, newPath), ResourceProvider.GetString(LOC.NileMove), MessageBoxButton.YesNo, MessageBoxImage.Question);
-                        //                if (moveConfirm == MessageBoxResult.Yes)
-                        //                {
-                        //                    GlobalProgressOptions globalProgressOptions = new GlobalProgressOptions(ResourceProvider.GetString(LOC.NileMovingGame).Format(game.Name, newPath), false);
-                        //                    PlayniteApi.Dialogs.ActivateGlobalProgress((a) =>
-                        //                    {
-                        //                        a.ProgressMaxValue = 3;
-                        //                        a.CurrentProgressValue = 0;
-                        //                        _ = (Application.Current.Dispatcher?.BeginInvoke((Action)async delegate
-                        //                        {
-                        //                            try
-                        //                            {
-                        //                                bool canContinue = StopDownloadManager(true);
-                        //                                if (!canContinue)
-                        //                                {
-                        //                                    return;
-                        //                                }
-                        //                                await NileDownloadManager.WaitUntilNileCloses();
-                        //                                Directory.Move(oldPath, newPath);
-                        //                                a.CurrentProgressValue = 1;
-                        //                                var rewriteResult = await Cli.Wrap(NileLauncher.ClientExecPath)
-                        //                                                             .WithArguments(new[] { "move", game.GameId, newPath, "--skip-move" })
-                        //                                                             .WithEnvironmentVariables(NileLauncher.DefaultEnvironmentVariables)
-                        //                                                             .AddCommandToLog()
-                        //                                                             .ExecuteBufferedAsync();
-                        //                                var errorMessage = rewriteResult.StandardError;
-                        //                                if (rewriteResult.ExitCode != 0 || errorMessage.Contains("ERROR") || errorMessage.Contains("CRITICAL") || errorMessage.Contains("Error"))
-                        //                                {
-                        //                                    logger.Error($"[Nile] {errorMessage}");
-                        //                                    logger.Error($"[Nile] exit code: {rewriteResult.ExitCode}");
-                        //                                }
-                        //                                a.CurrentProgressValue = 2;
-                        //                                game.InstallDirectory = newPath;
-                        //                                PlayniteApi.Database.Games.Update(game);
-                        //                                a.CurrentProgressValue = 3;
-                        //                                PlayniteApi.Dialogs.ShowMessage(ResourceProvider.GetString(LOC.NileMoveGameSuccess).Format(game.Name, newPath));
-                        //                            }
-                        //                            catch (Exception e)
-                        //                            {
-                        //                                a.CurrentProgressValue = 3;
-                        //                                PlayniteApi.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.NileMoveGameError).Format(game.Name, newPath));
-                        //                                logger.Error(e.Message);
-                        //                            }
-                        //                        }));
-                        //                    }, globalProgressOptions);
-                        //                }
-                        //            }
-                        //        }
-                        //    }
-                        //};
+                                var newPath = PlayniteApi.Dialogs.SelectFolder();
+                                if (newPath != "")
+                                {
+                                    var oldPath = game.InstallDirectory;
+                                    if (Directory.Exists(oldPath) && Directory.Exists(newPath))
+                                    {
+                                        string sepChar = Path.DirectorySeparatorChar.ToString();
+                                        string altChar = Path.AltDirectorySeparatorChar.ToString();
+                                        if (!oldPath.EndsWith(sepChar) && !oldPath.EndsWith(altChar))
+                                        {
+                                            oldPath += sepChar;
+                                        }
+                                        var folderName = Path.GetFileName(Path.GetDirectoryName(oldPath));
+                                        newPath = Path.Combine(newPath, folderName);
+                                        var moveConfirm = PlayniteApi.Dialogs.ShowMessage(ResourceProvider.GetString(LOC.NileMoveConfirm).Format(game.Name, newPath), ResourceProvider.GetString(LOC.NileMove), MessageBoxButton.YesNo, MessageBoxImage.Question);
+                                        if (moveConfirm == MessageBoxResult.Yes)
+                                        {
+                                            GlobalProgressOptions globalProgressOptions = new GlobalProgressOptions(ResourceProvider.GetString(LOC.NileMovingGame).Format(game.Name, newPath), false);
+                                            PlayniteApi.Dialogs.ActivateGlobalProgress((a) =>
+                                            {
+                                                a.ProgressMaxValue = 3;
+                                                a.CurrentProgressValue = 0;
+                                                _ = (Application.Current.Dispatcher?.BeginInvoke((Action)delegate
+                                                {
+                                                    try
+                                                    {
+                                                        bool canContinue = StopDownloadManager(true);
+                                                        if (!canContinue)
+                                                        {
+                                                            return;
+                                                        }
+                                                        Directory.Move(oldPath, newPath);
+                                                        a.CurrentProgressValue = 1;
+                                                        var installListPath = Path.Combine(Nile.ConfigPath, "installed.json");
+                                                        if (File.Exists(installListPath))
+                                                        {
+                                                            var content = FileSystem.ReadFileAsStringSafe(installListPath);
+                                                            if (!content.IsNullOrWhiteSpace())
+                                                            {
+                                                                var installListJson = Serialization.FromJson<List<InstalledGames.Installed>>(content);
+                                                                var wantedItem = installListJson.FirstOrDefault(g => g.id == game.GameId);
+                                                                if (wantedItem != null)
+                                                                {
+                                                                    wantedItem.path = newPath;
+                                                                }
+                                                                var strConf = Serialization.ToJson(installListJson, true);
+                                                                File.WriteAllText(installListPath, strConf);
+                                                            }
+                                                        }
+                                                        game.InstallDirectory = newPath;
+                                                        PlayniteApi.Database.Games.Update(game);
+                                                        a.CurrentProgressValue = 3;
+                                                        PlayniteApi.Dialogs.ShowMessage(ResourceProvider.GetString(LOC.NileMoveGameSuccess).Format(game.Name, newPath));
+                                                    }
+                                                    catch (Exception e)
+                                                    {
+                                                        a.CurrentProgressValue = 3;
+                                                        PlayniteApi.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.NileMoveGameError).Format(game.Name, newPath));
+                                                        logger.Error(e.Message);
+                                                    }
+                                                }));
+                                            }, globalProgressOptions);
+                                        }
+                                    }
+                                }
+                            }
+                        };
                     }
                 }
 

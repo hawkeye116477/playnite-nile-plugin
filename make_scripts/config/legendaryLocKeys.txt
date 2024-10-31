@@ -72,3 +72,8 @@ LOCLegendaryRemoveGameLaunchSettings
 LOCLegendaryUninstallSuccess
 LOCLegendaryUninstallSuccessOther
 LOCLegendaryUninstallErrorOther
+LOCLegendaryMove
+LOCLegendaryMoveConfirm
+LOCLegendaryMovingGame
+LOCLegendaryMoveGameSuccess
+LOCLegendaryMoveGameError

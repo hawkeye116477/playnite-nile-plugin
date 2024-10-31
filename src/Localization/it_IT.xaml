@@ -65,6 +65,11 @@
   <sys:String x:Key="LOCNileNewVersionAvailable">È disponibile una nuova versione: {0} {1}.</sys:String>
   <sys:String x:Key="LOCNileNoUpdatesAvailable">Nessun aggiornamento disponibile.</sys:String>
   <sys:String x:Key="LOCNileViewChangelog">Visualizza changelog</sys:String>
+  <sys:String x:Key="LOCNileMove">Sposta</sys:String>
+  <sys:String x:Key="LOCNileMoveConfirm">Sei sicuro di voler spostare {0} in "{1}"? Potrebbe richiedere molto tempo.</sys:String>
+  <sys:String x:Key="LOCNileMovingGame">Spostamento {0} in "{1}"...</sys:String>
+  <sys:String x:Key="LOCNileMoveGameSuccess">{0} è stato spostato con successo in "{1}".</sys:String>
+  <sys:String x:Key="LOCNileMoveGameError">Si è verificato un errore durante lo spostamento di {0} in "{1}".</sys:String>
   <sys:String x:Key="LOCNileRemoveGameLaunchSettings">Rimuovi impostazioni di avvio</sys:String>
   <sys:String x:Key="LOCNileSignedInAs">Accesso effettuato come {0}</sys:String>
   <sys:String x:Key="LOCNileSignOutConfirm">Sei sicuro di volerti disconnettere?</sys:String>

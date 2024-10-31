@@ -290,6 +290,26 @@ namespace System
         /// </summary>
         public const string NileViewChangelog = "LOCNileViewChangelog";
         /// <summary>
+        /// Move
+        /// </summary>
+        public const string NileMove = "LOCNileMove";
+        /// <summary>
+        /// Are you sure you want to move {0} to "{1}"? This may take a long time.
+        /// </summary>
+        public const string NileMoveConfirm = "LOCNileMoveConfirm";
+        /// <summary>
+        /// Moving {0} to "{1}"...
+        /// </summary>
+        public const string NileMovingGame = "LOCNileMovingGame";
+        /// <summary>
+        /// {0} has been successfully moved to "{1}".
+        /// </summary>
+        public const string NileMoveGameSuccess = "LOCNileMoveGameSuccess";
+        /// <summary>
+        /// An error occurred while moving {0} to "{1}".
+        /// </summary>
+        public const string NileMoveGameError = "LOCNileMoveGameError";
+        /// <summary>
         /// Remove launch settings
         /// </summary>
         public const string NileRemoveGameLaunchSettings = "LOCNileRemoveGameLaunchSettings";

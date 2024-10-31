@@ -65,6 +65,11 @@
   <sys:String x:Key="LOCNileNewVersionAvailable">Yeni bir sürüm mevcut: {0} {1}.</sys:String>
   <sys:String x:Key="LOCNileNoUpdatesAvailable">Güncelleme yok.</sys:String>
   <sys:String x:Key="LOCNileViewChangelog">Değişiklikleri görüntüle</sys:String>
+  <sys:String x:Key="LOCNileMove">Taşı</sys:String>
+  <sys:String x:Key="LOCNileMoveConfirm">{0} öğesini "{1}" konumuna taşımak istediğinizden emin misiniz? Bu uzun zaman alabilir.</sys:String>
+  <sys:String x:Key="LOCNileMovingGame">{0}, "{1}" öğesine taşınıyor...</sys:String>
+  <sys:String x:Key="LOCNileMoveGameSuccess">{0} başarıyla "{1}" konumuna taşındı.</sys:String>
+  <sys:String x:Key="LOCNileMoveGameError">{0}, "{1}" konumuna taşınırken bir hata oluştu.</sys:String>
   <sys:String x:Key="LOCNileRemoveGameLaunchSettings">Başlatma ayarlarını kaldır</sys:String>
   <sys:String x:Key="LOCNileSignedInAs">{0} olarak oturum açıldı</sys:String>
   <sys:String x:Key="LOCNileSignOutConfirm">Oturumu kapatmak istiyor musunuz?</sys:String>
