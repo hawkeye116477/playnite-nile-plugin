@@ -1,10 +1,17 @@
 <?xml version='1.0' encoding='utf-8'?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <sys:String x:Key="LOCNileLauncherCustomPath">Percorso del launcher</sys:String>
   <sys:String x:Key="LOCNileGamesInstallationPath">Percorso giochi</sys:String>
   <sys:String x:Key="LOCNileDownloadSize">Dimensioni download:</sys:String>
   <sys:String x:Key="LOCNileInstallSize">Dimensione installazione:</sys:String>
   <sys:String x:Key="LOCNileUninstallGameConfirm">Confermi di voler disinstallare {0}?</sys:String>
+  <sys:String x:Key="LOCNileDownloadSettings">Impostazioni download</sys:String>
+  <sys:String x:Key="LOCNileDisplayDownloadTaskFinishedNotifications">Visualizza le notifiche sul desktop per le attività terminate</sys:String>
+  <sys:String x:Key="LOCNileDisplayDownloadSpeedInBits">Visualizza la velocità di download in bit al secondo</sys:String>
+  <sys:String x:Key="LOCNileUnattendedInstall">Abilita la modalità d'installazione automatica</sys:String>
+  <sys:String x:Key="LOCNileUnattendedInstallToolTip">Non sarà necessario scegliere nulla nella finestra d'installazione e l'installazione inizierà automaticamente dopo aver scaricato le informazioni richieste.</sys:String>
   <sys:String x:Key="LOCNileMaxWorkers">Numero massimo di processi di lavoro</sys:String>
+  <sys:String x:Key="LOCNileAfterDownloadComplete"></sys:String>
   <sys:String x:Key="LOCNileSystemShutdownCountdown"></sys:String>
   <sys:String x:Key="LOCNileSystemRestartCountdown"></sys:String>
   <sys:String x:Key="LOCNileSystemHibernateCountdown"></sys:String>
@@ -51,6 +58,13 @@
   <sys:String x:Key="LOCNileSelectAllEntries">Seleziona tutto</sys:String>
   <sys:String x:Key="LOCNileRepair">Ripara</sys:String>
   <sys:String x:Key="LOCNileAdvancedOptions">Opzioni avanzate</sys:String>
+  <sys:String x:Key="LOCNileCache">Cache</sys:String>
+  <sys:String x:Key="LOCNileClearCache">Svuota cache</sys:String>
+  <sys:String x:Key="LOCNileAutoClearCache">Cancella cache automaticamente</sys:String>
+  <sys:String x:Key="LOCNileOnceAMonth">Una volta al mese</sys:String>
+  <sys:String x:Key="LOCNileOnceEvery3Months">Una volta ogni 3 mesi</sys:String>
+  <sys:String x:Key="LOCNileOnceEvery6Months">Una volta ogni 6 mesi</sys:String>
+  <sys:String x:Key="LOCNileClearCacheConfirm">Sei sicuro di voler cancellare la cache?</sys:String>
   <sys:String x:Key="LOCNileCheckLog">Controllare i log per ulteriori informazioni.</sys:String>
   <sys:String x:Key="LOCNileEditSelectedDownloadProperties">Modifica proprietà</sys:String>
   <sys:String x:Key="LOCNileOpenDownloadDirectory">Apri cartella download</sys:String>

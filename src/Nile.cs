@@ -250,6 +250,16 @@ namespace NileLibraryNS
             return newVersionInfoContent;
         }
 
+        internal static void ClearCache()
+        {
+            var dataDir = NileLibrary.Instance.GetPluginUserDataPath();
+            var cacheDir = Path.Combine(dataDir, "cache");
+            if (Directory.Exists(cacheDir))
+            {
+                Directory.Delete(cacheDir, true);
+            }
+        }
+
         public static Dictionary<string, string> DefaultEnvironmentVariables
         {
             get

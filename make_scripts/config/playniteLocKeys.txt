@@ -35,3 +35,8 @@ LOCUpdaterInstallUpdate
 LOCUninstallGame
 LOCUninstalling
 LOCGameUninstallError
+LOCSettingsClearCacheTitle
+LOCDoNothing
+LOCOptionOnceADay
+LOCOptionOnceAWeek
+LOCSettingsPlaytimeImportModeNever

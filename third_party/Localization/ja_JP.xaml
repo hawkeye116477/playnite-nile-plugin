@@ -24,12 +24,15 @@
   <sys:String x:Key="LOCNile3P_PlayniteSettingsLabel">設定</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsGeneralLabel">一般設定</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsAdvancedLabel">詳細設定</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsClearCacheTitle">キャッシュをクリアしますか？</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsPlaytimeImportModeNever">常に無効</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteLoginRequired">認証が必要です</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">実行ファイル</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">タイトル</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">インストールフォルダ</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">メタデータをダウンロードできませんでした: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstalling">アンインストール中</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteDoNothing">何もしない</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">更新が利用可能です</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">更新をダウンロードしてインストール</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">更新を確認</sys:String>
@@ -39,6 +42,8 @@
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">次回から表示しない</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">ファイルを選択</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">フォルダを選択…</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceADay">1日に1回</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceAWeek">週に1回</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOpen">開く</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportInstalledLabel">インストール済みのゲームをインポート</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportUninstalledLabel">インストールされていないゲームをインポート</sys:String>

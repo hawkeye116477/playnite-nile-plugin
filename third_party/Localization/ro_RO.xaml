@@ -24,12 +24,15 @@
   <sys:String x:Key="LOCNile3P_PlayniteSettingsLabel">Setări</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsGeneralLabel">General</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsAdvancedLabel">Avansat</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsClearCacheTitle">Curățați Cache-ul?</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsPlaytimeImportModeNever">Niciodată</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteLoginRequired">Autentificare necesară</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">Executabil</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Nume</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Directorul de instalare</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Nu s-a putut descărca metadata: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Se dezinstalează</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteDoNothing">Repaus</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">Versiune nouă disponibilă</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">Descarcă şi actualizează programul</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">Verificați dacă sunt disponibile Actualizări</sys:String>
@@ -39,6 +42,8 @@
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">Nu mai afișa</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip"></sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceADay"></sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceAWeek"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOpen"></sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportInstalledLabel">Importați jocurile instalate</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportUninstalledLabel">Importanți jocurile neinstalate</sys:String>

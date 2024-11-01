@@ -24,12 +24,15 @@
   <sys:String x:Key="LOCNile3P_PlayniteSettingsLabel">Nastavení</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsGeneralLabel">Obecné</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsAdvancedLabel">Pokročilé</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsClearCacheTitle">Vyčistit Mezipaměť?</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsPlaytimeImportModeNever">Nikdy</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteLoginRequired">Vyžaduje se přihlášení</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">Spustitelný soubor</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Jméno</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Instalační Adresář</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Selhalo stahování metadat: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Probíhá odinstalace</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteDoNothing">Nedělat nic</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">Dostupná Aktualizace</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">Stáhnout a Nainstalovat Aktualizaci</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">Zkontrolovat Aktualizace</sys:String>
@@ -39,6 +42,8 @@
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">Příště Nezobrazovat</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Vybrat soubor...</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Vybrat adresář...</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceADay">Jednou denně</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceAWeek">Jednou týdně</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOpen">Otevřít</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportInstalledLabel">Importovat nainstalované hry</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportUninstalledLabel">Importovat neinstalované hry</sys:String>

@@ -1,10 +1,17 @@
 <?xml version='1.0' encoding='utf-8'?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <sys:String x:Key="LOCNileLauncherCustomPath">Başlatıcı Yolu</sys:String>
   <sys:String x:Key="LOCNileGamesInstallationPath">Oyunların Kurulum Yolu</sys:String>
   <sys:String x:Key="LOCNileDownloadSize">İndirme Boyutu:</sys:String>
   <sys:String x:Key="LOCNileInstallSize">Kurulum Boyutu:</sys:String>
   <sys:String x:Key="LOCNileUninstallGameConfirm">{0} kaldırılacak, bundan emin misiniz?</sys:String>
+  <sys:String x:Key="LOCNileDownloadSettings">İndirme Ayarları</sys:String>
+  <sys:String x:Key="LOCNileDisplayDownloadTaskFinishedNotifications">Tamamlanan görevlerle ilgili masaüstü bildirimlerini görüntüle</sys:String>
+  <sys:String x:Key="LOCNileDisplayDownloadSpeedInBits">İndirme hızını saniyedeki bit cinsinden göster</sys:String>
+  <sys:String x:Key="LOCNileUnattendedInstall">Katılımsız kurulum modunu etkinleştir</sys:String>
+  <sys:String x:Key="LOCNileUnattendedInstallToolTip">Kurulum penceresinde herhangi bir şey seçmeniz gerekiyor ve gerekli bilgiler indirildikten sonra kurulum otomatik olarak başlayacaktır.</sys:String>
   <sys:String x:Key="LOCNileMaxWorkers">En fazla çalışan işlem sayısı</sys:String>
+  <sys:String x:Key="LOCNileAfterDownloadComplete">İndirme tamamlandıktan sonraki eylem</sys:String>
   <sys:String x:Key="LOCNileSystemShutdownCountdown">Sistem yakında kapatılacak...</sys:String>
   <sys:String x:Key="LOCNileSystemRestartCountdown">Sistem yakında yeniden başlatılacak...</sys:String>
   <sys:String x:Key="LOCNileSystemHibernateCountdown">Sistem yakında hazırda bekletme moduna geçecek...</sys:String>
@@ -51,6 +58,13 @@
   <sys:String x:Key="LOCNileSelectAllEntries">Tüm girişleri seç</sys:String>
   <sys:String x:Key="LOCNileRepair">Onar</sys:String>
   <sys:String x:Key="LOCNileAdvancedOptions">Gelişmiş Seçenekler</sys:String>
+  <sys:String x:Key="LOCNileCache">Önbellek</sys:String>
+  <sys:String x:Key="LOCNileClearCache">Önbelleği temizle</sys:String>
+  <sys:String x:Key="LOCNileAutoClearCache">Önbelleği otomatik temizle</sys:String>
+  <sys:String x:Key="LOCNileOnceAMonth">Ayda bir kez</sys:String>
+  <sys:String x:Key="LOCNileOnceEvery3Months">3 ayda bir kez</sys:String>
+  <sys:String x:Key="LOCNileOnceEvery6Months">6 ayda bir kez</sys:String>
+  <sys:String x:Key="LOCNileClearCacheConfirm">Önbelleği temizlemek istediğinizden emin misiniz?</sys:String>
   <sys:String x:Key="LOCNileCheckLog">Daha fazla bilgi için günlük dosyalarını kontrol edin.</sys:String>
   <sys:String x:Key="LOCNileEditSelectedDownloadProperties">Girdi özelliklerini düzenle</sys:String>
   <sys:String x:Key="LOCNileOpenDownloadDirectory">İndirilenler dizinini aç</sys:String>

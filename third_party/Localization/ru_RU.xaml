@@ -24,12 +24,15 @@
   <sys:String x:Key="LOCNile3P_PlayniteSettingsLabel">Настройки</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsGeneralLabel">Основные</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsAdvancedLabel">Расширенные</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsClearCacheTitle">Очистить кэш?</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsPlaytimeImportModeNever">Никогда</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteLoginRequired">Требуется авторизация</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">Исполняемый файл</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Название игры</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Путь установки</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Не удалось скачать метаданные: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Удаление</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteDoNothing">Ничего не делать</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">Вышла новая версия</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">Скачать и обновить</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">Проверить наличие обновлений</sys:String>
@@ -39,6 +42,8 @@
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">Больше не показывать</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Выбрать файл…</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Выбрать папку…</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceADay">Раз в день</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceAWeek">Раз в неделю</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOpen">Открыть</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportInstalledLabel">Импортировать установленные игры</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportUninstalledLabel">Импортировать неустановленные игры</sys:String>

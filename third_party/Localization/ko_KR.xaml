@@ -24,12 +24,15 @@
   <sys:String x:Key="LOCNile3P_PlayniteSettingsLabel">설정</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsGeneralLabel">일반</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsAdvancedLabel">고급 설정</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsClearCacheTitle">캐시를 삭제하시겠습니까?</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsPlaytimeImportModeNever">가져오지 않음</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteLoginRequired">인증이 필요함</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">실행파일</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">이름</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">설치 경로</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">메타 데이터 다운로드 실패 : {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstalling">설치 제거 중</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteDoNothing">아무것도 하지않음</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">업데이트 사용 가능</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">업데이트 다운로드 및 설치</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">업데이트 확인</sys:String>
@@ -39,6 +42,8 @@
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">다시 표시 안함</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">파일 선택...</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">폴더 선택...</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceADay">하루에 한 번</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceAWeek">일주일에 한 번</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOpen">열기</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportInstalledLabel">설치된 게임 가져오기</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportUninstalledLabel">설치되지 않은 게임 가져오기</sys:String>

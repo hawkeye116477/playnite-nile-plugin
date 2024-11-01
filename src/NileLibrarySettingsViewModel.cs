@@ -25,6 +25,7 @@ namespace NileLibraryNS
         public DownloadCompleteAction DoActionAfterDownloadComplete { get; set; } = DownloadCompleteAction.Nothing;
         public bool DisplayDownloadSpeedInBits { get; set; } = false;
         public bool DisplayDownloadTaskFinishedNotifications { get; set; } = true;
+        public ClearCacheTime AutoClearCache { get; set; } = ClearCacheTime.Never;
     }
 
     public class NileLibrarySettingsViewModel : PluginSettingsViewModel<NileLibrarySettings, NileLibrary>

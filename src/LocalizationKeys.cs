@@ -30,6 +30,10 @@ namespace System
         /// </summary>
         public const string NileInstanceNotice = "LOCNileInstanceNotice";
         /// <summary>
+        /// Launcher Path
+        /// </summary>
+        public const string NileLauncherCustomPath = "LOCNileLauncherCustomPath";
+        /// <summary>
         /// Games Installation Path
         /// </summary>
         public const string NileGamesInstallationPath = "LOCNileGamesInstallationPath";
@@ -46,9 +50,33 @@ namespace System
         /// </summary>
         public const string NileUninstallGameConfirm = "LOCNileUninstallGameConfirm";
         /// <summary>
+        /// Download Settings
+        /// </summary>
+        public const string NileDownloadSettings = "LOCNileDownloadSettings";
+        /// <summary>
+        /// Display desktop notifications about finished tasks
+        /// </summary>
+        public const string NileDisplayDownloadTaskFinishedNotifications = "LOCNileDisplayDownloadTaskFinishedNotifications";
+        /// <summary>
+        /// Display download speed in bits per second
+        /// </summary>
+        public const string NileDisplayDownloadSpeedInBits = "LOCNileDisplayDownloadSpeedInBits";
+        /// <summary>
+        /// Enable unattended installation mode
+        /// </summary>
+        public const string NileUnattendedInstall = "LOCNileUnattendedInstall";
+        /// <summary>
+        /// You won't have to choose anything in the installer window and the installation will start automatically after downloading the required information.
+        /// </summary>
+        public const string NileUnattendedInstallToolTip = "LOCNileUnattendedInstallToolTip";
+        /// <summary>
         /// Maximum number of worker processes
         /// </summary>
         public const string NileMaxWorkers = "LOCNileMaxWorkers";
+        /// <summary>
+        /// Action after download is complete
+        /// </summary>
+        public const string NileAfterDownloadComplete = "LOCNileAfterDownloadComplete";
         /// <summary>
         /// System will be turned off soon...
         /// </summary>
@@ -233,6 +261,34 @@ namespace System
         /// Advanced Options
         /// </summary>
         public const string NileAdvancedOptions = "LOCNileAdvancedOptions";
+        /// <summary>
+        /// Cache
+        /// </summary>
+        public const string NileCache = "LOCNileCache";
+        /// <summary>
+        /// Clear cache
+        /// </summary>
+        public const string NileClearCache = "LOCNileClearCache";
+        /// <summary>
+        /// Automatically clear cache
+        /// </summary>
+        public const string NileAutoClearCache = "LOCNileAutoClearCache";
+        /// <summary>
+        /// Once a month
+        /// </summary>
+        public const string NileOnceAMonth = "LOCNileOnceAMonth";
+        /// <summary>
+        /// Once every 3 months
+        /// </summary>
+        public const string NileOnceEvery3Months = "LOCNileOnceEvery3Months";
+        /// <summary>
+        /// Once every 6 months
+        /// </summary>
+        public const string NileOnceEvery6Months = "LOCNileOnceEvery6Months";
+        /// <summary>
+        /// Are you sure you want to clear cache?
+        /// </summary>
+        public const string NileClearCacheConfirm = "LOCNileClearCacheConfirm";
         /// <summary>
         /// Check the log files for more information.
         /// </summary>
@@ -442,6 +498,14 @@ namespace System
         /// </summary>
         public const string Nile3P_PlayniteSettingsAdvancedLabel = "LOCNile3P_PlayniteSettingsAdvancedLabel";
         /// <summary>
+        /// Clear Cache?
+        /// </summary>
+        public const string Nile3P_PlayniteSettingsClearCacheTitle = "LOCNile3P_PlayniteSettingsClearCacheTitle";
+        /// <summary>
+        /// Never
+        /// </summary>
+        public const string Nile3P_PlayniteSettingsPlaytimeImportModeNever = "LOCNile3P_PlayniteSettingsPlaytimeImportModeNever";
+        /// <summary>
         /// Authentification required
         /// </summary>
         public const string Nile3P_PlayniteLoginRequired = "LOCNile3P_PlayniteLoginRequired";
@@ -465,6 +529,10 @@ namespace System
         /// Uninstalling
         /// </summary>
         public const string Nile3P_PlayniteUninstalling = "LOCNile3P_PlayniteUninstalling";
+        /// <summary>
+        /// Do nothing
+        /// </summary>
+        public const string Nile3P_PlayniteDoNothing = "LOCNile3P_PlayniteDoNothing";
         /// <summary>
         /// Update Available
         /// </summary>
@@ -501,6 +569,14 @@ namespace System
         /// Select folder…
         /// </summary>
         public const string Nile3P_PlayniteSelectDirectoryTooltip = "LOCNile3P_PlayniteSelectDirectoryTooltip";
+        /// <summary>
+        /// Once a day
+        /// </summary>
+        public const string Nile3P_PlayniteOptionOnceADay = "LOCNile3P_PlayniteOptionOnceADay";
+        /// <summary>
+        /// Once a week
+        /// </summary>
+        public const string Nile3P_PlayniteOptionOnceAWeek = "LOCNile3P_PlayniteOptionOnceAWeek";
         /// <summary>
         /// Open
         /// </summary>

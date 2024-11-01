@@ -24,12 +24,15 @@
   <sys:String x:Key="LOCNile3P_PlayniteSettingsLabel">Configuración</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsGeneralLabel">General</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsAdvancedLabel">Avanzado</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsClearCacheTitle">¿Limpiar cache?</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsPlaytimeImportModeNever">Nunca</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteLoginRequired">Autenticación requerida</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">Ejecutable</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Nombre</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Directorio de instalación</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Error al descargar los metadatos: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Desinstalando</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteDoNothing">No hacer nada</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">Actualización Disponible</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">Instalar Actualización</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">Comprobar actualizaciones</sys:String>
@@ -39,6 +42,8 @@
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">No mostrar de nuevo</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Selecciona archivo…</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Selecciona carpeta...</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceADay">Una vez al día</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceAWeek">Una vez a la semana</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOpen">Abrir</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportInstalledLabel">Importar juegos instalados</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportUninstalledLabel">Importar juegos no instalados</sys:String>

@@ -24,12 +24,15 @@
   <sys:String x:Key="LOCNile3P_PlayniteSettingsLabel">Ρυθμίσεις</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsGeneralLabel">Γενικά</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsAdvancedLabel">Για Προχωρημένους</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsClearCacheTitle">Καθαρισμός Cache?</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsPlaytimeImportModeNever">Ποτέ</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteLoginRequired">Απαιτείται πιστοποίηση</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">Εκτελέσιμο</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Ονομα</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Κατάλογος εγκατάστασης</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Αποτυχία λήψης metadata: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Απεγκατάσταση</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteDoNothing">καμία ενέργεια</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">Διαθέσιμη Ενημέρωση</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">Λήψη και Εγκατάσταση Ενημέρωσης</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">Έλεγχος για Ενημερώσεις</sys:String>
@@ -39,6 +42,8 @@
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">Να μην εμφανιστεί ξανά</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Επιλογή αρχείου</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Επιλογή φακέλου</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceADay">Μία φορά την ημέρα</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceAWeek">Μία φορά την εβδομάδα</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOpen">Άνοιγμα</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportInstalledLabel">Εισαγωγή εγκατεστημένων παιχνιδιών</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportUninstalledLabel">Εισαγωγή μη εγκατεστημένων παιχνιδιών</sys:String>

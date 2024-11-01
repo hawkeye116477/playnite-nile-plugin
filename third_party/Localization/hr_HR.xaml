@@ -24,12 +24,15 @@
   <sys:String x:Key="LOCNile3P_PlayniteSettingsLabel">Postavke</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsGeneralLabel">Općenito</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsAdvancedLabel">Napredno</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsClearCacheTitle">Očisti predmemoriju?</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsPlaytimeImportModeNever">Nikad</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteLoginRequired">Autentifikacija potrebna</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">Fajl za pokretanje</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Naziv</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Lokacija instalacije</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Neuspjelo preuzimanje metapodataka: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Deinstaliranje</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteDoNothing">Ne čini ništa</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">Dostupna su ažuriranja</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">Preuzmi i instaliraj ažuriranje</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">Provjeri ima li ažuriranja</sys:String>
@@ -39,5 +42,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">Ne prikazuj ponovo</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Odaberi datoteku…</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Odaberi mapu…</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceADay"></sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceAWeek"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOpen"></sys:String>
 </ResourceDictionary>

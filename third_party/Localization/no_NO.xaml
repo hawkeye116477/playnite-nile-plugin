@@ -24,12 +24,15 @@
   <sys:String x:Key="LOCNile3P_PlayniteSettingsLabel">Innstillinger</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsGeneralLabel">Generelt</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsAdvancedLabel">Avansert</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsClearCacheTitle">Tøm hurtigminne?</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsPlaytimeImportModeNever">Aldri</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteLoginRequired">Godkjennelse er påkrevd</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">Kjørbar fil</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Navn</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Installasjonsmappe</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Kunne ikke laste ned metadata: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Avinstallerer</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteDoNothing">Gjør ingenting</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">Oppdatering er tilgjengelig</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">Last ned og installer oppdatering</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">Se etter oppdateringer</sys:String>
@@ -39,6 +42,8 @@
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">Ikke vis igjen</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Velg fil …</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Velg mappe …</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceADay">En gang om dagen</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceAWeek">En gang i uken</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOpen">Åpne</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportInstalledLabel">Importer installerte spill</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportUninstalledLabel">Importer spill som ikke er installert</sys:String>

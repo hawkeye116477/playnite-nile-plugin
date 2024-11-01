@@ -1,22 +1,14 @@
-﻿using NileLibraryNS.Services;
+﻿using NileLibraryNS.Enums;
+using NileLibraryNS.Services;
 using Playnite.Common;
 using Playnite.SDK;
 using Playnite.SDK.Data;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace NileLibraryNS
 {
@@ -30,6 +22,7 @@ namespace NileLibraryNS
         {
             InitializeComponent();
             UpdateAuthStatus();
+            MaxWorkersNI.MaxValue = Helpers.CpuThreadsNumber;
         }
 
         private async void UpdateAuthStatus()
@@ -100,6 +93,27 @@ namespace NileLibraryNS
 
         private async void NileSettingsUC_Loaded(object sender, RoutedEventArgs e)
         {
+            var downloadCompleteActions = new Dictionary<DownloadCompleteAction, string>
+            {
+                { DownloadCompleteAction.Nothing, ResourceProvider.GetString(LOC.Nile3P_PlayniteDoNothing) },
+                { DownloadCompleteAction.ShutDown, ResourceProvider.GetString(LOC.Nile3P_PlayniteMenuShutdownSystem) },
+                { DownloadCompleteAction.Reboot, ResourceProvider.GetString(LOC.Nile3P_PlayniteMenuRestartSystem) },
+                { DownloadCompleteAction.Hibernate, ResourceProvider.GetString(LOC.Nile3P_PlayniteMenuHibernateSystem) },
+                { DownloadCompleteAction.Sleep, ResourceProvider.GetString(LOC.Nile3P_PlayniteMenuSuspendSystem) },
+            };
+            AfterDownloadCompleteCBo.ItemsSource = downloadCompleteActions;
+
+            var autoClearOptions = new Dictionary<ClearCacheTime, string>
+            {
+                { ClearCacheTime.Day, ResourceProvider.GetString(LOC.Nile3P_PlayniteOptionOnceADay) },
+                { ClearCacheTime.Week, ResourceProvider.GetString(LOC.Nile3P_PlayniteOptionOnceAWeek) },
+                { ClearCacheTime.Month, ResourceProvider.GetString(LOC.NileOnceAMonth) },
+                { ClearCacheTime.ThreeMonths, ResourceProvider.GetString(LOC.NileOnceEvery3Months) },
+                { ClearCacheTime.SixMonths, ResourceProvider.GetString(LOC.NileOnceEvery6Months) },
+                { ClearCacheTime.Never, ResourceProvider.GetString(LOC.Nile3P_PlayniteSettingsPlaytimeImportModeNever) }
+            };
+            AutoClearCacheCBo.ItemsSource = autoClearOptions;
+
             troubleshootingInformation = new NileTroubleshootingInformation();
             PlayniteVersionTxt.Text = troubleshootingInformation.PlayniteVersion;
             PluginVersionTxt.Text = troubleshootingInformation.PluginVersion;
@@ -179,6 +193,33 @@ namespace NileLibraryNS
             else
             {
                 playniteAPI.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteUpdateCheckFailMessage), "Nile");
+            }
+        }
+
+        private void ClearCacheBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var result = playniteAPI.Dialogs.ShowMessage(ResourceProvider.GetString(LOC.NileClearCacheConfirm), ResourceProvider.GetString(LOC.Nile3P_PlayniteSettingsClearCacheTitle), MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                Nile.ClearCache();
+            }
+        }
+
+        private void ChooseLauncherBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var file = playniteAPI.Dialogs.SelectFile($"{ResourceProvider.GetString(LOC.Nile3P_PlayniteExecutableTitle)}|*.exe");
+            if (file != "")
+            {
+                SelectedLauncherPathTxt.Text = file;
+            }
+        }
+
+        private void ChooseGamePathBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var path = playniteAPI.Dialogs.SelectFolder();
+            if (path != "")
+            {
+                SelectedGamePathTxt.Text = path;
             }
         }
     }

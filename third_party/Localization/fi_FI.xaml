@@ -24,12 +24,15 @@
   <sys:String x:Key="LOCNile3P_PlayniteSettingsLabel">Asetukset</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsGeneralLabel">Yleiset</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsAdvancedLabel">Lisäasetukset</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsClearCacheTitle">Tyhjennä välimuisti?</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsPlaytimeImportModeNever">Ei koskaan</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteLoginRequired">Todennus vaaditaan</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">Suoritettava ohjelma</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Nimi</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Asennushakemisto</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Tietojen lataaminen epäonnistui: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Poistetaan</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteDoNothing">Älä tee mitään</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">Päivitys saatavilla</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">Lataa ja asenna päivitys</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">Tarkista päivitykset</sys:String>
@@ -39,5 +42,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">Älä näytä uudelleen</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Valitse tiedosto…</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Valitse kansio...</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceADay"></sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceAWeek"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOpen">Avaa</sys:String>
 </ResourceDictionary>

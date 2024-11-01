@@ -24,12 +24,15 @@
   <sys:String x:Key="LOCNile3P_PlayniteSettingsLabel">הגדרות</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsGeneralLabel">כללי</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsAdvancedLabel">מתקדם</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsClearCacheTitle">לנקות מטמון?</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsPlaytimeImportModeNever">אף פעם</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteLoginRequired">נדרש אימות</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">ניתן להרצה</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">שם</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">תיקיית התקנה</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">נכשלה הורדת נתונים: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstalling">מסיר התקנה</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteDoNothing">אל תעשה דבר</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">עדכון זמין</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">הורד והתקן עדכון</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">חפש עדכונים</sys:String>
@@ -39,6 +42,8 @@
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">אל תציג שוב</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">בחר קובץ...</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">בחר תיקיה...</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceADay">פעם ביום</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceAWeek">פעם בשבוע</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOpen">פתח</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportInstalledLabel">ייבא משחקים שהותקנו</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportUninstalledLabel">ייבא משחקים שלא הותקנו</sys:String>

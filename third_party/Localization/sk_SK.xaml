@@ -24,12 +24,15 @@
   <sys:String x:Key="LOCNile3P_PlayniteSettingsLabel">Nastavenia</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsGeneralLabel">Všeobecné</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsAdvancedLabel">Pokročilé</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsClearCacheTitle">Vymazať vyrovnávaciu pamäť?</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsPlaytimeImportModeNever">Nikdy</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteLoginRequired">Vyžaduje sa overenie</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">Spustiteľný súbor</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Meno</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Inštalačný priečinok</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Nepodarilo sa prevziať metadáta: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Prebieha odinštalácia</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteDoNothing">Nerobiť nič</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">Dostupná aktualizácia</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">Prevziať a nainštalovať aktualizáciu</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">Skontrolovať aktualizácie</sys:String>
@@ -39,5 +42,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">Nabudúce nezobrazovať</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip"></sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceADay"></sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceAWeek"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOpen"></sys:String>
 </ResourceDictionary>

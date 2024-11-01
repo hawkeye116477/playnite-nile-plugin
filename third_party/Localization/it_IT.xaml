@@ -24,12 +24,15 @@
   <sys:String x:Key="LOCNile3P_PlayniteSettingsLabel">Impostazioni</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsGeneralLabel">Generale</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsAdvancedLabel">Avanzate</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsClearCacheTitle">Ripulire la cache?</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsPlaytimeImportModeNever">Mai</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteLoginRequired">Autenticazione richiesta</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">Eseguibili</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Nome</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Cartella d'installazione</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Scaricamento del metadata fallito: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Disinstallazione...</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteDoNothing">Non fare niente</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">Aggiornamento disponibile</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">Installa l'aggiornamento</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">Controlla aggiornamenti</sys:String>
@@ -39,6 +42,8 @@
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">Non mostrare più</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Seleziona un file...</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Seleziona cartella...</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceADay">Una volta al giorno</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceAWeek">Una volta a settimana</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOpen">Apri</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportInstalledLabel">Importa i giochi installati</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportUninstalledLabel">Importa giochi non installati</sys:String>

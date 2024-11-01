@@ -24,12 +24,15 @@
   <sys:String x:Key="LOCNile3P_PlayniteSettingsLabel">設定</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsGeneralLabel">一般</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsAdvancedLabel">進階設定</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsClearCacheTitle">清除快取？</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsPlaytimeImportModeNever">永不</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteLoginRequired">需要驗證</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">執行檔</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">名稱</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">安裝目錄</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">下載元資料失敗: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstalling">移除中</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteDoNothing">不做任何事</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">有可用的更新</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">下載並安裝更新</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">檢查更新</sys:String>
@@ -39,6 +42,8 @@
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">不再顯示</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">選擇檔案...</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">選擇資料夾...</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceADay">每天一次</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceAWeek">每週一次</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOpen">開啟</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportInstalledLabel">匯入已安裝的遊戲</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportUninstalledLabel">匯入未安裝遊戲</sys:String>

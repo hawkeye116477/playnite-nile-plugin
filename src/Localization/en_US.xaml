@@ -1,10 +1,17 @@
 <?xml version='1.0' encoding='utf-8'?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <sys:String x:Key="LOCNileLauncherCustomPath">Launcher Path</sys:String>
   <sys:String x:Key="LOCNileGamesInstallationPath">Games Installation Path</sys:String>
   <sys:String x:Key="LOCNileDownloadSize">Download Size:</sys:String>
   <sys:String x:Key="LOCNileInstallSize">Install Size:</sys:String>
   <sys:String x:Key="LOCNileUninstallGameConfirm">Are you sure you want to uninstall {0}?</sys:String>
+  <sys:String x:Key="LOCNileDownloadSettings">Download Settings</sys:String>
+  <sys:String x:Key="LOCNileDisplayDownloadTaskFinishedNotifications">Display desktop notifications about finished tasks</sys:String>
+  <sys:String x:Key="LOCNileDisplayDownloadSpeedInBits">Display download speed in bits per second</sys:String>
+  <sys:String x:Key="LOCNileUnattendedInstall">Enable unattended installation mode</sys:String>
+  <sys:String x:Key="LOCNileUnattendedInstallToolTip">You won't have to choose anything in the installer window and the installation will start automatically after downloading the required information.</sys:String>
   <sys:String x:Key="LOCNileMaxWorkers">Maximum number of worker processes</sys:String>
+  <sys:String x:Key="LOCNileAfterDownloadComplete">Action after download is complete</sys:String>
   <sys:String x:Key="LOCNileSystemShutdownCountdown">System will be turned off soon...</sys:String>
   <sys:String x:Key="LOCNileSystemRestartCountdown">System will be restarted soon...</sys:String>
   <sys:String x:Key="LOCNileSystemHibernateCountdown">System will be hibernated soon...</sys:String>
@@ -51,6 +58,13 @@
   <sys:String x:Key="LOCNileSelectAllEntries">Select all entries</sys:String>
   <sys:String x:Key="LOCNileRepair">Repair</sys:String>
   <sys:String x:Key="LOCNileAdvancedOptions">Advanced Options</sys:String>
+  <sys:String x:Key="LOCNileCache">Cache</sys:String>
+  <sys:String x:Key="LOCNileClearCache">Clear cache</sys:String>
+  <sys:String x:Key="LOCNileAutoClearCache">Automatically clear cache</sys:String>
+  <sys:String x:Key="LOCNileOnceAMonth">Once a month</sys:String>
+  <sys:String x:Key="LOCNileOnceEvery3Months">Once every 3 months</sys:String>
+  <sys:String x:Key="LOCNileOnceEvery6Months">Once every 6 months</sys:String>
+  <sys:String x:Key="LOCNileClearCacheConfirm">Are you sure you want to clear cache?</sys:String>
   <sys:String x:Key="LOCNileCheckLog">Check the log files for more information.</sys:String>
   <sys:String x:Key="LOCNileEditSelectedDownloadProperties">Edit entry properties</sys:String>
   <sys:String x:Key="LOCNileOpenDownloadDirectory">Open download directory</sys:String>

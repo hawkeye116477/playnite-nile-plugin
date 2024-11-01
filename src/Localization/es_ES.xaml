@@ -1,10 +1,17 @@
 <?xml version='1.0' encoding='utf-8'?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <sys:String x:Key="LOCNileLauncherCustomPath">Ruta del cliente</sys:String>
   <sys:String x:Key="LOCNileGamesInstallationPath">Ruta de instalación de juegos</sys:String>
   <sys:String x:Key="LOCNileDownloadSize">Tamaño de descarga:</sys:String>
   <sys:String x:Key="LOCNileInstallSize">Tamaño de instalación:</sys:String>
   <sys:String x:Key="LOCNileUninstallGameConfirm">¿Estás seguro que deseas desinstalar {0}?</sys:String>
+  <sys:String x:Key="LOCNileDownloadSettings">Ajustes de descarga</sys:String>
+  <sys:String x:Key="LOCNileDisplayDownloadTaskFinishedNotifications"></sys:String>
+  <sys:String x:Key="LOCNileDisplayDownloadSpeedInBits">Mostrar velocidad de descarga en bits por segundo</sys:String>
+  <sys:String x:Key="LOCNileUnattendedInstall"></sys:String>
+  <sys:String x:Key="LOCNileUnattendedInstallToolTip"></sys:String>
   <sys:String x:Key="LOCNileMaxWorkers">Número máximo de procesos de trabajo</sys:String>
+  <sys:String x:Key="LOCNileAfterDownloadComplete"></sys:String>
   <sys:String x:Key="LOCNileSystemShutdownCountdown"></sys:String>
   <sys:String x:Key="LOCNileSystemRestartCountdown"></sys:String>
   <sys:String x:Key="LOCNileSystemHibernateCountdown"></sys:String>
@@ -51,6 +58,13 @@
   <sys:String x:Key="LOCNileSelectAllEntries">Seleccionar todas las entradas</sys:String>
   <sys:String x:Key="LOCNileRepair">Reparar</sys:String>
   <sys:String x:Key="LOCNileAdvancedOptions">Opciones Avanzadas</sys:String>
+  <sys:String x:Key="LOCNileCache">Caché</sys:String>
+  <sys:String x:Key="LOCNileClearCache">Borrar caché</sys:String>
+  <sys:String x:Key="LOCNileAutoClearCache">Borrar caché automáticamente</sys:String>
+  <sys:String x:Key="LOCNileOnceAMonth">Una vez al mes</sys:String>
+  <sys:String x:Key="LOCNileOnceEvery3Months">Una vez cada 3 meses</sys:String>
+  <sys:String x:Key="LOCNileOnceEvery6Months">Una vez cada 6 meses</sys:String>
+  <sys:String x:Key="LOCNileClearCacheConfirm">¿Estás seguro de que quieres borrar el caché?</sys:String>
   <sys:String x:Key="LOCNileCheckLog">Revisa los archivos de registro para más información.</sys:String>
   <sys:String x:Key="LOCNileEditSelectedDownloadProperties">Editar propiedades de la entrada</sys:String>
   <sys:String x:Key="LOCNileOpenDownloadDirectory">Abrir directorio de descarga</sys:String>

@@ -1,10 +1,17 @@
 <?xml version='1.0' encoding='utf-8'?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <sys:String x:Key="LOCNileLauncherCustomPath">Launcher Pfad</sys:String>
   <sys:String x:Key="LOCNileGamesInstallationPath">Spiele-Installationspfad</sys:String>
   <sys:String x:Key="LOCNileDownloadSize">Downloadgröße:</sys:String>
   <sys:String x:Key="LOCNileInstallSize">Installationsgröße:</sys:String>
   <sys:String x:Key="LOCNileUninstallGameConfirm">Sind Sie sicher, dass Sie {0} deinstallieren möchten?</sys:String>
+  <sys:String x:Key="LOCNileDownloadSettings">Download-Einstellungen</sys:String>
+  <sys:String x:Key="LOCNileDisplayDownloadTaskFinishedNotifications">Desktop-Benachrichtigungen über abgeschlossene Aufgaben anzeigen</sys:String>
+  <sys:String x:Key="LOCNileDisplayDownloadSpeedInBits">Downloadgeschwindigkeit in Bits pro Sekunde anzeigen</sys:String>
+  <sys:String x:Key="LOCNileUnattendedInstall">Aktiviere unbeaufsichtigten Installationsmodus</sys:String>
+  <sys:String x:Key="LOCNileUnattendedInstallToolTip">Sie müssen im Installationsfenster nichts auswählen und die Installation wird automatisch nach dem Herunterladen der benötigten Informationen gestartet.</sys:String>
   <sys:String x:Key="LOCNileMaxWorkers">Maximale Anzahl von Arbeits-Prozessen</sys:String>
+  <sys:String x:Key="LOCNileAfterDownloadComplete"></sys:String>
   <sys:String x:Key="LOCNileSystemShutdownCountdown"></sys:String>
   <sys:String x:Key="LOCNileSystemRestartCountdown"></sys:String>
   <sys:String x:Key="LOCNileSystemHibernateCountdown"></sys:String>
@@ -51,6 +58,13 @@
   <sys:String x:Key="LOCNileSelectAllEntries">Alle Einträge auswählen</sys:String>
   <sys:String x:Key="LOCNileRepair">Reparieren</sys:String>
   <sys:String x:Key="LOCNileAdvancedOptions">Erweiterte Einstellungen</sys:String>
+  <sys:String x:Key="LOCNileCache">Zwischenspeicher</sys:String>
+  <sys:String x:Key="LOCNileClearCache">Zwischenspeicher leeren</sys:String>
+  <sys:String x:Key="LOCNileAutoClearCache">Zwischenspeicher automatisch leeren</sys:String>
+  <sys:String x:Key="LOCNileOnceAMonth">Einmal pro Monat</sys:String>
+  <sys:String x:Key="LOCNileOnceEvery3Months">Einmal alle 3 Monate</sys:String>
+  <sys:String x:Key="LOCNileOnceEvery6Months">Einmal alle 6 Monate</sys:String>
+  <sys:String x:Key="LOCNileClearCacheConfirm">Sind Sie sicher, dass Sie den Zwischenspeicher leeren möchten?</sys:String>
   <sys:String x:Key="LOCNileCheckLog">Überprüfen Sie die Logdateien für weitere Informationen.</sys:String>
   <sys:String x:Key="LOCNileEditSelectedDownloadProperties">Eintragseigenschaften bearbeiten</sys:String>
   <sys:String x:Key="LOCNileOpenDownloadDirectory">Download-Verzeichnis öffnen</sys:String>

@@ -24,12 +24,15 @@
   <sys:String x:Key="LOCNile3P_PlayniteSettingsLabel">Seaded</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsGeneralLabel">Üldine</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsAdvancedLabel">Täpsem</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsClearCacheTitle">Tühjenda vahemälu?</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsPlaytimeImportModeNever">Mitte kunagi</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteLoginRequired">Autentimine vajalik</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">Täitmisprogramm</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Nimi</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Paigalduse asukoht</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Metaandmete allalaadimine ebaõnnestus: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Desinstallimine</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteDoNothing">Ära tee midagi</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">Värskendus on saadaval</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">Laadi alla ja paigalda värskendus</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">Otsi värskendusi</sys:String>
@@ -39,6 +42,8 @@
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">Ära enam näita</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Vali fail…</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Vali kaust…</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceADay">Kord päevas</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceAWeek">Kord nädalas</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOpen">Ava</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportInstalledLabel">Impordi paigaldatud mängud</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportUninstalledLabel">Impordi paigaldamata mängud</sys:String>

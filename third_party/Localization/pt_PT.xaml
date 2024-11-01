@@ -24,12 +24,15 @@
   <sys:String x:Key="LOCNile3P_PlayniteSettingsLabel">Definições</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsGeneralLabel">Geral</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsAdvancedLabel">Avançado</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsClearCacheTitle">Limpar Cache?</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsPlaytimeImportModeNever">Nunca</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteLoginRequired">Autenticação necessária</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">Executável</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Nome</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Pasta de instalação</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Falha ao transferir metadados: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstalling">A desinstalar</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteDoNothing">Não fazer nada</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">Atualização Disponível</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">Transferir e Instalar Atualização</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">Procurar Atualizações</sys:String>
@@ -39,6 +42,8 @@
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">Não Mostrar Novamente</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Selecionar ficheiro...</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Seleccionar pasta...</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceADay">Uma vez por dia</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceAWeek">Uma vez por semana</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOpen">Abrir</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportInstalledLabel">Importar jogos instalados</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportUninstalledLabel">Importar jogos não instalados</sys:String>

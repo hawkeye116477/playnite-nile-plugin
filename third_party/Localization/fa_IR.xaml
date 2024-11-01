@@ -24,12 +24,15 @@
   <sys:String x:Key="LOCNile3P_PlayniteSettingsLabel">تنظیمات</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsGeneralLabel">عمومی</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsAdvancedLabel">پیشرفته</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsClearCacheTitle">حافظه پنهان پاک شود؟</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsPlaytimeImportModeNever">هرگز</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteLoginRequired">نیاز به تایید هویت دارد</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">قابل اجرا</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">نام</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">محل نصب</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">بارگیری ابرداده انجام نشد: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstalling">در حال حذف نصب</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteDoNothing">کاری نکن</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">به روزرسانی موجود است</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">دانلود و نصب بروزرسانی</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">بررسی برای بروزرسانی</sys:String>
@@ -39,6 +42,8 @@
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">دوباره نمایش نده</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">انتخاب فایل…</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">انتخاب پوشه…</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceADay">یک بار در روز</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceAWeek">یکبار در هفته</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOpen">باز کن</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportInstalledLabel">وارد کردن بازی های نصب شده</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportUninstalledLabel">واردات بازی های نصب نشده</sys:String>

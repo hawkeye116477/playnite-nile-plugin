@@ -24,12 +24,15 @@
   <sys:String x:Key="LOCNile3P_PlayniteSettingsLabel">Beállítások</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsGeneralLabel">Általános</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsAdvancedLabel">Speciális beállítások</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsClearCacheTitle">Gyorsítótár ürítése?</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsPlaytimeImportModeNever">Sosem</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteLoginRequired">Hitelesítés szükséges</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">Program</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Név</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Telepítési hely</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Hiba a metaadatok letöltésekor: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Eltávolítás</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteDoNothing">Ne tegyen semmit</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">Frissítés elérhető</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">Frissítés letöltése és telepítése</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">Frissítések keresése</sys:String>
@@ -39,6 +42,8 @@
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">Ne mutasd többször</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Fájl kiválasztása…</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Mappa kiválasztása…</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceADay">Naponta egyszer</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceAWeek">Hetente egyszer</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOpen">Megnyitás</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportInstalledLabel">Telepített játékok importálása</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportUninstalledLabel">Nem telepített játékok importálása</sys:String>

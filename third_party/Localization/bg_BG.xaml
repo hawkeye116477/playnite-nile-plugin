@@ -24,12 +24,15 @@
   <sys:String x:Key="LOCNile3P_PlayniteSettingsLabel">Настройки</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsGeneralLabel">Общи</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsAdvancedLabel">Разширени</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsClearCacheTitle">Изчистване на кеша?</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsPlaytimeImportModeNever">Никога</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteLoginRequired">Изисква се удостоверяване</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">Изпълним</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Име</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Инсталационна папка</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Неуспешно изтегляне на метаданни: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Деинсталиране</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteDoNothing">Не правете нищо</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">Налична актуализация</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">Изтеглете и инсталирайте актуализация</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">Проверка за актуализации</sys:String>
@@ -39,6 +42,8 @@
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">Не показвай отново</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Изберете файл...</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Изберете папка...</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceADay">Веднъж на ден</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceAWeek">Веднъж седмично</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOpen">Отвори</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportInstalledLabel">Импортиране на инсталирани игри</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportUninstalledLabel">Импортиране на неинсталирани игри</sys:String>

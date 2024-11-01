@@ -24,12 +24,15 @@
   <sys:String x:Key="LOCNile3P_PlayniteSettingsLabel">Cài đặt</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsGeneralLabel">Cài đặt chung</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsAdvancedLabel">Nâng cao</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsClearCacheTitle">Xóa bộ nhớ cache?</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsPlaytimeImportModeNever">Không bao giờ</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteLoginRequired">Yêu cầu xác thực</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">Thực hiện</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Tên</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Thư mục cài đặt cửa hàng</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Không tải xuống được siêu dữ liệu: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Gỡ cài đặt</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteDoNothing">Không làm gì cả</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">Bản cập nhật có sẵn</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">Tải xuống và cài đặt bản cập nhật</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">Kiểm Tra Cập Nhật</sys:String>
@@ -39,6 +42,8 @@
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">Không hiện thị lại</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Chọn tập tin…</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Chọn thư mục…</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceADay">Mỗi ngày một lần</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceAWeek">Mỗi tuần một lần</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOpen">Mở</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportInstalledLabel">Nhập vào các trò chơi đã được cài đặt</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportUninstalledLabel">Nhập vào các trò chơi chưa được cài đặt</sys:String>

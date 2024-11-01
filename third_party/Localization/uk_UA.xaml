@@ -24,12 +24,15 @@
   <sys:String x:Key="LOCNile3P_PlayniteSettingsLabel">Налаштування</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsGeneralLabel">Загальні</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSettingsAdvancedLabel">Додатково</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsClearCacheTitle">Очистити кеш?</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteSettingsPlaytimeImportModeNever">Ніколи</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteLoginRequired">Необхідна автентифікація</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">Виконуваний файл</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Назва</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Тека встановлення</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Не вдалося завантажити метадані: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Видалення</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteDoNothing">Нічого не робити</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterWindowTitle">Доступне оновлення</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUpdaterInstallUpdate">Завантажити та встановити оновлення</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteCheckForUpdates">Перевірити наявність оновлень</sys:String>
@@ -39,6 +42,8 @@
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">Не показувати знову</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Обрати файл...</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Обрати теку...</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceADay">Раз на день</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnceAWeek">Раз на тиждень</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOpen">Відкрити</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportInstalledLabel">Імпортувати встановлені ігри</sys:String>
   <sys:String x:Key="LOCNile3P_AmazonSettingsImportUninstalledLabel">Імпортувати не встановлені ігри</sys:String>
