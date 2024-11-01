@@ -214,6 +214,7 @@ namespace NileLibraryNS
             Dispose();
             if (Directory.Exists(Game.InstallDirectory) && Nile.IsInstalled)
             {
+                BeforeGameStarting();
                 await LaunchGame();
             }
             else
@@ -226,14 +227,42 @@ namespace NileLibraryNS
             }
         }
 
+        public void BeforeGameStarting()
+        {
+            var gameSettings = NileGameSettingsView.LoadGameSettings(Game.GameId);
+            if (!gameSettings.IsFullyInstalled)
+            {
+                var playniteAPI = API.Instance;
+                GlobalProgressOptions installProgressOptions = new GlobalProgressOptions(ResourceProvider.GetString(LOC.NileFinishingInstallation), false);
+                playniteAPI.Dialogs.ActivateGlobalProgress((a) =>
+                {
+                    var gameConfig = Nile.GetGameConfiguration(Game.InstallDirectory);
+                    if (gameConfig.PostInstall.Count > 0)
+                    {
+                        foreach (var depend in gameConfig.PostInstall)
+                        {
+                            var dependExe = Path.GetFullPath(Path.Combine(Game.InstallDirectory, depend.Command));
+                            if (File.Exists(dependExe))
+                            {
+                                var process = ProcessStarter.StartProcess(dependExe, string.Join(" ", depend.Args));
+                                process.WaitForExit();
+                            }
+                        }
+                    }
+                    gameSettings.IsFullyInstalled = true;
+                    Helpers.SaveJsonSettingsToFile(gameSettings, Game.GameId, "GamesSettings");
+                }, installProgressOptions);
+            }
+        }
+
         public async Task LaunchGame(bool noLauncher = false)
         {
             Dispose();
             var playArgs = new List<string>();
             var globalSettings = NileLibrary.GetSettings();
             var gameSettings = NileGameSettingsView.LoadGameSettings(Game.GameId);
-            bool canLaunchWithoutLauncher = false;
 
+            bool canLaunchWithoutLauncher = false;
             bool noLauncherModeEnabled = globalSettings.StartGamesWithoutLauncher;
             if (gameSettings?.LaunchDirectly != null)
             {

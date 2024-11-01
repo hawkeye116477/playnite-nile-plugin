@@ -7,5 +7,6 @@ namespace NileLibraryNS.Models
         public bool? DisableGameVersionCheck { get; set; }
         public List<string> StartupArguments { get; set; } = new List<string>();
         public bool? LaunchDirectly { get; set; }
+        public bool IsFullyInstalled { get; set; } = false;
     }
 }

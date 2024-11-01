@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace NileLibraryNS.Models
 {
@@ -21,13 +17,12 @@ namespace NileLibraryNS.Models
 
         public string SchemaVersion;
         public Config Main;
-    }
+        public List<PostInstallConfig> PostInstall = new List<PostInstallConfig>();
 
-    public class InstallGameInfo
-    {
-        public string Id { get; set; }
-        public string InstallDirectory { get; set; }
-        public int Installed { get; set; }
-        public string ProductTitle { get; set; }
+        public class PostInstallConfig
+        {
+            public string Command = "";
+            public List<string> Args = new List<string>();
+        }
     }
 }
