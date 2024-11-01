@@ -230,7 +230,15 @@ namespace NileLibraryNS.Services
                 return false;
             }
 
-            tokens = await RefreshTokens();
+            var tokenLastUpdateTime = File.GetLastWriteTime(Nile.TokensPath);
+            var tokenExpirySeconds = tokens.tokens.bearer.expires_in;
+            DateTime tokenExpiryTime = tokenLastUpdateTime.AddSeconds(tokenExpirySeconds);
+
+            if (DateTime.Now > tokenExpiryTime)
+            {
+                tokens = await RefreshTokens();
+            }
+
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Add("User-Agent", "AGSLauncher/1.0.0");
