@@ -349,10 +349,7 @@ namespace NileLibraryNS
                             else if (errorMessage.Contains("ERROR") || errorMessage.Contains("CRITICAL") || errorMessage.Contains("Error") || errorMessage.Contains("Failure"))
                             {
                                 logger.Error($"[Nile] {errorMessage}");
-                                if (errorMessage.Contains("Failed to establish a new connection")
-                                    || errorMessage.Contains("Log in failed")
-                                    || errorMessage.Contains("Login failed")
-                                    || errorMessage.Contains("No saved credentials"))
+                                if (errorMessage.Contains("not logged in"))
                                 {
                                     loginErrorDisplayed = true;
                                 }
