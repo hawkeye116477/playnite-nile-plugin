@@ -20,7 +20,6 @@ using System.ComponentModel;
 using System.Windows.Input;
 using Playnite.SDK.Plugins;
 using System.Collections.Specialized;
-using NileLibraryNS.Services;
 
 namespace NileLibraryNS
 {

@@ -2,19 +2,13 @@
 using CliWrap.Buffered;
 using NileLibraryNS.Enums;
 using NileLibraryNS.Models;
-using Playnite;
-using Playnite.Common;
 using Playnite.SDK;
 using Playnite.SDK.Models;
 using Playnite.SDK.Plugins;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace NileLibraryNS
@@ -22,12 +16,10 @@ namespace NileLibraryNS
     public class NileInstallController : InstallController
     {
         private static readonly ILogger logger = LogManager.GetLogger();
-        private readonly NileLibrary library;
 
         public NileInstallController(Game game, NileLibrary library) : base(game)
         {
             Name = "Install using Nile client";
-            this.library = library;
         }
 
         public override void Install(InstallActionArgs args)
