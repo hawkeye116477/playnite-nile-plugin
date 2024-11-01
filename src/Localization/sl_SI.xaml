@@ -83,6 +83,9 @@
   <sys:String x:Key="LOCNileNewVersionAvailable"></sys:String>
   <sys:String x:Key="LOCNileNoUpdatesAvailable"></sys:String>
   <sys:String x:Key="LOCNileViewChangelog"></sys:String>
+  <sys:String x:Key="LOCNileDisableGameUpdateChecking"></sys:String>
+  <sys:String x:Key="LOCNileStartupArguments"></sys:String>
+  <sys:String x:Key="LOCNileLauncherSettings"></sys:String>
   <sys:String x:Key="LOCNileMove"></sys:String>
   <sys:String x:Key="LOCNileMoveConfirm"></sys:String>
   <sys:String x:Key="LOCNileMovingGame"></sys:String>

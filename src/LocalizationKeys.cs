@@ -30,6 +30,10 @@ namespace System
         /// </summary>
         public const string NileInstanceNotice = "LOCNileInstanceNotice";
         /// <summary>
+        /// Launch directly without using launcher
+        /// </summary>
+        public const string NileLaunchGameDirectly = "LOCNileLaunchGameDirectly";
+        /// <summary>
         /// Launcher Path
         /// </summary>
         public const string NileLauncherCustomPath = "LOCNileLauncherCustomPath";
@@ -362,6 +366,18 @@ namespace System
         /// </summary>
         public const string NileViewChangelog = "LOCNileViewChangelog";
         /// <summary>
+        /// Disable update checking
+        /// </summary>
+        public const string NileDisableGameUpdateChecking = "LOCNileDisableGameUpdateChecking";
+        /// <summary>
+        /// Startup arguments
+        /// </summary>
+        public const string NileStartupArguments = "LOCNileStartupArguments";
+        /// <summary>
+        /// Modify launch settings
+        /// </summary>
+        public const string NileLauncherSettings = "LOCNileLauncherSettings";
+        /// <summary>
         /// Move
         /// </summary>
         public const string NileMove = "LOCNileMove";
@@ -425,6 +441,10 @@ namespace System
         /// Filters
         /// </summary>
         public const string Nile3P_PlayniteFilters = "LOCNile3P_PlayniteFilters";
+        /// <summary>
+        /// Cannot start game: {0}
+        /// </summary>
+        public const string Nile3P_PlayniteGameStartError = "LOCNile3P_PlayniteGameStartError";
         /// <summary>
         /// Cannot install game: {0}
         /// </summary>

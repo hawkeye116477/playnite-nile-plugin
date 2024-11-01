@@ -95,3 +95,6 @@ LOCLegendaryClearCacheConfirm
 LOCLegendaryOnceAMonth
 LOCLegendaryOnceEvery3Months
 LOCLegendaryOnceEvery6Months
+LOCLegendaryDisableGameUpdateChecking
+LOCLegendaryStartupArguments
+LOCLegendaryLauncherSettings

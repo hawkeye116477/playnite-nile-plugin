@@ -94,47 +94,7 @@ namespace NileLibraryNS
             {
                 yield break;
             }
-
-            var gameConfig = Nile.GetGameConfiguration(args.Game.InstallDirectory);
-            if (Nile.GetGameRequiresClient(gameConfig) || !SettingsViewModel.Settings.StartGamesWithoutLauncher)
-            {
-                yield return new AutomaticPlayController(args.Game)
-                {
-                    Type = AutomaticPlayActionType.Url,
-                    TrackingMode = TrackingMode.Directory,
-                    Name = ResourceProvider.GetString(LOC.Nile3P_AmazonStartUsingClient).Format("Nile"),
-                    TrackingPath = args.Game.InstallDirectory,
-                    Path = $"amazon-games://play/{args.Game.GameId}"
-                };
-            }
-            else
-            {
-                var controller = new AutomaticPlayController(args.Game)
-                {
-                    Type = AutomaticPlayActionType.File,
-                    TrackingMode = TrackingMode.Directory,
-                    Name = args.Game.Name,
-                    TrackingPath = args.Game.InstallDirectory,
-                    Path = Path.Combine(args.Game.InstallDirectory, gameConfig.Main.Command)
-                };
-
-                if (gameConfig.Main.Args.HasNonEmptyItems())
-                {
-                    controller.Arguments = string.Join(" ", gameConfig.Main.Args);
-                }
-
-                if (!gameConfig.Main.WorkingSubdirOverride.IsNullOrEmpty())
-                {
-                    controller.WorkingDir = Path.Combine(args.Game.InstallDirectory, gameConfig.Main.WorkingSubdirOverride);
-                }
-                else if (gameConfig.Main.Command.Contains("scummvm.exe", StringComparison.OrdinalIgnoreCase))
-                {
-                    // scummvm game have to have working directory set to games's install dir otherwise they won't start properly
-                    controller.WorkingDir = args.Game.InstallDirectory;
-                }
-
-                yield return controller;
-            }
+            yield return new NilePlayController(args.Game);
         }
 
         public static NileDownloadManagerView GetNileDownloadManager()
@@ -271,7 +231,7 @@ namespace NileLibraryNS
                 PlayniteApi.Notifications.Add(new NotificationMessage(
                     ImportErrorMessageId,
                     string.Format(PlayniteApi.Resources.GetString("LOCLibraryImportError"), Name) +
-                    System.Environment.NewLine + importError.Message,
+                    Environment.NewLine + importError.Message,
                     NotificationType.Error,
                     () => OpenSettingsView()));
             }
@@ -407,30 +367,30 @@ namespace NileLibraryNS
                     Game game = NileGames.FirstOrDefault();
                     if (game.IsInstalled)
                     {
-                        //yield return new GameMenuItem
-                        //{
-                        //    Description = ResourceProvider.GetString(LOC.NileLauncherSettings),
-                        //    Icon = "ModifyLaunchSettingsIcon",
-                        //    Action = (args) =>
-                        //    {
-                        //        if (!NileLauncher.IsInstalled)
-                        //        {
-                        //            throw new Exception(ResourceProvider.GetString(LOC.NileLauncherNotInstalled));
-                        //        }
-                        //        Window window = PlayniteApi.Dialogs.CreateWindow(new WindowCreationOptions
-                        //        {
-                        //            ShowMaximizeButton = false
-                        //        });
-                        //        window.DataContext = game;
-                        //        window.Title = $"{ResourceProvider.GetString(LOC.NileLauncherSettings)} - {game.Name}";
-                        //        window.Content = new NileGameSettingsView();
-                        //        window.Owner = PlayniteApi.Dialogs.GetCurrentAppWindow();
-                        //        window.SizeToContent = SizeToContent.WidthAndHeight;
-                        //        window.MinWidth = 600;
-                        //        window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-                        //        window.ShowDialog();
-                        //    }
-                        //};
+                        yield return new GameMenuItem
+                        {
+                            Description = ResourceProvider.GetString(LOC.NileLauncherSettings),
+                            Icon = "ModifyLaunchSettingsIcon",
+                            Action = (args) =>
+                            {
+                                if (!Nile.IsInstalled)
+                                {
+                                    throw new Exception(ResourceProvider.GetString(LOC.NileNotInstalled));
+                                }
+                                Window window = PlayniteApi.Dialogs.CreateWindow(new WindowCreationOptions
+                                {
+                                    ShowMaximizeButton = false
+                                });
+                                window.DataContext = game;
+                                window.Title = $"{ResourceProvider.GetString(LOC.NileLauncherSettings)} - {game.Name}";
+                                window.Content = new NileGameSettingsView();
+                                window.Owner = PlayniteApi.Dialogs.GetCurrentAppWindow();
+                                window.SizeToContent = SizeToContent.WidthAndHeight;
+                                window.MinWidth = 600;
+                                window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                                window.ShowDialog();
+                            }
+                        };
                         //yield return new GameMenuItem
                         //{
                         //    Description = ResourceProvider.GetString(LOC.Nile3P_PlayniteCheckForUpdates),

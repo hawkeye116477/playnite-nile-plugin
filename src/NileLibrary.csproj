@@ -192,6 +192,7 @@
     <Compile Include="Enums\DownloadAction.cs" />
     <Compile Include="Enums\DownloadCompleteAction.cs" />
     <Compile Include="Enums\DownloadStatus.cs" />
+    <Compile Include="Enums\UpdatePolicy.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="MessageCheckBoxDialog.xaml.cs">
       <DependentUpon>MessageCheckBoxDialog.xaml</DependentUpon>
@@ -213,6 +214,9 @@
     </Compile>
     <Compile Include="NileGameInstallerView.xaml.cs">
       <DependentUpon>NileGameInstallerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NileGameSettingsView.xaml.cs">
+      <DependentUpon>NileGameSettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="NileLibraryClient.cs" />
     <Compile Include="NileLibrary.cs" />
@@ -277,6 +281,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="NileGameInstallerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NileGameSettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

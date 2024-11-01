@@ -83,6 +83,9 @@
   <sys:String x:Key="LOCNileNewVersionAvailable">Доступна новая версия: {0} {1}.</sys:String>
   <sys:String x:Key="LOCNileNoUpdatesAvailable">Обновления отсутствуют.</sys:String>
   <sys:String x:Key="LOCNileViewChangelog">Список изменений</sys:String>
+  <sys:String x:Key="LOCNileDisableGameUpdateChecking">Отключить проверку обновлений</sys:String>
+  <sys:String x:Key="LOCNileStartupArguments">Аргументы для запуска</sys:String>
+  <sys:String x:Key="LOCNileLauncherSettings">Изменить настройки запуска</sys:String>
   <sys:String x:Key="LOCNileMove">Переместить</sys:String>
   <sys:String x:Key="LOCNileMoveConfirm">Вы уверены, что хотите переместить {0} в "{1}"? Это может занять много времени.</sys:String>
   <sys:String x:Key="LOCNileMovingGame">Перемещение {0} в "{1}"...</sys:String>

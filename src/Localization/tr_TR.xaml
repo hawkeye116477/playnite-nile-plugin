@@ -83,6 +83,9 @@
   <sys:String x:Key="LOCNileNewVersionAvailable">Yeni bir sürüm mevcut: {0} {1}.</sys:String>
   <sys:String x:Key="LOCNileNoUpdatesAvailable">Güncelleme yok.</sys:String>
   <sys:String x:Key="LOCNileViewChangelog">Değişiklikleri görüntüle</sys:String>
+  <sys:String x:Key="LOCNileDisableGameUpdateChecking">Güncelleme kontrolünü kapat</sys:String>
+  <sys:String x:Key="LOCNileStartupArguments">Başlangıç ​​etkenleri</sys:String>
+  <sys:String x:Key="LOCNileLauncherSettings">Başlatma ayarlarını değiştir</sys:String>
   <sys:String x:Key="LOCNileMove">Taşı</sys:String>
   <sys:String x:Key="LOCNileMoveConfirm">{0} öğesini "{1}" konumuna taşımak istediğinizden emin misiniz? Bu uzun zaman alabilir.</sys:String>
   <sys:String x:Key="LOCNileMovingGame">{0}, "{1}" öğesine taşınıyor...</sys:String>

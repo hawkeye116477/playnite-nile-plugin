@@ -26,6 +26,7 @@ namespace NileLibraryNS
         public bool DisplayDownloadSpeedInBits { get; set; } = false;
         public bool DisplayDownloadTaskFinishedNotifications { get; set; } = true;
         public ClearCacheTime AutoClearCache { get; set; } = ClearCacheTime.Never;
+        public UpdatePolicy GamesUpdatePolicy { get; set; } = UpdatePolicy.Month;
     }
 
     public class NileLibrarySettingsViewModel : PluginSettingsViewModel<NileLibrarySettings, NileLibrary>

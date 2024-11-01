@@ -40,3 +40,4 @@ LOCDoNothing
 LOCOptionOnceADay
 LOCOptionOnceAWeek
 LOCSettingsPlaytimeImportModeNever
+LOCGameStartError

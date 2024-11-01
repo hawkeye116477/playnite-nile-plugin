@@ -6,6 +6,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <sys:String x:Key="LOCNile3P_PlayniteFilterActiveLabel">過濾器已啟用</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteFilters">過濾器</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteGameStartError">無法啟動遊戲: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallError">無法安裝遊戲: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameUninstallError">無法移除遊戲: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallSizeLabel">安裝大小</sys:String>

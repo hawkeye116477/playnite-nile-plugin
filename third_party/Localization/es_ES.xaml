@@ -6,6 +6,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <sys:String x:Key="LOCNile3P_PlayniteFilterActiveLabel">Filtro activo</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteFilters">Filtros</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteGameStartError">No se puede iniciar el juego: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallError">No se puede instalar el juego: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameUninstallError">No se puede desinstalar el juego: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallSizeLabel">Tamaño de instalación</sys:String>

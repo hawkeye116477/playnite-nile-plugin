@@ -6,4 +6,5 @@
   <sys:String x:Key="LOCNilePanel">Nile Panel</sys:String>
   <sys:String x:Key="LOCNileDownloadManagerWhatsUp">The download will start soon. You can see its status by accessing Nile Panel via Menu =&gt; View or sidebar.</sys:String>
   <sys:String x:Key="LOCNileInstanceNotice">Only one instance of Nile may install/import/move applications at a time. Do you want to pause download manager tasks to continue?</sys:String>
+  <sys:String x:Key="LOCNileLaunchGameDirectly">Launch directly without using launcher</sys:String>
 </ResourceDictionary>

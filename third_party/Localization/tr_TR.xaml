@@ -6,6 +6,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <sys:String x:Key="LOCNile3P_PlayniteFilterActiveLabel">Filtre Etkin</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteFilters">Filtreler</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteGameStartError">Oyun başlatılamıyor: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallError">Oyun kurulamıyor: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameUninstallError">Oyun kaldırılamıyor: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteInstallSizeLabel">Kurulu Boyut</sys:String>

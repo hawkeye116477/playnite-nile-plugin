@@ -23,7 +23,6 @@ namespace NileLibraryNS.Services
         public AmazonAccountClient(NileLibrary library)
         {
             this.library = library;
-            logger.Debug(Nile.TokensPath);
             tokensPath = Nile.TokensPath;
         }
 
