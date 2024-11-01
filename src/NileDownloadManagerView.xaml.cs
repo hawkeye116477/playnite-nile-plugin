@@ -462,7 +462,8 @@ namespace NileLibraryNS
                     {
                         if (selectedRow.status == DownloadStatus.Running)
                         {
-                            gracefulInstallerCTS?.Cancel();
+                            // Nile doesn't support cancelation, so we need to force it :-)
+                            forcefulInstallerCTS?.Cancel();
                             gracefulInstallerCTS?.Dispose();
                             forcefulInstallerCTS?.Dispose();
                         }
@@ -496,7 +497,8 @@ namespace NileLibraryNS
                     {
                         if (selectedRow.status == DownloadStatus.Running)
                         {
-                            gracefulInstallerCTS?.Cancel();
+                            // Nile doesn't support cancelation, so we need to force it :-)
+                            forcefulInstallerCTS?.Cancel();
                             gracefulInstallerCTS?.Dispose();
                             forcefulInstallerCTS?.Dispose();
                         }
