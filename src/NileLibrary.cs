@@ -123,6 +123,20 @@ namespace NileLibraryNS
                     continue;
                 }
                 var gameName = new DirectoryInfo(installLocation).Name;
+                var nileLibSyncJsonPath = Path.Combine(Nile.ConfigPath, "library.json");
+                if (File.Exists(nileLibSyncJsonPath))
+                {
+                    var nileLibSyncJson = new List<NileLibraryFile.NileGames>();
+                    var nileLibyncJsonContent = FileSystem.ReadFileAsStringSafe(nileLibSyncJsonPath);
+                    if (!nileLibyncJsonContent.IsNullOrWhiteSpace() && Serialization.TryFromJson(nileLibyncJsonContent, out nileLibSyncJson))
+                    {
+                        var wantedGame = nileLibSyncJson.FirstOrDefault(i => i.product.id == app.id);
+                        if (wantedGame != null)
+                        {
+                            gameName = wantedGame.product.title.RemoveTrademarks();
+                        }
+                    }
+                }
 
                 var game = new GameMetadata()
                 {
