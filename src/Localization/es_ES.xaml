@@ -71,6 +71,8 @@
   <sys:String x:Key="LOCNilePathNotExistsError">La ruta especificada no existe.</sys:String>
   <sys:String x:Key="LOCNileTask">Tarea</sys:String>
   <sys:String x:Key="LOCNileDownloadProperties">Propiedades de la descarga</sys:String>
+  <sys:String x:Key="LOCNileMigrationCompleted">Migración completada con éxito.</sys:String>
+  <sys:String x:Key="LOCNileMigrationNoGames">No se encontraron juegos para la migración.</sys:String>
   <sys:String x:Key="LOCNileSignOut">Cerrar sesión</sys:String>
   <sys:String x:Key="LOCNileTroubleshootingInformation">Información para solucionar problemas</sys:String>
   <sys:String x:Key="LOCNilePlayniteVersion">Versión de Playnite</sys:String>

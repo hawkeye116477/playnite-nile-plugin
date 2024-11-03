@@ -9,4 +9,7 @@
   <sys:String x:Key="LOCNileLaunchGameDirectly">Launch directly without using launcher</sys:String>
   <sys:String x:Key="LOCNileGamesUpdatesUnderway">Updates for games from Amazon are being downloaded.</sys:String>
   <sys:String x:Key="LOCNileLauncherUpdatePolicy">Check for Nile launcher updates</sys:String>
+  <sys:String x:Key="LOCNileMigrateGamesAmazon">Migrate all games from Amazon Games plugin</sys:String>
+  <sys:String x:Key="LOCNileMigratingGamesAmazon">Migrating all games from Amazon plugin...</sys:String>
+  <sys:String x:Key="LOCNileMigrationConfirm">All games will be removed from Amazon plugin and moved to Nile. Are you sure you want to do this?</sys:String>
 </ResourceDictionary>

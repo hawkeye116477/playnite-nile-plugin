@@ -71,6 +71,8 @@
   <sys:String x:Key="LOCNilePathNotExistsError">Der angegebene Pfad existiert nicht.</sys:String>
   <sys:String x:Key="LOCNileTask">Aufgabe</sys:String>
   <sys:String x:Key="LOCNileDownloadProperties">Download-Eigenschaften</sys:String>
+  <sys:String x:Key="LOCNileMigrationCompleted">Migration erfolgreich abgeschlossen.</sys:String>
+  <sys:String x:Key="LOCNileMigrationNoGames">Keine Spiele für die Migration gefunden.</sys:String>
   <sys:String x:Key="LOCNileSignOut">Abmelden</sys:String>
   <sys:String x:Key="LOCNileTroubleshootingInformation">Informationen zur Fehlerbehebung</sys:String>
   <sys:String x:Key="LOCNilePlayniteVersion">Playnite Version</sys:String>

@@ -71,6 +71,8 @@
   <sys:String x:Key="LOCNilePathNotExistsError">Belirtilen yol mevcut değil.</sys:String>
   <sys:String x:Key="LOCNileTask">Görev</sys:String>
   <sys:String x:Key="LOCNileDownloadProperties">İndirme Özellikleri</sys:String>
+  <sys:String x:Key="LOCNileMigrationCompleted">Taşıma başarıyla tamamlandı.</sys:String>
+  <sys:String x:Key="LOCNileMigrationNoGames">Taşıma için oyun bulunamadı.</sys:String>
   <sys:String x:Key="LOCNileSignOut">Oturumu kapat</sys:String>
   <sys:String x:Key="LOCNileTroubleshootingInformation">Sorun giderme bilgisi</sys:String>
   <sys:String x:Key="LOCNilePlayniteVersion">Playnite sürümü</sys:String>

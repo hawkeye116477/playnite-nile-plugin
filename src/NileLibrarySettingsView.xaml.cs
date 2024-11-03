@@ -1,4 +1,6 @@
-﻿using CommonPlugin;
+﻿using CliWrap;
+using CliWrap.Buffered;
+using CommonPlugin;
 using CommonPlugin.Enums;
 using NileLibraryNS.Enums;
 using NileLibraryNS.Services;
@@ -8,6 +10,7 @@ using Playnite.SDK.Data;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -260,6 +263,80 @@ namespace NileLibraryNS
             {
                 AutoUpdateGamesChk.IsEnabled = true;
             }
+        }
+
+        private void MigrateAmazonBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (!Nile.IsInstalled)
+            {
+                playniteAPI.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.NileNotInstalled));
+                return;
+            }
+            var result = playniteAPI.Dialogs.ShowMessage(ResourceProvider.GetString(LOC.NileMigrationConfirm), ResourceProvider.GetString(LOC.NileMigrateGamesAmazon), MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.No)
+            {
+                return;
+            }
+            GlobalProgressOptions globalProgressOptions = new GlobalProgressOptions(ResourceProvider.GetString(LOC.NileMigratingGamesAmazon), false) { IsIndeterminate = false };
+            playniteAPI.Dialogs.ActivateGlobalProgress(async (a) =>
+            {
+                using (playniteAPI.Database.BufferedUpdate())
+                {
+                    var gamesToMigrate = playniteAPI.Database.Games.Where(i => i.PluginId == Guid.Parse("402674cd-4af6-4886-b6ec-0e695bfa0688")).ToList();
+                    var migratedGames = new List<string>();
+                    var notImportedGames = new List<string>();
+                    if (gamesToMigrate.Count > 0)
+                    {
+                        var iterator = 0;
+                        a.ProgressMaxValue = gamesToMigrate.Count() + 1;
+                        a.CurrentProgressValue = 0;
+                        foreach (var game in gamesToMigrate.ToList())
+                        {
+                            iterator++;
+                            var alreadyExists = playniteAPI.Database.Games.FirstOrDefault(i => i.GameId == game.GameId && i.PluginId == NileLibrary.Instance.Id);
+                            if (alreadyExists == null)
+                            {
+                                game.PluginId = NileLibrary.Instance.Id;
+                                if (game.IsInstalled)
+                                {
+                                    var importCmd = await Cli.Wrap(Nile.ClientExecPath)
+                                                             .WithArguments(new[] { "import", game.GameId, "--path", game.InstallDirectory })
+                                                             .WithEnvironmentVariables(Nile.DefaultEnvironmentVariables)
+                                                             .AddCommandToLog()
+                                                             .WithValidation(CommandResultValidation.None)
+                                                             .ExecuteBufferedAsync();
+                                    if (!importCmd.StandardError.Contains("Imported"))
+                                    {
+                                        notImportedGames.Add(game.GameId);
+                                        game.IsInstalled = false;
+                                        logger.Debug("[Nile] " + importCmd.StandardError);
+                                        logger.Error("[Nile] exit code: " + importCmd.ExitCode);
+                                    }
+                                }
+                                playniteAPI.Database.Games.Update(game);
+                                migratedGames.Add(game.GameId);
+                                a.CurrentProgressValue = iterator;
+                            }
+                        }
+                        a.CurrentProgressValue = gamesToMigrate.Count() + 1;
+                        if (migratedGames.Count > 0)
+                        {
+                            playniteAPI.Dialogs.ShowMessage(LOC.NileMigrationCompleted, LOC.NileMigrateGamesAmazon, MessageBoxButton.OK, MessageBoxImage.Information);
+                            logger.Info("Successfully migrated " + migratedGames.Count + " game(s) from Amazon Games to Nile.");
+                        }
+                        if (notImportedGames.Count > 0)
+                        {
+                            logger.Info(notImportedGames.Count + " game(s) probably needs to be imported or installed again.");
+                        }
+                    }
+                    else
+                    {
+                        a.ProgressMaxValue = 1;
+                        a.CurrentProgressValue = 1;
+                        playniteAPI.Dialogs.ShowErrorMessage(LOC.NileMigrationNoGames);
+                    }
+                }
+            }, globalProgressOptions);
         }
     }
 }

@@ -104,3 +104,5 @@ LOCLegendaryAutoUpdate
 LOCLegendaryCheckUpdatesEveryPlayniteStartup
 LOCLegendaryCheckingForUpdates
 LOCLegendaryCheckForGamesUpdatesButton
+LOCLegendaryMigrationCompleted
+LOCLegendaryMigrationNoGames

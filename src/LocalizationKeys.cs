@@ -42,6 +42,18 @@ namespace System
         /// </summary>
         public const string NileLauncherUpdatePolicy = "LOCNileLauncherUpdatePolicy";
         /// <summary>
+        /// Migrate all games from Amazon Games plugin
+        /// </summary>
+        public const string NileMigrateGamesAmazon = "LOCNileMigrateGamesAmazon";
+        /// <summary>
+        /// Migrating all games from Amazon plugin...
+        /// </summary>
+        public const string NileMigratingGamesAmazon = "LOCNileMigratingGamesAmazon";
+        /// <summary>
+        /// All games will be removed from Amazon plugin and moved to Nile. Are you sure you want to do this?
+        /// </summary>
+        public const string NileMigrationConfirm = "LOCNileMigrationConfirm";
+        /// <summary>
         /// Launcher Path
         /// </summary>
         public const string NileLauncherCustomPath = "LOCNileLauncherCustomPath";
@@ -325,6 +337,14 @@ namespace System
         /// Download Properties
         /// </summary>
         public const string NileDownloadProperties = "LOCNileDownloadProperties";
+        /// <summary>
+        /// Migration completed successfully.
+        /// </summary>
+        public const string NileMigrationCompleted = "LOCNileMigrationCompleted";
+        /// <summary>
+        /// No games found for migration.
+        /// </summary>
+        public const string NileMigrationNoGames = "LOCNileMigrationNoGames";
         /// <summary>
         /// Sign out
         /// </summary>

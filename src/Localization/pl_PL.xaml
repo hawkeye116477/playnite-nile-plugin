@@ -71,6 +71,8 @@
   <sys:String x:Key="LOCNilePathNotExistsError">Podana ścieżka nie istnieje.</sys:String>
   <sys:String x:Key="LOCNileTask">Zadanie</sys:String>
   <sys:String x:Key="LOCNileDownloadProperties">Właściwości pobierania</sys:String>
+  <sys:String x:Key="LOCNileMigrationCompleted">Migracja ukończona pomyślnie.</sys:String>
+  <sys:String x:Key="LOCNileMigrationNoGames">Nie znaleziono gier do migracji.</sys:String>
   <sys:String x:Key="LOCNileSignOut">Wyloguj się</sys:String>
   <sys:String x:Key="LOCNileTroubleshootingInformation">Informacje do rozwiązywania problemów</sys:String>
   <sys:String x:Key="LOCNilePlayniteVersion">Wersja Playnite</sys:String>
