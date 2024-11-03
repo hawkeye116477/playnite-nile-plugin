@@ -48,7 +48,6 @@
 
                 <CheckBox IsChecked="{Binding Settings.StartGamesWithoutLauncher}"
                   Content="{DynamicResource LOCNile3P_AmazonSettingsStartGameDirectly}"
-                  Visibility="{Binding IsFirstRunUse, Converter={pcon:InvertedBooleanToVisibilityConverter}}"
                   Margin="0,5,0,0" />
             </StackPanel>
         </TabItem>

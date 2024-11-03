@@ -7,6 +7,7 @@ using NileLibraryNS.Services;
 using Playnite.Common;
 using Playnite.SDK;
 using Playnite.SDK.Data;
+using Playnite.SDK.Events;
 using Playnite.SDK.Models;
 using Playnite.SDK.Plugins;
 using System;
@@ -50,12 +51,6 @@ namespace NileLibraryNS
                 ProgressValue = 0,
                 ProgressMaximum = 100,
             };
-        }
-
-        public override ISettings GetSettings(bool firstRunSettings)
-        {
-            SettingsViewModel.IsFirstRunUse = firstRunSettings;
-            return SettingsViewModel;
         }
 
         public static NileLibrarySettings GetSettings()
@@ -327,6 +322,33 @@ namespace NileLibraryNS
             return cacheDir;
         }
 
+        public static long GetNextClearingTime(ClearCacheTime frequency)
+        {
+            DateTimeOffset? clearingTime = null;
+            DateTimeOffset now = DateTime.UtcNow;
+            switch (frequency)
+            {
+                case ClearCacheTime.Day:
+                    clearingTime = now.AddDays(1);
+                    break;
+                case ClearCacheTime.Week:
+                    clearingTime = now.AddDays(7);
+                    break;
+                case ClearCacheTime.Month:
+                    clearingTime = now.AddMonths(1);
+                    break;
+                case ClearCacheTime.ThreeMonths:
+                    clearingTime = now.AddMonths(3);
+                    break;
+                case ClearCacheTime.SixMonths:
+                    clearingTime = now.AddMonths(6);
+                    break;
+                default:
+                    break;
+            }
+            return clearingTime?.ToUnixTimeSeconds() ?? 0;
+        }
+
         public static SidebarItem GetPanel()
         {
             return Instance.downloadManagerSidebarItem;
@@ -365,6 +387,34 @@ namespace NileLibraryNS
                 downloadManager.SaveData();
             }
             return true;
+        }
+
+        public override void OnApplicationStopped(OnApplicationStoppedEventArgs args)
+        {
+            StopDownloadManager();
+            var settings = GetSettings();
+            if (settings != null)
+            {
+                if (settings.AutoClearCache != ClearCacheTime.Never)
+                {
+                    var nextClearingTime = settings.NextClearingTime;
+                    if (nextClearingTime != 0)
+                    {
+                        DateTimeOffset now = DateTime.UtcNow;
+                        if (now.ToUnixTimeSeconds() >= nextClearingTime)
+                        {
+                            Nile.ClearCache();
+                            settings.NextClearingTime = GetNextClearingTime(settings.AutoClearCache);
+                            SavePluginSettings(settings);
+                        }
+                    }
+                    else
+                    {
+                        settings.NextClearingTime = GetNextClearingTime(settings.AutoClearCache);
+                        SavePluginSettings(settings);
+                    }
+                }
+            }
         }
 
         public override IEnumerable<GameMenuItem> GetGameMenuItems(GetGameMenuItemsArgs args)

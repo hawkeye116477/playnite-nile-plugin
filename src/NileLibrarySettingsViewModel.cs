@@ -10,7 +10,6 @@ namespace NileLibraryNS
 {
     public class NileLibrarySettings
     {
-        public int Version { get; set; }
         public bool ImportInstalledGames { get; set; } = true;
         public bool ConnectAccount { get; set; } = false;
         public bool ImportUninstalledGames { get; set; } = false;
@@ -24,12 +23,11 @@ namespace NileLibraryNS
         public bool DisplayDownloadTaskFinishedNotifications { get; set; } = true;
         public ClearCacheTime AutoClearCache { get; set; } = ClearCacheTime.Never;
         public UpdatePolicy GamesUpdatePolicy { get; set; } = UpdatePolicy.Month;
+        public long NextClearingTime { get; set; } = 0;
     }
 
     public class NileLibrarySettingsViewModel : PluginSettingsViewModel<NileLibrarySettings, NileLibrary>
     {
-        public bool IsFirstRunUse { get; set; }
-
         public bool IsUserLoggedIn
         {
             get
@@ -57,25 +55,7 @@ namespace NileLibraryNS
 
         public NileLibrarySettingsViewModel(NileLibrary library, IPlayniteAPI api) : base(library, api)
         {
-            var savedSettings = LoadSavedSettings();
-            if (savedSettings != null)
-            {
-                if (savedSettings.Version == 0)
-                {
-                    Logger.Debug("Updating Amazon settings from version 0.");
-                    if (savedSettings.ImportUninstalledGames)
-                    {
-                        savedSettings.ConnectAccount = true;
-                    }
-                }
-
-                savedSettings.Version = 1;
-                Settings = savedSettings;
-            }
-            else
-            {
-                Settings = new NileLibrarySettings() { Version = 1 };
-            }
+            Settings = LoadSavedSettings() ?? new NileLibrarySettings();
         }
 
         private async Task Login()
@@ -90,6 +70,22 @@ namespace NileLibraryNS
             {
                 Logger.Error(e, "Failed to authenticate Amazon user.");
             }
+        }
+
+        public override void EndEdit()
+        {
+            if (EditingClone.AutoClearCache != Settings.AutoClearCache)
+            {
+                if (Settings.AutoClearCache != ClearCacheTime.Never)
+                {
+                    Settings.NextClearingTime = NileLibrary.GetNextClearingTime(Settings.AutoClearCache);
+                }
+                else
+                {
+                    Settings.NextClearingTime = 0;
+                }
+            }
+            base.EndEdit();
         }
     }
 }
