@@ -41,8 +41,10 @@
   <sys:String x:Key="LOCNile3P_PlayniteInstallGame">Įrašyti</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstallGame">Ištrinti</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">Daugiau neberodyti</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteExtensionsUpdates">Atnaujinimai</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Pasirinkite failą...</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Pasirinkite aplanką...</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnlyManually"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOptionOnceADay"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOptionOnceAWeek"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOpen"></sys:String>

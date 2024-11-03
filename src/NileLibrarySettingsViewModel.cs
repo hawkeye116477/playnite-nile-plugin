@@ -24,6 +24,10 @@ namespace NileLibraryNS
         public ClearCacheTime AutoClearCache { get; set; } = ClearCacheTime.Never;
         public UpdatePolicy GamesUpdatePolicy { get; set; } = UpdatePolicy.Month;
         public long NextClearingTime { get; set; } = 0;
+        public long NextGamesUpdateTime { get; set; } = 0;
+        public UpdatePolicy LauncherUpdatePolicy { get; set; } = UpdatePolicy.Month;
+        public long NextLauncherUpdateTime { get; set; } = 0;
+        public bool AutoUpdateGames { get; set; } = false;
     }
 
     public class NileLibrarySettingsViewModel : PluginSettingsViewModel<NileLibrarySettings, NileLibrary>
@@ -83,6 +87,28 @@ namespace NileLibraryNS
                 else
                 {
                     Settings.NextClearingTime = 0;
+                }
+            }
+            if (EditingClone.GamesUpdatePolicy != Settings.GamesUpdatePolicy)
+            {
+                if (Settings.GamesUpdatePolicy != UpdatePolicy.Never)
+                {
+                    Settings.NextGamesUpdateTime = NileLibrary.GetNextUpdateCheckTime(Settings.GamesUpdatePolicy);
+                }
+                else
+                {
+                    Settings.NextGamesUpdateTime = 0;
+                }
+            }
+            if (EditingClone.LauncherUpdatePolicy != Settings.LauncherUpdatePolicy)
+            {
+                if (Settings.LauncherUpdatePolicy != UpdatePolicy.Never)
+                {
+                    Settings.NextLauncherUpdateTime = NileLibrary.GetNextUpdateCheckTime(Settings.LauncherUpdatePolicy);
+                }
+                else
+                {
+                    Settings.NextLauncherUpdateTime = 0;
                 }
             }
             base.EndEdit();

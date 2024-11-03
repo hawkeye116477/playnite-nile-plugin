@@ -41,8 +41,10 @@
   <sys:String x:Key="LOCNile3P_PlayniteInstallGame">Instalaţi</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstallGame">Dezinstalați</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">Nu mai afișa</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteExtensionsUpdates"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip"></sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnlyManually"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOptionOnceADay"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOptionOnceAWeek"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOpen"></sys:String>

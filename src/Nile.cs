@@ -324,8 +324,10 @@ namespace NileLibraryNS
                     var nileLibyncJsonContent = FileSystem.ReadFileAsStringSafe(nileLibSyncJsonPath);
                     if (!nileLibyncJsonContent.IsNullOrWhiteSpace() && Serialization.TryFromJson(nileLibyncJsonContent, out nileLibSyncJson))
                     {
-                        if (nileLibSyncJson.FirstOrDefault(i => i.product.id == gameData.gameID) != null)
+                        var wantedItem = nileLibSyncJson.FirstOrDefault(i => i.product.id == gameData.gameID);
+                        if (wantedItem != null)
                         {
+                            manifest.title = wantedItem.product.title.RemoveTrademarks();
                             correctSyncJson = true;
                         }
                         else
@@ -358,6 +360,16 @@ namespace NileLibraryNS
                         manifest.errorDisplayed = true;
                         return manifest;
                     }
+                    else
+                    {
+                        var nileLibyncJsonContent = FileSystem.ReadFileAsStringSafe(nileLibSyncJsonPath);
+                        var nileLibyncJson = Serialization.FromJson<List<NileLibraryFile.NileGames>>(nileLibyncJsonContent);
+                        var wantedItem = nileLibSyncJson.FirstOrDefault(i => i.product.id == gameData.gameID);
+                        if (wantedItem != null)
+                        {
+                            manifest.title = wantedItem.product.title.RemoveTrademarks();
+                        }
+                    }
                 }
 
                 BufferedCommandResult result = await Cli.Wrap(ClientExecPath)
@@ -385,8 +397,9 @@ namespace NileLibraryNS
                 }
                 else
                 {
-                    File.WriteAllText(cacheInfoFile, result.StandardOutput);
-                    manifest = Serialization.FromJson<GameDownloadInfo>(result.StandardOutput);
+                    var newManifest = Serialization.FromJson<GameDownloadInfo>(result.StandardOutput);
+                    manifest.download_size = newManifest.download_size;
+                    File.WriteAllText(cacheInfoFile, Serialization.ToJson(manifest));
                 }
             }
             return manifest;

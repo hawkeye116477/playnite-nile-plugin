@@ -41,3 +41,5 @@ LOCOptionOnceADay
 LOCOptionOnceAWeek
 LOCSettingsPlaytimeImportModeNever
 LOCGameStartError
+LOCExtensionsUpdates
+LOCOptionOnlyManually

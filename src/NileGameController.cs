@@ -6,6 +6,7 @@ using CommonPlugin.Enums;
 using NileLibraryNS.Models;
 using Playnite.Common;
 using Playnite.SDK;
+using Playnite.SDK.Data;
 using Playnite.SDK.Models;
 using Playnite.SDK.Plugins;
 using System;
@@ -466,6 +467,152 @@ namespace NileLibraryNS
                     playTimeMs += (ulong)trackingWatch.ElapsedMilliseconds;
                 }
             });
+        }
+    }
+
+    public class NileUpdateController
+    {
+        private IPlayniteAPI playniteAPI = API.Instance;
+        private static ILogger logger = LogManager.GetLogger();
+        public async Task<Dictionary<string, UpdateInfo>> CheckGameUpdates(string gameId, bool forceRefreshCache = false)
+        {
+            var gameToUpdate = new Dictionary<string, UpdateInfo>();
+            var gamesToUpdate = await CheckAllGamesUpdates(false, forceRefreshCache);
+            if (gamesToUpdate.Count > 0)
+            {
+                var wantedItem = gamesToUpdate.FirstOrDefault(g => g.Key == gameId && g.Value.Success);
+                if (wantedItem.Key != null)
+                {
+                    gameToUpdate.Add(wantedItem.Key, wantedItem.Value);
+                }
+            }
+            return gameToUpdate;
+        }
+
+        public async Task<Dictionary<string, UpdateInfo>> CheckAllGamesUpdates(bool silently = false, bool forceRefreshCache = false)
+        {
+            var gamesToUpdate = new Dictionary<string, UpdateInfo>();
+            var cmd = await Cli.Wrap(Nile.ClientExecPath)
+                               .WithArguments(new[] { "list-updates", "--json" })
+                               .WithEnvironmentVariables(Nile.DefaultEnvironmentVariables)
+                               .AddCommandToLog()
+                               .WithValidation(CommandResultValidation.None)
+                               .ExecuteBufferedAsync();
+            var errorMessage = cmd.StandardError;
+            if (cmd.ExitCode != 0 || errorMessage.Contains("ERROR") || errorMessage.Contains("CRITICAL") || errorMessage.Contains("Error"))
+            {
+                logger.Error(errorMessage);
+                if (!silently)
+                {
+                    if (errorMessage.Contains("not logged in"))
+                    {
+                        playniteAPI.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteMetadataDownloadError).Format(ResourceProvider.GetString(LOC.Nile3P_PlayniteLoginRequired)), "");
+                    }
+                    else
+                    {
+                        playniteAPI.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteMetadataDownloadError).Format(ResourceProvider.GetString(LOC.NileCheckLog)), "");
+                    }
+                }
+            }
+            else
+            {
+                var gamesToUpdateManifest = Serialization.FromJson<List<string>>(cmd.StandardOutput);
+                if (gamesToUpdateManifest.Count > 0)
+                {
+                    foreach (var gameToUpdate in gamesToUpdateManifest)
+                    {
+                        var gameSettings = NileGameSettingsView.LoadGameSettings(gameToUpdate);
+                        if (gameSettings.DisableGameVersionCheck != true)
+                        {
+                            var updateInfo = new UpdateInfo();
+                            var gameData = new DownloadManagerData.Download
+                            {
+                                gameID = gameToUpdate
+                            };
+                            var gameInfo = await Nile.GetGameInfo(gameData, silently);
+                            if (gameInfo.errorDisplayed)
+                            {
+                                updateInfo.Success = false;
+                                logger.Error($"An error occured during checking {gameToUpdate} updates.");
+                            }
+                            else
+                            {
+                                updateInfo.Download_size = gameInfo.download_size;
+                                updateInfo.Title = gameInfo.title;
+                            }
+                            gamesToUpdate.Add(gameToUpdate, updateInfo);
+                        }
+                    }
+                }
+            }
+            return gamesToUpdate;
+        }
+
+        public async Task UpdateGame(Dictionary<string, UpdateInfo> gamesToUpdate, string gameTitle = "", bool silently = false, DownloadProperties downloadProperties = null)
+        {
+            var updateTasks = new List<DownloadManagerData.Download>();
+            if (gamesToUpdate.Count > 0)
+            {
+                bool canUpdate = true;
+                if (canUpdate)
+                {
+                    if (silently)
+                    {
+                        var playniteApi = API.Instance;
+                        playniteApi.Notifications.Add(new NotificationMessage("NileGamesUpdates", ResourceProvider.GetString(LOC.NileGamesUpdatesUnderway), NotificationType.Info));
+                    }
+                    NileDownloadManagerView downloadManager = NileLibrary.GetNileDownloadManager();
+                    foreach (var gameToUpdate in gamesToUpdate)
+                    {
+                        var downloadData = new DownloadManagerData.Download { gameID = gameToUpdate.Key, downloadProperties = downloadProperties };
+                        var wantedItem = downloadManager.downloadManagerData.downloads.FirstOrDefault(item => item.gameID == gameToUpdate.Key);
+                        if (wantedItem != null)
+                        {
+                            if (wantedItem.status == DownloadStatus.Completed)
+                            {
+                                downloadManager.downloadManagerData.downloads.Remove(wantedItem);
+                                downloadManager.downloadsChanged = true;
+                                wantedItem = null;
+                            }
+                        }
+                        if (wantedItem != null)
+                        {
+                            if (!silently)
+                            {
+                                playniteAPI.Dialogs.ShowMessage(string.Format(ResourceProvider.GetString(LOC.NileDownloadAlreadyExists), wantedItem.name), "", MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
+                        }
+                        else
+                        {
+                            if (downloadProperties == null)
+                            {
+                                var settings = NileLibrary.GetSettings();
+                                downloadProperties = new DownloadProperties()
+                                {
+                                    downloadAction = DownloadAction.Update,
+                                    maxWorkers = settings.MaxWorkers,
+                                };
+                            }
+                            var updateTask = new DownloadManagerData.Download
+                            {
+                                gameID = gameToUpdate.Key,
+                                name = gameToUpdate.Value.Title,
+                                downloadSizeNumber = gameToUpdate.Value.Download_size,
+                                downloadProperties = downloadProperties
+                            };
+                            updateTasks.Add(updateTask);
+                        }
+                    }
+                    if (updateTasks.Count > 0)
+                    {
+                        await downloadManager.EnqueueMultipleJobs(updateTasks, silently);
+                    }
+                }
+            }
+            else if (!silently)
+            {
+                playniteAPI.Dialogs.ShowMessage(ResourceProvider.GetString(LOC.NileNoUpdatesAvailable), gameTitle);
+            }
         }
     }
 

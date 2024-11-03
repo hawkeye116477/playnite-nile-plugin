@@ -41,8 +41,10 @@
   <sys:String x:Key="LOCNile3P_PlayniteInstallGame">Instaluj</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstallGame">Odinstaluj</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">Nie pokazuj ponownie</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteExtensionsUpdates">Aktualizacje</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">Wybierz plik...</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">Wybierz folder...</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnlyManually">Tylko ręcznie</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOptionOnceADay">Raz dziennie</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOptionOnceAWeek">Raz w tygodniu</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOpen">Otwórz</sys:String>

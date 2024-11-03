@@ -39,6 +39,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteInstallGame"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstallGame"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle"></sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteExtensionsUpdates"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip"></sys:String>
 </ResourceDictionary>

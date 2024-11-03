@@ -1,5 +1,6 @@
 ﻿using CommonPlugin;
 using CommonPlugin.Enums;
+using NileLibraryNS.Enums;
 using NileLibraryNS.Services;
 using Playnite.Common;
 using Playnite.SDK;
@@ -115,6 +116,30 @@ namespace NileLibraryNS
             };
             AutoClearCacheCBo.ItemsSource = autoClearOptions;
 
+            var updatePolicyOptions = new Dictionary<UpdatePolicy, string>
+            {
+                { UpdatePolicy.PlayniteLaunch, ResourceProvider.GetString(LOC.NileCheckUpdatesEveryPlayniteStartup) },
+                { UpdatePolicy.Day, ResourceProvider.GetString(LOC.Nile3P_PlayniteOptionOnceADay) },
+                { UpdatePolicy.Week, ResourceProvider.GetString(LOC.Nile3P_PlayniteOptionOnceAWeek) },
+                { UpdatePolicy.Month, ResourceProvider.GetString(LOC.NileOnceAMonth) },
+                { UpdatePolicy.ThreeMonths, ResourceProvider.GetString(LOC.NileOnceEvery3Months) },
+                { UpdatePolicy.SixMonths, ResourceProvider.GetString(LOC.NileOnceEvery6Months) },
+                { UpdatePolicy.Never, ResourceProvider.GetString(LOC.Nile3P_PlayniteOptionOnlyManually) }
+            };
+            GamesUpdatesCBo.ItemsSource = updatePolicyOptions;
+
+            var launcherUpdatePolicyOptions = new Dictionary<UpdatePolicy, string>
+            {
+                { UpdatePolicy.PlayniteLaunch, ResourceProvider.GetString(LOC.NileCheckUpdatesEveryPlayniteStartup) },
+                { UpdatePolicy.Day, ResourceProvider.GetString(LOC.Nile3P_PlayniteOptionOnceADay) },
+                { UpdatePolicy.Week, ResourceProvider.GetString(LOC.Nile3P_PlayniteOptionOnceAWeek) },
+                { UpdatePolicy.Month, ResourceProvider.GetString(LOC.NileOnceAMonth) },
+                { UpdatePolicy.ThreeMonths, ResourceProvider.GetString(LOC.NileOnceEvery3Months) },
+                { UpdatePolicy.SixMonths, ResourceProvider.GetString(LOC.NileOnceEvery6Months) },
+                { UpdatePolicy.Never, ResourceProvider.GetString(LOC.Nile3P_PlayniteOptionOnlyManually) }
+            };
+            LauncherUpdatesCBo.ItemsSource = launcherUpdatePolicyOptions;
+
             troubleshootingInformation = new NileTroubleshootingInformation();
             PlayniteVersionTxt.Text = troubleshootingInformation.PlayniteVersion;
             PluginVersionTxt.Text = troubleshootingInformation.PluginVersion;
@@ -221,6 +246,19 @@ namespace NileLibraryNS
             if (path != "")
             {
                 SelectedGamePathTxt.Text = path;
+            }
+        }
+
+        private void GamesUpdatesCBo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedValue = (KeyValuePair<UpdatePolicy, string>)GamesUpdatesCBo.SelectedItem;
+            if (selectedValue.Key == UpdatePolicy.Never)
+            {
+                AutoUpdateGamesChk.IsEnabled = false;
+            }
+            else
+            {
+                AutoUpdateGamesChk.IsEnabled = true;
             }
         }
     }

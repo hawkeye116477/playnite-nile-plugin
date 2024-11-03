@@ -2,6 +2,7 @@
 using CliWrap.Buffered;
 using CommonPlugin;
 using CommonPlugin.Enums;
+using NileLibraryNS.Enums;
 using NileLibraryNS.Models;
 using NileLibraryNS.Services;
 using Playnite.Common;
@@ -363,6 +364,36 @@ namespace NileLibraryNS
             return clearingTime?.ToUnixTimeSeconds() ?? 0;
         }
 
+        public static long GetNextUpdateCheckTime(UpdatePolicy frequency)
+        {
+            DateTimeOffset? updateTime = null;
+            DateTimeOffset now = DateTime.UtcNow;
+            switch (frequency)
+            {
+                case UpdatePolicy.PlayniteLaunch:
+                    updateTime = now;
+                    break;
+                case UpdatePolicy.Day:
+                    updateTime = now.AddDays(1);
+                    break;
+                case UpdatePolicy.Week:
+                    updateTime = now.AddDays(7);
+                    break;
+                case UpdatePolicy.Month:
+                    updateTime = now.AddMonths(1);
+                    break;
+                case UpdatePolicy.ThreeMonths:
+                    updateTime = now.AddMonths(3);
+                    break;
+                case UpdatePolicy.SixMonths:
+                    updateTime = now.AddMonths(6);
+                    break;
+                default:
+                    break;
+            }
+            return updateTime?.ToUnixTimeSeconds() ?? 0;
+        }
+
         public static SidebarItem GetPanel()
         {
             return Instance.downloadManagerSidebarItem;
@@ -401,6 +432,116 @@ namespace NileLibraryNS
                 downloadManager.SaveData();
             }
             return true;
+        }
+
+        public override async void OnApplicationStarted(OnApplicationStartedEventArgs args)
+        {
+            var globalSettings = GetSettings();
+            if (globalSettings != null)
+            {
+                if (globalSettings.GamesUpdatePolicy != UpdatePolicy.Never)
+                {
+                    var nextGamesUpdateTime = globalSettings.NextGamesUpdateTime;
+                    if (nextGamesUpdateTime != 0)
+                    {
+                        DateTimeOffset now = DateTime.UtcNow;
+                        if (now.ToUnixTimeSeconds() >= nextGamesUpdateTime)
+                        {
+                            globalSettings.NextGamesUpdateTime = GetNextUpdateCheckTime(globalSettings.GamesUpdatePolicy);
+                            SavePluginSettings(globalSettings);
+                            NileUpdateController NileUpdateController = new NileUpdateController();
+                            var gamesUpdates = await NileUpdateController.CheckAllGamesUpdates();
+                            if (gamesUpdates.Count > 0)
+                            {
+                                var successUpdates = gamesUpdates.Where(i => i.Value.Success).ToDictionary(i => i.Key, i => i.Value);
+                                if (successUpdates.Count > 0)
+                                {
+                                    if (globalSettings.AutoUpdateGames)
+                                    {
+                                        await NileUpdateController.UpdateGame(successUpdates, "", true);
+                                    }
+                                    else
+                                    {
+                                        Window window = PlayniteApi.Dialogs.CreateWindow(new WindowCreationOptions
+                                        {
+                                            ShowMaximizeButton = false,
+                                        });
+                                        window.DataContext = successUpdates;
+                                        window.Title = $"{ResourceProvider.GetString(LOC.Nile3P_PlayniteExtensionsUpdates)}";
+                                        window.Content = new NileUpdaterView();
+                                        window.Owner = PlayniteApi.Dialogs.GetCurrentAppWindow();
+                                        window.SizeToContent = SizeToContent.WidthAndHeight;
+                                        window.MinWidth = 600;
+                                        window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                                        window.ShowDialog();
+                                    }
+                                }
+                                else
+                                {
+                                    PlayniteApi.Notifications.Add(new NotificationMessage("NileGamesUpdateCheckFail",
+                                                                                          $"{Name} {Environment.NewLine}" +
+                                                                                          $"{PlayniteApi.Resources.GetString(LOC.Nile3P_PlayniteUpdateCheckFailMessage)}",
+                                                                                          NotificationType.Error));
+                                }
+                            }
+                        }
+                    }
+                }
+                if (globalSettings.LauncherUpdatePolicy != UpdatePolicy.Never && Nile.IsInstalled)
+                {
+                    var nextCometUpdateTime = globalSettings.NextLauncherUpdateTime;
+                    if (nextCometUpdateTime != 0)
+                    {
+                        DateTimeOffset now = DateTime.UtcNow;
+                        if (now.ToUnixTimeSeconds() >= nextCometUpdateTime)
+                        {
+                            globalSettings.NextLauncherUpdateTime = GetNextUpdateCheckTime(globalSettings.LauncherUpdatePolicy);
+                            SavePluginSettings(globalSettings);
+                            var nileVersionInfoContent = await Nile.GetVersionInfoContent();
+                            if (nileVersionInfoContent.Tag_name != null)
+                            {
+                                var newVersion = new Version(nileVersionInfoContent.Tag_name.Replace("v", ""));
+                                var oldVersion = new Version(await Nile.GetLauncherVersion());
+                                if (oldVersion.CompareTo(newVersion) < 0)
+                                {
+                                    var options = new List<MessageBoxOption>
+                                    {
+                                        new MessageBoxOption(ResourceProvider.GetString(LOC.NileViewChangelog), true),
+                                        new MessageBoxOption(ResourceProvider.GetString(LOC.Nile3P_PlayniteOKLabel), false, true),
+                                    };
+                                    var result = PlayniteApi.Dialogs.ShowMessage(string.Format(ResourceProvider.GetString(LOC.NileNewVersionAvailable), "Nile", newVersion), ResourceProvider.GetString(LOC.Nile3P_PlayniteUpdaterWindowTitle), MessageBoxImage.Information, options);
+                                    if (result == options[0])
+                                    {
+                                        var changelogURL = $"https://github.com/imLinguin/nile/releases/tag/v{newVersion}";
+                                        Playnite.Commands.GlobalCommands.NavigateUrl(changelogURL);
+                                    }
+                                }
+                            }
+                            var gogdlVersionInfoContent = await Nile.GetVersionInfoContent();
+                            if (gogdlVersionInfoContent.Tag_name != null)
+                            {
+                                var newVersion = new Version(gogdlVersionInfoContent.Tag_name.Replace("v", ""));
+                                var oldVersion = new Version(await Nile.GetLauncherVersion());
+                                if (oldVersion.CompareTo(newVersion) < 0)
+                                {
+                                    var options = new List<MessageBoxOption>
+                                    {
+                                        new MessageBoxOption(ResourceProvider.GetString(LOC.NileViewChangelog), true),
+                                        new MessageBoxOption(ResourceProvider.GetString(LOC.Nile3P_PlayniteOKLabel), false, true),
+                                    };
+                                    var result = PlayniteApi.Dialogs.ShowMessage(string.Format(ResourceProvider.GetString(LOC.NileNewVersionAvailable), "Nile", newVersion), ResourceProvider.GetString(LOC.Nile3P_PlayniteUpdaterWindowTitle), MessageBoxImage.Information, options);
+                                    if (result == options[0])
+                                    {
+                                        var changelogURL = $"https://github.com/Heroic-Games-Launcher/heroic-gogdl/releases/tag/v{newVersion}";
+                                        Playnite.Commands.GlobalCommands.NavigateUrl(changelogURL);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
         }
 
         public override void OnApplicationStopped(OnApplicationStoppedEventArgs args)
@@ -465,53 +606,53 @@ namespace NileLibraryNS
                                 window.ShowDialog();
                             }
                         };
-                        //yield return new GameMenuItem
-                        //{
-                        //    Description = ResourceProvider.GetString(LOC.Nile3P_PlayniteCheckForUpdates),
-                        //    Icon = "UpdateDbIcon",
-                        //    Action = (args) =>
-                        //    {
-                        //        if (!NileLauncher.IsInstalled)
-                        //        {
-                        //            throw new Exception(ResourceProvider.GetString(LOC.NileLauncherNotInstalled));
-                        //        }
+                        yield return new GameMenuItem
+                        {
+                            Description = ResourceProvider.GetString(LOC.Nile3P_PlayniteCheckForUpdates),
+                            Icon = "UpdateDbIcon",
+                            Action = (args) =>
+                            {
+                                if (!Nile.IsInstalled)
+                                {
+                                    throw new Exception(ResourceProvider.GetString(LOC.NileNotInstalled));
+                                }
 
-                        //        NileUpdateController NileUpdateController = new NileUpdateController();
-                        //        var gamesToUpdate = new Dictionary<string, UpdateInfo>();
-                        //        GlobalProgressOptions updateCheckProgressOptions = new GlobalProgressOptions(ResourceProvider.GetString(LOC.NileCheckingForUpdates), false) { IsIndeterminate = true };
-                        //        PlayniteApi.Dialogs.ActivateGlobalProgress(async (a) =>
-                        //        {
-                        //            gamesToUpdate = await NileUpdateController.CheckGameUpdates(game.Name, game.GameId);
-                        //        }, updateCheckProgressOptions);
-                        //        if (gamesToUpdate.Count > 0)
-                        //        {
-                        //            var successUpdates = gamesToUpdate.Where(i => i.Value.Success).ToDictionary(i => i.Key, i => i.Value);
-                        //            if (successUpdates.Count > 0)
-                        //            {
-                        //                Window window = PlayniteApi.Dialogs.CreateWindow(new WindowCreationOptions
-                        //                {
-                        //                    ShowMaximizeButton = false,
-                        //                });
-                        //                window.DataContext = successUpdates;
-                        //                window.Title = $"{ResourceProvider.GetString(LOC.Nile3P_PlayniteExtensionsUpdates)}";
-                        //                window.Content = new NileUpdater();
-                        //                window.Owner = PlayniteApi.Dialogs.GetCurrentAppWindow();
-                        //                window.SizeToContent = SizeToContent.WidthAndHeight;
-                        //                window.MinWidth = 600;
-                        //                window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-                        //                window.ShowDialog();
-                        //            }
-                        //            else
-                        //            {
-                        //                PlayniteApi.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteUpdateCheckFailMessage), game.Name);
-                        //            }
-                        //        }
-                        //        else
-                        //        {
-                        //            PlayniteApi.Dialogs.ShowMessage(ResourceProvider.GetString(LOC.NileNoUpdatesAvailable), game.Name);
-                        //        }
-                        //    }
-                        //};
+                                NileUpdateController NileUpdateController = new NileUpdateController();
+                                var gamesToUpdate = new Dictionary<string, UpdateInfo>();
+                                GlobalProgressOptions updateCheckProgressOptions = new GlobalProgressOptions(ResourceProvider.GetString(LOC.NileCheckingForUpdates), false) { IsIndeterminate = true };
+                                PlayniteApi.Dialogs.ActivateGlobalProgress(async (a) =>
+                                {
+                                    gamesToUpdate = await NileUpdateController.CheckGameUpdates(game.GameId);
+                                }, updateCheckProgressOptions);
+                                if (gamesToUpdate.Count > 0)
+                                {
+                                    var successUpdates = gamesToUpdate.Where(i => i.Value.Success).ToDictionary(i => i.Key, i => i.Value);
+                                    if (successUpdates.Count > 0)
+                                    {
+                                        Window window = PlayniteApi.Dialogs.CreateWindow(new WindowCreationOptions
+                                        {
+                                            ShowMaximizeButton = false,
+                                        });
+                                        window.DataContext = successUpdates;
+                                        window.Title = $"{ResourceProvider.GetString(LOC.Nile3P_PlayniteExtensionsUpdates)}";
+                                        window.Content = new NileUpdaterView();
+                                        window.Owner = PlayniteApi.Dialogs.GetCurrentAppWindow();
+                                        window.SizeToContent = SizeToContent.WidthAndHeight;
+                                        window.MinWidth = 600;
+                                        window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                                        window.ShowDialog();
+                                    }
+                                    else
+                                    {
+                                        PlayniteApi.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteUpdateCheckFailMessage), game.Name);
+                                    }
+                                }
+                                else
+                                {
+                                    PlayniteApi.Dialogs.ShowMessage(ResourceProvider.GetString(LOC.NileNoUpdatesAvailable), game.Name);
+                                }
+                            }
+                        };
                     }
                     else
                     {
@@ -726,6 +867,59 @@ namespace NileLibraryNS
                     }
                 }
             }
+        }
+
+        public override IEnumerable<MainMenuItem> GetMainMenuItems(GetMainMenuItemsArgs args)
+        {
+            yield return new MainMenuItem
+            {
+                Description = ResourceProvider.GetString(LOC.NileCheckForGamesUpdatesButton),
+                MenuSection = $"@{Instance.Name}",
+                Icon = "UpdateDbIcon",
+                Action = (args) =>
+                {
+                    if (!Nile.IsInstalled)
+                    {
+                        PlayniteApi.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.NileNotInstalled));
+                        return;
+                    }
+
+                    var gamesUpdates = new Dictionary<string, UpdateInfo>();
+                    NileUpdateController NileUpdateController = new NileUpdateController();
+                    GlobalProgressOptions updateCheckProgressOptions = new GlobalProgressOptions(ResourceProvider.GetString(LOC.NileCheckingForUpdates), false) { IsIndeterminate = true };
+                    PlayniteApi.Dialogs.ActivateGlobalProgress(async (a) =>
+                    {
+                        gamesUpdates = await NileUpdateController.CheckAllGamesUpdates();
+                    }, updateCheckProgressOptions);
+                    if (gamesUpdates.Count > 0)
+                    {
+                        var successUpdates = gamesUpdates.Where(i => i.Value.Success).ToDictionary(i => i.Key, i => i.Value);
+                        if (successUpdates.Count > 0)
+                        {
+                            Window window = PlayniteApi.Dialogs.CreateWindow(new WindowCreationOptions
+                            {
+                                ShowMaximizeButton = false,
+                            });
+                            window.DataContext = successUpdates;
+                            window.Title = $"{ResourceProvider.GetString(LOC.Nile3P_PlayniteExtensionsUpdates)}";
+                            window.Content = new NileUpdaterView();
+                            window.Owner = PlayniteApi.Dialogs.GetCurrentAppWindow();
+                            window.SizeToContent = SizeToContent.WidthAndHeight;
+                            window.MinWidth = 600;
+                            window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                            window.ShowDialog();
+                        }
+                        else
+                        {
+                            PlayniteApi.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteUpdateCheckFailMessage));
+                        }
+                    }
+                    else
+                    {
+                        PlayniteApi.Dialogs.ShowMessage(ResourceProvider.GetString(LOC.NileNoUpdatesAvailable));
+                    }
+                }
+            };
         }
     }
 }

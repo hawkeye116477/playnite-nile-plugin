@@ -6,7 +6,7 @@ namespace System
     public static class LOC
     {
         /// <summary>
-        /// Nile is not installed.
+        /// Nile launcher is not installed.
         /// </summary>
         public const string NileNotInstalled = "LOCNileNotInstalled";
         /// <summary>
@@ -33,6 +33,14 @@ namespace System
         /// Launch directly without using launcher
         /// </summary>
         public const string NileLaunchGameDirectly = "LOCNileLaunchGameDirectly";
+        /// <summary>
+        /// Updates for games from Amazon are being downloaded.
+        /// </summary>
+        public const string NileGamesUpdatesUnderway = "LOCNileGamesUpdatesUnderway";
+        /// <summary>
+        /// Check for Nile launcher updates
+        /// </summary>
+        public const string NileLauncherUpdatePolicy = "LOCNileLauncherUpdatePolicy";
         /// <summary>
         /// Launcher Path
         /// </summary>
@@ -378,6 +386,10 @@ namespace System
         /// </summary>
         public const string NileLauncherSettings = "LOCNileLauncherSettings";
         /// <summary>
+        /// Check all
+        /// </summary>
+        public const string NileCheckAllContent = "LOCNileCheckAllContent";
+        /// <summary>
         /// Move
         /// </summary>
         public const string NileMove = "LOCNileMove";
@@ -398,6 +410,18 @@ namespace System
         /// </summary>
         public const string NileMoveGameError = "LOCNileMoveGameError";
         /// <summary>
+        /// Automatically update games
+        /// </summary>
+        public const string NileAutoUpdate = "LOCNileAutoUpdate";
+        /// <summary>
+        /// Check for games updates
+        /// </summary>
+        public const string NileGamesUpdatePolicy = "LOCNileGamesUpdatePolicy";
+        /// <summary>
+        /// On every Playnite startup
+        /// </summary>
+        public const string NileCheckUpdatesEveryPlayniteStartup = "LOCNileCheckUpdatesEveryPlayniteStartup";
+        /// <summary>
         /// Remove launch settings
         /// </summary>
         public const string NileRemoveGameLaunchSettings = "LOCNileRemoveGameLaunchSettings";
@@ -414,9 +438,17 @@ namespace System
         /// </summary>
         public const string NilePermissionError = "LOCNilePermissionError";
         /// <summary>
+        /// Check for games updates
+        /// </summary>
+        public const string NileCheckForGamesUpdatesButton = "LOCNileCheckForGamesUpdatesButton";
+        /// <summary>
         /// Not enough free disk space.
         /// </summary>
         public const string NileNotEnoughSpace = "LOCNileNotEnoughSpace";
+        /// <summary>
+        /// Checking for updates...
+        /// </summary>
+        public const string NileCheckingForUpdates = "LOCNileCheckingForUpdates";
         /// <summary>
         /// {0} has been successfully uninstalled.
         /// </summary>
@@ -582,6 +614,10 @@ namespace System
         /// </summary>
         public const string Nile3P_PlayniteDontShowAgainTitle = "LOCNile3P_PlayniteDontShowAgainTitle";
         /// <summary>
+        /// Updates
+        /// </summary>
+        public const string Nile3P_PlayniteExtensionsUpdates = "LOCNile3P_PlayniteExtensionsUpdates";
+        /// <summary>
         /// Select file…
         /// </summary>
         public const string Nile3P_PlayniteSelectFileTooltip = "LOCNile3P_PlayniteSelectFileTooltip";
@@ -589,6 +625,10 @@ namespace System
         /// Select folder…
         /// </summary>
         public const string Nile3P_PlayniteSelectDirectoryTooltip = "LOCNile3P_PlayniteSelectDirectoryTooltip";
+        /// <summary>
+        /// Only manually
+        /// </summary>
+        public const string Nile3P_PlayniteOptionOnlyManually = "LOCNile3P_PlayniteOptionOnlyManually";
         /// <summary>
         /// Once a day
         /// </summary>

@@ -41,8 +41,10 @@
   <sys:String x:Key="LOCNile3P_PlayniteInstallGame">نصب</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstallGame">حذف نصب</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDontShowAgainTitle">دوباره نمایش نده</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteExtensionsUpdates">به روز رسانیها</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectFileTooltip">انتخاب فایل…</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteSelectDirectoryTooltip">انتخاب پوشه…</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteOptionOnlyManually">تنها دستی</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOptionOnceADay">یک بار در روز</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOptionOnceAWeek">یکبار در هفته</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteOpen">باز کن</sys:String>
