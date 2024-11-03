@@ -433,11 +433,20 @@ namespace NileLibraryNS
             }
             if (installedList.FirstOrDefault(i => i.id == game.GameId) == null)
             {
+                double gameSize = 0;
+                if (game.InstallSize != null)
+                {
+                    gameSize = (double)game.InstallSize;
+                }
+                else
+                {
+                    gameSize = FileSystem.GetDirectorySize(game.InstallDirectory, false);
+                }
                 var installedInfo = new InstalledGames.Installed
                 {
                     id = game.GameId,
                     path = game.InstallDirectory,
-                    size = (double)game.InstallSize,
+                    size = gameSize,
                     version = game.Version
                 };
                 installedList.Add(installedInfo);

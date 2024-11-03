@@ -141,6 +141,44 @@ namespace NileLibraryNS
                 games.Add(game.GameId, game);
             }
 
+            // Import games installed using Amazon Games Launcher
+            var amazonInstallSqlPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"Amazon Games\Data\Games\Sql\GameInstallInfo.sqlite");
+            if (File.Exists(amazonInstallSqlPath))
+            {
+                bool canContinue = StopDownloadManager(true);
+                if (canContinue)
+                {
+                    using var sql = SQLite.OpenDatabase(amazonInstallSqlPath, SqliteOpenFlags.ReadOnly);
+                    foreach (var program in sql.Query<GameConfiguration.AmazonLauncherInstallGameInfo>(@"SELECT * FROM DbSet WHERE Installed = 1;"))
+                    {
+                        if (!Directory.Exists(program.InstallDirectory))
+                        {
+                            continue;
+                        }
+                        var game = new Game()
+                        {
+                            InstallDirectory = Paths.FixSeparators(program.InstallDirectory),
+                            GameId = program.Id,
+                            Name = program.ProductTitle.RemoveTrademarks(),
+                        };
+                        var gameMeta = new GameMetadata()
+                        {
+                            InstallDirectory = game.InstallDirectory,
+                            GameId = game.GameId,
+                            Source = new MetadataNameProperty("Amazon"),
+                            Name = game.Name,
+                            IsInstalled = true,
+                            Platforms = new HashSet<MetadataProperty> { new MetadataSpecProperty("pc_windows") },
+                        };
+                        if (!games.ContainsKey(game.GameId))
+                        {
+                            Nile.AddGameToInstalledList(game);
+                            games.Add(game.GameId, gameMeta);
+                        }
+                    }
+                }
+            }
+
             return games;
         }
 

@@ -24,5 +24,13 @@ namespace NileLibraryNS.Models
             public string Command = "";
             public List<string> Args = new List<string>();
         }
+
+        public class AmazonLauncherInstallGameInfo
+        {
+            public string Id { get; set; }
+            public string InstallDirectory { get; set; }
+            public int Installed { get; set; }
+            public string ProductTitle { get; set; }
+        }
     }
 }
