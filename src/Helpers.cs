@@ -9,6 +9,5 @@ namespace NileLibraryNS
 {
     public class Helpers
     {
-       
     }
 }

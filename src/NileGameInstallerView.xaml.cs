@@ -222,7 +222,6 @@ namespace NileLibraryNS
                     MultiInstallData.Remove(installData);
                     continue;
                 }
-                installData.fullInstallPath = Path.Combine(installPath, installData.name.RemoveTrademarks());
                 installData.downloadSizeNumber = manifest.download_size;
                 var wantedItem = downloadManager.downloadManagerData.downloads.FirstOrDefault(item => item.gameID == installData.gameID);
                 if (wantedItem != null)

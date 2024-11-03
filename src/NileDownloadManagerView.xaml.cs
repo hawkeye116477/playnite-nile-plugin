@@ -237,7 +237,14 @@ namespace NileLibraryNS
 
             if (downloadProperties.installPath != "")
             {
-                installCommand.AddRange(new[] { "--path", Path.Combine(downloadProperties.installPath, gameTitle.RemoveTrademarks()) });
+                var folderName = gameTitle.RemoveTrademarks();
+                string[] inappropriateDirChars = { ":", "/", "*", "?", "<", ">", "\\", "|", "™", "\"", "®" };
+                foreach (var inappropriateDirChar in inappropriateDirChars)
+                {
+                    folderName = folderName.Replace(inappropriateDirChar, "");
+                }
+                taskData.fullInstallPath = Path.Combine(downloadProperties.installPath, folderName);
+                installCommand.AddRange(new[] { "--path", taskData.fullInstallPath });
             }
             if (downloadProperties.maxWorkers != 0)
             {
@@ -399,7 +406,7 @@ namespace NileLibraryNS
                                 var installedAppList = Nile.GetInstalledAppList();
                                 if (installedAppList != null)
                                 {
-                                    if (installedAppList.FirstOrDefault(i=>i.id == gameID) != null)
+                                    if (installedAppList.FirstOrDefault(i => i.id == gameID) != null)
                                     {
                                         var installedGameInfo = installedAppList.FirstOrDefault(i => i.id == gameID);
                                         Playnite.SDK.Models.Game game = new Playnite.SDK.Models.Game();
