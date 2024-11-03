@@ -1,9 +1,11 @@
 ﻿using CliWrap;
 using CliWrap.Buffered;
+using CommonPlugin;
 using NileLibraryNS.Models;
 using Playnite.Common;
 using Playnite.SDK;
 using Playnite.SDK.Data;
+using Playnite.SDK.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -403,6 +405,35 @@ namespace NileLibraryNS
                 }
             }
             return manifest;
+        }
+
+        public static void AddGameToInstalledList(Game game)
+        {
+            var installListPath = Path.Combine(ConfigPath, "installed.json");
+            var installedList = new List<InstalledGames.Installed>();
+            if (File.Exists(installListPath))
+            {
+                var installListContent = FileSystem.ReadFileAsStringSafe(installListPath);
+                if (!installListContent.IsNullOrWhiteSpace())
+                {
+                    installedList = Serialization.FromJson<List<InstalledGames.Installed>>(installListContent);
+                }
+            }
+            if (installedList.FirstOrDefault(i => i.id == game.GameId) == null)
+            {
+                var logger = LogManager.GetLogger();
+                logger.Debug(game.GameId);
+                var installedInfo = new InstalledGames.Installed
+                {
+                    id = game.GameId,
+                    path = game.InstallDirectory,
+                    size = (double)game.InstallSize,
+                    version = game.Version
+                };
+                installedList.Add(installedInfo);
+            }
+            var commonHelpers = NileLibrary.Instance.commonHelpers;
+            commonHelpers.SaveJsonSettingsToFile(installedList, ConfigPath, "installed");
         }
 
         public static List<InstalledGames.Installed> GetInstalledAppList()

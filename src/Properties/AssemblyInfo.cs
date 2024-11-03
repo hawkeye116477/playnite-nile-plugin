@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("AmazonGamesLibrary")]
-[assembly: AssemblyDescription("Amazon Games library support plugin for Playnite")]
+[assembly: AssemblyTitle("NileLibrary")]
+[assembly: AssemblyDescription("Amazon Games library integration with Nile for Playnite")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("AmazonGamesLibrary")]
-[assembly: AssemblyCopyright("Copyright © Josef Nemec 2020")]
+[assembly: AssemblyProduct("NileLibrary")]
+[assembly: AssemblyCopyright("Copyright © 2024 hawkeye116477\n Copyright © 2020 Josef Nemec")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("402674cd-4af6-4886-b6ec-0e695bfa0688")]
+[assembly: Guid("5901B4B4-774D-411A-9CCE-807C5CA49D88")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.8.0.0")]
-[assembly: AssemblyFileVersion("2.8.0.0")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]

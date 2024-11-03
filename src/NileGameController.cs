@@ -327,7 +327,7 @@ namespace NileLibraryNS
                         }
                         break;
                     case ExitedCommandEvent exited:
-                        if (exited.ExitCode != 0 && mainBinaryPath == Nile.ClientExecPath)
+                        if (exited.ExitCode != 0 && exited.ExitCode != 1 && mainBinaryPath == Nile.ClientExecPath)
                         {
                             var errorMessage = stdOutBuffer.ToString();
                             logger.Debug("[Nile] " + errorMessage);
@@ -352,7 +352,7 @@ namespace NileLibraryNS
                             else
                             {
                                 InvokeOnStopped(new GameStoppedEventArgs());
-                                playniteAPI.Dialogs.ShowErrorMessage(string.Format(ResourceProvider.GetString(LOC.Nile3P_PlayniteGameStartError), ResourceProvider.GetString(LOC.Nile3P_PlayniteLoginRequired)));
+                                playniteAPI.Dialogs.ShowErrorMessage(string.Format(ResourceProvider.GetString(LOC.Nile3P_PlayniteGameStartError), ResourceProvider.GetString(LOC.NileCheckLog)));
                             }
                         }
                         else
