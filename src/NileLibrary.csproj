@@ -242,6 +242,7 @@
     <Compile Include="Models\GameSettings.cs" />
     <Compile Include="Models\Installed.cs" />
     <Compile Include="Models\LauncherVersion.cs" />
+    <Compile Include="Models\NileLibraryFile.cs" />
     <Compile Include="Nile.cs" />
     <Compile Include="NileDownloadCompleteActionView.xaml.cs">
       <DependentUpon>NileDownloadCompleteActionView.xaml</DependentUpon>

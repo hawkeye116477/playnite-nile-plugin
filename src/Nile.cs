@@ -7,6 +7,7 @@ using Playnite.SDK.Data;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -315,27 +316,50 @@ namespace NileLibraryNS
             }
             if (!correctJson)
             {
-                BufferedCommandResult syncLibResult = await Cli.Wrap(ClientExecPath)
-                         .WithArguments(new[] { "library", "sync" })
-                         .WithEnvironmentVariables(DefaultEnvironmentVariables)
-                         .AddCommandToLog()
-                         .WithValidation(CommandResultValidation.None)
-                         .ExecuteBufferedAsync();
-                var syncErrorMessage = syncLibResult.StandardError;
-                if (syncLibResult.ExitCode != 0 || syncErrorMessage.Contains("Error"))
+                bool correctSyncJson = false;
+                var nileLibSyncJsonPath = Path.Combine(ConfigPath, "library.json");
+                var nileLibSyncJson = new List<NileLibraryFile.NileGames>();
+                if (File.Exists(nileLibSyncJsonPath))
                 {
-                    if (syncErrorMessage.Contains("not logged in"))
+                    var nileLibyncJsonContent = FileSystem.ReadFileAsStringSafe(nileLibSyncJsonPath);
+                    if (!nileLibyncJsonContent.IsNullOrWhiteSpace() && Serialization.TryFromJson(nileLibyncJsonContent, out nileLibSyncJson))
                     {
-                        playniteAPI.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteMetadataDownloadError).Format(ResourceProvider.GetString(LOC.Nile3P_PlayniteLoginRequired)), gameData.name);
+                        if (nileLibSyncJson.FirstOrDefault(i => i.product.id == gameData.gameID) != null)
+                        {
+                            correctSyncJson = true;
+                        }
+                        else
+                        {
+                            File.Delete(nileLibSyncJsonPath);
+                        }
                     }
-                    else
-                    {
-                        playniteAPI.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteMetadataDownloadError).Format(ResourceProvider.GetString(LOC.NileCheckLog)), gameData.name);
-                    }
-                    logger.Error(syncErrorMessage);
-                    manifest.errorDisplayed = true;
-                    return manifest;
                 }
+
+                if (!correctSyncJson)
+                {
+                    BufferedCommandResult syncLibResult = await Cli.Wrap(ClientExecPath)
+                                                                   .WithArguments(new[] { "library", "sync" })
+                                                                   .WithEnvironmentVariables(DefaultEnvironmentVariables)
+                                                                   .AddCommandToLog()
+                                                                   .WithValidation(CommandResultValidation.None)
+                                                                   .ExecuteBufferedAsync();
+                    var syncErrorMessage = syncLibResult.StandardError;
+                    if (syncLibResult.ExitCode != 0 || syncErrorMessage.Contains("Error"))
+                    {
+                        if (syncErrorMessage.Contains("not logged in"))
+                        {
+                            playniteAPI.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteMetadataDownloadError).Format(ResourceProvider.GetString(LOC.Nile3P_PlayniteLoginRequired)), gameData.name);
+                        }
+                        else
+                        {
+                            playniteAPI.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteMetadataDownloadError).Format(ResourceProvider.GetString(LOC.NileCheckLog)), gameData.name);
+                        }
+                        logger.Error(syncErrorMessage);
+                        manifest.errorDisplayed = true;
+                        return manifest;
+                    }
+                }
+
                 BufferedCommandResult result = await Cli.Wrap(ClientExecPath)
                                       .WithArguments(new[] { "install", gameID, "--info", "--json" })
                                       .WithEnvironmentVariables(DefaultEnvironmentVariables)
