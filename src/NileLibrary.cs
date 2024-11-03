@@ -25,8 +25,8 @@ namespace NileLibraryNS
     {
         private static readonly ILogger logger = LogManager.GetLogger();
         public static NileLibrary Instance { get; set; }
-        public NileDownloadManagerView NileDownloadManagerView { get; set; }
-        private readonly SidebarItem downloadManagerSidebarItem;
+        private NileDownloadManagerView NileDownloadManagerView;
+        private SidebarItem downloadManagerSidebarItem;
         public CommonHelpers commonHelpers { get; set; }
 
         public NileLibrary(IPlayniteAPI api) : base(
@@ -43,15 +43,7 @@ namespace NileLibraryNS
             SettingsViewModel = new NileLibrarySettingsViewModel(this, PlayniteApi);
             LoadExtraLocalization();
             LoadMenuIcons();
-            downloadManagerSidebarItem = new SidebarItem
-            {
-                Title = ResourceProvider.GetString(LOC.NilePanel),
-                Icon = Nile.Icon,
-                Type = SiderbarItemType.View,
-                Opened = () => GetNileDownloadManager(),
-                ProgressValue = 0,
-                ProgressMaximum = 100,
-            };
+            NileDownloadManagerView = new NileDownloadManagerView();
         }
 
         public static NileLibrarySettings GetSettings()
@@ -95,13 +87,8 @@ namespace NileLibraryNS
 
         public static NileDownloadManagerView GetNileDownloadManager()
         {
-            if (Instance.NileDownloadManagerView == null)
-            {
-                Instance.NileDownloadManagerView = new NileDownloadManagerView();
-            }
             return Instance.NileDownloadManagerView;
         }
-
 
         internal Dictionary<string, GameMetadata> GetInstalledGames()
         {
@@ -396,6 +383,18 @@ namespace NileLibraryNS
 
         public static SidebarItem GetPanel()
         {
+            if (Instance.downloadManagerSidebarItem == null)
+            {
+                Instance.downloadManagerSidebarItem = new SidebarItem
+                {
+                    Title = ResourceProvider.GetString(LOC.NilePanel),
+                    Icon = Nile.Icon,
+                    Type = SiderbarItemType.View,
+                    Opened = () => GetNileDownloadManager(),
+                    ProgressValue = 0,
+                    ProgressMaximum = 100,
+                };
+            }
             return Instance.downloadManagerSidebarItem;
         }
 
