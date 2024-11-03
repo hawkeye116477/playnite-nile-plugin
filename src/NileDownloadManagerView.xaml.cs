@@ -34,7 +34,6 @@ namespace NileLibraryNS
         private ILogger logger = LogManager.GetLogger();
         private IPlayniteAPI playniteAPI = API.Instance;
         public DownloadManagerData downloadManagerData;
-        public SidebarItem NilePanel = NileLibrary.GetPanel();
         public bool downloadsChanged = false;
         public SidebarItem nilePanel = NileLibrary.GetPanel();
 
@@ -138,7 +137,7 @@ namespace NileLibraryNS
                 DownloadSpeedTB.Text = "";
                 ElapsedTB.Text = "";
                 EtaTB.Text = "";
-                NilePanel.ProgressValue = 0;
+                nilePanel.ProgressValue = 0;
                 DescriptionTB.Text = "";
                 GameTitleTB.Text = "";
             }
@@ -274,7 +273,7 @@ namespace NileLibraryNS
                         case StartedCommandEvent started:
                             wantedItem.status = DownloadStatus.Running;
                             GameTitleTB.Text = gameTitle;
-                            NilePanel.ProgressValue = 0;
+                            nilePanel.ProgressValue = 0;
                             break;
                         case StandardErrorCommandEvent stdErr:
                             if (stdErr.Text.Contains("Verification") || stdErr.Text.Contains("Verifying"))
@@ -533,7 +532,7 @@ namespace NileLibraryNS
                         selectedRow.progress = 0;
                     }
                     DownloadSpeedTB.Text = "";
-                    NilePanel.ProgressValue = 0;
+                    nilePanel.ProgressValue = 0;
                     ElapsedTB.Text = "";
                     EtaTB.Text = "";
                     DescriptionTB.Text = "";
@@ -555,7 +554,7 @@ namespace NileLibraryNS
                     selectedEntry.downloadedNumber = 0;
                     selectedEntry.progress = 0;
                     DownloadSpeedTB.Text = "";
-                    NilePanel.ProgressValue = 0;
+                    nilePanel.ProgressValue = 0;
                     ElapsedTB.Text = "";
                     EtaTB.Text = "";
                     DescriptionTB.Text = "";
