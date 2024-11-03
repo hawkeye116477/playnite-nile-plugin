@@ -241,6 +241,7 @@
     <Compile Include="Converters\DownloadStatusEnumToStringConverter.cs" />
     <Compile Include="Enums\UpdatePolicy.cs" />
     <Compile Include="Helpers.cs" />
+    <Compile Include="Models\AmazonProductData.cs" />
     <Compile Include="Models\DownloadManagerData.cs" />
     <Compile Include="Models\GameDownloadInfo.cs" />
     <Compile Include="Models\GameSettings.cs" />

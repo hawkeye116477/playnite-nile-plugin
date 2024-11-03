@@ -419,10 +419,20 @@ namespace NileLibraryNS
                     installedList = Serialization.FromJson<List<InstalledGames.Installed>>(installListContent);
                 }
             }
+            var folderName = new DirectoryInfo(game.InstallDirectory).Name;
+            var parentDirectory = Directory.GetParent(game.InstallDirectory).FullName;
+            var installDataFile = Path.Combine(parentDirectory, "__InstallData__", folderName, "product_data.json");
+            if (File.Exists(installDataFile))
+            {
+                var installDataFileContent = FileSystem.ReadFileAsStringSafe(installDataFile);
+                if (!installDataFileContent.IsNullOrWhiteSpace())
+                {
+                    var installDataJson = Serialization.FromJson<AmazonProductData>(installDataFileContent);
+                    game.Version = installDataJson.InstalledVersion;
+                }
+            }
             if (installedList.FirstOrDefault(i => i.id == game.GameId) == null)
             {
-                var logger = LogManager.GetLogger();
-                logger.Debug(game.GameId);
                 var installedInfo = new InstalledGames.Installed
                 {
                     id = game.GameId,
