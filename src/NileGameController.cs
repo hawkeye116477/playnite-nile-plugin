@@ -132,7 +132,7 @@ namespace NileLibraryNS
                         {
                             a.Text = $"{ResourceProvider.GetString(LOC.Nile3P_PlayniteUninstalling)} {game.Name}... ";
                             var cmd = await Cli.Wrap(Nile.ClientExecPath)
-                                               .WithArguments(new[] { "-y", "uninstall", game.GameId })
+                                               .WithArguments(new[] { "uninstall", game.GameId })
                                                .WithEnvironmentVariables(Nile.DefaultEnvironmentVariables)
                                                .AddCommandToLog()
                                                .WithValidation(CommandResultValidation.None)
