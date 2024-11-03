@@ -1,6 +1,7 @@
 ﻿using CliWrap;
 using CliWrap.Buffered;
-using NileLibraryNS.Enums;
+using CommonPlugin;
+using CommonPlugin.Enums;
 using NileLibraryNS.Models;
 using NileLibraryNS.Services;
 using Playnite.Common;
@@ -13,11 +14,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace NileLibraryNS
 {
@@ -28,6 +25,7 @@ namespace NileLibraryNS
         public static NileLibrary Instance { get; set; }
         public NileDownloadManagerView NileDownloadManagerView { get; set; }
         private readonly SidebarItem downloadManagerSidebarItem;
+        public CommonHelpers commonHelpers { get; set; }
 
         public NileLibrary(IPlayniteAPI api) : base(
             "Nile (Amazon)",
@@ -39,8 +37,10 @@ namespace NileLibraryNS
             api)
         {
             Instance = this;
+            commonHelpers = new CommonHelpers(Instance);
             SettingsViewModel = new NileLibrarySettingsViewModel(this, PlayniteApi);
             LoadExtraLocalization();
+            LoadMenuIcons();
             downloadManagerSidebarItem = new SidebarItem
             {
                 Title = ResourceProvider.GetString(LOC.NilePanel),
@@ -305,6 +305,16 @@ namespace NileLibraryNS
                     loadString(langXaml);
                 }
             }
+        }
+
+        public void LoadMenuIcons()
+        {
+            var dictionaries = Application.Current.Resources.MergedDictionaries;
+            ResourceDictionary iconsDict = new ResourceDictionary
+            {
+                Source = new Uri("/GogOssLibrary;component/Shared/Resources/Icons.xaml", UriKind.RelativeOrAbsolute)
+            };
+            dictionaries.Add(iconsDict);
         }
 
         public string GetCachePath(string dirName)

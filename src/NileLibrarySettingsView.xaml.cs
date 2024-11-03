@@ -1,4 +1,5 @@
-﻿using NileLibraryNS.Enums;
+﻿using CommonPlugin;
+using CommonPlugin.Enums;
 using NileLibraryNS.Services;
 using Playnite.Common;
 using Playnite.SDK;
@@ -22,7 +23,7 @@ namespace NileLibraryNS
         {
             InitializeComponent();
             UpdateAuthStatus();
-            MaxWorkersNI.MaxValue = Helpers.CpuThreadsNumber;
+            MaxWorkersNI.MaxValue = CommonHelpers.CpuThreadsNumber;
         }
 
         private async void UpdateAuthStatus()

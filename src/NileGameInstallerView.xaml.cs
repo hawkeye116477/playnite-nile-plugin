@@ -1,4 +1,5 @@
-﻿using NileLibraryNS.Enums;
+﻿using CommonPlugin;
+using CommonPlugin.Enums;
 using NileLibraryNS.Models;
 using Playnite.SDK;
 using System;
@@ -70,7 +71,7 @@ namespace NileLibraryNS
             if (dDrive.IsReady)
             {
                 availableFreeSpace = dDrive.AvailableFreeSpace;
-                SpaceTB.Text = Helpers.FormatSize(availableFreeSpace);
+                SpaceTB.Text = CommonHelpers.FormatSize(availableFreeSpace);
             }
             UpdateAfterInstallingSize();
         }
@@ -82,7 +83,7 @@ namespace NileLibraryNS
             {
                 afterInstallSizeNumber = 0;
             }
-            AfterInstallingTB.Text = Helpers.FormatSize(afterInstallSizeNumber);
+            AfterInstallingTB.Text = CommonHelpers.FormatSize(afterInstallSizeNumber);
         }
 
         public async Task StartTask(DownloadAction downloadAction)
@@ -99,7 +100,7 @@ namespace NileLibraryNS
                 installPath = installPath.Replace(playniteDirectoryVariable, playniteAPI.Paths.ApplicationPath);
             }
 
-            if (!Helpers.IsDirectoryWritable(installPath))
+            if (!CommonHelpers.IsDirectoryWritable(installPath, LOC.NilePermissionError))
             {
                 return;
             }
@@ -175,8 +176,8 @@ namespace NileLibraryNS
                 downloadSizeNumber += installData.downloadSizeNumber;
             }
             UpdateAfterInstallingSize();
-            DownloadSizeTB.Text = Helpers.FormatSize(downloadSizeNumber);
-            InstallSizeTB.Text = Helpers.FormatSize(downloadSizeNumber);
+            DownloadSizeTB.Text = CommonHelpers.FormatSize(downloadSizeNumber);
+            InstallSizeTB.Text = CommonHelpers.FormatSize(downloadSizeNumber);
         }
 
         private async void NileGameInstallerUC_Loaded(object sender, RoutedEventArgs e)
@@ -202,7 +203,7 @@ namespace NileLibraryNS
             {
                 Directory.CreateDirectory(cacheInfoPath);
             }
-            MaxWorkersNI.MaxValue = Helpers.CpuThreadsNumber;
+            MaxWorkersNI.MaxValue = CommonHelpers.CpuThreadsNumber;
             MaxWorkersNI.Value = settings.MaxWorkers.ToString();
             var downloadItemsAlreadyAdded = new List<string>();
             downloadSizeNumber = 0;

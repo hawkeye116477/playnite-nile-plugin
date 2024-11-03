@@ -182,21 +182,61 @@
     <Compile Include="..\third_party\PlayniteExtensions\PlayniteRepo\source\Playnite\Common\Xaml.cs">
       <Link>Shared\Playnite\Xaml.cs</Link>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="CliWrapCommandExtensions.cs" />
-    <Compile Include="Converters\DownloadStatusEnumToStringConverter.cs" />
-    <Compile Include="Converters\LongToDateConverter.cs" />
-    <Compile Include="Converters\NumericalSizeToStringConverter.cs" />
-    <Compile Include="Enums\ClearCacheTime.cs" />
-    <Compile Include="Enums\DownloadAction.cs" />
-    <Compile Include="Enums\DownloadCompleteAction.cs" />
-    <Compile Include="Enums\DownloadStatus.cs" />
-    <Compile Include="Enums\UpdatePolicy.cs" />
-    <Compile Include="Helpers.cs" />
-    <Compile Include="MessageCheckBoxDialog.xaml.cs">
+    <Compile Include="..\third_party\playnite-common-plugin\src\CliWrapCommandExtensions.cs">
+      <Link>Shared\CliWrapCommandExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\third_party\playnite-common-plugin\src\CommonHelpers.cs">
+      <Link>Shared\CommonHelpers.cs</Link>
+    </Compile>
+    <Page Include="..\third_party\playnite-common-plugin\src\MessageCheckBoxDialog.xaml">
+      <Link>Shared\MessageCheckBoxDialog.xaml</Link>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Compile Include="..\third_party\playnite-common-plugin\src\MessageCheckBoxDialog.xaml.cs">
+      <Link>Shared\MessageCheckBoxDialog.xaml.cs</Link>
       <DependentUpon>MessageCheckBoxDialog.xaml</DependentUpon>
     </Compile>
+    <Page Include="..\third_party\playnite-common-plugin\src\NumericInput.xaml">
+      <Link>Shared\NumericInput.xaml</Link>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Compile Include="..\third_party\playnite-common-plugin\src\NumericInput.xaml.cs">
+      <Link>Shared\NumericInput.xaml.cs</Link>
+      <DependentUpon>NumericInput.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\third_party\playnite-common-plugin\src\RelativePath.cs">
+      <Link>Shared\RelativePath.cs</Link>
+    </Compile>
+    <Compile Include="..\third_party\playnite-common-plugin\src\Converters\LongToDateConverter.cs">
+      <Link>Shared\Converters\LongToDateConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\third_party\playnite-common-plugin\src\Converters\NumericalSizeToStringConverter.cs">
+      <Link>Shared\Converters\NumericalSizeToStringConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\third_party\playnite-common-plugin\src\Enums\ClearCacheTime.cs">
+      <Link>Shared\Enums\ClearCacheTime.cs</Link>
+    </Compile>
+    <Compile Include="..\third_party\playnite-common-plugin\src\Enums\DownloadAction.cs">
+      <Link>Shared\Enums\DownloadAction.cs</Link>
+    </Compile>
+    <Compile Include="..\third_party\playnite-common-plugin\src\Enums\DownloadCompleteAction.cs">
+      <Link>Shared\Enums\DownloadCompleteAction.cs</Link>
+    </Compile>
+    <Compile Include="..\third_party\playnite-common-plugin\src\Enums\DownloadStatus.cs">
+      <Link>Shared\Enums\DownloadStatus.cs</Link>
+    </Compile>
+    <Resource Include="..\third_party\playnite-common-plugin\src\Resources\Icons.xaml">
+      <Link>Shared\Resources\Icons.xaml</Link>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Converters\DownloadStatusEnumToStringConverter.cs" />
+    <Compile Include="Enums\UpdatePolicy.cs" />
+    <Compile Include="Helpers.cs" />
     <Compile Include="Models\DownloadManagerData.cs" />
     <Compile Include="Models\GameDownloadInfo.cs" />
     <Compile Include="Models\GameSettings.cs" />
@@ -231,9 +271,6 @@
     <Compile Include="Models\GameConfiguration.cs" />
     <Compile Include="NileMessagesSettings.cs" />
     <Compile Include="NileTroubleshootingInformation.cs" />
-    <Compile Include="NumericInput.xaml.cs">
-      <DependentUpon>NumericInput.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="NileGameController.cs" />
     <Compile Include="AmazonGamesMetadataProvider.cs" />
@@ -264,10 +301,6 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <Page Include="MessageCheckBoxDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="NileDownloadCompleteActionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -293,10 +326,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="App.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="NumericInput.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

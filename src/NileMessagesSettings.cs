@@ -1,4 +1,5 @@
-﻿using Playnite.Common;
+﻿using CommonPlugin;
+using Playnite.Common;
 using Playnite.SDK.Data;
 using System;
 using System.IO;
@@ -35,7 +36,8 @@ namespace NileLibraryNS
 
         public static void SaveSettings(NileMessagesSettingsModel messagesSettings)
         {
-            Helpers.SaveJsonSettingsToFile(messagesSettings, "messages");
+            var commonHelpers = NileLibrary.Instance.commonHelpers;
+            commonHelpers.SaveJsonSettingsToFile(messagesSettings, "", "messages", true);
         }
     }
 }

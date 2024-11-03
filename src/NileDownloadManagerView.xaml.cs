@@ -12,7 +12,6 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.IO;
 using NileLibraryNS.Models;
-using NileLibraryNS.Enums;
 using Playnite.SDK.Data;
 using Playnite.Common;
 using System.Collections.ObjectModel;
@@ -20,6 +19,8 @@ using System.ComponentModel;
 using System.Windows.Input;
 using Playnite.SDK.Plugins;
 using System.Collections.Specialized;
+using CommonPlugin.Enums;
+using CommonPlugin;
 
 namespace NileLibraryNS
 {
@@ -122,7 +123,8 @@ namespace NileLibraryNS
         {
             if (downloadsChanged)
             {
-                Helpers.SaveJsonSettingsToFile(downloadManagerData, "downloadManager");
+                var commonHelpers = NileLibrary.Instance.commonHelpers;
+                commonHelpers.SaveJsonSettingsToFile(downloadManagerData, "", "downloadManager", true);
             }
         }
 
@@ -283,7 +285,7 @@ namespace NileLibraryNS
                                 {
                                     DescriptionTB.Text = ResourceProvider.GetString(LOC.NileDownloadingUpdate);
                                 }
-                                double progress = Helpers.GetDouble(progressMatch.Groups[1].Value);
+                                double progress = CommonHelpers.ToDouble(progressMatch.Groups[1].Value);
                                 wantedItem.progress = progress;
                                 nilePanel.ProgressValue = progress;
                             }
@@ -300,7 +302,7 @@ namespace NileLibraryNS
                             var downloadedMatch = Regex.Match(stdErr.Text, @"Downloaded: (\S+) (\wiB)");
                             if (downloadedMatch.Length >= 2)
                             {
-                                double downloadedNumber = Helpers.ToBytes(Helpers.GetDouble(downloadedMatch.Groups[1].Value), downloadedMatch.Groups[2].Value);
+                                double downloadedNumber = CommonHelpers.ToBytes(CommonHelpers.ToDouble(downloadedMatch.Groups[1].Value), downloadedMatch.Groups[2].Value);
                                 double totalDownloadedNumber = downloadedNumber + downloadCache;
                                 wantedItem.downloadedNumber = totalDownloadedNumber;
                                 //double newProgress = totalDownloadedNumber / wantedItem.downloadSizeNumber * 100;
@@ -328,13 +330,13 @@ namespace NileLibraryNS
                             var downloadSpeedMatch = Regex.Match(stdErr.Text, @"Download\t- (\S+) (\wiB)");
                             if (downloadSpeedMatch.Length >= 2)
                             {
-                                string downloadSpeed = Helpers.FormatSize(Helpers.GetDouble(downloadSpeedMatch.Groups[1].Value), downloadSpeedMatch.Groups[2].Value, downloadSpeedInBits);
+                                string downloadSpeed = CommonHelpers.FormatSize(CommonHelpers.ToDouble(downloadSpeedMatch.Groups[1].Value), downloadSpeedMatch.Groups[2].Value, downloadSpeedInBits);
                                 DownloadSpeedTB.Text = downloadSpeed + "/s";
                             }
                             var diskSpeedMatch = Regex.Match(stdErr.Text, @"Disk\t- (\S+) (\wiB)");
                             if (diskSpeedMatch.Length >= 2)
                             {
-                                string diskSpeed = Helpers.FormatSize(Helpers.GetDouble(diskSpeedMatch.Groups[1].Value), diskSpeedMatch.Groups[2].Value, downloadSpeedInBits);
+                                string diskSpeed = CommonHelpers.FormatSize(CommonHelpers.ToDouble(diskSpeedMatch.Groups[1].Value), diskSpeedMatch.Groups[2].Value, downloadSpeedInBits);
                                 DiskSpeedTB.Text = diskSpeed + "/s";
                             }
                             var errorMessage = stdErr.Text;

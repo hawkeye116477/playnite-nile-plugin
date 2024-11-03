@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:NileLibraryNS"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:pcmd="clr-namespace:Playnite.Commands"
+             xmlns:common="clr-namespace:CommonPlugin"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="400" Name="NileDownloadPropertiesUC" Loaded="NileDownloadPropertiesUC_Loaded">
     <UserControl.Resources>
@@ -89,7 +90,7 @@
                     </Grid.RowDefinitions>
                     <TextBlock Text="{DynamicResource LOCNileMaxWorkers}" Grid.Column="0"
                                Grid.Row="3" Margin="0,0,0,5" VerticalAlignment="Center" HorizontalAlignment="Left" />
-                    <local:NumericInput Grid.Row="3" Grid.Column="1" Margin="10,0,0,5" MinValue="0" x:Name="MaxWorkersNI"/>
+                    <common:NumericInput Grid.Row="3" Grid.Column="1" Margin="10,0,0,5" MinValue="0" x:Name="MaxWorkersNI"/>
                 </Grid>
             </TabItem>
         </TabControl>

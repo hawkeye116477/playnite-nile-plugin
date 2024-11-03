@@ -1,4 +1,5 @@
-﻿using NileLibraryNS.Enums;
+﻿using CommonPlugin;
+using CommonPlugin.Enums;
 using NileLibraryNS.Models;
 using Playnite.SDK;
 using System;
@@ -35,7 +36,7 @@ namespace NileLibraryNS
 
         private void NileDownloadPropertiesUC_Loaded(object sender, RoutedEventArgs e)
         {
-            MaxWorkersNI.MaxValue = Helpers.CpuThreadsNumber;
+            MaxWorkersNI.MaxValue = CommonHelpers.CpuThreadsNumber;
             var wantedItem = SelectedDownload;
             if (wantedItem.downloadProperties != null)
             {
@@ -70,7 +71,7 @@ namespace NileLibraryNS
             {
                 installPath = installPath.Replace(playniteDirectoryVariable, playniteAPI.Paths.ApplicationPath);
             }
-            if (!Helpers.IsDirectoryWritable(installPath))
+            if (!CommonHelpers.IsDirectoryWritable(installPath, LOC.NilePermissionError))
             {
                 return;
             }
@@ -97,7 +98,7 @@ namespace NileLibraryNS
             if (dDrive.IsReady)
             {
                 long availableFreeSpace = dDrive.AvailableFreeSpace;
-                SpaceTB.Text = Helpers.FormatSize(availableFreeSpace);
+                SpaceTB.Text = CommonHelpers.FormatSize(availableFreeSpace);
                 UpdateAfterInstallingSize(availableFreeSpace, installSizeNumber);
             }
         }
@@ -109,7 +110,7 @@ namespace NileLibraryNS
             {
                 afterInstallSizeNumber = 0;
             }
-            AfterInstallingTB.Text = Helpers.FormatSize(afterInstallSizeNumber);
+            AfterInstallingTB.Text = CommonHelpers.FormatSize(afterInstallSizeNumber);
         }
     }
 }

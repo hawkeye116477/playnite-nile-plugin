@@ -1,7 +1,8 @@
 ﻿using CliWrap;
 using CliWrap.Buffered;
 using CliWrap.EventStream;
-using NileLibraryNS.Enums;
+using CommonPlugin;
+using CommonPlugin.Enums;
 using NileLibraryNS.Models;
 using Playnite.Common;
 using Playnite.SDK;
@@ -250,7 +251,8 @@ namespace NileLibraryNS
                         }
                     }
                     gameSettings.IsFullyInstalled = true;
-                    Helpers.SaveJsonSettingsToFile(gameSettings, Game.GameId, "GamesSettings");
+                    var commonHelpers = NileLibrary.Instance.commonHelpers;
+                    commonHelpers.SaveJsonSettingsToFile(gameSettings, "GamesSettings", Game.GameId, true);
                 }, installProgressOptions);
             }
         }

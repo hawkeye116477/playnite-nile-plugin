@@ -70,7 +70,8 @@ namespace NileLibraryNS
                 {
                     var oldGameSettings = LoadGameSettings(GameID);
                 }
-                Helpers.SaveJsonSettingsToFile(newGameSettings, GameID, "GamesSettings");
+                var commonHelpers = NileLibrary.Instance.commonHelpers;
+                commonHelpers.SaveJsonSettingsToFile(newGameSettings,  "GamesSettings", GameID, true);
             }
             Window.GetWindow(this).Close();
         }
