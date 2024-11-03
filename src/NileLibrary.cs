@@ -428,8 +428,8 @@ namespace NileLibraryNS
                     }
                     download.status = DownloadStatus.Paused;
                 }
-                downloadManager.SaveData();
             }
+            downloadManager.SaveData();
             return true;
         }
 
