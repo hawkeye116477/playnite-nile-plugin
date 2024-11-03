@@ -1,5 +1,4 @@
-﻿using CommonPlugin;
-using Playnite.Common;
+﻿using Playnite.Common;
 using Playnite.SDK.Data;
 using System;
 using System.IO;

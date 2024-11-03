@@ -5,7 +5,6 @@ using System.Windows;
 using System.Windows.Controls;
 using Playnite.SDK.Data;
 using Playnite.Common;
-using Playnite.SDK;
 using Playnite.SDK.Models;
 using NileLibraryNS.Enums;
 
