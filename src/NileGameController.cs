@@ -216,7 +216,7 @@ namespace NileLibraryNS
         public override async void Play(PlayActionArgs args)
         {
             Dispose();
-            if (Directory.Exists(Game.InstallDirectory) && Nile.IsInstalled)
+            if (Directory.Exists(Game.InstallDirectory))
             {
                 BeforeGameStarting();
                 await LaunchGame();
@@ -224,10 +224,6 @@ namespace NileLibraryNS
             else
             {
                 InvokeOnStopped(new GameStoppedEventArgs());
-                if (!Nile.IsInstalled)
-                {
-                    Nile.ShowNotInstalledError();
-                }
             }
         }
 
@@ -293,6 +289,13 @@ namespace NileLibraryNS
                     }
                 }
             }
+            if (!canLaunchWithoutLauncher && !Nile.IsInstalled)
+            {
+                Nile.ShowNotInstalledError();
+                InvokeOnStopped(new GameStoppedEventArgs());
+                return;
+            }
+
             if (!canLaunchWithoutLauncher)
             {
                 playArgs.AddRange(new[] { "launch", Game.GameId });
