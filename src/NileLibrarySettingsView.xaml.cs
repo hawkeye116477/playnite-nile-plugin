@@ -275,7 +275,7 @@ namespace NileLibraryNS
         {
             if (!Nile.IsInstalled)
             {
-                playniteAPI.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.NileLauncherNotInstalled));
+                Nile.ShowNotInstalledError();
                 return;
             }
             var result = playniteAPI.Dialogs.ShowMessage(ResourceProvider.GetString(LOC.NileMigrationConfirm), ResourceProvider.GetString(LOC.NileMigrateGamesAmazon), MessageBoxButton.YesNo, MessageBoxImage.Question);

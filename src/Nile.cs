@@ -14,6 +14,7 @@ using System.Net.Http;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace NileLibraryNS
 {
@@ -207,7 +208,8 @@ namespace NileLibraryNS
             var logger = LogManager.GetLogger();
             if (!IsInstalled)
             {
-                throw new Exception(ResourceProvider.GetString(LOC.NileLauncherNotInstalled));
+                ShowNotInstalledError();
+                return newVersionInfoContent;
             }
             var cacheVersionPath = NileLibrary.Instance.GetCachePath("infocache");
             if (!Directory.Exists(cacheVersionPath))
@@ -469,6 +471,21 @@ namespace NileLibraryNS
                 }
             }
             return list;
+        }
+
+        public static void ShowNotInstalledError()
+        {
+            var playniteAPI = API.Instance;
+            var options = new List<MessageBoxOption>
+            {
+                new MessageBoxOption(ResourceProvider.GetString(LOC.Nile3P_PlayniteInstallGame)),
+                new MessageBoxOption(ResourceProvider.GetString(LOC.Nile3P_PlayniteOKLabel)),
+            };
+            var result = playniteAPI.Dialogs.ShowMessage(ResourceProvider.GetString(LOC.NileLauncherNotInstalled), "Nile (Amazon Games) library integration", MessageBoxImage.Information, options);
+            if (result == options[0])
+            {
+                Playnite.Commands.GlobalCommands.NavigateUrl("https://github.com/hawkeye116477/playnite-nile-plugin/wiki/Troubleshooting#nile-is-not-installed");
+            }
         }
     }
 }
