@@ -108,4 +108,15 @@
   <sys:String x:Key="LOCNileUninstallSuccessOther">Następujące gry zostały pomyślnie odinstalowane: {0}.</sys:String>
   <sys:String x:Key="LOCNileUninstallErrorOther">Nie można odinstalować następujących gier: {0}.</sys:String>
   <sys:String x:Key="LOCNileGames">Gry</sys:String>
+  <sys:String x:Key="LOCNileLauncherUpdatePolicy">Sprawdzaj aktualizacje launchera</sys:String>
+  <sys:String x:Key="LOCNileLauncherNotInstalled">Program Nile nie jest zainstalowany.</sys:String>
+  <sys:String x:Key="LOCNilePanel">Panel Nile</sys:String>
+  <sys:String x:Key="LOCNileDownloadManagerWhatsUp">Pobieranie rozpocznie się już wkrótce. Możesz zobaczyć jego stan, uzyskując dostęp do panelu Nile za pośrednictwem Menu =&gt; Widok lub paska bocznego.</sys:String>
+  <sys:String x:Key="LOCNileDownloadAlreadyExists">{0} jest już na liście pobierania. Możesz zobaczyć jego stan, uzyskując dostęp do panelu Nile za pośrednictwem Menu =&gt; Widok lub paska bocznego.</sys:String>
+  <sys:String x:Key="LOCNileDownloadAlreadyExistsOther">Następujące gry są już na liście pobierania: {0}. Możesz zobaczyć stan pobierania, uzyskując dostęp do panelu Nile za pośrednictwem Menu =&gt; Widok lub paska bocznego.</sys:String>
+  <sys:String x:Key="LOCNileMigrateGamesAmazon">Migruj wszystkie gry z wtyczki Amazon</sys:String>
+  <sys:String x:Key="LOCNileMigratingGamesAmazon">Migrowanie wszystkich gier z wtyczki Amazon...</sys:String>
+  <sys:String x:Key="LOCNileMigrationConfirm">Wszystkie gry zostaną usunięte z wtyczki Amazon i przeniesione do Nile. Czy na pewno chcesz to zrobić?</sys:String>
+  <sys:String x:Key="LOCNileGamesUpdatesUnderway">Trwa pobieranie aktualizacji dla gier z Amazon Games.</sys:String>
+  <sys:String x:Key="LOCNileInstanceNotice">Tylko jedna instancja Nile może instalować/importować/przenosić aplikacje jednocześnie. Czy chcesz wstrzymać zadania menedżera pobierania, aby kontynuować?</sys:String>
 </ResourceDictionary>

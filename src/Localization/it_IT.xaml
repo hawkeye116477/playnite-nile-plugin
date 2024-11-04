@@ -11,11 +11,11 @@
   <sys:String x:Key="LOCNileUnattendedInstall">Abilita la modalità d'installazione automatica</sys:String>
   <sys:String x:Key="LOCNileUnattendedInstallToolTip">Non sarà necessario scegliere nulla nella finestra d'installazione e l'installazione inizierà automaticamente dopo aver scaricato le informazioni richieste.</sys:String>
   <sys:String x:Key="LOCNileMaxWorkers">Numero massimo di processi di lavoro</sys:String>
-  <sys:String x:Key="LOCNileAfterDownloadComplete"></sys:String>
-  <sys:String x:Key="LOCNileSystemShutdownCountdown"></sys:String>
-  <sys:String x:Key="LOCNileSystemRestartCountdown"></sys:String>
-  <sys:String x:Key="LOCNileSystemHibernateCountdown"></sys:String>
-  <sys:String x:Key="LOCNileSystemSuspendCountdown"></sys:String>
+  <sys:String x:Key="LOCNileAfterDownloadComplete">Dopo il completamento del download</sys:String>
+  <sys:String x:Key="LOCNileSystemShutdownCountdown">Il sistema verrà spento a breve...</sys:String>
+  <sys:String x:Key="LOCNileSystemRestartCountdown">Il sistema verrà riavviato a breve...</sys:String>
+  <sys:String x:Key="LOCNileSystemHibernateCountdown">Il sistema verrà ibernato presto...</sys:String>
+  <sys:String x:Key="LOCNileSystemSuspendCountdown">Il sistema verrà sospeso a breve...</sys:String>
   <sys:String x:Key="LOCNileSpaceAvailable">Spazio disponibile:</sys:String>
   <sys:String x:Key="LOCNileAfterInstalling">Dopo l'installazione:</sys:String>
   <sys:String x:Key="LOCNileDownloaded">Scaricato</sys:String>
@@ -108,4 +108,15 @@
   <sys:String x:Key="LOCNileUninstallSuccessOther">I seguenti giochi sono stati disinstallati con successo: {0}.</sys:String>
   <sys:String x:Key="LOCNileUninstallErrorOther">Impossibile disinstallare i seguenti giochi: {0}.</sys:String>
   <sys:String x:Key="LOCNileGames">Giochi</sys:String>
+  <sys:String x:Key="LOCNileLauncherUpdatePolicy"></sys:String>
+  <sys:String x:Key="LOCNileLauncherNotInstalled"></sys:String>
+  <sys:String x:Key="LOCNilePanel"></sys:String>
+  <sys:String x:Key="LOCNileDownloadManagerWhatsUp"></sys:String>
+  <sys:String x:Key="LOCNileDownloadAlreadyExists"></sys:String>
+  <sys:String x:Key="LOCNileDownloadAlreadyExistsOther"></sys:String>
+  <sys:String x:Key="LOCNileMigrateGamesAmazon"></sys:String>
+  <sys:String x:Key="LOCNileMigratingGamesAmazon"></sys:String>
+  <sys:String x:Key="LOCNileMigrationConfirm"></sys:String>
+  <sys:String x:Key="LOCNileGamesUpdatesUnderway"></sys:String>
+  <sys:String x:Key="LOCNileInstanceNotice"></sys:String>
 </ResourceDictionary>
