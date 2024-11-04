@@ -31,6 +31,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">可执行文件</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">名称</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">安装目录</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteLibraryImportError">从 {0} 导入游戏失败。</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">下载资料数据失败：{0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstalling">正在卸载</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDoNothing">什么也不做</sys:String>

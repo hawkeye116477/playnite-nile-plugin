@@ -594,6 +594,10 @@ namespace System
         /// </summary>
         public const string Nile3P_PlayniteGameInstallDirTitle = "LOCNile3P_PlayniteGameInstallDirTitle";
         /// <summary>
+        /// Failed to import games from {0}.
+        /// </summary>
+        public const string Nile3P_PlayniteLibraryImportError = "LOCNile3P_PlayniteLibraryImportError";
+        /// <summary>
         /// Failed to download metadata: {0}
         /// </summary>
         public const string Nile3P_PlayniteMetadataDownloadError = "LOCNile3P_PlayniteMetadataDownloadError";

@@ -31,6 +31,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">Executável</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Nome</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Local de instalação</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteLibraryImportError">Falha ao importar os jogos de {0}.</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Falha ao baixar metadados: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Desinstalando</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDoNothing">Não fazer nada</sys:String>

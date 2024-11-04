@@ -31,6 +31,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">Programinis failas</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Pavadinimas</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Žaidimo direktorija</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteLibraryImportError">Importuoti žaidimus iš {0}.</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Nepavyko atsisiųsti metadata: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Išdiegti</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDoNothing">Nieko nedaryti</sys:String>

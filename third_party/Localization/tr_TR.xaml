@@ -31,6 +31,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">Uygulama</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">İsim</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Kurulum Klasörü</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteLibraryImportError">{0} konumundan oyun içe aktarılamadı.</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Üst veriler indirilemedi: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Kaldırılıyor</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDoNothing">Hiçbir şey yapma</sys:String>

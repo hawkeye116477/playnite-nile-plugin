@@ -31,6 +31,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">Виконуваний файл</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Назва</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Тека встановлення</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteLibraryImportError">Не вдалося імпортувати ігри з {0}.</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Не вдалося завантажити метадані: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Видалення</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDoNothing">Нічого не робити</sys:String>

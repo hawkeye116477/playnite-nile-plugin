@@ -265,7 +265,7 @@ namespace NileLibraryNS
             {
                 PlayniteApi.Notifications.Add(new NotificationMessage(
                     ImportErrorMessageId,
-                    string.Format(PlayniteApi.Resources.GetString("LOCLibraryImportError"), Name) +
+                    string.Format(PlayniteApi.Resources.GetString(LOC.Nile3P_PlayniteLibraryImportError), Name) +
                     Environment.NewLine + importError.Message,
                     NotificationType.Error,
                     () => OpenSettingsView()));

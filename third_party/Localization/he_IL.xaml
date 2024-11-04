@@ -31,6 +31,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">ניתן להרצה</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">שם</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">תיקיית התקנה</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteLibraryImportError">נכשל ביבוא משחקים מ {0}.</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">נכשלה הורדת נתונים: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstalling">מסיר התקנה</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDoNothing">אל תעשה דבר</sys:String>

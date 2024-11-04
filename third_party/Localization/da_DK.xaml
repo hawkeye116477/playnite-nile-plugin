@@ -31,6 +31,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">Eksekverings-fil</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Navn</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle"></sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteLibraryImportError"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError"></sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Afinstallerer</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDoNothing">Gør ingenting</sys:String>

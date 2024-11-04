@@ -31,6 +31,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">File program (file .exe/.sh/.bat, dll..)</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Nama</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Direktori Instalasi</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteLibraryImportError">Gagal mengimpor game dari {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Gagal mendownload metadata: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Menguninstal</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDoNothing">Diamkan aplikasi</sys:String>

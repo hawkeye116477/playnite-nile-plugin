@@ -31,6 +31,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">Plik wykonywalny</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Nazwa</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Ścieżka instalacji</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteLibraryImportError">Nie udało się zaimportować gier {0}.</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Nie udało się pobrać metedanych: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Odinstalowywanie</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDoNothing">Nic nie rób</sys:String>

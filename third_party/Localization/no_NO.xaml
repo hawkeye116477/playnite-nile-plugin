@@ -31,6 +31,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">Kjørbar fil</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Navn</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Installasjonsmappe</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteLibraryImportError">Kunne ikke importere spill fra {0}.</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Kunne ikke laste ned metadata: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Avinstallerer</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDoNothing">Gjør ingenting</sys:String>

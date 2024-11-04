@@ -31,6 +31,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">Executabil</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Nume</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Directorul de instalare</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteLibraryImportError">Nu s-a putut importa jocuri de la {0}.</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Nu s-a putut descărca metadata: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Se dezinstalează</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDoNothing">Repaus</sys:String>

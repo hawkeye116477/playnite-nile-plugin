@@ -31,6 +31,7 @@
   <sys:String x:Key="LOCNile3P_PlayniteExecutableTitle">Täitmisprogramm</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameNameTitle">Nimi</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteGameInstallDirTitle">Paigalduse asukoht</sys:String>
+  <sys:String x:Key="LOCNile3P_PlayniteLibraryImportError">Ei saanud importida mänge kohast {0}.</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteMetadataDownloadError">Metaandmete allalaadimine ebaõnnestus: {0}</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteUninstalling">Desinstallimine</sys:String>
   <sys:String x:Key="LOCNile3P_PlayniteDoNothing">Ära tee midagi</sys:String>

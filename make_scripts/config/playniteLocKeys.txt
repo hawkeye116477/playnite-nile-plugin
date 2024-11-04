@@ -43,3 +43,4 @@ LOCSettingsPlaytimeImportModeNever
 LOCGameStartError
 LOCExtensionsUpdates
 LOCOptionOnlyManually
+LOCLibraryImportError
