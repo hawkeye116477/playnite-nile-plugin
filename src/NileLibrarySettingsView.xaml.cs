@@ -159,6 +159,7 @@ namespace NileLibraryNS
                 var nileVersion = await Nile.GetLauncherVersion();
                 troubleshootingInformation.NileVersion = nileVersion;
                 LauncherVersionTxt.Text = nileVersion;
+                NileBinaryTxt.Text = troubleshootingInformation.NileBinary;
             }
             else
             {
@@ -168,7 +169,6 @@ namespace NileLibraryNS
                 CheckForNileUpdatesBtn.IsEnabled = false;
                 OpenNileBinaryBtn.IsEnabled = false;
             }
-            NileBinaryTxt.Text = troubleshootingInformation.NileBinary;
             ReportBugHyp.NavigateUri = new Uri($"https://github.com/hawkeye116477/playnite-nile-plugin/issues/new?assignees=&labels=bug&projects=&template=bugs.yml&pluginV={troubleshootingInformation.PluginVersion}&playniteV={troubleshootingInformation.PlayniteVersion}&launcherV={troubleshootingInformation.NileVersion}");
         }
 
