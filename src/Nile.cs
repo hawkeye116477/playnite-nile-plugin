@@ -206,7 +206,7 @@ namespace NileLibraryNS
             var logger = LogManager.GetLogger();
             if (!IsInstalled)
             {
-                throw new Exception(ResourceProvider.GetString(LOC.NileNotInstalled));
+                throw new Exception(ResourceProvider.GetString(LOC.NileLauncherNotInstalled));
             }
             var cacheVersionPath = NileLibrary.Instance.GetCachePath("infocache");
             if (!Directory.Exists(cacheVersionPath))

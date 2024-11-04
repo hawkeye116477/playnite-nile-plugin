@@ -627,7 +627,7 @@ namespace NileLibraryNS
                             {
                                 if (!Nile.IsInstalled)
                                 {
-                                    throw new Exception(ResourceProvider.GetString(LOC.NileNotInstalled));
+                                    throw new Exception(ResourceProvider.GetString(LOC.NileLauncherNotInstalled));
                                 }
                                 Window window = PlayniteApi.Dialogs.CreateWindow(new WindowCreationOptions
                                 {
@@ -651,7 +651,7 @@ namespace NileLibraryNS
                             {
                                 if (!Nile.IsInstalled)
                                 {
-                                    throw new Exception(ResourceProvider.GetString(LOC.NileNotInstalled));
+                                    throw new Exception(ResourceProvider.GetString(LOC.NileLauncherNotInstalled));
                                 }
 
                                 NileUpdateController NileUpdateController = new NileUpdateController();
@@ -701,7 +701,7 @@ namespace NileLibraryNS
                             {
                                 if (!Nile.IsInstalled)
                                 {
-                                    throw new Exception(ResourceProvider.GetString(LOC.NileNotInstalled));
+                                    throw new Exception(ResourceProvider.GetString(LOC.NileLauncherNotInstalled));
                                 }
 
                                 var path = PlayniteApi.Dialogs.SelectFolder();
@@ -732,7 +732,7 @@ namespace NileLibraryNS
                             {
                                 if (!Nile.IsInstalled)
                                 {
-                                    throw new Exception(ResourceProvider.GetString(LOC.NileNotInstalled));
+                                    throw new Exception(ResourceProvider.GetString(LOC.NileLauncherNotInstalled));
                                 }
 
                                 var newPath = PlayniteApi.Dialogs.SelectFolder();
@@ -838,7 +838,7 @@ namespace NileLibraryNS
                         {
                             if (!Nile.IsInstalled)
                             {
-                                throw new Exception(ResourceProvider.GetString(LOC.NileNotInstalled));
+                                throw new Exception(ResourceProvider.GetString(LOC.NileLauncherNotInstalled));
                             }
 
                             Window window = PlayniteApi.Dialogs.CreateWindow(new WindowCreationOptions
@@ -894,7 +894,7 @@ namespace NileLibraryNS
                 {
                     if (!Nile.IsInstalled)
                     {
-                        PlayniteApi.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.NileNotInstalled));
+                        PlayniteApi.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.NileLauncherNotInstalled));
                         return;
                     }
 

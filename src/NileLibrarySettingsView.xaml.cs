@@ -163,8 +163,8 @@ namespace NileLibraryNS
             else
             {
                 troubleshootingInformation.NileVersion = "Not%20installed";
-                LauncherVersionTxt.Text = ResourceProvider.GetString(LOC.NileNotInstalled);
-                NileBinaryTxt.Text = ResourceProvider.GetString(LOC.NileNotInstalled);
+                LauncherVersionTxt.Text = ResourceProvider.GetString(LOC.NileLauncherNotInstalled);
+                NileBinaryTxt.Text = ResourceProvider.GetString(LOC.NileLauncherNotInstalled);
                 CheckForNileUpdatesBtn.IsEnabled = false;
                 OpenNileBinaryBtn.IsEnabled = false;
             }
@@ -275,7 +275,7 @@ namespace NileLibraryNS
         {
             if (!Nile.IsInstalled)
             {
-                playniteAPI.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.NileNotInstalled));
+                playniteAPI.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.NileLauncherNotInstalled));
                 return;
             }
             var result = playniteAPI.Dialogs.ShowMessage(ResourceProvider.GetString(LOC.NileMigrationConfirm), ResourceProvider.GetString(LOC.NileMigrateGamesAmazon), MessageBoxButton.YesNo, MessageBoxImage.Question);

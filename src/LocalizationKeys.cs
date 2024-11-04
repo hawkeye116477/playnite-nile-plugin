@@ -6,53 +6,9 @@ namespace System
     public static class LOC
     {
         /// <summary>
-        /// Nile launcher is not installed.
-        /// </summary>
-        public const string NileNotInstalled = "LOCNileNotInstalled";
-        /// <summary>
-        /// {0} is already in the download list. You can see status of the download by accessing Nile Panel via Menu => View or sidebar.
-        /// </summary>
-        public const string NileDownloadAlreadyExists = "LOCNileDownloadAlreadyExists";
-        /// <summary>
-        /// Following games are already in the download list: {0}. You can see status of the download by accessing Nile Panel via Menu => View or sidebar.
-        /// </summary>
-        public const string NileDownloadAlreadyExistsOther = "LOCNileDownloadAlreadyExistsOther";
-        /// <summary>
-        /// Nile Panel
-        /// </summary>
-        public const string NilePanel = "LOCNilePanel";
-        /// <summary>
-        /// The download will start soon. You can see its status by accessing Nile Panel via Menu => View or sidebar.
-        /// </summary>
-        public const string NileDownloadManagerWhatsUp = "LOCNileDownloadManagerWhatsUp";
-        /// <summary>
-        /// Only one instance of Nile may install/import/move applications at a time. Do you want to pause download manager tasks to continue?
-        /// </summary>
-        public const string NileInstanceNotice = "LOCNileInstanceNotice";
-        /// <summary>
         /// Launch directly without using launcher
         /// </summary>
         public const string NileLaunchGameDirectly = "LOCNileLaunchGameDirectly";
-        /// <summary>
-        /// Updates for games from Amazon are being downloaded.
-        /// </summary>
-        public const string NileGamesUpdatesUnderway = "LOCNileGamesUpdatesUnderway";
-        /// <summary>
-        /// Check for Nile launcher updates
-        /// </summary>
-        public const string NileLauncherUpdatePolicy = "LOCNileLauncherUpdatePolicy";
-        /// <summary>
-        /// Migrate all games from Amazon Games plugin
-        /// </summary>
-        public const string NileMigrateGamesAmazon = "LOCNileMigrateGamesAmazon";
-        /// <summary>
-        /// Migrating all games from Amazon plugin...
-        /// </summary>
-        public const string NileMigratingGamesAmazon = "LOCNileMigratingGamesAmazon";
-        /// <summary>
-        /// All games will be removed from Amazon plugin and moved to Nile. Are you sure you want to do this?
-        /// </summary>
-        public const string NileMigrationConfirm = "LOCNileMigrationConfirm";
         /// <summary>
         /// Launcher Path
         /// </summary>
@@ -485,6 +441,50 @@ namespace System
         /// Games
         /// </summary>
         public const string NileGames = "LOCNileGames";
+        /// <summary>
+        /// Check for launcher updates
+        /// </summary>
+        public const string NileLauncherUpdatePolicy = "LOCNileLauncherUpdatePolicy";
+        /// <summary>
+        /// Nile is not installed.
+        /// </summary>
+        public const string NileLauncherNotInstalled = "LOCNileLauncherNotInstalled";
+        /// <summary>
+        /// Nile Panel
+        /// </summary>
+        public const string NilePanel = "LOCNilePanel";
+        /// <summary>
+        /// The download will start soon. You can see its status by accessing Nile Panel via Menu => View or sidebar.
+        /// </summary>
+        public const string NileDownloadManagerWhatsUp = "LOCNileDownloadManagerWhatsUp";
+        /// <summary>
+        /// {0} is already in the download list. You can see status of the download by accessing Nile Panel via Menu => View or sidebar.
+        /// </summary>
+        public const string NileDownloadAlreadyExists = "LOCNileDownloadAlreadyExists";
+        /// <summary>
+        /// Following games are already in the download list: {0}. You can see status of the download by accessing Nile Panel via Menu => View or sidebar.
+        /// </summary>
+        public const string NileDownloadAlreadyExistsOther = "LOCNileDownloadAlreadyExistsOther";
+        /// <summary>
+        /// Migrate all games from Amazon plugin
+        /// </summary>
+        public const string NileMigrateGamesAmazon = "LOCNileMigrateGamesAmazon";
+        /// <summary>
+        /// Migrating all games from Amazon plugin...
+        /// </summary>
+        public const string NileMigratingGamesAmazon = "LOCNileMigratingGamesAmazon";
+        /// <summary>
+        /// All games will be removed from Amazon plugin and moved to Nile. Are you sure you want to do this?
+        /// </summary>
+        public const string NileMigrationConfirm = "LOCNileMigrationConfirm";
+        /// <summary>
+        /// Updates for games from Amazon Games are being downloaded.
+        /// </summary>
+        public const string NileGamesUpdatesUnderway = "LOCNileGamesUpdatesUnderway";
+        /// <summary>
+        /// Only one instance of Nile may install/import/move applications at a time. Do you want to pause download manager tasks to continue?
+        /// </summary>
+        public const string NileInstanceNotice = "LOCNileInstanceNotice";
         /// <summary>
         /// Filter Active
         /// </summary>

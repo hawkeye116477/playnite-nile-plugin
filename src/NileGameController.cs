@@ -45,7 +45,7 @@ namespace NileLibraryNS
         {
             if (!Nile.IsInstalled)
             {
-                throw new Exception(ResourceProvider.GetString(LOC.NileNotInstalled));
+                throw new Exception(ResourceProvider.GetString(LOC.NileLauncherNotInstalled));
             }
             var playniteAPI = API.Instance;
             Window window = null;
@@ -107,7 +107,7 @@ namespace NileLibraryNS
         {
             if (!Nile.IsInstalled)
             {
-                throw new Exception(ResourceProvider.GetString(LOC.NileNotInstalled));
+                throw new Exception(ResourceProvider.GetString(LOC.NileLauncherNotInstalled));
             }
             var playniteAPI = API.Instance;
             string gamesCombined = string.Join(", ", games.Select(item => item.Name));
@@ -224,7 +224,7 @@ namespace NileLibraryNS
                 InvokeOnStopped(new GameStoppedEventArgs());
                 if (!Nile.IsInstalled)
                 {
-                    playniteAPI.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.NileNotInstalled));
+                    playniteAPI.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.NileLauncherNotInstalled));
                 }
             }
         }
