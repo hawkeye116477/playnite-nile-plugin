@@ -1,7 +1,7 @@
 ﻿Id: NileLibrary
 Name: Nile (Amazon Games) library integration
 Author: hawkeye116477
-Version: 0.0
+Version: _version_
 Module: NileLibrary.dll
 Type: GameLibrary
 Icon: Resources\icon.png

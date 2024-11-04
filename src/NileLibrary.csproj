@@ -10,7 +10,7 @@
     <AssemblyName>NileLibrary</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
+    <Deterministic>false</Deterministic>
     <ProjectGuid>{06BF876E-7083-4CC3-A117-23B2C577CE26}</ProjectGuid>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Deterministic>false</Deterministic>
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -240,7 +241,6 @@
   <ItemGroup>
     <Compile Include="Converters\DownloadStatusEnumToStringConverter.cs" />
     <Compile Include="Enums\UpdatePolicy.cs" />
-    <Compile Include="Helpers.cs" />
     <Compile Include="Models\AmazonProductData.cs" />
     <Compile Include="Models\DownloadManagerData.cs" />
     <Compile Include="Models\GameDownloadInfo.cs" />
