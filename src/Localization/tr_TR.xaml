@@ -108,4 +108,15 @@
   <sys:String x:Key="LOCNileUninstallSuccessOther">Aşağıdaki oyunlar başarıyla kaldırıldı: {0}.</sys:String>
   <sys:String x:Key="LOCNileUninstallErrorOther">Aşağıdaki oyunlar kaldırılamıyor: {0}.</sys:String>
   <sys:String x:Key="LOCNileGames">Oyunlar</sys:String>
+  <sys:String x:Key="LOCNileLauncherUpdatePolicy">Başlatıcı güncellemelerini denetle</sys:String>
+  <sys:String x:Key="LOCNileLauncherNotInstalled">Nile kurulu değil.</sys:String>
+  <sys:String x:Key="LOCNilePanel">Nile Paneli</sys:String>
+  <sys:String x:Key="LOCNileDownloadManagerWhatsUp">İndirme yakında başlayacak. Menü =&gt; Görünüm veya kenar çubuğundan Nile Panel üstünden durumunu görebilirsiniz.</sys:String>
+  <sys:String x:Key="LOCNileDownloadAlreadyExists">{0} zaten indirme listesinde. Menü =&gt; Görünüm veya kenar çubuğundan Nile Panel üstünden indirmenin durumunu görebilirsiniz.</sys:String>
+  <sys:String x:Key="LOCNileDownloadAlreadyExistsOther">Şu oyunlar zaten indirme listesinde bulunuyor: {0}. Menü =&gt; Görünüm veya kenar çubuğundan Nile Panele erişerek indirme durumunu görebilirsiniz.</sys:String>
+  <sys:String x:Key="LOCNileMigrateGamesAmazon">Tüm oyunları Amazon eklentisinden taşıyın</sys:String>
+  <sys:String x:Key="LOCNileMigratingGamesAmazon">Tüm oyunları Amazon eklentisinden taşıyınıyor...</sys:String>
+  <sys:String x:Key="LOCNileMigrationConfirm">Tüm oyunlar Amazon eklentisinden kaldırılacak ve Nile üstüne taşınacak. Bunu yapmak istediğinden emin misin?</sys:String>
+  <sys:String x:Key="LOCNileGamesUpdatesUnderway">Amazon Games oyunlarına yönelik güncellemeler indiriliyor.</sys:String>
+  <sys:String x:Key="LOCNileInstanceNotice">Aynı anda yalnızca bir Nile örneği uygulamaları kurulabilir/içe aktarabilir/taşıyabilir. Devam etmek için indirme yöneticisi görevlerini duraklatmak istiyor musunuz?</sys:String>
 </ResourceDictionary>

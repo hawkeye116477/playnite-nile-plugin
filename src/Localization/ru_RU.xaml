@@ -108,4 +108,15 @@
   <sys:String x:Key="LOCNileUninstallSuccessOther">Следующие игры были успешно удалены: {0}.</sys:String>
   <sys:String x:Key="LOCNileUninstallErrorOther">Не удается удалить следующие игры: {0}.</sys:String>
   <sys:String x:Key="LOCNileGames">Игры</sys:String>
+  <sys:String x:Key="LOCNileLauncherUpdatePolicy"></sys:String>
+  <sys:String x:Key="LOCNileLauncherNotInstalled"></sys:String>
+  <sys:String x:Key="LOCNilePanel"></sys:String>
+  <sys:String x:Key="LOCNileDownloadManagerWhatsUp"></sys:String>
+  <sys:String x:Key="LOCNileDownloadAlreadyExists"></sys:String>
+  <sys:String x:Key="LOCNileDownloadAlreadyExistsOther"></sys:String>
+  <sys:String x:Key="LOCNileMigrateGamesAmazon"></sys:String>
+  <sys:String x:Key="LOCNileMigratingGamesAmazon"></sys:String>
+  <sys:String x:Key="LOCNileMigrationConfirm"></sys:String>
+  <sys:String x:Key="LOCNileGamesUpdatesUnderway"></sys:String>
+  <sys:String x:Key="LOCNileInstanceNotice"></sys:String>
 </ResourceDictionary>
