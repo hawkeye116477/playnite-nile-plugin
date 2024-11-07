@@ -347,7 +347,7 @@ namespace NileLibraryNS
             var dictionaries = Application.Current.Resources.MergedDictionaries;
             ResourceDictionary iconsDict = new ResourceDictionary
             {
-                Source = new Uri("/GogOssLibrary;component/Shared/Resources/Icons.xaml", UriKind.RelativeOrAbsolute)
+                Source = new Uri("/NileLibrary;component/Shared/Resources/Icons.xaml", UriKind.RelativeOrAbsolute)
             };
             dictionaries.Add(iconsDict);
         }
