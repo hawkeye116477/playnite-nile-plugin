@@ -108,15 +108,15 @@
   <sys:String x:Key="LOCNileUninstallSuccessOther">I seguenti giochi sono stati disinstallati con successo: {0}.</sys:String>
   <sys:String x:Key="LOCNileUninstallErrorOther">Impossibile disinstallare i seguenti giochi: {0}.</sys:String>
   <sys:String x:Key="LOCNileGames">Giochi</sys:String>
-  <sys:String x:Key="LOCNileLauncherUpdatePolicy"></sys:String>
-  <sys:String x:Key="LOCNileLauncherNotInstalled"></sys:String>
-  <sys:String x:Key="LOCNilePanel"></sys:String>
-  <sys:String x:Key="LOCNileDownloadManagerWhatsUp"></sys:String>
-  <sys:String x:Key="LOCNileDownloadAlreadyExists"></sys:String>
-  <sys:String x:Key="LOCNileDownloadAlreadyExistsOther"></sys:String>
-  <sys:String x:Key="LOCNileMigrateGamesAmazon"></sys:String>
-  <sys:String x:Key="LOCNileMigratingGamesAmazon"></sys:String>
-  <sys:String x:Key="LOCNileMigrationConfirm"></sys:String>
-  <sys:String x:Key="LOCNileGamesUpdatesUnderway"></sys:String>
-  <sys:String x:Key="LOCNileInstanceNotice"></sys:String>
+  <sys:String x:Key="LOCNileLauncherUpdatePolicy">Controlla aggiornamenti del launcher</sys:String>
+  <sys:String x:Key="LOCNileLauncherNotInstalled">Nile non è installato.</sys:String>
+  <sys:String x:Key="LOCNilePanel">Pannello Nile</sys:String>
+  <sys:String x:Key="LOCNileDownloadManagerWhatsUp">Il download inizierà a breve. Puoi vederne lo stato accedendo al pannello Nile tramite Menu =&gt; Visualizza o dalla barra laterale.</sys:String>
+  <sys:String x:Key="LOCNileDownloadAlreadyExists">{0} è già nella lista dei download. È possibile visualizzare lo stato del download accedendo al pannello Nile tramite Menu =&gt; Visualizza o dalla barra laterale.</sys:String>
+  <sys:String x:Key="LOCNileDownloadAlreadyExistsOther">I seguenti giochi sono già nella lista dei download: {0}. Puoi vedere lo stato del download accedendo al pannello Nile tramite Menu =&gt; Visualizza o dalla barra laterale.</sys:String>
+  <sys:String x:Key="LOCNileMigrateGamesAmazon">Migra tutti i giochi dal plugin Amazon</sys:String>
+  <sys:String x:Key="LOCNileMigratingGamesAmazon">Migrazione di tutti i giochi dal plugin Amazon...</sys:String>
+  <sys:String x:Key="LOCNileMigrationConfirm">Tutti i giochi saranno rimossi dal plugin Amazon e spostati in Nile. Sei sicuro di volerlo fare?</sys:String>
+  <sys:String x:Key="LOCNileGamesUpdatesUnderway">Gli aggiornamenti dei giochi di Amazon Games sono in download.</sys:String>
+  <sys:String x:Key="LOCNileInstanceNotice">Solo un'istanza di Nile può installare/importare/spostare applicazioni alla volta. Si desidera mettere in pausa le attività del gestore download per continuare?</sys:String>
 </ResourceDictionary>
