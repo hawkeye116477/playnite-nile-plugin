@@ -5,7 +5,7 @@ Packages:
     ReleaseDate: 2024-11-07
     PackageUrl: https://github.com/hawkeye116477/playnite-nile-plugin/releases/download/1.0.1/NileLibrary_1_0_1.pext
     Changelog:
-      - Fixed potential problem with not loading extension
+      - Fixed an issue with the plugin not loading
   - Version: 1.0.0
     RequiredApiVersion: 6.4.0
     ReleaseDate: 2024-11-04
