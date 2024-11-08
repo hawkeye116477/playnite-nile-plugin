@@ -497,6 +497,11 @@ namespace NileLibraryNS
         public async Task<Dictionary<string, UpdateInfo>> CheckAllGamesUpdates(bool silently = false, bool forceRefreshCache = false)
         {
             var gamesToUpdate = new Dictionary<string, UpdateInfo>();
+            var appList = Nile.GetInstalledAppList();
+            if (appList.Count == 0)
+            {
+                return gamesToUpdate;
+            }
             var cmd = await Cli.Wrap(Nile.ClientExecPath)
                                .WithArguments(new[] { "list-updates", "--json" })
                                .WithEnvironmentVariables(Nile.DefaultEnvironmentVariables)
@@ -504,18 +509,18 @@ namespace NileLibraryNS
                                .WithValidation(CommandResultValidation.None)
                                .ExecuteBufferedAsync();
             var errorMessage = cmd.StandardError;
-            if (cmd.ExitCode != 0 || errorMessage.Contains("ERROR") || errorMessage.Contains("CRITICAL") || errorMessage.Contains("Error"))
+            if (cmd.ExitCode != 0)
             {
                 logger.Error(errorMessage);
                 if (!silently)
                 {
                     if (errorMessage.Contains("not logged in"))
                     {
-                        playniteAPI.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteMetadataDownloadError).Format(ResourceProvider.GetString(LOC.Nile3P_PlayniteLoginRequired)), "");
+                        playniteAPI.Dialogs.ShowErrorMessage(NileLibrary.Instance.Name, $"{ResourceProvider.GetString(LOC.Nile3P_PlayniteUpdateCheckFailMessage)} {ResourceProvider.GetString(LOC.Nile3P_PlayniteLoginRequired)}");
                     }
                     else
                     {
-                        playniteAPI.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteMetadataDownloadError).Format(ResourceProvider.GetString(LOC.NileCheckLog)), "");
+                        playniteAPI.Dialogs.ShowErrorMessage(NileLibrary.Instance.Name, $"{ResourceProvider.GetString(LOC.Nile3P_PlayniteUpdateCheckFailMessage)} {ResourceProvider.GetString(LOC.NileCheckLog)}");
                     }
                 }
             }

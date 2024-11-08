@@ -487,7 +487,7 @@ namespace NileLibraryNS
                             globalSettings.NextGamesUpdateTime = GetNextUpdateCheckTime(globalSettings.GamesUpdatePolicy);
                             SavePluginSettings(globalSettings);
                             NileUpdateController NileUpdateController = new NileUpdateController();
-                            var gamesUpdates = await NileUpdateController.CheckAllGamesUpdates();
+                            var gamesUpdates = await NileUpdateController.CheckAllGamesUpdates(silently: true);
                             if (gamesUpdates.Count > 0)
                             {
                                 var successUpdates = gamesUpdates.Where(i => i.Value.Success).ToDictionary(i => i.Key, i => i.Value);
