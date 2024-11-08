@@ -284,7 +284,7 @@ namespace NileLibraryNS
                 return;
             }
             GlobalProgressOptions globalProgressOptions = new GlobalProgressOptions(ResourceProvider.GetString(LOC.NileMigratingGamesAmazon), false) { IsIndeterminate = false };
-            playniteAPI.Dialogs.ActivateGlobalProgress((a) =>
+            playniteAPI.Dialogs.ActivateGlobalProgress(async (a) =>
             {
                 using (playniteAPI.Database.BufferedUpdate())
                 {
@@ -312,7 +312,7 @@ namespace NileLibraryNS
                                         {
                                             game.Version = "0";
                                         }
-                                        Nile.AddGameToInstalledList(game);
+                                        await Nile.AddGameToInstalledList(game);
                                     }
                                     else
                                     {

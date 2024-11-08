@@ -280,6 +280,67 @@ namespace NileLibraryNS
             }
         }
 
+        public static async Task<string> SyncLibIfNeeded(Game game)
+        {
+            string gameName = game.Name;
+            var logger = LogManager.GetLogger();
+            var playniteAPI = API.Instance;
+            bool correctSyncJson = false;
+            var nileLibSyncJsonPath = Path.Combine(ConfigPath, "library.json");
+            var nileLibSyncJson = new List<NileLibraryFile.NileGames>();
+            if (File.Exists(nileLibSyncJsonPath))
+            {
+                var nileLibyncJsonContent = FileSystem.ReadFileAsStringSafe(nileLibSyncJsonPath);
+                if (!nileLibyncJsonContent.IsNullOrWhiteSpace() && Serialization.TryFromJson(nileLibyncJsonContent, out nileLibSyncJson))
+                {
+                    var wantedItem = nileLibSyncJson.FirstOrDefault(i => i.product.id == game.GameId);
+                    if (wantedItem != null)
+                    {
+                        gameName = wantedItem.product.title.RemoveTrademarks();
+                        correctSyncJson = true;
+                    }
+                    else
+                    {
+                        File.Delete(nileLibSyncJsonPath);
+                    }
+                }
+            }
+            if (!correctSyncJson)
+            {
+                BufferedCommandResult syncLibResult = await Cli.Wrap(ClientExecPath)
+                                                               .WithArguments(new[] { "library", "sync" })
+                                                               .WithEnvironmentVariables(DefaultEnvironmentVariables)
+                                                               .AddCommandToLog()
+                                                               .WithValidation(CommandResultValidation.None)
+                                                               .ExecuteBufferedAsync();
+                var syncErrorMessage = syncLibResult.StandardError;
+                if (syncLibResult.ExitCode != 0 || syncErrorMessage.Contains("Error"))
+                {
+                    if (syncErrorMessage.Contains("not logged in"))
+                    {
+                        playniteAPI.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteMetadataDownloadError).Format(ResourceProvider.GetString(LOC.Nile3P_PlayniteLoginRequired)), gameName);
+                    }
+                    else
+                    {
+                        playniteAPI.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteMetadataDownloadError).Format(ResourceProvider.GetString(LOC.NileCheckLog)), gameName);
+                    }
+                    logger.Error(syncErrorMessage);
+                    return gameName;
+                }
+                else
+                {
+                    var nileLibyncJsonContent = FileSystem.ReadFileAsStringSafe(nileLibSyncJsonPath);
+                    var nileLibyncJson = Serialization.FromJson<List<NileLibraryFile.NileGames>>(nileLibyncJsonContent);
+                    var wantedItem = nileLibSyncJson.FirstOrDefault(i => i.product.id == game.GameId);
+                    if (wantedItem != null)
+                    {
+                        gameName = wantedItem.product.title.RemoveTrademarks();
+                    }
+                }
+            }
+            return gameName;
+        }
+
         public static async Task<GameDownloadInfo> GetGameInfo(DownloadManagerData.Download gameData, bool skipRefreshing = false, bool silently = false, bool forceRefreshCache = false)
         {
             var gameID = gameData.gameID;
@@ -321,62 +382,12 @@ namespace NileLibraryNS
             }
             if (!correctJson)
             {
-                bool correctSyncJson = false;
-                var nileLibSyncJsonPath = Path.Combine(ConfigPath, "library.json");
-                var nileLibSyncJson = new List<NileLibraryFile.NileGames>();
-                if (File.Exists(nileLibSyncJsonPath))
+                var game = new Game
                 {
-                    var nileLibyncJsonContent = FileSystem.ReadFileAsStringSafe(nileLibSyncJsonPath);
-                    if (!nileLibyncJsonContent.IsNullOrWhiteSpace() && Serialization.TryFromJson(nileLibyncJsonContent, out nileLibSyncJson))
-                    {
-                        var wantedItem = nileLibSyncJson.FirstOrDefault(i => i.product.id == gameData.gameID);
-                        if (wantedItem != null)
-                        {
-                            manifest.title = wantedItem.product.title.RemoveTrademarks();
-                            correctSyncJson = true;
-                        }
-                        else
-                        {
-                            File.Delete(nileLibSyncJsonPath);
-                        }
-                    }
-                }
-
-                if (!correctSyncJson)
-                {
-                    BufferedCommandResult syncLibResult = await Cli.Wrap(ClientExecPath)
-                                                                   .WithArguments(new[] { "library", "sync" })
-                                                                   .WithEnvironmentVariables(DefaultEnvironmentVariables)
-                                                                   .AddCommandToLog()
-                                                                   .WithValidation(CommandResultValidation.None)
-                                                                   .ExecuteBufferedAsync();
-                    var syncErrorMessage = syncLibResult.StandardError;
-                    if (syncLibResult.ExitCode != 0 || syncErrorMessage.Contains("Error"))
-                    {
-                        if (syncErrorMessage.Contains("not logged in"))
-                        {
-                            playniteAPI.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteMetadataDownloadError).Format(ResourceProvider.GetString(LOC.Nile3P_PlayniteLoginRequired)), gameData.name);
-                        }
-                        else
-                        {
-                            playniteAPI.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteMetadataDownloadError).Format(ResourceProvider.GetString(LOC.NileCheckLog)), gameData.name);
-                        }
-                        logger.Error(syncErrorMessage);
-                        manifest.errorDisplayed = true;
-                        return manifest;
-                    }
-                    else
-                    {
-                        var nileLibyncJsonContent = FileSystem.ReadFileAsStringSafe(nileLibSyncJsonPath);
-                        var nileLibyncJson = Serialization.FromJson<List<NileLibraryFile.NileGames>>(nileLibyncJsonContent);
-                        var wantedItem = nileLibSyncJson.FirstOrDefault(i => i.product.id == gameData.gameID);
-                        if (wantedItem != null)
-                        {
-                            manifest.title = wantedItem.product.title.RemoveTrademarks();
-                        }
-                    }
-                }
-
+                    GameId = gameData.gameID,
+                    Name = gameData.name
+                };
+                manifest.title = await SyncLibIfNeeded(game);
                 BufferedCommandResult result = await Cli.Wrap(ClientExecPath)
                                       .WithArguments(new[] { "install", gameID, "--info", "--json" })
                                       .WithEnvironmentVariables(DefaultEnvironmentVariables)
@@ -410,8 +421,9 @@ namespace NileLibraryNS
             return manifest;
         }
 
-        public static void AddGameToInstalledList(Game game)
+        public static async Task AddGameToInstalledList(Game game)
         {
+            await SyncLibIfNeeded(game);
             var installListPath = Path.Combine(ConfigPath, "installed.json");
             var installedList = new List<InstalledGames.Installed>();
             if (File.Exists(installListPath))
