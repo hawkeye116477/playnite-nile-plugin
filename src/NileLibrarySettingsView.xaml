@@ -84,7 +84,7 @@
                         <TextBlock Text="{DynamicResource LOCNileLauncherCustomPath}" Grid.Column="0" Grid.Row="0"
                                Margin="0,0,0,5" VerticalAlignment="Center" HorizontalAlignment="Left">
                         </TextBlock>
-                        <TextBox Text="{Binding Settings.SelectedLauncherPath, UpdateSourceTrigger=PropertyChanged}" x:Name="SelectedLauncherPathTxt" 
+                        <TextBox Text="{Binding Settings.SelectedNilePath, UpdateSourceTrigger=PropertyChanged}" x:Name="SelectedNilePathTxt" 
                              Grid.Row="0" Grid.Column="1" Margin="10,0,0,5" VerticalAlignment="Center"/>
                         <Button Name="ChooseLauncherBtn"
                             Margin="5,0,0,5" Content="&#xec5b;" FontFamily="{DynamicResource FontIcoFont}" Click="ChooseLauncherBtn_Click" Grid.Row="0" Grid.Column="2"

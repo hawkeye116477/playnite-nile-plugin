@@ -245,7 +245,7 @@ namespace NileLibraryNS
             var file = playniteAPI.Dialogs.SelectFile($"{ResourceProvider.GetString(LOC.Nile3P_PlayniteExecutableTitle)}|*.exe");
             if (file != "")
             {
-                SelectedLauncherPathTxt.Text = file;
+                SelectedNilePathTxt.Text = file;
             }
         }
 
