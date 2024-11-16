@@ -436,7 +436,25 @@ namespace NileLibraryNS
             }
             var folderName = new DirectoryInfo(game.InstallDirectory).Name;
             var parentDirectory = Directory.GetParent(game.InstallDirectory).FullName;
-            var installDataFile = Path.Combine(parentDirectory, "__InstallData__", folderName, "product_data.json");
+            var installDataDir = Path.Combine(parentDirectory, "__InstallData__", folderName);
+            var installDataFile = Path.Combine(installDataDir, "product_data.json");
+
+            var manifestsDir = Path.Combine(installDataDir, "Manifests");
+            if (Directory.Exists(manifestsDir))
+            {
+                string[] filePaths = Directory.GetFiles(manifestsDir, "*.manifest");
+                var manifestPath = filePaths[0];
+                if (!manifestPath.IsNullOrEmpty())
+                {
+                    var nileManifestsPath = Path.Combine(ConfigPath, "manifests");
+                    if (!Directory.Exists(nileManifestsPath))
+                    {
+                        Directory.CreateDirectory(nileManifestsPath);
+                    }
+                    File.Copy(manifestPath, Path.Combine(nileManifestsPath, $"{game.GameId}.raw"));
+                }
+            }
+
             if (File.Exists(installDataFile))
             {
                 var installDataFileContent = FileSystem.ReadFileAsStringSafe(installDataFile);
