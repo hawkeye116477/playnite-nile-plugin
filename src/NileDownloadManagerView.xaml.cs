@@ -234,7 +234,7 @@ namespace NileLibraryNS
             }
             installCommand.Add(gameID);
 
-            if (downloadProperties.installPath != "")
+            if (downloadProperties.installPath != "" && downloadProperties.downloadAction == DownloadAction.Install)
             {
                 var folderName = gameTitle.RemoveTrademarks();
                 string[] inappropriateDirChars = { ":", "/", "*", "?", "<", ">", "\\", "|", "™", "\"", "®" };

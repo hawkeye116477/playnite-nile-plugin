@@ -855,7 +855,7 @@ namespace NileLibraryNS
                             var installData = new List<DownloadManagerData.Download>();
                             foreach (var game in installedNileGames)
                             {
-                                var installProperties = new DownloadProperties { downloadAction = DownloadAction.Repair };
+                                var installProperties = new DownloadProperties { downloadAction = DownloadAction.Repair, installPath = game.InstallDirectory };
                                 installData.Add(new DownloadManagerData.Download { gameID = game.GameId, name = game.Name, downloadProperties = installProperties });
                             }
                             window.DataContext = installData;
