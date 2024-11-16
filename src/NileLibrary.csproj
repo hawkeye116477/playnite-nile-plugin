@@ -228,10 +228,6 @@
     <Compile Include="..\third_party\playnite-common-plugin\src\Enums\DownloadStatus.cs">
       <Link>Shared\Enums\DownloadStatus.cs</Link>
     </Compile>
-    <Page Include="NileUpdaterView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Resource Include="..\third_party\playnite-common-plugin\src\Resources\Icons.xaml">
       <Link>Shared\Resources\Icons.xaml</Link>
       <SubType>Designer</SubType>
@@ -278,6 +274,10 @@
     <Compile Include="Models\GameConfiguration.cs" />
     <Compile Include="NileMessagesSettings.cs" />
     <Compile Include="NileTroubleshootingInformation.cs" />
+    <Page Include="NileUpdaterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Compile Include="NileUpdaterView.xaml.cs">
       <DependentUpon>NileUpdaterView.xaml</DependentUpon>
     </Compile>
