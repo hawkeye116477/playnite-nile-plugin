@@ -243,8 +243,16 @@ namespace NileLibraryNS
                     folderName = folderName.Replace(inappropriateDirChar, "");
                 }
                 taskData.fullInstallPath = Path.Combine(downloadProperties.installPath, folderName);
+            }
+            else if (downloadProperties.installPath != "")
+            {
+                taskData.fullInstallPath = downloadProperties.installPath;
+            }
+            if (!taskData.fullInstallPath.IsNullOrEmpty())
+            {
                 installCommand.AddRange(new[] { "--path", taskData.fullInstallPath });
             }
+
             if (downloadProperties.maxWorkers != 0)
             {
                 installCommand.AddRange(new[] { "--max-workers", downloadProperties.maxWorkers.ToString() });

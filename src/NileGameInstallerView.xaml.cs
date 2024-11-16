@@ -99,11 +99,6 @@ namespace NileLibraryNS
             {
                 installPath = installPath.Replace(playniteDirectoryVariable, playniteAPI.Paths.ApplicationPath);
             }
-
-            if (!CommonHelpers.IsDirectoryWritable(installPath, LOC.NilePermissionError))
-            {
-                return;
-            }
             InstallerWindow.Close();
             NileDownloadManagerView downloadManager = NileLibrary.GetNileDownloadManager();
             var downloadTasks = new List<DownloadManagerData.Download>();
@@ -114,6 +109,14 @@ namespace NileLibraryNS
                 var wantedItem = downloadManager.downloadManagerData.downloads.FirstOrDefault(item => item.gameID == gameId);
                 if (wantedItem == null)
                 {
+                    if (!installData.downloadProperties.installPath.IsNullOrEmpty())
+                    {
+                        installPath = installData.downloadProperties.installPath;
+                    }
+                    if (!CommonHelpers.IsDirectoryWritable(installPath, LOC.NilePermissionError))
+                    {
+                        continue;
+                    }
                     var downloadProperties = GetDownloadProperties(installData, downloadAction, installPath);
                     installData.downloadProperties = downloadProperties;
                     downloadTasks.Add(installData);
