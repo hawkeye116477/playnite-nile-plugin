@@ -535,6 +535,10 @@ namespace NileLibraryNS
                             {
                                 updateInfo.Download_size = gameInfo.download_size;
                                 updateInfo.Title = gameInfo.title;
+                                if (appList.FirstOrDefault(i => i.id == gameToUpdate) != null)
+                                {
+                                    updateInfo.Install_path = appList.FirstOrDefault(i => i.id == gameToUpdate).path;
+                                }
                             }
                             gamesToUpdate.Add(gameToUpdate, updateInfo);
                         }
@@ -589,12 +593,17 @@ namespace NileLibraryNS
                                     maxWorkers = settings.MaxWorkers,
                                 };
                             }
+                            if (!gameToUpdate.Value.Install_path.IsNullOrEmpty())
+                            {
+                                downloadProperties.installPath = gameToUpdate.Value.Install_path;
+                            }
                             var updateTask = new DownloadManagerData.Download
                             {
                                 gameID = gameToUpdate.Key,
                                 name = gameToUpdate.Value.Title,
                                 downloadSizeNumber = gameToUpdate.Value.Download_size,
-                                downloadProperties = downloadProperties
+                                downloadProperties = downloadProperties,
+                                fullInstallPath = downloadProperties.installPath
                             };
                             updateTasks.Add(updateTask);
                         }

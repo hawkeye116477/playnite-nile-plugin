@@ -234,20 +234,6 @@ namespace NileLibraryNS
             }
             installCommand.Add(gameID);
 
-            if (downloadProperties.installPath != "" && downloadProperties.downloadAction == DownloadAction.Install)
-            {
-                var folderName = gameTitle.RemoveTrademarks();
-                string[] inappropriateDirChars = { ":", "/", "*", "?", "<", ">", "\\", "|", "™", "\"", "®" };
-                foreach (var inappropriateDirChar in inappropriateDirChars)
-                {
-                    folderName = folderName.Replace(inappropriateDirChar, "");
-                }
-                taskData.fullInstallPath = Path.Combine(downloadProperties.installPath, folderName);
-            }
-            else if (downloadProperties.installPath != "")
-            {
-                taskData.fullInstallPath = downloadProperties.installPath;
-            }
             if (!taskData.fullInstallPath.IsNullOrEmpty())
             {
                 installCommand.AddRange(new[] { "--path", taskData.fullInstallPath });

@@ -109,9 +109,20 @@ namespace NileLibraryNS
                 var wantedItem = downloadManager.downloadManagerData.downloads.FirstOrDefault(item => item.gameID == gameId);
                 if (wantedItem == null)
                 {
-                    if (!installData.downloadProperties.installPath.IsNullOrEmpty())
+                    if (installData.downloadProperties.downloadAction == DownloadAction.Install)
+                    {
+                        var folderName = installData.name;
+                        string[] inappropriateDirChars = { ":", "/", "*", "?", "<", ">", "\\", "|", "™", "\"", "®" };
+                        foreach (var inappropriateDirChar in inappropriateDirChars)
+                        {
+                            folderName = folderName.Replace(inappropriateDirChar, "");
+                        }
+                        installData.fullInstallPath = Path.Combine(installData.downloadProperties.installPath, folderName);
+                    }
+                    else if (!installData.downloadProperties.installPath.IsNullOrEmpty())
                     {
                         installPath = installData.downloadProperties.installPath;
+                        installData.fullInstallPath = installPath;
                     }
                     if (!CommonHelpers.IsDirectoryWritable(installPath, LOC.NilePermissionError))
                     {
