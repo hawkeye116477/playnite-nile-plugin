@@ -117,3 +117,4 @@ LOCLegendaryMigratingGamesEpic
 LOCLegendaryMigrationConfirm
 LOCLegendaryInstanceNotice
 LOCLegendaryLauncherUpdatePolicy
+LOCLegendaryAutoRemoveCompletedDownloads

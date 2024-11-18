@@ -124,6 +124,7 @@ namespace NileLibraryNS
                 { ClearCacheTime.Never, ResourceProvider.GetString(LOC.Nile3P_PlayniteSettingsPlaytimeImportModeNever) }
             };
             AutoClearCacheCBo.ItemsSource = autoClearOptions;
+            AutoRemoveCompletedDownloadsCBo.ItemsSource = autoClearOptions;
 
             var updatePolicyOptions = new Dictionary<UpdatePolicy, string>
             {

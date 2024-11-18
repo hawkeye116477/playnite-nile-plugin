@@ -467,8 +467,8 @@ namespace NileLibraryNS
                     }
                     download.status = DownloadStatus.Paused;
                 }
+                downloadManager.SaveData();
             }
-            downloadManager.SaveData();
             return true;
         }
 
@@ -585,9 +585,36 @@ namespace NileLibraryNS
         public override void OnApplicationStopped(OnApplicationStoppedEventArgs args)
         {
             StopDownloadManager();
+            NileDownloadManagerView downloadManager = GetNileDownloadManager();
             var settings = GetSettings();
             if (settings != null)
             {
+                if (settings.AutoRemoveCompletedDownloads != ClearCacheTime.Never)
+                {
+                    var nextRemovingCompletedDownloadsTime = settings.NextRemovingCompletedDownloadsTime;
+                    if (nextRemovingCompletedDownloadsTime != 0)
+                    {
+                        DateTimeOffset now = DateTime.UtcNow;
+                        if (now.ToUnixTimeSeconds() >= nextRemovingCompletedDownloadsTime)
+                        {
+                            foreach (var downloadItem in downloadManager.downloadManagerData.downloads.ToList())
+                            {
+                                if (downloadItem.status == DownloadStatus.Completed)
+                                {
+                                    downloadManager.downloadManagerData.downloads.Remove(downloadItem);
+                                    downloadManager.downloadsChanged = true;
+                                }
+                            }
+                            settings.NextRemovingCompletedDownloadsTime = GetNextClearingTime(settings.AutoRemoveCompletedDownloads);
+                            SavePluginSettings(settings);
+                        }
+                    }
+                    else
+                    {
+                        settings.NextRemovingCompletedDownloadsTime = GetNextClearingTime(settings.AutoRemoveCompletedDownloads);
+                        SavePluginSettings(settings);
+                    }
+                }
                 if (settings.AutoClearCache != ClearCacheTime.Never)
                 {
                     var nextClearingTime = settings.NextClearingTime;
@@ -607,6 +634,7 @@ namespace NileLibraryNS
                         SavePluginSettings(settings);
                     }
                 }
+                downloadManager.SaveData();
             }
         }
 

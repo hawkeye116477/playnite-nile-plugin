@@ -12,6 +12,7 @@
   <sys:String x:Key="LOCNileUnattendedInstallToolTip">You won't have to choose anything in the installer window and the installation will start automatically after downloading the required information.</sys:String>
   <sys:String x:Key="LOCNileMaxWorkers">Maximum number of worker processes</sys:String>
   <sys:String x:Key="LOCNileAfterDownloadComplete">Action after download is complete</sys:String>
+  <sys:String x:Key="LOCNileAutoRemoveCompletedDownloads">Automatically remove completed downloads from list</sys:String>
   <sys:String x:Key="LOCNileSystemShutdownCountdown">System will be turned off soon...</sys:String>
   <sys:String x:Key="LOCNileSystemRestartCountdown">System will be restarted soon...</sys:String>
   <sys:String x:Key="LOCNileSystemHibernateCountdown">System will be hibernated soon...</sys:String>
