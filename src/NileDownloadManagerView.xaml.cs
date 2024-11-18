@@ -219,13 +219,13 @@ namespace NileLibraryNS
             {
                 downloadSpeedInBits = true;
             }
-
             if (downloadProperties.downloadAction == DownloadAction.Install)
             {
                 installCommand.Add("install");
             }
             if (downloadProperties.downloadAction == DownloadAction.Repair)
             {
+                Nile.MigrateAmazonManifest(taskData.fullInstallPath, taskData.gameID);
                 installCommand.Add("verify");
             }
             if (downloadProperties.downloadAction == DownloadAction.Update)

@@ -421,6 +421,32 @@ namespace NileLibraryNS
             return manifest;
         }
 
+        public static void MigrateAmazonManifest(string installDirectory, string gameId)
+        {
+            var parentDirectory = Directory.GetParent(installDirectory).FullName;
+            var folderName = new DirectoryInfo(installDirectory).Name;
+            var installDataDir = Path.Combine(parentDirectory, "__InstallData__", folderName);
+            var manifestsDir = Path.Combine(installDataDir, "Manifests");
+            var nileManifestsPath = Path.Combine(ConfigPath, "manifests");
+            if (!File.Exists(Path.Combine(nileManifestsPath, $"{gameId}.raw")))
+            {
+                if (Directory.Exists(manifestsDir))
+                {
+                    string[] filePaths = Directory.GetFiles(manifestsDir, "*.manifest");
+                    var manifestPath = filePaths[0];
+                    if (!manifestPath.IsNullOrEmpty())
+                    {
+                        if (!Directory.Exists(nileManifestsPath))
+                        {
+                            Directory.CreateDirectory(nileManifestsPath);
+                        }
+                        File.Copy(manifestPath, Path.Combine(nileManifestsPath, $"{gameId}.raw"));
+                    }
+                }
+            }
+        }
+
+
         public static async Task AddGameToInstalledList(Game game)
         {
             await SyncLibIfNeeded(game);
@@ -439,21 +465,7 @@ namespace NileLibraryNS
             var installDataDir = Path.Combine(parentDirectory, "__InstallData__", folderName);
             var installDataFile = Path.Combine(installDataDir, "product_data.json");
 
-            var manifestsDir = Path.Combine(installDataDir, "Manifests");
-            if (Directory.Exists(manifestsDir))
-            {
-                string[] filePaths = Directory.GetFiles(manifestsDir, "*.manifest");
-                var manifestPath = filePaths[0];
-                if (!manifestPath.IsNullOrEmpty())
-                {
-                    var nileManifestsPath = Path.Combine(ConfigPath, "manifests");
-                    if (!Directory.Exists(nileManifestsPath))
-                    {
-                        Directory.CreateDirectory(nileManifestsPath);
-                    }
-                    File.Copy(manifestPath, Path.Combine(nileManifestsPath, $"{game.GameId}.raw"));
-                }
-            }
+            MigrateAmazonManifest(game.InstallDirectory, game.GameId);
 
             if (File.Exists(installDataFile))
             {
