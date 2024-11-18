@@ -5,13 +5,14 @@
   <sys:String x:Key="LOCNileDownloadSize">Размер загрузки:</sys:String>
   <sys:String x:Key="LOCNileInstallSize">Размер установки:</sys:String>
   <sys:String x:Key="LOCNileUninstallGameConfirm">Вы уверены, что хотите удалить {0}?</sys:String>
-  <sys:String x:Key="LOCNileDownloadSettings">Настройки загрузки</sys:String>
+  <sys:String x:Key="LOCNileDownloadSettings"></sys:String>
   <sys:String x:Key="LOCNileDisplayDownloadTaskFinishedNotifications">Отображать уведомления на рабочем столе о завершенных задачах</sys:String>
   <sys:String x:Key="LOCNileDisplayDownloadSpeedInBits">Отображать скорость загрузки в битах в секунду</sys:String>
   <sys:String x:Key="LOCNileUnattendedInstall">Включить режим автоматической установки</sys:String>
   <sys:String x:Key="LOCNileUnattendedInstallToolTip">Вам не нужно ничего выбирать в окне установщика. Установка начнется автоматически после загрузки информации.</sys:String>
   <sys:String x:Key="LOCNileMaxWorkers">Максимальное количество рабочих процессов</sys:String>
   <sys:String x:Key="LOCNileAfterDownloadComplete">Действие после завершения загрузки</sys:String>
+  <sys:String x:Key="LOCNileAutoRemoveCompletedDownloads"></sys:String>
   <sys:String x:Key="LOCNileSystemShutdownCountdown">Система скоро выключится...</sys:String>
   <sys:String x:Key="LOCNileSystemRestartCountdown">Система скоро перезагрузится...</sys:String>
   <sys:String x:Key="LOCNileSystemHibernateCountdown">Система скоро перейдет в режим гибернации...</sys:String>

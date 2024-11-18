@@ -5,13 +5,14 @@
   <sys:String x:Key="LOCNileDownloadSize">Rozmiar pobierania:</sys:String>
   <sys:String x:Key="LOCNileInstallSize">Rozmiar instalacji:</sys:String>
   <sys:String x:Key="LOCNileUninstallGameConfirm">Czy na pewno chcesz odinstalować program {0}?</sys:String>
-  <sys:String x:Key="LOCNileDownloadSettings">Ustawienia pobierania</sys:String>
+  <sys:String x:Key="LOCNileDownloadSettings">Pobieranie</sys:String>
   <sys:String x:Key="LOCNileDisplayDownloadTaskFinishedNotifications">Wyświetlaj powiadomienia na pulpicie o zakończonych zadaniach</sys:String>
   <sys:String x:Key="LOCNileDisplayDownloadSpeedInBits">Wyświetlaj prędkość pobierania w bitach na sekundę</sys:String>
   <sys:String x:Key="LOCNileUnattendedInstall">Włącz tryb instalacji nienadzorowanej</sys:String>
   <sys:String x:Key="LOCNileUnattendedInstallToolTip">Nie będziesz niczego musiał wybierać w oknie instalatora, a instalacja rozpocznie się automatycznie po pobraniu wymaganych informacji.</sys:String>
   <sys:String x:Key="LOCNileMaxWorkers">Maksymalna liczba procesów roboczych</sys:String>
   <sys:String x:Key="LOCNileAfterDownloadComplete">Akcja po zakończeniu pobierania</sys:String>
+  <sys:String x:Key="LOCNileAutoRemoveCompletedDownloads">Automatycznie usuwaj ukończone pobrania z listy</sys:String>
   <sys:String x:Key="LOCNileSystemShutdownCountdown">System niedługo zostanie wyłączony...</sys:String>
   <sys:String x:Key="LOCNileSystemRestartCountdown">System niedługo zostanie zrestartowany...</sys:String>
   <sys:String x:Key="LOCNileSystemHibernateCountdown">System niedługo zostanie przełączony w stan hibernacji...</sys:String>
