@@ -5,13 +5,14 @@
   <sys:String x:Key="LOCNileDownloadSize">İndirme Boyutu:</sys:String>
   <sys:String x:Key="LOCNileInstallSize">Kurulum Boyutu:</sys:String>
   <sys:String x:Key="LOCNileUninstallGameConfirm">{0} kaldırılacak, bundan emin misiniz?</sys:String>
-  <sys:String x:Key="LOCNileDownloadSettings">İndirme Ayarları</sys:String>
+  <sys:String x:Key="LOCNileDownloadSettings">İndirilenler</sys:String>
   <sys:String x:Key="LOCNileDisplayDownloadTaskFinishedNotifications">Tamamlanan görevlerle ilgili masaüstü bildirimlerini görüntüle</sys:String>
   <sys:String x:Key="LOCNileDisplayDownloadSpeedInBits">İndirme hızını saniyedeki bit cinsinden göster</sys:String>
   <sys:String x:Key="LOCNileUnattendedInstall">Katılımsız kurulum modunu etkinleştir</sys:String>
   <sys:String x:Key="LOCNileUnattendedInstallToolTip">Kurulum penceresinde herhangi bir şey seçmeniz gerekiyor ve gerekli bilgiler indirildikten sonra kurulum otomatik olarak başlayacaktır.</sys:String>
   <sys:String x:Key="LOCNileMaxWorkers">En fazla çalışan işlem sayısı</sys:String>
   <sys:String x:Key="LOCNileAfterDownloadComplete">İndirme tamamlandıktan sonraki eylem</sys:String>
+  <sys:String x:Key="LOCNileAutoRemoveCompletedDownloads">Tamamlanan indirmeleri otomatik olarak listeden kaldır</sys:String>
   <sys:String x:Key="LOCNileSystemShutdownCountdown">Sistem yakında kapatılacak...</sys:String>
   <sys:String x:Key="LOCNileSystemRestartCountdown">Sistem yakında yeniden başlatılacak...</sys:String>
   <sys:String x:Key="LOCNileSystemHibernateCountdown">Sistem yakında hazırda bekletme moduna geçecek...</sys:String>

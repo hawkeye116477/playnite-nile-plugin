@@ -12,6 +12,7 @@
   <sys:String x:Key="LOCNileUnattendedInstallToolTip"></sys:String>
   <sys:String x:Key="LOCNileMaxWorkers"></sys:String>
   <sys:String x:Key="LOCNileAfterDownloadComplete"></sys:String>
+  <sys:String x:Key="LOCNileAutoRemoveCompletedDownloads"></sys:String>
   <sys:String x:Key="LOCNileSystemShutdownCountdown"></sys:String>
   <sys:String x:Key="LOCNileSystemRestartCountdown"></sys:String>
   <sys:String x:Key="LOCNileSystemHibernateCountdown"></sys:String>

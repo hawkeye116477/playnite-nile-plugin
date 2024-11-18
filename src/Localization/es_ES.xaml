@@ -5,13 +5,14 @@
   <sys:String x:Key="LOCNileDownloadSize">Tamaño de descarga:</sys:String>
   <sys:String x:Key="LOCNileInstallSize">Tamaño de instalación:</sys:String>
   <sys:String x:Key="LOCNileUninstallGameConfirm">¿Estás seguro que deseas desinstalar {0}?</sys:String>
-  <sys:String x:Key="LOCNileDownloadSettings">Ajustes de descarga</sys:String>
+  <sys:String x:Key="LOCNileDownloadSettings"></sys:String>
   <sys:String x:Key="LOCNileDisplayDownloadTaskFinishedNotifications"></sys:String>
   <sys:String x:Key="LOCNileDisplayDownloadSpeedInBits">Mostrar velocidad de descarga en bits por segundo</sys:String>
   <sys:String x:Key="LOCNileUnattendedInstall"></sys:String>
   <sys:String x:Key="LOCNileUnattendedInstallToolTip"></sys:String>
   <sys:String x:Key="LOCNileMaxWorkers">Número máximo de procesos de trabajo</sys:String>
   <sys:String x:Key="LOCNileAfterDownloadComplete"></sys:String>
+  <sys:String x:Key="LOCNileAutoRemoveCompletedDownloads"></sys:String>
   <sys:String x:Key="LOCNileSystemShutdownCountdown"></sys:String>
   <sys:String x:Key="LOCNileSystemRestartCountdown"></sys:String>
   <sys:String x:Key="LOCNileSystemHibernateCountdown"></sys:String>
