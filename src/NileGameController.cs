@@ -156,6 +156,13 @@ namespace NileLibraryNS
                                     File.Delete(gameSettingsFile);
                                 }
                             }
+                            var downloadManager = NileLibrary.GetNileDownloadManager();
+                            var wantedItem = downloadManager.downloadManagerData.downloads.FirstOrDefault(item => item.gameID == game.GameId);
+                            if (wantedItem != null)
+                            {
+                                downloadManager.downloadManagerData.downloads.Remove(wantedItem);
+                                downloadManager.downloadsChanged = true;
+                            }
                             game.IsInstalled = false;
                             game.InstallDirectory = "";
                             game.Version = "";
