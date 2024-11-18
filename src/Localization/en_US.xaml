@@ -5,7 +5,7 @@
   <sys:String x:Key="LOCNileDownloadSize">Download Size:</sys:String>
   <sys:String x:Key="LOCNileInstallSize">Install Size:</sys:String>
   <sys:String x:Key="LOCNileUninstallGameConfirm">Are you sure you want to uninstall {0}?</sys:String>
-  <sys:String x:Key="LOCNileDownloadSettings">Download Settings</sys:String>
+  <sys:String x:Key="LOCNileDownloadSettings">Downloads</sys:String>
   <sys:String x:Key="LOCNileDisplayDownloadTaskFinishedNotifications">Display desktop notifications about finished tasks</sys:String>
   <sys:String x:Key="LOCNileDisplayDownloadSpeedInBits">Display download speed in bits per second</sys:String>
   <sys:String x:Key="LOCNileUnattendedInstall">Enable unattended installation mode</sys:String>

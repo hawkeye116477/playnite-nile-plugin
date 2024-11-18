@@ -68,6 +68,35 @@
                 </StackPanel>
             </StackPanel>
         </TabItem>
+        <TabItem Header="{DynamicResource LOCNileDownloadSettings}">
+            <StackPanel Margin="20">
+                <CheckBox Grid.Column="0" Grid.Row="0"
+                            Content="{DynamicResource LOCNileDisplayDownloadTaskFinishedNotifications}"
+                            IsChecked="{Binding Settings.DisplayDownloadTaskFinishedNotifications}" Margin="0,0,0,10" />
+                <CheckBox Grid.Column="0" Grid.Row="1"
+                            Content="{DynamicResource LOCNileDisplayDownloadSpeedInBits}"
+                            IsChecked="{Binding Settings.DisplayDownloadSpeedInBits}" Margin="0,0,0,10" />
+                <CheckBox Grid.Column="0" Grid.Row="5"
+                            Content="{DynamicResource LOCNileUnattendedInstall}" ToolTip="{DynamicResource LOCNileUnattendedInstallToolTip}"
+                            IsChecked="{Binding Settings.UnattendedInstall}" Margin="0,0,0,10" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition x:Name="Left" Width="Auto" />
+                        <ColumnDefinition x:Name="Right" Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="{DynamicResource LOCNileMaxWorkers}" Grid.Column="0"
+                            Grid.Row="0" Margin="0,0,10,5" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                    <common:NumericInput Grid.Row="0" Grid.Column="1" Margin="0,0,0,5" MinValue="0" x:Name="MaxWorkersNI" Value="{Binding Settings.MaxWorkers}" HorizontalAlignment="Left"/>
+                    <TextBlock Grid.Column="0" Grid.Row="1"
+                            Text="{DynamicResource LOCNileAfterDownloadComplete}" Margin="0,0,10,5" VerticalAlignment="Center" HorizontalAlignment="Left"  />
+                    <ComboBox Grid.Column="1" Grid.Row="1" x:Name="AfterDownloadCompleteCBo" DisplayMemberPath="Value" SelectedValue="{Binding Settings.DoActionAfterDownloadComplete}" SelectedValuePath="Key"  VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Margin="0,0,0,5" HorizontalAlignment="Left"/>
+                </Grid>
+            </StackPanel>
+        </TabItem>
         <TabItem Header="{DynamicResource LOCNile3P_PlayniteSettingsAdvancedLabel}">
             <ScrollViewer>
                 <StackPanel Margin="20">
@@ -100,45 +129,6 @@
                             FontFamily="{DynamicResource FontIcoFont}" ToolTip="{DynamicResource LOCNile3P_PlayniteSelectDirectoryTooltip}"
                             Grid.Row="1" Grid.Column="2" VerticalAlignment="Center"/>
                     </Grid>
-                    <StackPanel Margin="0,10,0,0">
-                        <TextBlock Text="{DynamicResource LOCNileDownloadSettings}" FontSize="18"
-                        Margin="0,0,0,2" />
-                        <Separator Margin="0,0,0,10" />
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition x:Name="Left" Width="Auto" />
-                                <ColumnDefinition x:Name="Right" Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <CheckBox Grid.Column="0" Grid.Row="0"
-                            Content="{DynamicResource LOCNileDisplayDownloadTaskFinishedNotifications}"
-                            IsChecked="{Binding Settings.DisplayDownloadTaskFinishedNotifications}" Margin="0,0,0,10" />
-                            <CheckBox Grid.Column="0" Grid.Row="1"
-                            Content="{DynamicResource LOCNileDisplayDownloadSpeedInBits}"
-                            IsChecked="{Binding Settings.DisplayDownloadSpeedInBits}" Margin="0,0,0,10" />
-                            <CheckBox Grid.Column="0" Grid.Row="5"
-                            Content="{DynamicResource LOCNileUnattendedInstall}" ToolTip="{DynamicResource LOCNileUnattendedInstallToolTip}"
-                            IsChecked="{Binding Settings.UnattendedInstall}" Margin="0,0,0,10" />
-                            <TextBlock Text="{DynamicResource LOCNileMaxWorkers}" Grid.Column="0"
-                            Grid.Row="6" Margin="0,0,0,5" VerticalAlignment="Center" HorizontalAlignment="Left" />
-                            <common:NumericInput Grid.Row="6" Grid.Column="1" Margin="0,0,0,5" MinValue="0" x:Name="MaxWorkersNI" Value="{Binding Settings.MaxWorkers}" HorizontalAlignment="Left"/>
-                            <TextBlock Grid.Column="0" Grid.Row="10"
-                            Text="{DynamicResource LOCNileAfterDownloadComplete}" Margin="0,0,0,5" VerticalAlignment="Center" HorizontalAlignment="Left"  />
-                            <ComboBox Grid.Column="1" Grid.Row="10" x:Name="AfterDownloadCompleteCBo" DisplayMemberPath="Value" SelectedValue="{Binding Settings.DoActionAfterDownloadComplete}" SelectedValuePath="Key"  VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Margin="0,0,0,5" HorizontalAlignment="Left"/>
-                        </Grid>
-                    </StackPanel>
                     <StackPanel Margin="0,10,0,0">
                         <TextBlock Text="{DynamicResource LOCNileCache}" FontSize="18"
                         Margin="0,0,0,2" />
