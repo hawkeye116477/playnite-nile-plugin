@@ -20,7 +20,7 @@
     <TabControl ScrollViewer.VerticalScrollBarVisibility="Disabled"
         HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
         <TabItem Header="{DynamicResource LOCNile3P_PlayniteSettingsGeneralLabel}">
-            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel Margin="20">
                     <CheckBox DockPanel.Dock="Top" Name="AmazonImportInstalledChk"
                   Margin="0,0,0,15"
@@ -71,7 +71,7 @@
             </ScrollViewer>
         </TabItem>
         <TabItem Header="{DynamicResource LOCNileDownloadSettings}">
-            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel Margin="20">
                     <CheckBox Grid.Column="0" Grid.Row="0"
                             Content="{DynamicResource LOCNileDisplayDownloadTaskFinishedNotifications}"
@@ -117,7 +117,7 @@
             </ScrollViewer>
         </TabItem>
         <TabItem Header="{DynamicResource LOCNile3P_PlayniteSettingsAdvancedLabel}">
-            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel Margin="20">
                     <DockPanel>
                         <TextBlock Text="{DynamicResource LOCNileLauncherCustomPath}"
@@ -151,7 +151,7 @@
             </ScrollViewer>
         </TabItem>
         <TabItem Header="{DynamicResource LOCNileTroubleshootingInformation}">
-            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel Margin="20">
                     <Grid>
                         <Grid.ColumnDefinitions>
