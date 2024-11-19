@@ -14,4 +14,4 @@ If you want some new feature, then you can say about that at [https://github.com
 If you read [wiki](https://github.com/hawkeye116477/playnite-nile-plugin/wiki) and still don't know something, then you can ask a question on [forum](https://github.com/hawkeye116477/playnite-nile-plugin/discussions).
 
 ## **License**
-This project is distributed under the terms of the [MIT license](/LICENSE).
+This project is distributed under the terms of the [MIT license](/LICENSE) and uses third-party libraries that are distributed under their own terms (see [ThirdPartyLicenses.txt](/ThirdPartyLicenses.txt)).
