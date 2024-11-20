@@ -121,6 +121,7 @@ namespace NileLibraryNS
                 {
                     return;
                 }
+                var notUninstalledGames = new List<Game>();
                 var uninstalledGames = new List<Game>();
                 GlobalProgressOptions globalProgressOptions = new GlobalProgressOptions($"{ResourceProvider.GetString(LOC.Nile3P_PlayniteUninstalling)}... ", false);
                 playniteAPI.Dialogs.ActivateGlobalProgress(async (a) =>
@@ -144,9 +145,20 @@ namespace NileLibraryNS
                                 logger.Debug("[Nile] " + cmd.StandardError);
                                 logger.Error("[Nile] exit code: " + cmd.ExitCode);
                             }
-                            if (Directory.Exists(game.InstallDirectory))
+                            try
                             {
-                                Directory.Delete(game.InstallDirectory, true);
+                                if (Directory.Exists(game.InstallDirectory))
+                                {
+                                    Directory.Delete(game.InstallDirectory, true);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                notUninstalledGames.Add(game);
+                                logger.Error(ex.Message);
+                                counter += 1;
+                                a.CurrentProgressValue = counter;
+                                continue;
                             }
                             if (result.CheckboxChecked)
                             {
@@ -161,9 +173,9 @@ namespace NileLibraryNS
                             game.Version = "";
                             playniteAPI.Database.Games.Update(game);
                             uninstalledGames.Add(game);
-                            counter += 1;
-                            a.CurrentProgressValue = counter;
                         }
+                        counter += 1;
+                        a.CurrentProgressValue = counter;
                     }
                 }, globalProgressOptions);
                 if (uninstalledGames.Count > 0)
@@ -178,6 +190,19 @@ namespace NileLibraryNS
                         playniteAPI.Dialogs.ShowMessage(ResourceProvider.GetString(LOC.NileUninstallSuccessOther).Format(uninstalledGamesCombined));
                     }
                 }
+                if (notUninstalledGames.Count > 0)
+                {
+                    if (notUninstalledGames.Count == 1)
+                    {
+                        playniteAPI.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteGameUninstallError).Format(ResourceProvider.GetString(LOC.NileCheckLog)), notUninstalledGames[0].Name);
+                    }
+                    else
+                    {
+                        string notUninstalledGamesCombined = string.Join(", ", notUninstalledGames.Select(item => item.Name));
+                        playniteAPI.Dialogs.ShowMessage($"{ResourceProvider.GetString(LOC.NileUninstallErrorOther).Format(notUninstalledGamesCombined)} {ResourceProvider.GetString(LOC.NileCheckLog)}");
+                    }
+                }
+
             }
         }
     }
