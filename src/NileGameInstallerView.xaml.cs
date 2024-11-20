@@ -226,6 +226,7 @@ namespace NileLibraryNS
 
             bool gamesListShouldBeDisplayed = false;
 
+            var installedAppList = Nile.GetInstalledAppList();
 
             foreach (var installData in MultiInstallData.ToList())
             {
@@ -240,8 +241,15 @@ namespace NileLibraryNS
                 var wantedItem = downloadManager.downloadManagerData.downloads.FirstOrDefault(item => item.gameID == installData.gameID);
                 if (wantedItem != null)
                 {
-                    downloadItemsAlreadyAdded.Add(installData.name);
-                    MultiInstallData.Remove(installData);
+                    if (wantedItem.status == DownloadStatus.Completed && installedAppList.FirstOrDefault(i => i.id == installData.gameID) == null)
+                    {
+                        downloadManager.downloadManagerData.downloads.Remove(wantedItem);
+                    }
+                    else
+                    {
+                        downloadItemsAlreadyAdded.Add(installData.name);
+                        MultiInstallData.Remove(installData);
+                    }
                 }
             }
 
