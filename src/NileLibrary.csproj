@@ -229,6 +229,9 @@
     <Compile Include="..\third_party\playnite-common-plugin\src\Enums\DownloadStatus.cs">
       <Link>Shared\Enums\DownloadStatus.cs</Link>
     </Compile>
+    <Compile Include="..\third_party\playnite-common-plugin\src\SplitOutsideQuotesExtensions.cs">
+      <Link>Shared\SplitOutsideQuotesExtensions.cs</Link>
+    </Compile>
     <Resource Include="..\third_party\playnite-common-plugin\src\Resources\Icons.xaml">
       <Link>Shared\Resources\Icons.xaml</Link>
       <SubType>Designer</SubType>

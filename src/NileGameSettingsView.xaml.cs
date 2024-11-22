@@ -7,6 +7,7 @@ using Playnite.SDK.Data;
 using Playnite.Common;
 using Playnite.SDK.Models;
 using NileLibraryNS.Enums;
+using CommonPlugin;
 
 namespace NileLibraryNS
 {
@@ -56,7 +57,7 @@ namespace NileLibraryNS
             }
             if (StartupArgumentsTxt.Text != "")
             {
-                newGameSettings.StartupArguments = StartupArgumentsTxt.Text.Split().ToList();
+                newGameSettings.StartupArguments = StartupArgumentsTxt.Text.SplitOutsideQuotes(' ').ToList();
             }
             if (globalSettings.StartGamesWithoutLauncher != LaunchGameDirectlyChk.IsChecked)
             {
