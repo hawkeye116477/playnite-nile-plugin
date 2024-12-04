@@ -117,7 +117,7 @@ namespace NileLibraryNS
                         {
                             folderName = folderName.Replace(inappropriateDirChar, "");
                         }
-                        installData.fullInstallPath = Path.Combine(installData.downloadProperties.installPath, folderName);
+                        installData.fullInstallPath = Path.Combine(installPath, folderName);
                     }
                     else if (!installData.downloadProperties.installPath.IsNullOrEmpty())
                     {
