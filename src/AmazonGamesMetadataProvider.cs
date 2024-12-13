@@ -14,7 +14,11 @@ namespace NileLibraryNS
                 Links = new List<Link>()
             };
 
-            if (game.Name.EndsWith(" CE"))
+            if (game.Name.EndsWith(" - CE"))
+            {
+                game.Name = game.Name.TrimEndString("- CE") + "Collector's Edition";
+            }
+            else if (game.Name.EndsWith(" CE"))
             {
                 game.Name = game.Name.TrimEndString("CE") + "Collector's Edition";
             }
