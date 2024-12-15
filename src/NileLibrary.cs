@@ -500,10 +500,21 @@ namespace NileLibraryNS
                                     }
                                     else
                                     {
-                                        Window window = PlayniteApi.Dialogs.CreateWindow(new WindowCreationOptions
+                                        Window window = null;
+                                        if (PlayniteApi.ApplicationInfo.Mode == ApplicationMode.Desktop)
                                         {
-                                            ShowMaximizeButton = false,
-                                        });
+                                            window = PlayniteApi.Dialogs.CreateWindow(new WindowCreationOptions
+                                            {
+                                                ShowMaximizeButton = false,
+                                            });
+                                        }
+                                        else
+                                        {
+                                            window = new Window
+                                            {
+                                                Background = System.Windows.Media.Brushes.DodgerBlue
+                                            };
+                                        }
                                         window.DataContext = successUpdates;
                                         window.Title = $"{ResourceProvider.GetString(LOC.Nile3P_PlayniteExtensionsUpdates)}";
                                         window.Content = new NileUpdaterView();
