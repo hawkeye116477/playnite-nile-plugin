@@ -1,6 +1,7 @@
 ﻿using CommonPlugin;
 using CommonPlugin.Enums;
 using NileLibraryNS.Models;
+using Playnite.SDK;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -13,11 +14,13 @@ namespace NileLibraryNS
     /// </summary>
     public partial class NileUpdaterView : UserControl
     {
+        private IPlayniteAPI playniteAPI = API.Instance;
         public Dictionary<string, UpdateInfo> UpdatesList => (Dictionary<string, UpdateInfo>)DataContext;
 
         public NileUpdaterView()
         {
             InitializeComponent();
+            SetControlStyles();
         }
 
         private void UpdatesLB_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -45,6 +48,22 @@ namespace NileLibraryNS
             else
             {
                 UpdatesLB.SelectAll();
+            }
+        }
+
+        private void SetControlStyles()
+        {
+            var baseStyleName = "BaseTextBlockStyle";
+            if (playniteAPI.ApplicationInfo.Mode == ApplicationMode.Fullscreen)
+            {
+                baseStyleName = "TextBlockBaseStyle";
+                Resources.Add(typeof(Button), new Style(typeof(Button), null));
+            }
+
+            if (ResourceProvider.GetResource(baseStyleName) is Style baseStyle && baseStyle.TargetType == typeof(TextBlock))
+            {
+                var implicitStyle = new Style(typeof(TextBlock), baseStyle);
+                Resources.Add(typeof(TextBlock), implicitStyle);
             }
         }
 
