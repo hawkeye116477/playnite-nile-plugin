@@ -5,24 +5,26 @@
   <sys:String x:Key="LOCNileDownloadSize">Tamaño de descarga:</sys:String>
   <sys:String x:Key="LOCNileInstallSize">Tamaño de instalación:</sys:String>
   <sys:String x:Key="LOCNileUninstallGameConfirm">¿Estás seguro que deseas desinstalar {0}?</sys:String>
-  <sys:String x:Key="LOCNileDownloadSettings"></sys:String>
-  <sys:String x:Key="LOCNileDisplayDownloadTaskFinishedNotifications"></sys:String>
+  <sys:String x:Key="LOCNileDownloadSettings">Descargas</sys:String>
+  <sys:String x:Key="LOCNileDisplayDownloadTaskFinishedNotifications">Mostrar notificaciones de escritorio sobre tareas terminadas</sys:String>
   <sys:String x:Key="LOCNileDisplayDownloadSpeedInBits">Mostrar velocidad de descarga en bits por segundo</sys:String>
-  <sys:String x:Key="LOCNileUnattendedInstall"></sys:String>
-  <sys:String x:Key="LOCNileUnattendedInstallToolTip"></sys:String>
+  <sys:String x:Key="LOCNileUnattendedInstall">Activar el modo de instalación desatendida</sys:String>
+  <sys:String x:Key="LOCNileUnattendedInstallToolTip">Perfecto, aquí tienes la traducción ajustada:
+
+No tendrás que elegir nada en la ventana del instalador y la instalación empezará automáticamente después de descargar la información necesaria.</sys:String>
   <sys:String x:Key="LOCNileMaxWorkers">Número máximo de procesos de trabajo</sys:String>
-  <sys:String x:Key="LOCNileAfterDownloadComplete"></sys:String>
-  <sys:String x:Key="LOCNileAutoRemoveCompletedDownloads"></sys:String>
-  <sys:String x:Key="LOCNileSystemShutdownCountdown"></sys:String>
-  <sys:String x:Key="LOCNileSystemRestartCountdown"></sys:String>
-  <sys:String x:Key="LOCNileSystemHibernateCountdown"></sys:String>
-  <sys:String x:Key="LOCNileSystemSuspendCountdown"></sys:String>
+  <sys:String x:Key="LOCNileAfterDownloadComplete">Acción después de completar la descarga</sys:String>
+  <sys:String x:Key="LOCNileAutoRemoveCompletedDownloads">Eliminar automáticamente las descargas completadas de la lista</sys:String>
+  <sys:String x:Key="LOCNileSystemShutdownCountdown">El sistema se apagará pronto...</sys:String>
+  <sys:String x:Key="LOCNileSystemRestartCountdown">El sistema se reiniciará pronto...</sys:String>
+  <sys:String x:Key="LOCNileSystemHibernateCountdown">El sistema entrará en hibernación pronto...</sys:String>
+  <sys:String x:Key="LOCNileSystemSuspendCountdown">El sistema se suspenderá pronto...</sys:String>
   <sys:String x:Key="LOCNileSpaceAvailable">Espacio disponible:</sys:String>
   <sys:String x:Key="LOCNileAfterInstalling">Después de instalar:</sys:String>
-  <sys:String x:Key="LOCNileDownloaded"></sys:String>
+  <sys:String x:Key="LOCNileDownloaded">Descargado</sys:String>
   <sys:String x:Key="LOCNileETA">Estimado:</sys:String>
   <sys:String x:Key="LOCNileDownloadSpeed">Velocidad de descarga:</sys:String>
-  <sys:String x:Key="LOCNileDiskSpeed"></sys:String>
+  <sys:String x:Key="LOCNileDiskSpeed">Uso del disco:</sys:String>
   <sys:String x:Key="LOCNileElapsed">Transcurrido:</sys:String>
   <sys:String x:Key="LOCNileVerifying">Verificando...</sys:String>
   <sys:String x:Key="LOCNileDownloadingUpdate">Descargando actualización...</sys:String>
@@ -33,15 +35,15 @@
   <sys:String x:Key="LOCNileResumeDownload">Reanudar</sys:String>
   <sys:String x:Key="LOCNileDownloadPaused">Pausado</sys:String>
   <sys:String x:Key="LOCNileInstallationFinished">Instalación terminada. Diviértete.</sys:String>
-  <sys:String x:Key="LOCNileUpdateFinished"></sys:String>
-  <sys:String x:Key="LOCNileRepairFinished"></sys:String>
+  <sys:String x:Key="LOCNileUpdateFinished">Actualización terminada. Diviértete.</sys:String>
+  <sys:String x:Key="LOCNileRepairFinished">Reparación terminada. Diviértete.</sys:String>
   <sys:String x:Key="LOCNileImportInstalledGame">Importar juego instalado</sys:String>
   <sys:String x:Key="LOCNileImportingGame">Importando {0}...</sys:String>
   <sys:String x:Key="LOCNileImportFinished">Importación terminada. Diviértete.</sys:String>
   <sys:String x:Key="LOCNileGameImportFailure">No se pudo importar el juego. Razón: {0}.</sys:String>
   <sys:String x:Key="LOCNileDownloadManager">Gestor de descargas</sys:String>
   <sys:String x:Key="LOCNileDownloadStatus">Estado</sys:String>
-  <sys:String x:Key="LOCNileProgress"></sys:String>
+  <sys:String x:Key="LOCNileProgress">Progreso</sys:String>
   <sys:String x:Key="LOCNileDownloadCompletedColumn">Completado</sys:String>
   <sys:String x:Key="LOCNileDownloadQueued">En cola</sys:String>
   <sys:String x:Key="LOCNileDownloadRunning">En ejecución</sys:String>
@@ -98,7 +100,7 @@
   <sys:String x:Key="LOCNileAutoUpdate">Actualizar automáticamente los juegos</sys:String>
   <sys:String x:Key="LOCNileGamesUpdatePolicy">Buscar actualizaciones de juegos</sys:String>
   <sys:String x:Key="LOCNileCheckUpdatesEveryPlayniteStartup">En cada inicio de Playnite</sys:String>
-  <sys:String x:Key="LOCNileRemoveGameLaunchSettings"></sys:String>
+  <sys:String x:Key="LOCNileRemoveGameLaunchSettings">Eliminar la configuración de lanzamiento</sys:String>
   <sys:String x:Key="LOCNileSignedInAs">Sesión iniciada como {0}</sys:String>
   <sys:String x:Key="LOCNileSignOutConfirm">¿Estás seguro de que quieres cerrar sesión?</sys:String>
   <sys:String x:Key="LOCNilePermissionError">El usuario no tiene acceso de escritura a la ruta especificada. Cambie los permisos o ejecute Playnite como administrador.</sys:String>
@@ -106,18 +108,18 @@
   <sys:String x:Key="LOCNileNotEnoughSpace">No hay suficiente espacio libre en disco.</sys:String>
   <sys:String x:Key="LOCNileCheckingForUpdates">Buscando actualizaciones...</sys:String>
   <sys:String x:Key="LOCNileUninstallSuccess">{0} se ha desinstalado correctamente.</sys:String>
-  <sys:String x:Key="LOCNileUninstallSuccessOther"></sys:String>
-  <sys:String x:Key="LOCNileUninstallErrorOther"></sys:String>
-  <sys:String x:Key="LOCNileGames"></sys:String>
-  <sys:String x:Key="LOCNileLauncherUpdatePolicy"></sys:String>
-  <sys:String x:Key="LOCNileLauncherNotInstalled"></sys:String>
-  <sys:String x:Key="LOCNilePanel"></sys:String>
-  <sys:String x:Key="LOCNileDownloadManagerWhatsUp"></sys:String>
-  <sys:String x:Key="LOCNileDownloadAlreadyExists"></sys:String>
-  <sys:String x:Key="LOCNileDownloadAlreadyExistsOther"></sys:String>
-  <sys:String x:Key="LOCNileMigrateGamesAmazon"></sys:String>
-  <sys:String x:Key="LOCNileMigratingGamesAmazon"></sys:String>
-  <sys:String x:Key="LOCNileMigrationConfirm"></sys:String>
-  <sys:String x:Key="LOCNileGamesUpdatesUnderway"></sys:String>
-  <sys:String x:Key="LOCNileInstanceNotice"></sys:String>
+  <sys:String x:Key="LOCNileUninstallSuccessOther">Los siguientes juegos se han desinstalado correctamente: {0}.</sys:String>
+  <sys:String x:Key="LOCNileUninstallErrorOther">No se puede desinstalar los siguientes juegos: {0}.</sys:String>
+  <sys:String x:Key="LOCNileGames">Juegos</sys:String>
+  <sys:String x:Key="LOCNileLauncherUpdatePolicy">Comprobar actualizaciones del lanzador</sys:String>
+  <sys:String x:Key="LOCNileLauncherNotInstalled">Nile no está instalado.</sys:String>
+  <sys:String x:Key="LOCNilePanel">Panel Nile</sys:String>
+  <sys:String x:Key="LOCNileDownloadManagerWhatsUp">La descarga comenzará pronto. Puedes ver su estado accediendo al Panel Nile a través del Menú =&gt; Vista o barra lateral.</sys:String>
+  <sys:String x:Key="LOCNileDownloadAlreadyExists">{0} ya está en la lista de descarga. Puede ver el estado de la descarga accediendo al Panel Nile a través del Menú =&gt; Vista o barra lateral.</sys:String>
+  <sys:String x:Key="LOCNileDownloadAlreadyExistsOther">Los siguientes juegos ya están en la lista de descargas: {0}. Puede ver el estado de la descarga accediendo al Panel Nile a través del Menú =&gt; Vista o barra lateral.</sys:String>
+  <sys:String x:Key="LOCNileMigrateGamesAmazon">Migrar todos los juegos del complemento Amazon</sys:String>
+  <sys:String x:Key="LOCNileMigratingGamesAmazon">Migrando todos los juegos desde el complemento Amazon...</sys:String>
+  <sys:String x:Key="LOCNileMigrationConfirm">Todos los juegos serán eliminados del complemento Amazon y movidos a Nile. ¿Estás seguro de que quieres hacer esto?</sys:String>
+  <sys:String x:Key="LOCNileGamesUpdatesUnderway">Se están descargando actualizaciones para los juegos de Amazon Games.</sys:String>
+  <sys:String x:Key="LOCNileInstanceNotice">Sólo una instancia de Nile puede instalar/importar/mover aplicaciones a la vez. ¿Quieres pausar las tareas del administrador de descargas para continuar?</sys:String>
 </ResourceDictionary>
