@@ -48,7 +48,7 @@
   <sys:String x:Key="LOCNileDownloadCanceled">Anulowane</sys:String>
   <sys:String x:Key="LOCNileDownloadCompleted">Ukończone</sys:String>
   <sys:String x:Key="LOCNileRemoveEntry">Usuń wpis</sys:String>
-  <sys:String x:Key="LOCNileRemoveEntryConfirm">Czy na pewno chcesz usunąć {0} z listy?</sys:String>
+  <sys:String x:Key="LOCNileRemoveEntryConfirm">Czy na pewno chcesz usunąć {0} z listy?</sys:String>
   <sys:String x:Key="LOCNileMoveEntryTop">Przenieś wpis na górę</sys:String>
   <sys:String x:Key="LOCNileMoveEntryUp">Przenieś wpis w górę</sys:String>
   <sys:String x:Key="LOCNileMoveEntryDown">Przenieś wpis w dół</sys:String>

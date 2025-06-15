@@ -5,14 +5,14 @@
   <sys:String x:Key="LOCNileDownloadSize">Размер загрузки:</sys:String>
   <sys:String x:Key="LOCNileInstallSize">Размер установки:</sys:String>
   <sys:String x:Key="LOCNileUninstallGameConfirm">Вы уверены, что хотите удалить {0}?</sys:String>
-  <sys:String x:Key="LOCNileDownloadSettings"></sys:String>
+  <sys:String x:Key="LOCNileDownloadSettings">Загрузки</sys:String>
   <sys:String x:Key="LOCNileDisplayDownloadTaskFinishedNotifications">Отображать уведомления на рабочем столе о завершенных задачах</sys:String>
   <sys:String x:Key="LOCNileDisplayDownloadSpeedInBits">Отображать скорость загрузки в битах в секунду</sys:String>
   <sys:String x:Key="LOCNileUnattendedInstall">Включить режим автоматической установки</sys:String>
   <sys:String x:Key="LOCNileUnattendedInstallToolTip">Вам не нужно ничего выбирать в окне установщика. Установка начнется автоматически после загрузки информации.</sys:String>
   <sys:String x:Key="LOCNileMaxWorkers">Максимальное количество рабочих процессов</sys:String>
   <sys:String x:Key="LOCNileAfterDownloadComplete">Действие после завершения загрузки</sys:String>
-  <sys:String x:Key="LOCNileAutoRemoveCompletedDownloads"></sys:String>
+  <sys:String x:Key="LOCNileAutoRemoveCompletedDownloads">Автоматически удалять завершенные загрузки из списка</sys:String>
   <sys:String x:Key="LOCNileSystemShutdownCountdown">Система скоро выключится...</sys:String>
   <sys:String x:Key="LOCNileSystemRestartCountdown">Система скоро перезагрузится...</sys:String>
   <sys:String x:Key="LOCNileSystemHibernateCountdown">Система скоро перейдет в режим гибернации...</sys:String>
@@ -109,15 +109,15 @@
   <sys:String x:Key="LOCNileUninstallSuccessOther">Следующие игры были успешно удалены: {0}.</sys:String>
   <sys:String x:Key="LOCNileUninstallErrorOther">Не удается удалить следующие игры: {0}.</sys:String>
   <sys:String x:Key="LOCNileGames">Игры</sys:String>
-  <sys:String x:Key="LOCNileLauncherUpdatePolicy"></sys:String>
-  <sys:String x:Key="LOCNileLauncherNotInstalled"></sys:String>
-  <sys:String x:Key="LOCNilePanel"></sys:String>
-  <sys:String x:Key="LOCNileDownloadManagerWhatsUp"></sys:String>
-  <sys:String x:Key="LOCNileDownloadAlreadyExists"></sys:String>
-  <sys:String x:Key="LOCNileDownloadAlreadyExistsOther"></sys:String>
-  <sys:String x:Key="LOCNileMigrateGamesAmazon"></sys:String>
-  <sys:String x:Key="LOCNileMigratingGamesAmazon"></sys:String>
-  <sys:String x:Key="LOCNileMigrationConfirm"></sys:String>
-  <sys:String x:Key="LOCNileGamesUpdatesUnderway"></sys:String>
-  <sys:String x:Key="LOCNileInstanceNotice"></sys:String>
+  <sys:String x:Key="LOCNileLauncherUpdatePolicy">Проверить наличие обновлений игр</sys:String>
+  <sys:String x:Key="LOCNileLauncherNotInstalled">Nile не установлен.</sys:String>
+  <sys:String x:Key="LOCNilePanel">Панель Nile</sys:String>
+  <sys:String x:Key="LOCNileDownloadManagerWhatsUp">Загрузка начнется в ближайшее время. Вы можете увидеть его статус, обратившись к панели Nile через Меню =&gt; Вид или боковую панель.</sys:String>
+  <sys:String x:Key="LOCNileDownloadAlreadyExists">{0} уже находится в списке загрузок. Вы можете увидеть состояние загрузки через меню Nile через меню =&gt; Просмотр или боковую панель.</sys:String>
+  <sys:String x:Key="LOCNileDownloadAlreadyExistsOther">Следующие игры уже находятся в списке загрузок: {0}. Состояние загрузки отображается в панели Nile через меню =&gt; Просмотр или боковую панель.</sys:String>
+  <sys:String x:Key="LOCNileMigrateGamesAmazon">Перенести все игры из Amazon плагина</sys:String>
+  <sys:String x:Key="LOCNileMigratingGamesAmazon">Перенос всех игр с плагина Amazon...</sys:String>
+  <sys:String x:Key="LOCNileMigrationConfirm">Все игры будут удалены из Amazon плагина и перемещены в Nile. Вы уверены, что хотите это сделать?</sys:String>
+  <sys:String x:Key="LOCNileGamesUpdatesUnderway">Обновления игр от Amazon Games загружаются.</sys:String>
+  <sys:String x:Key="LOCNileInstanceNotice">Только один экземпляр Nile может одновременно устанавливать/импортировать/перемещать приложения. Хотите ли вы приостановить выполнение задач менеджера загрузки, чтобы продолжить работу?</sys:String>
 </ResourceDictionary>
