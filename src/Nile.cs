@@ -50,24 +50,15 @@ namespace NileLibraryNS
         {
             get
             {
-                var launcherPath = "";
-                var nileDefaultBinaryExe = "nile_windows_x86_64.exe";
-                var nileShortBinaryExe = "nile.exe";
-
-                var envPath = Environment.GetEnvironmentVariable("PATH")
-                                         .Split(';')
-                                         .Select(x => Path.Combine(x))
-                                         .FirstOrDefault(x => File.Exists(Path.Combine(x, nileDefaultBinaryExe)));
-                if (string.IsNullOrWhiteSpace(envPath))
-                {
-                    envPath = Environment.GetEnvironmentVariable("PATH")
-                                         .Split(';')
-                                         .Select(x => Path.Combine(x))
-                                         .FirstOrDefault(x => File.Exists(Path.Combine(x, nileShortBinaryExe)));
-                }
+                string[] nileExes = { "nile_windows_x86_64.exe", "nile.exe" };
+                string envPath = Environment.GetEnvironmentVariable("PATH")
+                                .Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries)
+                                .SelectMany(pathEntry => nileExes.Select(nileExe => Path.Combine(pathEntry.Trim(), nileExe)))
+                                .FirstOrDefault(File.Exists);
 
                 var heroicNileBinary = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
                                            @"Programs\heroic\resources\app.asar.unpacked\build\bin\x64\win32\nile.exe");
+                var launcherPath = "";
                 if (string.IsNullOrWhiteSpace(envPath) == false)
                 {
                     launcherPath = envPath;
