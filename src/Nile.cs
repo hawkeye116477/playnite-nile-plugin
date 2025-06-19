@@ -111,7 +111,7 @@ namespace NileLibraryNS
 
         public static void StartClient()
         {
-            ProcessStarter.StartProcess("cmd", $"/K {ClientExecPath} -h", Path.GetDirectoryName(ClientExecPath));
+            ProcessStarter.StartProcess("cmd", $"/K \"{ClientExecPath}\" -h", Path.GetDirectoryName(ClientExecPath));
         }
 
         public static GameConfiguration GetGameConfiguration(string gameDir)
