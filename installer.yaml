@@ -1,5 +1,13 @@
 AddonId: NileLibrary
 Packages:
+  - Version: 1.1.5
+    RequiredApiVersion: 6.4.0
+    ReleaseDate: 2025-06-19
+    PackageUrl: https://github.com/hawkeye116477/playnite-nile-plugin/releases/download/1.1.5/NileLibrary_1_1_5.pext
+    Changelog:
+      - Fixed opening Nile binary at settings for some cases
+      - Added detecting nile binary at PATH env variable
+      - Updated authentication procedure (added changes from original Amazon plugin)
   - Version: 1.1.4
     RequiredApiVersion: 6.4.0
     ReleaseDate: 2025-01-13
