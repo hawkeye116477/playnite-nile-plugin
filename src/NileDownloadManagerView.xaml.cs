@@ -81,7 +81,14 @@ namespace NileLibraryNS
         {
             get => new RelayCommand<object>((a) =>
             {
-                playniteAPI.MainView.SwitchToLibraryView();
+                if (playniteAPI.ApplicationInfo.Mode == ApplicationMode.Fullscreen)
+                {
+                    Window.GetWindow(this).Close();
+                }
+                else
+                {
+                    playniteAPI.MainView.SwitchToLibraryView();
+                }
             });
         }
 
@@ -857,6 +864,11 @@ namespace NileLibraryNS
             {
                 OpenDownloadDirectoryBtn_Click(sender, e);
             }
+        }
+
+        private void NileDownloadManagerUC_Loaded(object sender, RoutedEventArgs e)
+        {
+            CommonHelpers.SetControlBackground(this);
         }
     }
 }
