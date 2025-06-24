@@ -20,7 +20,6 @@ namespace NileLibraryNS
         public NileUpdaterView()
         {
             InitializeComponent();
-            SetControlStyles();
         }
 
         private void UpdatesLB_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -48,22 +47,6 @@ namespace NileLibraryNS
             else
             {
                 UpdatesLB.SelectAll();
-            }
-        }
-
-        private void SetControlStyles()
-        {
-            var baseStyleName = "BaseTextBlockStyle";
-            if (playniteAPI.ApplicationInfo.Mode == ApplicationMode.Fullscreen)
-            {
-                baseStyleName = "TextBlockBaseStyle";
-                Resources.Add(typeof(Button), new Style(typeof(Button), null));
-            }
-
-            if (ResourceProvider.GetResource(baseStyleName) is Style baseStyle && baseStyle.TargetType == typeof(TextBlock))
-            {
-                var implicitStyle = new Style(typeof(TextBlock), baseStyle);
-                Resources.Add(typeof(TextBlock), implicitStyle);
             }
         }
 
@@ -100,6 +83,7 @@ namespace NileLibraryNS
 
         private void NileUpdaterUC_Loaded(object sender, RoutedEventArgs e)
         {
+            CommonHelpers.SetControlBackground(this);
             UpdatesLB.ItemsSource = UpdatesList;
             UpdatesLB.Visibility = Visibility.Visible;
             UpdatesLB.SelectAll();

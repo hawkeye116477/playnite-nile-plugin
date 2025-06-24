@@ -78,6 +78,7 @@ namespace NileLibraryNS
 
         private void NileGameSettingsViewUC_Loaded(object sender, RoutedEventArgs e)
         {
+            CommonHelpers.SetControlBackground(this);
             var globalSettings = NileLibrary.GetSettings();
             if (globalSettings.GamesUpdatePolicy == UpdatePolicy.Never)
             {

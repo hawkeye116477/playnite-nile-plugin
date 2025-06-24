@@ -42,7 +42,7 @@ namespace NileLibraryNS
             commonHelpers = new CommonHelpers(Instance);
             SettingsViewModel = new NileLibrarySettingsViewModel(this, PlayniteApi);
             LoadExtraLocalization();
-            LoadMenuIcons();
+            commonHelpers.LoadNeededResources();
             NileDownloadManagerView = new NileDownloadManagerView();
         }
 
@@ -343,16 +343,6 @@ namespace NileLibraryNS
             }
         }
 
-        public void LoadMenuIcons()
-        {
-            var dictionaries = Application.Current.Resources.MergedDictionaries;
-            ResourceDictionary iconsDict = new ResourceDictionary
-            {
-                Source = new Uri("/NileLibrary;component/Shared/Resources/Icons.xaml", UriKind.RelativeOrAbsolute)
-            };
-            dictionaries.Add(iconsDict);
-        }
-
         public string GetCachePath(string dirName)
         {
             var cacheDir = Path.Combine(GetPluginUserDataPath(), "cache", dirName);
@@ -500,21 +490,10 @@ namespace NileLibraryNS
                                     }
                                     else
                                     {
-                                        Window window = null;
-                                        if (PlayniteApi.ApplicationInfo.Mode == ApplicationMode.Desktop)
+                                        Window window = PlayniteApi.Dialogs.CreateWindow(new WindowCreationOptions
                                         {
-                                            window = PlayniteApi.Dialogs.CreateWindow(new WindowCreationOptions
-                                            {
-                                                ShowMaximizeButton = false,
-                                            });
-                                        }
-                                        else
-                                        {
-                                            window = new Window
-                                            {
-                                                Background = System.Windows.Media.Brushes.DodgerBlue
-                                            };
-                                        }
+                                            ShowMaximizeButton = false,
+                                        });
                                         window.DataContext = successUpdates;
                                         window.Title = $"{ResourceProvider.GetString(LOC.Nile3P_PlayniteExtensionsUpdates)}";
                                         window.Content = new NileUpdaterView();
