@@ -49,10 +49,18 @@ namespace NileLibraryNS
                 return;
             }
             var playniteAPI = API.Instance;
-            Window window = playniteAPI.Dialogs.CreateWindow(new WindowCreationOptions
+            Window window = null;
+            if (playniteAPI.ApplicationInfo.Mode == ApplicationMode.Fullscreen && playniteAPI.ApplicationInfo.ApplicationVersion.Minor < 36)
             {
-                ShowMaximizeButton = false,
-            });
+                window = new Window();
+            }
+            else
+            {
+                window = playniteAPI.Dialogs.CreateWindow(new WindowCreationOptions
+                {
+                    ShowMaximizeButton = false,
+                });
+            }
 
             window.DataContext = installData;
             window.Content = new NileGameInstallerView();
