@@ -4,8 +4,8 @@ api_token_env: CROWDIN_TOKEN
 
 files: [
   {
-    "source": "/src/Localization/en_US-nile.xaml",
-    "translation": "/src/Localization/%locale_with_underscore%-nile.xaml",
+    "source": "/src/Localization/en-US/nile.ftl",
+    "translation": "/src/Localization/%locale%/nile.ftl",
     "escape_quotes": 3,
     "escape_special_characters": 0,
   }
