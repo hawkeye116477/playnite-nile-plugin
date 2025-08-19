@@ -250,6 +250,10 @@ namespace System
         /// </summary>
         public const string Nile3P_AmazonStartUsingClient = "LOCNile3P_AmazonStartUsingClient";
         /// <summary>
+        /// Launch directly without using launcher
+        /// </summary>
+        public const string NileLaunchGameDirectly = "nile-launch-game-directly";
+        /// <summary>
         /// Launcher Path
         /// </summary>
         public const string CommonLauncherCustomPath = "common-launcher-custom-path";
@@ -281,10 +285,6 @@ namespace System
         /// Display download speed in bits per second
         /// </summary>
         public const string CommonDisplayDownloadSpeedInBits = "common-display-download-speed-in-bits";
-        /// <summary>
-        /// Download all DLCs
-        /// </summary>
-        public const string CommonDownloadAllDlcs = "common-download-all-dlcs";
         /// <summary>
         /// Enable unattended installation mode
         /// </summary>
@@ -329,14 +329,6 @@ namespace System
         /// System will be suspended soon...
         /// </summary>
         public const string CommonSystemSuspendCountdown = "common-system-suspend-countdown";
-        /// <summary>
-        /// Disable
-        /// </summary>
-        public const string CommonDisable = "common-disable";
-        /// <summary>
-        /// Enable
-        /// </summary>
-        public const string CommonEnable = "common-enable";
         /// <summary>
         /// Space Available:
         /// </summary>
@@ -430,10 +422,6 @@ namespace System
         /// </summary>
         public const string CommonImportFinished = "common-import-finished";
         /// <summary>
-        /// Failed to import game. Reason: {$reason}.
-        /// </summary>
-        public const string CommonGameImportFailure = "common-game-import-failure";
-        /// <summary>
         /// Download Manager
         /// </summary>
         public const string CommonDownloadManager = "common-download-manager";
@@ -465,10 +453,6 @@ namespace System
         /// Completed
         /// </summary>
         public const string CommonDownloadCompleted = "common-download-completed";
-        /// <summary>
-        /// Summary of the current download
-        /// </summary>
-        public const string CommonCurrentDownloadSummary = "common-current-download-summary";
         /// <summary>
         /// Remove entry
         /// </summary>
@@ -517,10 +501,6 @@ namespace System
         /// Advanced Options
         /// </summary>
         public const string CommonAdvancedOptions = "common-advanced-options";
-        /// <summary>
-        /// Extra Content
-        /// </summary>
-        public const string CommonExtraContent = "common-extra-content";
         /// <summary>
         /// Cache
         /// </summary>
@@ -638,10 +618,6 @@ namespace System
         /// </summary>
         public const string CommonStartupArguments = "common-startup-arguments";
         /// <summary>
-        /// Language (code in RFC 1766 format)
-        /// </summary>
-        public const string CommonLanguageCode = "common-language-code";
-        /// <summary>
         /// Modify launch settings
         /// </summary>
         public const string CommonLauncherSettings = "common-launcher-settings";
@@ -650,17 +626,9 @@ namespace System
         /// </summary>
         public const string CommonAlternativeExe = "common-alternative-exe";
         /// <summary>
-        /// Check all DLCs
-        /// </summary>
-        public const string CommonCheckAllDlcs = "common-check-all-dlcs";
-        /// <summary>
         /// Check all
         /// </summary>
         public const string CommonCheckAllContent = "common-check-all-content";
-        /// <summary>
-        /// Manual sync saves
-        /// </summary>
-        public const string CommonManualSyncSaves = "common-manual-sync-saves";
         /// <summary>
         /// Move
         /// </summary>
@@ -682,30 +650,6 @@ namespace System
         /// </summary>
         public const string CommonMoveGameError = "common-move-game-error";
         /// <summary>
-        /// Installed DLCs
-        /// </summary>
-        public const string CommonInstalledDlcs = "common-installed-dlcs";
-        /// <summary>
-        /// Available DLCs
-        /// </summary>
-        public const string CommonAvailableDlcs = "common-available-dlcs";
-        /// <summary>
-        /// Manage DLCs
-        /// </summary>
-        public const string CommonManageDlcs = "common-manage-dlcs";
-        /// <summary>
-        /// Are you sure you want to uninstall selected DLCs?
-        /// </summary>
-        public const string CommonUninstallSelectedDlcs = "common-uninstall-selected-dlcs";
-        /// <summary>
-        /// No installed DLCs.
-        /// </summary>
-        public const string CommonNoInstalledDlcs = "common-no-installed-dlcs";
-        /// <summary>
-        /// No available DLCs.
-        /// </summary>
-        public const string CommonNoAvailableDlcs = "common-no-available-dlcs";
-        /// <summary>
         /// Automatically update games
         /// </summary>
         public const string CommonAutoUpdate = "common-auto-update";
@@ -721,10 +665,6 @@ namespace System
         /// Remove launch settings
         /// </summary>
         public const string CommonRemoveGameLaunchSettings = "common-remove-game-launch-settings";
-        /// <summary>
-        /// Additional services
-        /// </summary>
-        public const string CommonAdditionalServices = "common-additional-services";
         /// <summary>
         /// Signed in as {$userName}
         /// </summary>
@@ -806,9 +746,5 @@ namespace System
         /// Only one instance of {$pluginShortName} may install/import/move applications at a time. Do you want to pause download manager tasks to continue?
         /// </summary>
         public const string CommonInstanceNotice = "common-instance-notice";
-        /// <summary>
-        /// Launch directly without using launcher
-        /// </summary>
-        public const string NileLaunchGameDirectly = "nile-launch-game-directly";
     }
 }
