@@ -733,6 +733,8 @@ namespace NileLibraryNS
                                 var path = PlayniteApi.Dialogs.SelectFolder();
                                 if (path != "")
                                 {
+                                    game.InstallDirectory = path;
+                                    game.IsInstalled = true;
                                     bool canContinue = StopDownloadManager(true);
                                     if (!canContinue)
                                     {
@@ -742,6 +744,7 @@ namespace NileLibraryNS
                                     PlayniteApi.Dialogs.ActivateGlobalProgress(async (a) =>
                                     {
                                         await Nile.AddGameToInstalledList(game);
+                                        PlayniteApi.Database.Games.Update(game);
                                         PlayniteApi.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonImportFinished));
                                     }, importProgressOptions);
                                 }
