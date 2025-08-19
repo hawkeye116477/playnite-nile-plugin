@@ -332,7 +332,7 @@ namespace NileLibraryNS
                     }
                     else
                     {
-                        playniteAPI.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteMetadataDownloadError).Format(ResourceProvider.GetString(LOC.NileCheckLog)), gameName);
+                        playniteAPI.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteMetadataDownloadError).Format(LocalizationManager.Instance.GetString(LOC.CommonCheckLog)), gameName);
                     }
                     logger.Error(syncErrorMessage);
                     return gameName;
@@ -416,7 +416,7 @@ namespace NileLibraryNS
                         }
                         else
                         {
-                            playniteAPI.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteMetadataDownloadError).Format(ResourceProvider.GetString(LOC.NileCheckLog)), gameData.name);
+                            playniteAPI.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteMetadataDownloadError).Format(LocalizationManager.Instance.GetString(LOC.CommonCheckLog)), gameData.name);
                         }
                     }
                     manifest.errorDisplayed = true;
@@ -533,7 +533,7 @@ namespace NileLibraryNS
                 new MessageBoxOption(ResourceProvider.GetString(LOC.Nile3P_PlayniteInstallGame)),
                 new MessageBoxOption(ResourceProvider.GetString(LOC.Nile3P_PlayniteOKLabel)),
             };
-            var result = playniteAPI.Dialogs.ShowMessage(ResourceProvider.GetString(LOC.NileLauncherNotInstalled), "Nile (Amazon Games) library integration", MessageBoxImage.Information, options);
+            var result = playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonLauncherNotInstalled), "Nile (Amazon Games) library integration", MessageBoxImage.Information, options);
             if (result == options[0])
             {
                 Playnite.Commands.GlobalCommands.NavigateUrl("https://github.com/hawkeye116477/playnite-nile-plugin/wiki/Troubleshooting#nile-is-not-installed");

@@ -48,7 +48,7 @@ namespace NileLibraryNS
             var downloadActionOptions = new Dictionary<DownloadAction, string>
             {
                 { DownloadAction.Install, ResourceProvider.GetString(LOC.Nile3P_PlayniteInstallGame) },
-                { DownloadAction.Repair, ResourceProvider.GetString(LOC.NileRepair) },
+                { DownloadAction.Repair, LocalizationManager.Instance.GetString(LOC.CommonRepair) },
                 { DownloadAction.Update, ResourceProvider.GetString(LOC.Nile3P_PlayniteUpdaterInstallUpdate) }
             };
             TaskCBo.ItemsSource = downloadActionOptions;
@@ -72,7 +72,7 @@ namespace NileLibraryNS
             {
                 installPath = installPath.Replace(playniteDirectoryVariable, playniteAPI.Paths.ApplicationPath);
             }
-            if (!CommonHelpers.IsDirectoryWritable(installPath, LOC.NilePermissionError))
+            if (!CommonHelpers.IsDirectoryWritable(installPath, LOC.CommonPermissionError))
             {
                 return;
             }

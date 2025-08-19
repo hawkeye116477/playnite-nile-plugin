@@ -1,0 +1,103 @@
+LOCNileUninstallGameConfirm:
+  first: gameTitle
+
+LOCNileVerifyingLargeFile:
+  first: fileName
+  second: progress
+
+LOCNileSyncing:
+  first: gameTitle
+
+LOCNileSyncError:
+  first: gameTitle
+
+LOCNileImportingGame:
+  first: gameTitle
+
+LOCNileGameImportFailure:
+  first: reason
+
+LOCNileRemoveEntryConfirm:
+  first: entryName
+
+LOCNileNewVersionAvailable:
+  first: appName
+  second: appVersion
+
+LOCNileUploadingPlaytime:
+  first: gameTitle
+
+LOCNileUploadPlaytimeError:
+  first: gameTitle
+
+LOCNileMoveConfirm:
+  first: appName
+  second: path
+
+LOCNileMovingGame:
+  first: appName
+  second: path
+
+LOCNileMoveGameSuccess:
+  first: appName
+  second: path
+
+LOCNileMoveGameError:
+  first: appName
+  second: path
+
+LOCNileSignedInAs:
+  first: userName
+
+LOCNileUninstallSuccess:
+  first: appName
+
+LOCNileUninstallSuccessOther:
+  first: appName
+
+LOCNileUninstallErrorOther:
+  first: appName
+
+LOCNileDownloadAlreadyExists:
+  first: appName
+
+LOCNileDownloadAlreadyExistsOther:
+  first: appName
+
+LOCNileMemoryError:
+  first: currentMemory
+  second: requiredMemory
+LOCNileNoLinkedAccount:
+  first: companyAccount
+LOCNileAllActivatedUbisoft:
+  first: companyAccount
+LOCNileContinueActivation:
+  first: companyAccount
+LOCNileGamesActivateSuccess:
+  first: companyAccount
+LOCNileGamesActivateFailure:
+  first: companyAccount
+  second: reason
+LOCNileImportThirdPartyLauncherGames:
+  first: thirdPartyLauncherName
+LOCNileThirdPartyLauncherImportWarn:
+  first: thirdPartyLauncherName
+LOCNileRequiredInstallViaThirdPartyLauncherError:
+  first: thirdPartyLauncherName
+  second: gameTitle
+LOCNileRequiredInstallViaThirdPartyLauncherErrorOther:
+  first: thirdPartyLauncherName
+  second: gameTitle
+LOCNileInstallPrerequisites:
+  first: prerequisiteName
+LOCNileRequiredInstallOfThirdPartyLauncher:
+  first: thirdPartyLauncherName
+  second: gameTitle
+LOCNileRequiredInstallOfThirdPartyLauncherOther:
+  first: thirdPartyLauncherName
+  second: gameTitle
+LOCNileInstallingPrerequisites:
+  first: prerequisiteName
+LOCNileGameNotInstallable:
+  first: gameTitle
+  second: url

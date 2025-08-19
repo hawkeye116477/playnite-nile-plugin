@@ -2,6 +2,7 @@
 using CliWrap.Buffered;
 using CommonPlugin;
 using CommonPlugin.Enums;
+using Linguini.Shared.Types.Bundle;
 using NileLibraryNS.Enums;
 using NileLibraryNS.Services;
 using Playnite.Common;
@@ -40,8 +41,8 @@ namespace NileLibraryNS
                 var userLoggedIn = await clientApi.GetIsUserLoggedIn();
                 if (userLoggedIn)
                 {
-                    AuthStatusTB.Text = ResourceProvider.GetString(LOC.NileSignedInAs).Format(clientApi.GetUsername());
-                    LoginBtn.Content = ResourceProvider.GetString(LOC.NileSignOut);
+                    AuthStatusTB.Text = LocalizationManager.Instance.GetString(LOC.CommonSignedInAs, new Dictionary<string, IFluentType> { ["userName"] = (FluentString)clientApi.GetUsername() });
+                    LoginBtn.Content = LocalizationManager.Instance.GetString(LOC.CommonSignOut);
                     LoginBtn.IsChecked = true;
                 }
                 else
@@ -78,7 +79,7 @@ namespace NileLibraryNS
             }
             else
             {
-                var answer = playniteAPI.Dialogs.ShowMessage(ResourceProvider.GetString(LOC.NileSignOutConfirm), LOC.NileSignOut, MessageBoxButton.YesNo);
+                var answer = playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonSignOutConfirm), LocalizationManager.Instance.GetString(LOC.CommonSignOut), MessageBoxButton.YesNo);
                 if (answer == MessageBoxResult.Yes)
                 {
                     clientApi.LogOut();
@@ -118,9 +119,9 @@ namespace NileLibraryNS
             {
                 { ClearCacheTime.Day, ResourceProvider.GetString(LOC.Nile3P_PlayniteOptionOnceADay) },
                 { ClearCacheTime.Week, ResourceProvider.GetString(LOC.Nile3P_PlayniteOptionOnceAWeek) },
-                { ClearCacheTime.Month, ResourceProvider.GetString(LOC.NileOnceAMonth) },
-                { ClearCacheTime.ThreeMonths, ResourceProvider.GetString(LOC.NileOnceEvery3Months) },
-                { ClearCacheTime.SixMonths, ResourceProvider.GetString(LOC.NileOnceEvery6Months) },
+                { ClearCacheTime.Month, LocalizationManager.Instance.GetString(LOC.CommonOnceAMonth) },
+                { ClearCacheTime.ThreeMonths, LocalizationManager.Instance.GetString(LOC.CommonOnceEvery3Months) },
+                { ClearCacheTime.SixMonths, LocalizationManager.Instance.GetString(LOC.CommonOnceEvery6Months) },
                 { ClearCacheTime.Never, ResourceProvider.GetString(LOC.Nile3P_PlayniteSettingsPlaytimeImportModeNever) }
             };
             AutoClearCacheCBo.ItemsSource = autoClearOptions;
@@ -128,24 +129,24 @@ namespace NileLibraryNS
 
             var updatePolicyOptions = new Dictionary<UpdatePolicy, string>
             {
-                { UpdatePolicy.PlayniteLaunch, ResourceProvider.GetString(LOC.NileCheckUpdatesEveryPlayniteStartup) },
+                { UpdatePolicy.PlayniteLaunch, LocalizationManager.Instance.GetString(LOC.CommonCheckUpdatesEveryPlayniteStartup) },
                 { UpdatePolicy.Day, ResourceProvider.GetString(LOC.Nile3P_PlayniteOptionOnceADay) },
                 { UpdatePolicy.Week, ResourceProvider.GetString(LOC.Nile3P_PlayniteOptionOnceAWeek) },
-                { UpdatePolicy.Month, ResourceProvider.GetString(LOC.NileOnceAMonth) },
-                { UpdatePolicy.ThreeMonths, ResourceProvider.GetString(LOC.NileOnceEvery3Months) },
-                { UpdatePolicy.SixMonths, ResourceProvider.GetString(LOC.NileOnceEvery6Months) },
+                { UpdatePolicy.Month, LocalizationManager.Instance.GetString(LOC.CommonOnceAMonth) },
+                { UpdatePolicy.ThreeMonths, LocalizationManager.Instance.GetString(LOC.CommonOnceEvery3Months) },
+                { UpdatePolicy.SixMonths, LocalizationManager.Instance.GetString(LOC.CommonOnceEvery6Months) },
                 { UpdatePolicy.Never, ResourceProvider.GetString(LOC.Nile3P_PlayniteOptionOnlyManually) }
             };
             GamesUpdatesCBo.ItemsSource = updatePolicyOptions;
 
             var launcherUpdatePolicyOptions = new Dictionary<UpdatePolicy, string>
             {
-                { UpdatePolicy.PlayniteLaunch, ResourceProvider.GetString(LOC.NileCheckUpdatesEveryPlayniteStartup) },
+                { UpdatePolicy.PlayniteLaunch, LocalizationManager.Instance.GetString(LOC.CommonCheckUpdatesEveryPlayniteStartup) },
                 { UpdatePolicy.Day, ResourceProvider.GetString(LOC.Nile3P_PlayniteOptionOnceADay) },
                 { UpdatePolicy.Week, ResourceProvider.GetString(LOC.Nile3P_PlayniteOptionOnceAWeek) },
-                { UpdatePolicy.Month, ResourceProvider.GetString(LOC.NileOnceAMonth) },
-                { UpdatePolicy.ThreeMonths, ResourceProvider.GetString(LOC.NileOnceEvery3Months) },
-                { UpdatePolicy.SixMonths, ResourceProvider.GetString(LOC.NileOnceEvery6Months) },
+                { UpdatePolicy.Month, LocalizationManager.Instance.GetString(LOC.CommonOnceAMonth) },
+                { UpdatePolicy.ThreeMonths, LocalizationManager.Instance.GetString(LOC.CommonOnceEvery3Months) },
+                { UpdatePolicy.SixMonths, LocalizationManager.Instance.GetString(LOC.CommonOnceEvery6Months) },
                 { UpdatePolicy.Never, ResourceProvider.GetString(LOC.Nile3P_PlayniteOptionOnlyManually) }
             };
             LauncherUpdatesCBo.ItemsSource = launcherUpdatePolicyOptions;
@@ -165,8 +166,8 @@ namespace NileLibraryNS
             else
             {
                 troubleshootingInformation.NileVersion = "Not%20installed";
-                LauncherVersionTxt.Text = ResourceProvider.GetString(LOC.NileLauncherNotInstalled);
-                NileBinaryTxt.Text = ResourceProvider.GetString(LOC.NileLauncherNotInstalled);
+                LauncherVersionTxt.Text = LocalizationManager.Instance.GetString(LOC.CommonLauncherNotInstalled);
+                NileBinaryTxt.Text = LocalizationManager.Instance.GetString(LOC.CommonLauncherNotInstalled);
                 CheckForNileUpdatesBtn.IsEnabled = false;
                 OpenNileBinaryBtn.IsEnabled = false;
             }
@@ -186,7 +187,7 @@ namespace NileLibraryNS
             }
             else
             {
-                playniteAPI.Dialogs.ShowErrorMessage(LOC.NilePathNotExistsError);
+                playniteAPI.Dialogs.ShowErrorMessage(LOC.CommonPathNotExistsError);
             }
         }
 
@@ -211,10 +212,10 @@ namespace NileLibraryNS
                 {
                     var options = new List<MessageBoxOption>
                     {
-                        new MessageBoxOption(ResourceProvider.GetString(LOC.NileViewChangelog)),
+                        new MessageBoxOption(LocalizationManager.Instance.GetString(LOC.CommonViewChangelog)),
                         new MessageBoxOption(ResourceProvider.GetString(LOC.Nile3P_PlayniteOKLabel)),
                     };
-                    var result = playniteAPI.Dialogs.ShowMessage(string.Format(ResourceProvider.GetString(LOC.NileNewVersionAvailable), "Nile", newVersion), ResourceProvider.GetString(LOC.Nile3P_PlayniteUpdaterWindowTitle), MessageBoxImage.Information, options);
+                    var result = playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonNewVersionAvailable, new Dictionary<string, IFluentType> { ["appName"] = (FluentString)"Nile", ["appVersion"] = (FluentString)newVersion }), ResourceProvider.GetString(LOC.Nile3P_PlayniteUpdaterWindowTitle), MessageBoxImage.Information, options);
                     if (result == options[0])
                     {
                         var changelogURL = $"https://github.com/imLinguin/nile/releases/tag/v{newVersion}";
@@ -223,7 +224,7 @@ namespace NileLibraryNS
                 }
                 else
                 {
-                    playniteAPI.Dialogs.ShowMessage(ResourceProvider.GetString(LOC.NileNoUpdatesAvailable));
+                    playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonNoUpdatesAvailable));
                 }
             }
             else
@@ -234,7 +235,7 @@ namespace NileLibraryNS
 
         private void ClearCacheBtn_Click(object sender, RoutedEventArgs e)
         {
-            var result = playniteAPI.Dialogs.ShowMessage(ResourceProvider.GetString(LOC.NileClearCacheConfirm), ResourceProvider.GetString(LOC.Nile3P_PlayniteSettingsClearCacheTitle), MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var result = playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonClearCacheConfirm), ResourceProvider.GetString(LOC.Nile3P_PlayniteSettingsClearCacheTitle), MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
                 Nile.ClearCache();
@@ -279,12 +280,12 @@ namespace NileLibraryNS
                 Nile.ShowNotInstalledError();
                 return;
             }
-            var result = playniteAPI.Dialogs.ShowMessage(ResourceProvider.GetString(LOC.NileMigrationConfirm), ResourceProvider.GetString(LOC.NileMigrateGamesAmazon), MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var result = playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonMigrationConfirm), LocalizationManager.Instance.GetString(LOC.CommonMigrateGamesOriginal), MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.No)
             {
                 return;
             }
-            GlobalProgressOptions globalProgressOptions = new GlobalProgressOptions(ResourceProvider.GetString(LOC.NileMigratingGamesAmazon), false) { IsIndeterminate = false };
+            GlobalProgressOptions globalProgressOptions = new GlobalProgressOptions(LocalizationManager.Instance.GetString(LOC.CommonMigratingGamesOriginal), false) { IsIndeterminate = false };
             playniteAPI.Dialogs.ActivateGlobalProgress(async (a) =>
             {
                 using (playniteAPI.Database.BufferedUpdate())
@@ -329,7 +330,7 @@ namespace NileLibraryNS
                         a.CurrentProgressValue = gamesToMigrate.Count() + 1;
                         if (migratedGames.Count > 0)
                         {
-                            playniteAPI.Dialogs.ShowMessage(LOC.NileMigrationCompleted, LOC.NileMigrateGamesAmazon, MessageBoxButton.OK, MessageBoxImage.Information);
+                            playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonMigrationCompleted), LocalizationManager.Instance.GetString(LOC.CommonMigrateGamesOriginal), MessageBoxButton.OK, MessageBoxImage.Information);
                             logger.Info("Successfully migrated " + migratedGames.Count + " game(s) from Amazon Games to Nile.");
                         }
                         if (notImportedGames.Count > 0)
@@ -338,14 +339,14 @@ namespace NileLibraryNS
                         }
                         if (migratedGames.Count == 0 && notImportedGames.Count == 0)
                         {
-                            playniteAPI.Dialogs.ShowErrorMessage(LOC.NileMigrationNoGames);
+                            playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(LOC.CommonMigrationNoGames));
                         }
                     }
                     else
                     {
                         a.ProgressMaxValue = 1;
                         a.CurrentProgressValue = 1;
-                        playniteAPI.Dialogs.ShowErrorMessage(LOC.NileMigrationNoGames);
+                        playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(LOC.CommonMigrationNoGames));
                     }
                 }
             }, globalProgressOptions);

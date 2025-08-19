@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:NileLibraryNS"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:pcmd="clr-namespace:Playnite.Commands"
-             xmlns:common="clr-namespace:CommonPlugin"
+             xmlns:common="clr-namespace:CommonPlugin" xmlns:system="clr-namespace:System"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="400" Name="NileDownloadPropertiesUC" Loaded="NileDownloadPropertiesUC_Loaded">
     <UserControl.Resources>
@@ -38,21 +38,21 @@
             </Grid.RowDefinitions>
             <Separator Margin="0,5,0,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5" Grid.Row="1" Grid.Column="0">
-                <TextBlock Text="{DynamicResource LOCNileDownloadSize}" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                <TextBlock Text="{common:Localize Key={x:Static system:LOC.CommonDownloadSize}}" HorizontalAlignment="Left" VerticalAlignment="Center" />
                 <TextBlock x:Name="DownloadSizeTB" Text="{DynamicResource LOCNile3P_PlayniteLoadingLabel}"
                     VerticalAlignment="Top" Margin="5,0,5,0" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0" Grid.Row="2" Grid.Column="0">
-                <TextBlock VerticalAlignment="Top" Text="{DynamicResource LOCNileInstallSize}" Margin="0,0,0,0" />
+                <TextBlock VerticalAlignment="Top" Text="{common:Localize Key={x:Static system:LOC.CommonInstallSize}}" Margin="0,0,0,0" />
                 <TextBlock x:Name="InstallSizeTB" Text="{DynamicResource LOCNile3P_PlayniteLoadingLabel}" VerticalAlignment="Top" Margin="5,0,5,0" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10,5,0,5" Grid.Row="1" Grid.Column="1">
-                <TextBlock VerticalAlignment="Top" Text="{DynamicResource LOCNileSpaceAvailable}" Margin="0,0,0,0" />
+                <TextBlock VerticalAlignment="Top" Text="{common:Localize Key={x:Static system:LOC.CommonSpaceAvailable}}" Margin="0,0,0,0" />
                 <TextBlock VerticalAlignment="Top" Text="{DynamicResource LOCNile3P_PlayniteLoadingLabel}"
                     Margin="5,0,5,0" Name="SpaceTB" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="2" Grid.Column="1" Name="AfterInstallingSP" Margin="10,0,0,0">
-                <TextBlock VerticalAlignment="Top" Text="{DynamicResource LOCNileAfterInstalling}" Margin="0,0,0,0" />
+                <TextBlock VerticalAlignment="Top" Text="{common:Localize Key={x:Static system:LOC.CommonAfterInstalling}}" Margin="0,0,0,0" />
                 <TextBlock VerticalAlignment="Top" Text="{DynamicResource LOCNile3P_PlayniteLoadingLabel}"
                     Margin="5,0,5,0" Name="AfterInstallingTB" />
             </StackPanel>
@@ -74,7 +74,7 @@
                                 Name="ChooseGamePathBtn" FontFamily="{DynamicResource FontIcoFont}" ToolTip="{DynamicResource LOCNile3P_PlayniteSelectDirectoryTooltip}" Click="ChooseGamePathBtn_Click" />
                         <TextBox Name="SelectedGamePathTxt" VerticalAlignment="Center" Margin="0" />
                     </DockPanel>
-                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{DynamicResource LOCNileTask}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,10,0"></TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{common:Localize Key={x:Static system:LOC.CommonTask}}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,10,0"></TextBlock>
                     <ComboBox Grid.Row="1" Grid.Column="1" x:Name="TaskCBo" DisplayMemberPath="Value" SelectedValuePath="Key" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Width="Auto" />
                 </Grid>
             </TabItem>
@@ -94,7 +94,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <TextBlock Text="{DynamicResource LOCNileMaxWorkers}" Grid.Column="0"
+                    <TextBlock Text="{common:Localize Key={x:Static system:LOC.CommonMaxWorkers}}" Grid.Column="0"
                                Grid.Row="3" Margin="0,0,0,5" VerticalAlignment="Center" HorizontalAlignment="Left" />
                     <common:NumericInput Grid.Row="3" Grid.Column="1" Margin="10,0,0,5" MinValue="0" x:Name="MaxWorkersNI"/>
                 </Grid>

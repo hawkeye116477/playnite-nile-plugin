@@ -30,19 +30,19 @@ namespace NileLibraryNS
             {
                 case DownloadCompleteAction.ShutDown:
                     ActionBtn.Content = ResourceProvider.GetString(LOC.Nile3P_PlayniteMenuShutdownSystem);
-                    CountdownTB.Text = ResourceProvider.GetString(LOC.NileSystemShutdownCountdown);
+                    CountdownTB.Text = LocalizationManager.Instance.GetString(LOC.CommonSystemShutdownCountdown);
                     break;
                 case DownloadCompleteAction.Reboot:
                     ActionBtn.Content = ResourceProvider.GetString(LOC.Nile3P_PlayniteMenuRestartSystem);
-                    CountdownTB.Text = ResourceProvider.GetString(LOC.NileSystemRestartCountdown);
+                    CountdownTB.Text = LocalizationManager.Instance.GetString(LOC.CommonSystemRestartCountdown);
                     break;
                 case DownloadCompleteAction.Hibernate:
                     ActionBtn.Content = ResourceProvider.GetString(LOC.Nile3P_PlayniteMenuHibernateSystem);
-                    CountdownTB.Text = ResourceProvider.GetString(LOC.NileSystemHibernateCountdown);
+                    CountdownTB.Text = LocalizationManager.Instance.GetString(LOC.CommonSystemHibernateCountdown);
                     break;
                 case DownloadCompleteAction.Sleep:
                     ActionBtn.Content = ResourceProvider.GetString(LOC.Nile3P_PlayniteMenuSuspendSystem);
-                    CountdownTB.Text = ResourceProvider.GetString(LOC.NileSystemSuspendCountdown);
+                    CountdownTB.Text = LocalizationManager.Instance.GetString(LOC.CommonSystemSuspendCountdown);
                     break;
             }
             CountdownPB.Maximum = time;

@@ -1,5 +1,6 @@
 ﻿using CommonPlugin;
 using CommonPlugin.Enums;
+using Linguini.Shared.Types.Bundle;
 using NileLibraryNS.Models;
 using Playnite.SDK;
 using System;
@@ -107,7 +108,7 @@ namespace NileLibraryNS
                         installPath = installData.downloadProperties.installPath;
                         installData.fullInstallPath = installPath;
                     }
-                    if (!CommonHelpers.IsDirectoryWritable(installPath, LOC.NilePermissionError))
+                    if (!CommonHelpers.IsDirectoryWritable(installPath, LOC.CommonPermissionError))
                     {
                         continue;
                     }
@@ -118,15 +119,12 @@ namespace NileLibraryNS
             }
             if (downloadItemsAlreadyAdded.Count > 0)
             {
-                if (downloadItemsAlreadyAdded.Count == 1)
+                string downloadItemsAlreadyAddedCombined = downloadItemsAlreadyAdded[0];
+                if (downloadItemsAlreadyAdded.Count > 1)
                 {
-                    playniteAPI.Dialogs.ShowMessage(string.Format(ResourceProvider.GetString(LOC.NileDownloadAlreadyExists), downloadItemsAlreadyAdded[0]), "", MessageBoxButton.OK, MessageBoxImage.Error);
+                    downloadItemsAlreadyAddedCombined = string.Join(", ", downloadItemsAlreadyAdded.Select(item => item.ToString()));
                 }
-                else
-                {
-                    string downloadItemsAlreadyAddedComnined = string.Join(", ", downloadItemsAlreadyAdded.Select(item => item.ToString()));
-                    playniteAPI.Dialogs.ShowMessage(string.Format(ResourceProvider.GetString(LOC.NileDownloadAlreadyExistsOther), downloadItemsAlreadyAddedComnined), "", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonDownloadAlreadyExists, new Dictionary<string, IFluentType> { ["appName"] = (FluentString)downloadItemsAlreadyAddedCombined, ["count"] = (FluentNumber)downloadItemsAlreadyAdded.Count }), "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             if (downloadTasks.Count > 0)
             {
@@ -240,15 +238,12 @@ namespace NileLibraryNS
             CalculateTotalSize();
             if (downloadItemsAlreadyAdded.Count > 0)
             {
-                if (downloadItemsAlreadyAdded.Count == 1)
+                string downloadItemsAlreadyAddedCombined = downloadItemsAlreadyAdded[0];
+                if (downloadItemsAlreadyAdded.Count > 1)
                 {
-                    playniteAPI.Dialogs.ShowMessage(string.Format(ResourceProvider.GetString(LOC.NileDownloadAlreadyExists), downloadItemsAlreadyAdded[0]), "", MessageBoxButton.OK, MessageBoxImage.Error);
+                    downloadItemsAlreadyAddedCombined = string.Join(", ", downloadItemsAlreadyAdded.Select(item => item.ToString()));
                 }
-                else
-                {
-                    string downloadItemsAlreadyAddedComnined = string.Join(", ", downloadItemsAlreadyAdded.Select(item => item.ToString()));
-                    playniteAPI.Dialogs.ShowMessage(string.Format(ResourceProvider.GetString(LOC.NileDownloadAlreadyExistsOther), downloadItemsAlreadyAddedComnined), "", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonDownloadAlreadyExists, new Dictionary<string, IFluentType> { ["appName"] = (FluentString)downloadItemsAlreadyAddedCombined, ["count"] = (FluentNumber)downloadItemsAlreadyAdded.Count }), "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             var games = MultiInstallData;

@@ -3,6 +3,7 @@ using CliWrap.Buffered;
 using CliWrap.EventStream;
 using CommonPlugin;
 using CommonPlugin.Enums;
+using Linguini.Shared.Types.Bundle;
 using NileLibraryNS.Models;
 using Playnite.Common;
 using Playnite.SDK;
@@ -71,7 +72,7 @@ namespace NileLibraryNS
             var title = ResourceProvider.GetString(LOC.Nile3P_PlayniteInstallGame);
             if (installData[0].downloadProperties.downloadAction == DownloadAction.Repair)
             {
-                title = ResourceProvider.GetString(LOC.NileRepair);
+                title = LocalizationManager.Instance.GetString(LOC.CommonRepair);
             }
             if (installData.Count == 1)
             {
@@ -111,7 +112,7 @@ namespace NileLibraryNS
             }
             var playniteAPI = API.Instance;
             string gamesCombined = string.Join(", ", games.Select(item => item.Name));
-            var result = MessageCheckBoxDialog.ShowMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteUninstallGame), ResourceProvider.GetString(LOC.NileUninstallGameConfirm).Format(gamesCombined), LOC.NileRemoveGameLaunchSettings, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var result = MessageCheckBoxDialog.ShowMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteUninstallGame), LocalizationManager.Instance.GetString(LOC.CommonUninstallGameConfirm, new Dictionary<string, IFluentType> { ["gameTitle"] = (FluentString)gamesCombined }), LOC.CommonRemoveGameLaunchSettings, MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result.Result)
             {
                 var canContinue = NileLibrary.Instance.StopDownloadManager(true);
@@ -178,26 +179,24 @@ namespace NileLibraryNS
                 }, globalProgressOptions);
                 if (uninstalledGames.Count > 0)
                 {
-                    if (uninstalledGames.Count == 1)
+                    string uninstalledGamesCombined = uninstalledGames[0].Name;
+                    if (uninstalledGames.Count > 1)
                     {
-                        playniteAPI.Dialogs.ShowMessage(ResourceProvider.GetString(LOC.NileUninstallSuccess).Format(uninstalledGames[0].Name));
+                        uninstalledGamesCombined = string.Join(", ", uninstalledGames.Select(item => item.Name));
                     }
-                    else
-                    {
-                        string uninstalledGamesCombined = string.Join(", ", uninstalledGames.Select(item => item.Name));
-                        playniteAPI.Dialogs.ShowMessage(ResourceProvider.GetString(LOC.NileUninstallSuccessOther).Format(uninstalledGamesCombined));
-                    }
+                    playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonUninstallSuccess, new Dictionary<string, IFluentType> { ["appName"] = (FluentString)uninstalledGamesCombined, ["count"] = (FluentNumber)uninstalledGames.Count }));
                 }
                 if (notUninstalledGames.Count > 0)
                 {
+                    string notUninstalledGamesCombined = notUninstalledGames[0].Name;
                     if (notUninstalledGames.Count == 1)
                     {
-                        playniteAPI.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteGameUninstallError).Format(ResourceProvider.GetString(LOC.NileCheckLog)), notUninstalledGames[0].Name);
+                        playniteAPI.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteGameUninstallError).Format(LocalizationManager.Instance.GetString(LOC.CommonCheckLog)), notUninstalledGamesCombined);
                     }
                     else
                     {
-                        string notUninstalledGamesCombined = string.Join(", ", notUninstalledGames.Select(item => item.Name));
-                        playniteAPI.Dialogs.ShowMessage($"{ResourceProvider.GetString(LOC.NileUninstallErrorOther).Format(notUninstalledGamesCombined)} {ResourceProvider.GetString(LOC.NileCheckLog)}");
+                        notUninstalledGamesCombined = string.Join(", ", notUninstalledGames.Select(item => item.Name));
+                        playniteAPI.Dialogs.ShowMessage($"{LocalizationManager.Instance.GetString(LOC.CommonUninstallError, new Dictionary<string, IFluentType> { ["appName"] = (FluentString)notUninstalledGamesCombined, ["count"] = (FluentNumber)notUninstalledGames.Count })} {LocalizationManager.Instance.GetString(LOC.CommonCheckLog)}");
                     }
                 }
 
@@ -242,7 +241,7 @@ namespace NileLibraryNS
             if (!gameSettings.IsFullyInstalled)
             {
                 var playniteAPI = API.Instance;
-                GlobalProgressOptions installProgressOptions = new GlobalProgressOptions(ResourceProvider.GetString(LOC.NileFinishingInstallation), false);
+                GlobalProgressOptions installProgressOptions = new GlobalProgressOptions(LocalizationManager.Instance.GetString(LOC.CommonFinishingInstallation), false);
                 playniteAPI.Dialogs.ActivateGlobalProgress((a) =>
                 {
                     var gameConfig = Nile.GetGameConfiguration(Game.InstallDirectory);
@@ -366,7 +365,7 @@ namespace NileLibraryNS
                             else
                             {
                                 InvokeOnStopped(new GameStoppedEventArgs());
-                                playniteAPI.Dialogs.ShowErrorMessage(string.Format(ResourceProvider.GetString(LOC.Nile3P_PlayniteGameStartError), ResourceProvider.GetString(LOC.NileCheckLog)));
+                                playniteAPI.Dialogs.ShowErrorMessage(string.Format(ResourceProvider.GetString(LOC.Nile3P_PlayniteGameStartError), LocalizationManager.Instance.GetString(LOC.CommonCheckLog)));
                             }
                         }
                         else
@@ -529,7 +528,7 @@ namespace NileLibraryNS
                     }
                     else
                     {
-                        playniteAPI.Dialogs.ShowErrorMessage(NileLibrary.Instance.Name, $"{ResourceProvider.GetString(LOC.Nile3P_PlayniteUpdateCheckFailMessage)} {ResourceProvider.GetString(LOC.NileCheckLog)}");
+                        playniteAPI.Dialogs.ShowErrorMessage(NileLibrary.Instance.Name, $"{ResourceProvider.GetString(LOC.Nile3P_PlayniteUpdateCheckFailMessage)} {LocalizationManager.Instance.GetString(LOC.CommonCheckLog)}");
                     }
                 }
             }
@@ -582,7 +581,7 @@ namespace NileLibraryNS
                     if (silently)
                     {
                         var playniteApi = API.Instance;
-                        playniteApi.Notifications.Add(new NotificationMessage("NileGamesUpdates", ResourceProvider.GetString(LOC.NileGamesUpdatesUnderway), NotificationType.Info));
+                        playniteApi.Notifications.Add(new NotificationMessage("NileGamesUpdates", LocalizationManager.Instance.GetString(LOC.CommonGamesUpdatesUnderway), NotificationType.Info));
                     }
                     NileDownloadManagerView downloadManager = NileLibrary.GetNileDownloadManager();
                     foreach (var gameToUpdate in gamesToUpdate)
@@ -602,7 +601,7 @@ namespace NileLibraryNS
                         {
                             if (!silently)
                             {
-                                playniteAPI.Dialogs.ShowMessage(string.Format(ResourceProvider.GetString(LOC.NileDownloadAlreadyExists), wantedItem.name), "", MessageBoxButton.OK, MessageBoxImage.Error);
+                                playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonDownloadAlreadyExists, new Dictionary<string, IFluentType> { ["appName"] = (FluentString)wantedItem.name }), "", MessageBoxButton.OK, MessageBoxImage.Error);
                             }
                         }
                         else
@@ -639,7 +638,7 @@ namespace NileLibraryNS
             }
             else if (!silently)
             {
-                playniteAPI.Dialogs.ShowMessage(ResourceProvider.GetString(LOC.NileNoUpdatesAvailable), gameTitle);
+                playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonNoUpdatesAvailable), gameTitle);
             }
         }
     }

@@ -1,5 +1,5 @@
-﻿using CommonPlugin.Enums;
-using Playnite.SDK;
+﻿using CommonPlugin;
+using CommonPlugin.Enums;
 using System;
 using System.Globalization;
 using System.Windows.Data;
@@ -13,19 +13,19 @@ namespace NileLibraryNS.Converters
             switch (value)
             {
                 case DownloadStatus.Queued:
-                    value = ResourceProvider.GetString(LOC.NileDownloadQueued);
+                    value = LocalizationManager.Instance.GetString(LOC.CommonDownloadQueued);
                     break;
                 case DownloadStatus.Running:
-                    value = ResourceProvider.GetString(LOC.NileDownloadRunning);
+                    value = LocalizationManager.Instance.GetString(LOC.CommonDownloadRunning);
                     break;
                 case DownloadStatus.Canceled:
-                    value = ResourceProvider.GetString(LOC.NileDownloadCanceled);
+                    value = LocalizationManager.Instance.GetString(LOC.CommonDownloadCanceled);
                     break;
                 case DownloadStatus.Paused:
-                    value = ResourceProvider.GetString(LOC.NileDownloadPaused);
+                    value = LocalizationManager.Instance.GetString(LOC.CommonDownloadPaused);
                     break;
                 case DownloadStatus.Completed:
-                    value = ResourceProvider.GetString(LOC.NileDownloadCompleted);
+                    value = LocalizationManager.Instance.GetString(LOC.CommonDownloadCompleted);
                     break;
             }
             return value;

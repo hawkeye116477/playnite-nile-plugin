@@ -21,6 +21,7 @@ using Playnite.SDK.Plugins;
 using System.Collections.Specialized;
 using CommonPlugin.Enums;
 using CommonPlugin;
+using Linguini.Shared.Types.Bundle;
 
 namespace NileLibraryNS
 {
@@ -41,14 +42,14 @@ namespace NileLibraryNS
         {
             InitializeComponent();
 
-            SelectAllBtn.ToolTip = GetToolTipWithKey(LOC.NileSelectAllEntries, "Ctrl+A");
-            RemoveDownloadBtn.ToolTip = GetToolTipWithKey(LOC.NileRemoveEntry, "Delete");
-            MoveTopBtn.ToolTip = GetToolTipWithKey(LOC.NileMoveEntryTop, "Alt+Home");
-            MoveUpBtn.ToolTip = GetToolTipWithKey(LOC.NileMoveEntryUp, "Alt+Up");
-            MoveDownBtn.ToolTip = GetToolTipWithKey(LOC.NileMoveEntryDown, "Alt+Down");
-            MoveBottomBtn.ToolTip = GetToolTipWithKey(LOC.NileMoveEntryBottom, "Alt+End");
-            DownloadPropertiesBtn.ToolTip = GetToolTipWithKey(LOC.NileEditSelectedDownloadProperties, "Ctrl+P");
-            OpenDownloadDirectoryBtn.ToolTip = GetToolTipWithKey(LOC.NileOpenDownloadDirectory, "Ctrl+O");
+            SelectAllBtn.ToolTip = GetToolTipWithKey(LOC.CommonSelectAllEntries, "Ctrl+A");
+            RemoveDownloadBtn.ToolTip = GetToolTipWithKey(LOC.CommonRemoveEntry, "Delete");
+            MoveTopBtn.ToolTip = GetToolTipWithKey(LOC.CommonMoveEntryTop, "Alt+Home");
+            MoveUpBtn.ToolTip = GetToolTipWithKey(LOC.CommonMoveEntryUp, "Alt+Up");
+            MoveDownBtn.ToolTip = GetToolTipWithKey(LOC.CommonMoveEntryDown, "Alt+Down");
+            MoveBottomBtn.ToolTip = GetToolTipWithKey(LOC.CommonMoveEntryBottom, "Alt+End");
+            DownloadPropertiesBtn.ToolTip = GetToolTipWithKey(LOC.CommonEditSelectedDownloadProperties, "Ctrl+P");
+            OpenDownloadDirectoryBtn.ToolTip = GetToolTipWithKey(LOC.CommonOpenDownloadDirectory, "Ctrl+O");
             LoadSavedData();
             foreach (DownloadManagerData.Download download in downloadManagerData.downloads)
             {
@@ -178,7 +179,7 @@ namespace NileLibraryNS
             var messagesSettings = NileMessagesSettings.LoadSettings();
             if (!messagesSettings.DontShowDownloadManagerWhatsUpMsg)
             {
-                var result = MessageCheckBoxDialog.ShowMessage("", ResourceProvider.GetString(LOC.NileDownloadManagerWhatsUp), ResourceProvider.GetString(LOC.Nile3P_PlayniteDontShowAgainTitle), MessageBoxButton.OK, MessageBoxImage.Information);
+                var result = MessageCheckBoxDialog.ShowMessage("", LocalizationManager.Instance.GetString(LOC.CommonDownloadManagerWhatsUp), ResourceProvider.GetString(LOC.Nile3P_PlayniteDontShowAgainTitle), MessageBoxButton.OK, MessageBoxImage.Information);
                 if (result.CheckboxChecked)
                 {
                     messagesSettings.DontShowDownloadManagerWhatsUpMsg = true;
@@ -278,7 +279,7 @@ namespace NileLibraryNS
                         case StandardErrorCommandEvent stdErr:
                             if (stdErr.Text.Contains("Verification") || stdErr.Text.Contains("Verifying"))
                             {
-                                DescriptionTB.Text = ResourceProvider.GetString(LOC.NileVerifying);
+                                DescriptionTB.Text = LocalizationManager.Instance.GetString(LOC.CommonVerifying);
                             }
                             var progressMatch = Regex.Match(stdErr.Text, @"Progress: (\d+\.\d+)");
                             if (progressMatch.Length >= 2)
@@ -289,7 +290,7 @@ namespace NileLibraryNS
                                 }
                                 else
                                 {
-                                    DescriptionTB.Text = ResourceProvider.GetString(LOC.NileDownloadingUpdate);
+                                    DescriptionTB.Text = LocalizationManager.Instance.GetString(LOC.CommonDownloadingUpdate);
                                 }
                                 double progress = CommonHelpers.ToDouble(progressMatch.Groups[1].Value);
                                 wantedItem.progress = progress;
@@ -320,13 +321,13 @@ namespace NileLibraryNS
                                     switch (downloadProperties.downloadAction)
                                     {
                                         case DownloadAction.Install:
-                                            DescriptionTB.Text = ResourceProvider.GetString(LOC.NileFinishingInstallation);
+                                            DescriptionTB.Text = LocalizationManager.Instance.GetString(LOC.CommonFinishingInstallation);
                                             break;
                                         case DownloadAction.Update:
-                                            DescriptionTB.Text = ResourceProvider.GetString(LOC.NileFinishingUpdate);
+                                            DescriptionTB.Text = LocalizationManager.Instance.GetString(LOC.CommonFinishingUpdate);
                                             break;
                                         case DownloadAction.Repair:
-                                            DescriptionTB.Text = ResourceProvider.GetString(LOC.NileFinishingRepair);
+                                            DescriptionTB.Text = LocalizationManager.Instance.GetString(LOC.CommonFinishingRepair);
                                             break;
                                         default:
                                             break;
@@ -388,15 +389,15 @@ namespace NileLibraryNS
                                 }
                                 else if (permissionErrorDisplayed)
                                 {
-                                    playniteAPI.Dialogs.ShowErrorMessage(string.Format(ResourceProvider.GetString(LOC.Nile3P_PlayniteGameInstallError), ResourceProvider.GetString(LOC.NilePermissionError)));
+                                    playniteAPI.Dialogs.ShowErrorMessage(string.Format(ResourceProvider.GetString(LOC.Nile3P_PlayniteGameInstallError), LocalizationManager.Instance.GetString(LOC.CommonPermissionError)));
                                 }
                                 else if (diskSpaceErrorDisplayed)
                                 {
-                                    playniteAPI.Dialogs.ShowErrorMessage(string.Format(ResourceProvider.GetString(LOC.Nile3P_PlayniteGameInstallError), ResourceProvider.GetString(LOC.NileNotEnoughSpace)));
+                                    playniteAPI.Dialogs.ShowErrorMessage(string.Format(ResourceProvider.GetString(LOC.Nile3P_PlayniteGameInstallError), LocalizationManager.Instance.GetString(LOC.CommonNotEnoughSpace)));
                                 }
                                 else
                                 {
-                                    playniteAPI.Dialogs.ShowErrorMessage(string.Format(ResourceProvider.GetString(LOC.Nile3P_PlayniteGameInstallError), ResourceProvider.GetString(LOC.NileCheckLog)));
+                                    playniteAPI.Dialogs.ShowErrorMessage(string.Format(ResourceProvider.GetString(LOC.Nile3P_PlayniteGameInstallError), LocalizationManager.Instance.GetString(LOC.CommonCheckLog)));
                                 }
                                 wantedItem.status = DownloadStatus.Paused;
                             }
@@ -423,14 +424,14 @@ namespace NileLibraryNS
                                 wantedItem.completedTime = now.ToUnixTimeSeconds();
                                 if (settings.DisplayDownloadTaskFinishedNotifications)
                                 {
-                                    var notificationMessage = LOC.NileInstallationFinished;
+                                    var notificationMessage = LOC.CommonInstallationFinished;
                                     switch (downloadProperties.downloadAction)
                                     {
                                         case DownloadAction.Repair:
-                                            notificationMessage = LOC.NileRepairFinished;
+                                            notificationMessage = LOC.CommonRepairFinished;
                                             break;
                                         case DownloadAction.Update:
-                                            notificationMessage = LOC.NileUpdateFinished;
+                                            notificationMessage = LOC.CommonUpdateFinished;
                                             break;
                                         default:
                                             break;
@@ -592,13 +593,13 @@ namespace NileLibraryNS
                 if (DownloadsDG.SelectedItems.Count == 1)
                 {
                     var selectedRow = (DownloadManagerData.Download)DownloadsDG.SelectedItem;
-                    messageText = string.Format(ResourceProvider.GetString(LOC.NileRemoveEntryConfirm), selectedRow.name);
+                    messageText = LocalizationManager.Instance.GetString(LOC.CommonRemoveEntryConfirm, new Dictionary<string, IFluentType> { ["entryName"] = (FluentString)selectedRow.name });
                 }
                 else
                 {
-                    messageText = ResourceProvider.GetString(LOC.NileRemoveSelectedEntriesConfirm);
+                    messageText = LocalizationManager.Instance.GetString(LOC.CommonRemoveSelectedEntriesConfirm);
                 }
-                var result = playniteAPI.Dialogs.ShowMessage(messageText, ResourceProvider.GetString(LOC.NileRemoveEntry), MessageBoxButton.YesNo, MessageBoxImage.Question);
+                var result = playniteAPI.Dialogs.ShowMessage(messageText, LocalizationManager.Instance.GetString(LOC.CommonRemoveEntry), MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.Yes)
                 {
                     foreach (var selectedRow in DownloadsDG.SelectedItems.Cast<DownloadManagerData.Download>().ToList())
@@ -613,7 +614,7 @@ namespace NileLibraryNS
         {
             if (DownloadsDG.Items.Count > 0)
             {
-                var result = playniteAPI.Dialogs.ShowMessage(ResourceProvider.GetString(LOC.NileRemoveCompletedDownloadsConfirm), ResourceProvider.GetString(LOC.NileRemoveCompletedDownloads), MessageBoxButton.YesNo, MessageBoxImage.Question);
+                var result = playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonRemoveCompletedDownloadsConfirm), LocalizationManager.Instance.GetString(LOC.CommonRemoveCompletedDownloads), MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.Yes)
                 {
                     foreach (var row in DownloadsDG.Items.Cast<DownloadManagerData.Download>().ToList())
@@ -674,7 +675,7 @@ namespace NileLibraryNS
                     ShowMaximizeButton = false,
                 });
                 var selectedItem = DownloadsDG.SelectedItems[0] as DownloadManagerData.Download;
-                window.Title = selectedItem.name + " — " + ResourceProvider.GetString(LOC.NileDownloadProperties);
+                window.Title = selectedItem.name + " — " + LocalizationManager.Instance.GetString(LOC.CommonDownloadProperties);
                 window.DataContext = selectedItem;
                 window.Content = new NileDownloadProperties();
                 window.Owner = playniteAPI.Dialogs.GetCurrentAppWindow();
@@ -740,7 +741,7 @@ namespace NileLibraryNS
             }
             else
             {
-                playniteAPI.Dialogs.ShowErrorMessage($"{selectedItem.fullInstallPath}\n{ResourceProvider.GetString(LOC.NilePathNotExistsError)}");
+                playniteAPI.Dialogs.ShowErrorMessage($"{selectedItem.fullInstallPath}\n{LocalizationManager.Instance.GetString(LOC.CommonPathNotExistsError)}");
             }
         }
 

@@ -22,13 +22,6 @@ with open(pj(script_path, "config", "amazonLocKeys.txt"),
         if line := line.strip():
             amazon_loc_keys[line] = ""
 
-common_loc_keys = {}
-with open(pj(script_path, "config", "commonLocKeys.txt"),
-          "r", encoding="utf-8") as common_loc_keys_content:
-    for line in common_loc_keys_content:
-        if line := line.strip():
-            common_loc_keys[line] = ""
-
 playnite_loc_keys = {}
 with open(pj(script_path, "config", "playniteLocKeys.txt"),
           "r", encoding="utf-8") as playnite_loc_keys_content:
@@ -47,36 +40,6 @@ xmlns_sys = "clr-namespace:System;assembly=mscorlib"
 NSMAP = {None: xmlns,
         "sys": xmlns_sys,
         "x":  xmlns_x}
-    
-# Copy common localizations
-common_loc_path = pj(main_path, "..", "playnite-common-plugin", "src", "Localization")
-for filename in os.listdir(common_loc_path):
-    path = os.path.join(common_loc_path, filename)
-    if os.path.isdir(path):
-        continue
-    if "legendary" in filename:
-        continue
-    common_loc = ET.parse(pj(common_loc_path, filename))
-
-    xml_root = ET.Element("ResourceDictionary", nsmap=NSMAP)
-    xml_doc = ET.ElementTree(xml_root)
-
-    for child in common_loc.getroot():
-        key = child.get(ET.QName(xmlns_x, "Key"))
-        if key in common_loc_keys:
-            key_text = child.text
-            if not key_text:
-                key_text = ""
-            key = key.replace("Legendary", "Nile")
-            new_key = ET.Element(ET.QName(xmlns_sys, "String"))
-            new_key.set(ET.QName(xmlns_x, "Key"), key.replace("Epic", "Amazon"))
-            new_key.text = key_text.replace("Legendary", "Nile").replace("{PluginShortName}", "Nile").replace("{OriginalPluginShortName}", "Amazon").replace("{SourceName}", "Amazon Games").replace("{AppName}", "Nile")
-            xml_root.append(new_key)
-
-    ET.indent(xml_doc, level=0)
-
-    with open(pj(src_path, "Localization", filename), "w", encoding="utf-8") as i18n_file:
-        i18n_file.write(ET.tostring(xml_doc, encoding="utf-8", xml_declaration=True, pretty_print=True).decode())
 
 # Copy localizations from Playnite
 for filename in os.listdir(pj(main_path, "..", "PlayniteExtensions", "PlayniteRepo", "source", "Playnite", "Localization")):
@@ -107,9 +70,11 @@ for filename in os.listdir(pj(main_path, "..", "PlayniteExtensions", "PlayniteRe
                 new_key = ET.Element(ET.QName(xmlns_sys, "String"))
                 new_key.set(ET.QName(xmlns_x, "Key"), key.replace("LOC", "LOCNile3P_Playnite"))
                 new_key.text = key_text
-                xml_root.append(new_key)
+                if key_text != "":
+                    xml_root.append(new_key)
 
     if filename not in ["LocSource.xaml", "LocalizationKeys.cs", "locstatus.json"]:
+        loc_sub_dir = filename.replace("_", "-").replace(".xaml", "")
         amazon_loc = ET.parse(pj(main_path, "..", "PlayniteExtensions",
                             "source", "Libraries", "AmazonGamesLibrary", "Localization", filename))
         for child in amazon_loc.getroot():
@@ -121,10 +86,12 @@ for filename in os.listdir(pj(main_path, "..", "PlayniteExtensions", "PlayniteRe
                 new_key = ET.Element(ET.QName(xmlns_sys, "String"))
                 new_key.set(ET.QName(xmlns_x, "Key"), key.replace("LOCAmazon", "LOCNile3P_Amazon"))
                 new_key.text = key_text
-                xml_root.append(new_key)
+                if key_text != "":
+                    xml_root.append(new_key)
 
         ET.indent(xml_doc, level=0)
-        with open(pj(localization_path, filename), "w", encoding="utf-8") as i18n_file:
+        os.makedirs(pj(localization_path, loc_sub_dir))
+        with open(pj(localization_path, loc_sub_dir, "third_party.xaml"), "w", encoding="utf-8") as i18n_file:
             i18n_file.write("<?xml version='1.0' encoding='utf-8'?>\n")
             i18n_file.write(
                 f'<!--\n  Automatically generated via update_3p_localization.py script using files from {source} and {source2}.\n  DO NOT MODIFY, CUZ IT MIGHT BE OVERWRITTEN DURING NEXT RUN!\n-->\n')
