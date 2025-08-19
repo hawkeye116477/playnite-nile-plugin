@@ -54,7 +54,7 @@
                         </StackPanel>
                     </StackPanel>
 
-                    <Button Content="{common:Localize Key={x:Static system:LOC.CommonMigrateGamesOriginal}}" HorizontalAlignment="Left" Margin="0,5,0,10" Name="MigrateAmazonBtn" IsEnabled="False" Click="MigrateAmazonBtn_Click"></Button>
+                    <Button Content="{common:Localize Key={x:Static system:LOC.CommonMigrateGamesOriginal},Args='originalPluginShortName=Amazon'}" HorizontalAlignment="Left" Margin="0,5,0,10" Name="MigrateAmazonBtn" IsEnabled="False" Click="MigrateAmazonBtn_Click"></Button>
 
                     <CheckBox IsChecked="{Binding Settings.StartGamesWithoutLauncher}"
                   Content="{DynamicResource LOCNile3P_AmazonSettingsStartGameDirectly}"
