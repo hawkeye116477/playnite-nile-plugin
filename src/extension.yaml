@@ -5,3 +5,13 @@ Version: _version_
 Module: NileLibrary.dll
 Type: GameLibrary
 Icon: Resources\icon.png
+Links:
+  - Name: Source code
+    Url: https://github.com/hawkeye116477/playnite-nile-plugin
+  - Name: Help
+    Url: https://github.com/hawkeye116477/playnite-nile-plugin/wiki
+  - Name: Forum
+    Url: https://github.com/hawkeye116477/playnite-nile-plugin/discussions
+  - Name: Translate
+    Url: https://github.com/hawkeye116477/playnite-nile-plugin/wiki/Translating-plugin
+  
