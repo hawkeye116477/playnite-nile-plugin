@@ -26,17 +26,17 @@
 
     <TabControl ScrollViewer.VerticalScrollBarVisibility="Disabled"
         HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
-        <TabItem Header="{DynamicResource LOCNile3P_PlayniteSettingsGeneralLabel}">
+        <TabItem Header="{common:Localize Key={x:Static system:LOC.ThirdPartyPlayniteSettingsGeneralLabel}}">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel Margin="20">
                     <CheckBox DockPanel.Dock="Top" Name="AmazonImportInstalledChk"
                   Margin="0,0,0,15"
                   IsChecked="{Binding Settings.ImportInstalledGames}"
-                  Content="{DynamicResource LOCNile3P_AmazonSettingsImportInstalledLabel}"/>
+                  Content="{common:Localize Key={x:Static system:LOC.ThirdPartyAmazonSettingsImportInstalledLabel}}"/>
 
                     <CheckBox DockPanel.Dock="Top" Name="AmazonConnectAccountChk"
                   IsChecked="{Binding Settings.ConnectAccount}"
-                  Content="{DynamicResource LOCNile3P_AmazonSettingsConnectAccount}" Checked="AmazonConnectAccountChk_Checked"/>
+                  Content="{common:Localize Key={x:Static system:LOC.ThirdPartyAmazonSettingsConnectAccount}}" Checked="AmazonConnectAccountChk_Checked"/>
 
                     <StackPanel DockPanel.Dock="Top" Margin="40,5,5,5"
                     IsEnabled="{Binding IsChecked, ElementName=AmazonConnectAccountChk}">
@@ -44,12 +44,12 @@
                         <CheckBox DockPanel.Dock="Top" Name="AmazonImportUninstalledChk"
                       IsChecked="{Binding Settings.ImportUninstalledGames}"
                       Margin="0,10,0,0"
-                      Content="{DynamicResource LOCNile3P_AmazonSettingsImportUninstalledLabel}"/>
+                      Content="{common:Localize Key={x:Static system:LOC.ThirdPartyAmazonSettingsImportUninstalledLabel}}"/>
 
                         <StackPanel Orientation="Horizontal"
                         DockPanel.Dock="Top" Margin="0,15,5,5" HorizontalAlignment="Left">
-                            <ToggleButton HorizontalAlignment="Left" Name="LoginBtn" Content="{DynamicResource LOCNile3P_AmazonAuthenticateLabel}" IsChecked="False" Click="LoginBtn_Click" />
-                            <TextBlock VerticalAlignment="Center" Margin="10,5,5,5"  Name="AuthStatusTB" Text="{DynamicResource LOCNile3P_AmazonLoginChecking}">
+                            <ToggleButton HorizontalAlignment="Left" Name="LoginBtn" Content="{common:Localize Key={x:Static system:LOC.ThirdPartyAmazonAuthenticateLabel}}" IsChecked="False" Click="LoginBtn_Click" />
+                            <TextBlock VerticalAlignment="Center" Margin="10,5,5,5"  Name="AuthStatusTB" Text="{common:Localize Key={x:Static system:LOC.ThirdPartyAmazonLoginChecking}}">
                             </TextBlock>
                         </StackPanel>
                     </StackPanel>
@@ -57,15 +57,15 @@
                     <Button Content="{common:Localize Key={x:Static system:LOC.CommonMigrateGamesOriginal},Args='originalPluginShortName=Amazon'}" HorizontalAlignment="Left" Margin="0,5,0,10" Name="MigrateAmazonBtn" IsEnabled="False" Click="MigrateAmazonBtn_Click"></Button>
 
                     <CheckBox IsChecked="{Binding Settings.StartGamesWithoutLauncher}"
-                  Content="{DynamicResource LOCNile3P_AmazonSettingsStartGameDirectly}"
+                  Content="{common:Localize Key={x:Static system:LOC.ThirdPartyAmazonSettingsStartGameDirectly}}"
                   Margin="0,5,0,0" />
 
                     <StackPanel Margin="0,20,0,0">
-                        <TextBlock Text="{DynamicResource LOCNile3P_PlayniteExtensionsUpdates}" FontSize="18"
+                        <TextBlock Text="{common:Localize Key={x:Static system:LOC.ThirdPartyPlayniteExtensionsUpdates}}" FontSize="18"
                         Margin="0,0,0,2" />
                         <Separator Margin="0,0,0,10" />
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                            <TextBlock Text="{common:Localize Key={x:Static system:LOC.CommonLauncherUpdatePolicy}}" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
+                            <TextBlock Text="{common:Localize Key={x:Static system:LOC.CommonLauncherUpdatePolicy},Args='launcherName=Nile'}" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
                             <ComboBox Grid.Row="0" Grid.Column="1" x:Name="LauncherUpdatesCBo" DisplayMemberPath="Value" SelectedValue="{Binding Settings.LauncherUpdatePolicy}" SelectedValuePath="Key" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="10,0,0,0" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
@@ -95,7 +95,7 @@
                         </TextBlock>
                         <Button Margin="5 0 0 0" DockPanel.Dock="Right"
                             Name="ChooseGamePathBtn" Click="ChooseGamePathBtn_Click" Content="&#xec5b;" 
-                            FontFamily="{DynamicResource FontIcoFont}" ToolTip="{DynamicResource LOCNile3P_PlayniteSelectDirectoryTooltip}"
+                            FontFamily="{DynamicResource FontIcoFont}" ToolTip="{common:Localize Key={x:Static system:LOC.ThirdPartyPlayniteSelectDirectoryTooltip}}"
                             VerticalAlignment="Center" />
                         <TextBox Name="SelectedGamePathTxt"
                         Text="{Binding Settings.GamesInstallationPath, UpdateSourceTrigger=PropertyChanged}"
@@ -123,16 +123,16 @@
                 </StackPanel>
             </ScrollViewer>
         </TabItem>
-        <TabItem Header="{DynamicResource LOCNile3P_PlayniteSettingsAdvancedLabel}">
+        <TabItem Header="{common:Localize Key={x:Static system:LOC.ThirdPartyPlayniteSettingsAdvancedLabel}}">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel Margin="20">
                     <DockPanel>
-                        <TextBlock Text="{common:Localize Key={x:Static system:LOC.CommonLauncherCustomPath}}"
+                        <TextBlock Text="{common:Localize Key={x:Static system:LOC.CommonLauncherCustomPath},Args='launcherName=Nile'}"
                                Margin="0,0,7,0" VerticalAlignment="Center" HorizontalAlignment="Left">
                         </TextBlock>
                         <Button Name="ChooseLauncherBtn" DockPanel.Dock="Right"
                             Margin="5,0,0,0" Content="&#xec5b;" FontFamily="{DynamicResource FontIcoFont}" Click="ChooseLauncherBtn_Click"
-                            ToolTip="{DynamicResource LOCNile3P_PlayniteSelectFileTooltip}" VerticalAlignment="Center"/>
+                            ToolTip="{common:Localize Key={x:Static system:LOC.ThirdPartyPlayniteSelectFileTooltip}}" VerticalAlignment="Center"/>
                         <TextBox Text="{Binding Settings.SelectedNilePath, UpdateSourceTrigger=PropertyChanged}" x:Name="SelectedNilePathTxt" 
                             VerticalAlignment="Center"/>
                     </DockPanel>
@@ -188,25 +188,25 @@
                                Margin="0,0,10,5" VerticalAlignment="Center" />
                         <TextBox x:Name="PluginVersionTxt" Grid.Column="1" Grid.Row="1" Margin="0,0,0,5" 
                              VerticalAlignment="Center" IsReadOnly="True" HorizontalAlignment="Left"/>
-                        <TextBlock Text="{common:Localize Key={x:Static system:LOC.CommonLauncherVersion}}" Grid.Column="0" Grid.Row="2"
+                        <TextBlock Text="{common:Localize Key={x:Static system:LOC.CommonLauncherVersion},Args='launcherName=Nile'}" Grid.Column="0" Grid.Row="2"
                                Margin="0,0,10,5" VerticalAlignment="Center" />
                         <TextBox x:Name="LauncherVersionTxt" Grid.Column="1" Grid.Row="2" Margin="0,0,0,5" VerticalAlignment="Center" 
                              IsReadOnly="True" HorizontalAlignment="Left"/>
                         <Button x:Name="CheckForNileUpdatesBtn" Grid.Column="2" Grid.Row="2" Margin="10,0,0,5" VerticalAlignment="Center"
-                            Content="{DynamicResource LOCNile3P_PlayniteCheckForUpdates}" Click="CheckForNileUpdatesBtn_Click" />
-                        <TextBlock Text="{common:Localize Key={x:Static system:LOC.CommonLauncherBinary}}" Grid.Column="0" Grid.Row="4"
+                            Content="{common:Localize Key={x:Static system:LOC.ThirdPartyPlayniteCheckForUpdates}}" Click="CheckForNileUpdatesBtn_Click" />
+                        <TextBlock Text="{common:Localize Key={x:Static system:LOC.CommonLauncherBinary},Args='launcherName=Nile'}" Grid.Column="0" Grid.Row="4"
                                Margin="0,0,10,5" VerticalAlignment="Center"/>
                         <TextBox x:Name="NileBinaryTxt" VerticalAlignment="Center" IsReadOnly="True" Grid.Column="1" Grid.Row="4" Margin="0,0,0,5"/>
-                        <Button x:Name="OpenNileBinaryBtn" Margin="10,0,0,5" Content="{DynamicResource LOCNile3P_PlayniteOpen}" 
+                        <Button x:Name="OpenNileBinaryBtn" Margin="10,0,0,5" Content="{common:Localize Key={x:Static system:LOC.ThirdPartyPlayniteOpen}}" 
                                 VerticalAlignment="Center"  Grid.Column="2" Grid.Row="4" Click="OpenNileBinaryBtn_Click" />
                         <TextBlock Text="{common:Localize Key={x:Static system:LOC.CommonGamesInstallationPath}}" Grid.Row="6" Grid.Column="0"
                                Margin="0,0,10,5" VerticalAlignment="Center"/>
                         <TextBox x:Name="GamesInstallationPathTxt" Margin="0,0,0,5" VerticalAlignment="Center" IsReadOnly="True" Grid.Column="1" Grid.Row="6" />
-                        <Button x:Name="OpenGamesInstallationPathBtn" Margin="10,0,0,5" Content="{DynamicResource LOCNile3P_PlayniteOpen}" 
+                        <Button x:Name="OpenGamesInstallationPathBtn" Margin="10,0,0,5" Content="{common:Localize Key={x:Static system:LOC.ThirdPartyPlayniteOpen}}" 
                                 VerticalAlignment="Center" Click="OpenGamesInstallationPathBtn_Click" Grid.Column="2" Grid.Row="6" />
                         <TextBlock VerticalAlignment="Center" Grid.Column="0" Grid.Row="7" Margin="0,0,10,5" Text="{common:Localize Key={x:Static system:LOC.CommonLogFilesPath}}"/>
                         <TextBox x:Name="LogFilesPathTxt" Margin="0,0,0,5" VerticalAlignment="Center" IsReadOnly="True" Grid.Column="1" Grid.Row="7" />
-                        <Button x:Name="OpenLogFilesPathBtn" Margin="10,0,0,5" Content="{DynamicResource LOCNile3P_PlayniteOpen}" 
+                        <Button x:Name="OpenLogFilesPathBtn" Margin="10,0,0,5" Content="{common:Localize Key={x:Static system:LOC.ThirdPartyPlayniteOpen}}" 
                                 VerticalAlignment="Center" Grid.Column="2"  Grid.Row="7" Click="OpenLogFilesPathBtn_Click" />
                         <Button Margin="0,10,5,5" Grid.Column="0" Grid.Row="8" Name="CopyRawDataBtn" Click="CopyRawDataBtn_Click" 
                             Grid.ColumnSpan="2" HorizontalAlignment="Left" Content="{common:Localize Key={x:Static system:LOC.CommonCopyRawDataToClipboard}}"/>
@@ -215,7 +215,7 @@
                         NavigateUri="https://github.com/hawkeye116477/playnite-nile-plugin/wiki/troubleshooting"
                         Command="{x:Static pcmd:GlobalCommands.NavigateUrlCommand}"
                         CommandParameter="{Binding NavigateUri, RelativeSource={RelativeSource Self}}">
-                        <Run Text="{DynamicResource LOCNile3P_AmazonTroubleShootingIssues}" />
+                        <Run Text="{common:Localize Key={x:Static system:LOC.ThirdPartyAmazonTroubleShootingIssues}}" />
                     </Hyperlink>
                         </TextBlock>
                         <TextBlock VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Grid.Column="0" Grid.Row="10" Margin="0,10,0,0">

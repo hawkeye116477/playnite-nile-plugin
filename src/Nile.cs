@@ -1,6 +1,7 @@
 ﻿using CliWrap;
 using CliWrap.Buffered;
 using CommonPlugin;
+using Linguini.Shared.Types.Bundle;
 using NileLibraryNS.Models;
 using Playnite.Common;
 using Playnite.SDK;
@@ -328,11 +329,11 @@ namespace NileLibraryNS
                 {
                     if (syncErrorMessage.Contains("not logged in"))
                     {
-                        playniteAPI.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteMetadataDownloadError).Format(ResourceProvider.GetString(LOC.Nile3P_PlayniteLoginRequired)), gameName);
+                        playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteMetadataDownloadError, new Dictionary<string, IFluentType> { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteLoginRequired) }), gameName);
                     }
                     else
                     {
-                        playniteAPI.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteMetadataDownloadError).Format(LocalizationManager.Instance.GetString(LOC.CommonCheckLog)), gameName);
+                        playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteMetadataDownloadError, new Dictionary<string, IFluentType> { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.CommonCheckLog) }), gameName);
                     }
                     logger.Error(syncErrorMessage);
                     return gameName;
@@ -412,11 +413,11 @@ namespace NileLibraryNS
                     {
                         if (result.StandardError.Contains("not logged in"))
                         {
-                            playniteAPI.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteMetadataDownloadError).Format(ResourceProvider.GetString(LOC.Nile3P_PlayniteLoginRequired)), gameData.name);
+                            playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteMetadataDownloadError, new Dictionary<string, IFluentType> { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteLoginRequired) }), gameData.name);
                         }
                         else
                         {
-                            playniteAPI.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteMetadataDownloadError).Format(LocalizationManager.Instance.GetString(LOC.CommonCheckLog)), gameData.name);
+                            playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteMetadataDownloadError, new Dictionary<string, IFluentType> { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.CommonCheckLog) }), gameData.name);
                         }
                     }
                     manifest.errorDisplayed = true;
@@ -530,8 +531,8 @@ namespace NileLibraryNS
             var playniteAPI = API.Instance;
             var options = new List<MessageBoxOption>
             {
-                new MessageBoxOption(ResourceProvider.GetString(LOC.Nile3P_PlayniteInstallGame)),
-                new MessageBoxOption(ResourceProvider.GetString(LOC.Nile3P_PlayniteOKLabel)),
+                new MessageBoxOption(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteInstallGame)),
+                new MessageBoxOption(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteOkLabel)),
             };
             var result = playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonLauncherNotInstalled), "Nile (Amazon Games) library integration", MessageBoxImage.Information, options);
             if (result == options[0])

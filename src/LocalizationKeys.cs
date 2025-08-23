@@ -6,255 +6,11 @@ namespace System
     public static class LOC
     {
         /// <summary>
-        /// Filter Active
-        /// </summary>
-        public const string Nile3P_PlayniteFilterActiveLabel = "LOCNile3P_PlayniteFilterActiveLabel";
-        /// <summary>
-        /// Filters
-        /// </summary>
-        public const string Nile3P_PlayniteFilters = "LOCNile3P_PlayniteFilters";
-        /// <summary>
-        /// Cannot start game: {0}
-        /// </summary>
-        public const string Nile3P_PlayniteGameStartError = "LOCNile3P_PlayniteGameStartError";
-        /// <summary>
-        /// Cannot install game: {0}
-        /// </summary>
-        public const string Nile3P_PlayniteGameInstallError = "LOCNile3P_PlayniteGameInstallError";
-        /// <summary>
-        /// Cannot un-install game: {0}
-        /// </summary>
-        public const string Nile3P_PlayniteGameUninstallError = "LOCNile3P_PlayniteGameUninstallError";
-        /// <summary>
-        /// Install Size
-        /// </summary>
-        public const string Nile3P_PlayniteInstallSizeLabel = "LOCNile3P_PlayniteInstallSizeLabel";
-        /// <summary>
-        /// Added
-        /// </summary>
-        public const string Nile3P_PlayniteAddedLabel = "LOCNile3P_PlayniteAddedLabel";
-        /// <summary>
-        /// OK
-        /// </summary>
-        public const string Nile3P_PlayniteOKLabel = "LOCNile3P_PlayniteOKLabel";
-        /// <summary>
-        /// Save
-        /// </summary>
-        public const string Nile3P_PlayniteSaveLabel = "LOCNile3P_PlayniteSaveLabel";
-        /// <summary>
-        /// Cancel
-        /// </summary>
-        public const string Nile3P_PlayniteCancelLabel = "LOCNile3P_PlayniteCancelLabel";
-        /// <summary>
-        /// Yes
-        /// </summary>
-        public const string Nile3P_PlayniteYesLabel = "LOCNile3P_PlayniteYesLabel";
-        /// <summary>
-        /// No
-        /// </summary>
-        public const string Nile3P_PlayniteNoLabel = "LOCNile3P_PlayniteNoLabel";
-        /// <summary>
-        /// Downloading…
-        /// </summary>
-        public const string Nile3P_PlayniteDownloadingLabel = "LOCNile3P_PlayniteDownloadingLabel";
-        /// <summary>
-        /// Loading…
-        /// </summary>
-        public const string Nile3P_PlayniteLoadingLabel = "LOCNile3P_PlayniteLoadingLabel";
-        /// <summary>
-        /// Restart System
-        /// </summary>
-        public const string Nile3P_PlayniteMenuRestartSystem = "LOCNile3P_PlayniteMenuRestartSystem";
-        /// <summary>
-        /// Turn Off System
-        /// </summary>
-        public const string Nile3P_PlayniteMenuShutdownSystem = "LOCNile3P_PlayniteMenuShutdownSystem";
-        /// <summary>
-        /// Suspend System
-        /// </summary>
-        public const string Nile3P_PlayniteMenuSuspendSystem = "LOCNile3P_PlayniteMenuSuspendSystem";
-        /// <summary>
-        /// Hibernate System
-        /// </summary>
-        public const string Nile3P_PlayniteMenuHibernateSystem = "LOCNile3P_PlayniteMenuHibernateSystem";
-        /// <summary>
-        /// Settings
-        /// </summary>
-        public const string Nile3P_PlayniteSettingsLabel = "LOCNile3P_PlayniteSettingsLabel";
-        /// <summary>
-        /// General
-        /// </summary>
-        public const string Nile3P_PlayniteSettingsGeneralLabel = "LOCNile3P_PlayniteSettingsGeneralLabel";
-        /// <summary>
-        /// Advanced
-        /// </summary>
-        public const string Nile3P_PlayniteSettingsAdvancedLabel = "LOCNile3P_PlayniteSettingsAdvancedLabel";
-        /// <summary>
-        /// Clear Cache?
-        /// </summary>
-        public const string Nile3P_PlayniteSettingsClearCacheTitle = "LOCNile3P_PlayniteSettingsClearCacheTitle";
-        /// <summary>
-        /// Never
-        /// </summary>
-        public const string Nile3P_PlayniteSettingsPlaytimeImportModeNever = "LOCNile3P_PlayniteSettingsPlaytimeImportModeNever";
-        /// <summary>
-        /// Authentification required
-        /// </summary>
-        public const string Nile3P_PlayniteLoginRequired = "LOCNile3P_PlayniteLoginRequired";
-        /// <summary>
-        /// Executable
-        /// </summary>
-        public const string Nile3P_PlayniteExecutableTitle = "LOCNile3P_PlayniteExecutableTitle";
-        /// <summary>
-        /// Name
-        /// </summary>
-        public const string Nile3P_PlayniteGameNameTitle = "LOCNile3P_PlayniteGameNameTitle";
-        /// <summary>
-        /// Installation Folder
-        /// </summary>
-        public const string Nile3P_PlayniteGameInstallDirTitle = "LOCNile3P_PlayniteGameInstallDirTitle";
-        /// <summary>
-        /// Failed to import games from {0}.
-        /// </summary>
-        public const string Nile3P_PlayniteLibraryImportError = "LOCNile3P_PlayniteLibraryImportError";
-        /// <summary>
-        /// Failed to download metadata: {0}
-        /// </summary>
-        public const string Nile3P_PlayniteMetadataDownloadError = "LOCNile3P_PlayniteMetadataDownloadError";
-        /// <summary>
-        /// Uninstalling
-        /// </summary>
-        public const string Nile3P_PlayniteUninstalling = "LOCNile3P_PlayniteUninstalling";
-        /// <summary>
-        /// Do nothing
-        /// </summary>
-        public const string Nile3P_PlayniteDoNothing = "LOCNile3P_PlayniteDoNothing";
-        /// <summary>
-        /// Update Available
-        /// </summary>
-        public const string Nile3P_PlayniteUpdaterWindowTitle = "LOCNile3P_PlayniteUpdaterWindowTitle";
-        /// <summary>
-        /// Download and Install Update
-        /// </summary>
-        public const string Nile3P_PlayniteUpdaterInstallUpdate = "LOCNile3P_PlayniteUpdaterInstallUpdate";
-        /// <summary>
-        /// Check for Updates
-        /// </summary>
-        public const string Nile3P_PlayniteCheckForUpdates = "LOCNile3P_PlayniteCheckForUpdates";
-        /// <summary>
-        /// Failed to check for new version.
-        /// </summary>
-        public const string Nile3P_PlayniteUpdateCheckFailMessage = "LOCNile3P_PlayniteUpdateCheckFailMessage";
-        /// <summary>
-        /// Install
-        /// </summary>
-        public const string Nile3P_PlayniteInstallGame = "LOCNile3P_PlayniteInstallGame";
-        /// <summary>
-        /// Uninstall
-        /// </summary>
-        public const string Nile3P_PlayniteUninstallGame = "LOCNile3P_PlayniteUninstallGame";
-        /// <summary>
-        /// Don't Show Again
-        /// </summary>
-        public const string Nile3P_PlayniteDontShowAgainTitle = "LOCNile3P_PlayniteDontShowAgainTitle";
-        /// <summary>
-        /// Updates
-        /// </summary>
-        public const string Nile3P_PlayniteExtensionsUpdates = "LOCNile3P_PlayniteExtensionsUpdates";
-        /// <summary>
-        /// Select file…
-        /// </summary>
-        public const string Nile3P_PlayniteSelectFileTooltip = "LOCNile3P_PlayniteSelectFileTooltip";
-        /// <summary>
-        /// Select folder…
-        /// </summary>
-        public const string Nile3P_PlayniteSelectDirectoryTooltip = "LOCNile3P_PlayniteSelectDirectoryTooltip";
-        /// <summary>
-        /// Only manually
-        /// </summary>
-        public const string Nile3P_PlayniteOptionOnlyManually = "LOCNile3P_PlayniteOptionOnlyManually";
-        /// <summary>
-        /// Once a day
-        /// </summary>
-        public const string Nile3P_PlayniteOptionOnceADay = "LOCNile3P_PlayniteOptionOnceADay";
-        /// <summary>
-        /// Once a week
-        /// </summary>
-        public const string Nile3P_PlayniteOptionOnceAWeek = "LOCNile3P_PlayniteOptionOnceAWeek";
-        /// <summary>
-        /// Open
-        /// </summary>
-        public const string Nile3P_PlayniteOpen = "LOCNile3P_PlayniteOpen";
-        /// <summary>
-        /// Import installed games
-        /// </summary>
-        public const string Nile3P_AmazonSettingsImportInstalledLabel = "LOCNile3P_AmazonSettingsImportInstalledLabel";
-        /// <summary>
-        /// Import not installed games
-        /// </summary>
-        public const string Nile3P_AmazonSettingsImportUninstalledLabel = "LOCNile3P_AmazonSettingsImportUninstalledLabel";
-        /// <summary>
-        /// Connect account
-        /// </summary>
-        public const string Nile3P_AmazonSettingsConnectAccount = "LOCNile3P_AmazonSettingsConnectAccount";
-        /// <summary>
-        /// Checking authentication status…
-        /// </summary>
-        public const string Nile3P_AmazonLoginChecking = "LOCNile3P_AmazonLoginChecking";
-        /// <summary>
-        /// User is authenticated
-        /// </summary>
-        public const string Nile3P_AmazonLoggedIn = "LOCNile3P_AmazonLoggedIn";
-        /// <summary>
-        /// Requires authentication
-        /// </summary>
-        public const string Nile3P_AmazonNotLoggedIn = "LOCNile3P_AmazonNotLoggedIn";
-        /// <summary>
-        /// Failed to authenticate user.
-        /// </summary>
-        public const string Nile3P_AmazonNotLoggedInError = "LOCNile3P_AmazonNotLoggedInError";
-        /// <summary>
-        /// Authenticate
-        /// </summary>
-        public const string Nile3P_AmazonAuthenticateLabel = "LOCNile3P_AmazonAuthenticateLabel";
-        /// <summary>
-        /// Start games directly without running official client
-        /// </summary>
-        public const string Nile3P_AmazonSettingsStartGameDirectly = "LOCNile3P_AmazonSettingsStartGameDirectly";
-        /// <summary>
-        /// Troubleshooting account sync issues
-        /// </summary>
-        public const string Nile3P_AmazonTroubleShootingAccountLink = "LOCNile3P_AmazonTroubleShootingAccountLink";
-        /// <summary>
-        /// Troubleshooting issues
-        /// </summary>
-        public const string Nile3P_AmazonTroubleShootingIssues = "LOCNile3P_AmazonTroubleShootingIssues";
-        /// <summary>
-        /// Import all games
-        /// </summary>
-        public const string Nile3P_AmazonSettingsImportLibraryLabel = "LOCNile3P_AmazonSettingsImportLibraryLabel";
-        /// <summary>
-        /// Private Account
-        /// </summary>
-        public const string Nile3P_AmazonPrivateAccount = "LOCNile3P_AmazonPrivateAccount";
-        /// <summary>
-        /// Public Account
-        /// </summary>
-        public const string Nile3P_AmazonPublicAccount = "LOCNile3P_AmazonPublicAccount";
-        /// <summary>
-        /// API Key
-        /// </summary>
-        public const string Nile3P_AmazonAPIKey = "LOCNile3P_AmazonAPIKey";
-        /// <summary>
-        /// Start using {0} client
-        /// </summary>
-        public const string Nile3P_AmazonStartUsingClient = "LOCNile3P_AmazonStartUsingClient";
-        /// <summary>
         /// Launch directly without using launcher
         /// </summary>
         public const string NileLaunchGameDirectly = "nile-launch-game-directly";
         /// <summary>
-        /// Launcher Path
+        /// {$launcherName} Path
         /// </summary>
         public const string CommonLauncherCustomPath = "common-launcher-custom-path";
         /// <summary>
@@ -578,11 +334,11 @@ namespace System
         /// </summary>
         public const string CommonPluginVersion = "common-plugin-version";
         /// <summary>
-        /// Launcher version
+        /// {$launcherName} version
         /// </summary>
         public const string CommonLauncherVersion = "common-launcher-version";
         /// <summary>
-        /// Launcher binary
+        /// {$launcherName} binary
         /// </summary>
         public const string CommonLauncherBinary = "common-launcher-binary";
         /// <summary>
@@ -705,7 +461,7 @@ namespace System
         /// </summary>
         public const string CommonGames = "common-games";
         /// <summary>
-        /// Check for launcher updates
+        /// Check for {$launcherName} updates
         /// </summary>
         public const string CommonLauncherUpdatePolicy = "common-launcher-update-policy";
         /// <summary>
@@ -746,5 +502,249 @@ namespace System
         /// Only one instance of {$pluginShortName} may install/import/move applications at a time. Do you want to pause download manager tasks to continue?
         /// </summary>
         public const string CommonInstanceNotice = "common-instance-notice";
+        /// <summary>
+        /// Filter Active
+        /// </summary>
+        public const string ThirdPartyPlayniteFilterActiveLabel = "third-party-playnite-filter-active-label";
+        /// <summary>
+        /// Filters
+        /// </summary>
+        public const string ThirdPartyPlayniteFilters = "third-party-playnite-filters";
+        /// <summary>
+        /// Cannot start game: {$var0}
+        /// </summary>
+        public const string ThirdPartyPlayniteGameStartError = "third-party-playnite-game-start-error";
+        /// <summary>
+        /// Cannot install game: {$var0}
+        /// </summary>
+        public const string ThirdPartyPlayniteGameInstallError = "third-party-playnite-game-install-error";
+        /// <summary>
+        /// Cannot un-install game: {$var0}
+        /// </summary>
+        public const string ThirdPartyPlayniteGameUninstallError = "third-party-playnite-game-uninstall-error";
+        /// <summary>
+        /// Install Size
+        /// </summary>
+        public const string ThirdPartyPlayniteInstallSizeLabel = "third-party-playnite-install-size-label";
+        /// <summary>
+        /// Added
+        /// </summary>
+        public const string ThirdPartyPlayniteAddedLabel = "third-party-playnite-added-label";
+        /// <summary>
+        /// OK
+        /// </summary>
+        public const string ThirdPartyPlayniteOkLabel = "third-party-playnite-ok-label";
+        /// <summary>
+        /// Save
+        /// </summary>
+        public const string ThirdPartyPlayniteSaveLabel = "third-party-playnite-save-label";
+        /// <summary>
+        /// Cancel
+        /// </summary>
+        public const string ThirdPartyPlayniteCancelLabel = "third-party-playnite-cancel-label";
+        /// <summary>
+        /// Yes
+        /// </summary>
+        public const string ThirdPartyPlayniteYesLabel = "third-party-playnite-yes-label";
+        /// <summary>
+        /// No
+        /// </summary>
+        public const string ThirdPartyPlayniteNoLabel = "third-party-playnite-no-label";
+        /// <summary>
+        /// Downloading…
+        /// </summary>
+        public const string ThirdPartyPlayniteDownloadingLabel = "third-party-playnite-downloading-label";
+        /// <summary>
+        /// Loading…
+        /// </summary>
+        public const string ThirdPartyPlayniteLoadingLabel = "third-party-playnite-loading-label";
+        /// <summary>
+        /// Restart System
+        /// </summary>
+        public const string ThirdPartyPlayniteMenuRestartSystem = "third-party-playnite-menu-restart-system";
+        /// <summary>
+        /// Turn Off System
+        /// </summary>
+        public const string ThirdPartyPlayniteMenuShutdownSystem = "third-party-playnite-menu-shutdown-system";
+        /// <summary>
+        /// Suspend System
+        /// </summary>
+        public const string ThirdPartyPlayniteMenuSuspendSystem = "third-party-playnite-menu-suspend-system";
+        /// <summary>
+        /// Hibernate System
+        /// </summary>
+        public const string ThirdPartyPlayniteMenuHibernateSystem = "third-party-playnite-menu-hibernate-system";
+        /// <summary>
+        /// Settings
+        /// </summary>
+        public const string ThirdPartyPlayniteSettingsLabel = "third-party-playnite-settings-label";
+        /// <summary>
+        /// General
+        /// </summary>
+        public const string ThirdPartyPlayniteSettingsGeneralLabel = "third-party-playnite-settings-general-label";
+        /// <summary>
+        /// Advanced
+        /// </summary>
+        public const string ThirdPartyPlayniteSettingsAdvancedLabel = "third-party-playnite-settings-advanced-label";
+        /// <summary>
+        /// Clear Cache?
+        /// </summary>
+        public const string ThirdPartyPlayniteSettingsClearCacheTitle = "third-party-playnite-settings-clear-cache-title";
+        /// <summary>
+        /// Never
+        /// </summary>
+        public const string ThirdPartyPlayniteSettingsPlaytimeImportModeNever = "third-party-playnite-settings-playtime-import-mode-never";
+        /// <summary>
+        /// Authentification required
+        /// </summary>
+        public const string ThirdPartyPlayniteLoginRequired = "third-party-playnite-login-required";
+        /// <summary>
+        /// Executable
+        /// </summary>
+        public const string ThirdPartyPlayniteExecutableTitle = "third-party-playnite-executable-title";
+        /// <summary>
+        /// Name
+        /// </summary>
+        public const string ThirdPartyPlayniteGameNameTitle = "third-party-playnite-game-name-title";
+        /// <summary>
+        /// Installation Folder
+        /// </summary>
+        public const string ThirdPartyPlayniteGameInstallDirTitle = "third-party-playnite-game-install-dir-title";
+        /// <summary>
+        /// Failed to import games from {$var0}.
+        /// </summary>
+        public const string ThirdPartyPlayniteLibraryImportError = "third-party-playnite-library-import-error";
+        /// <summary>
+        /// Failed to download metadata: {$var0}
+        /// </summary>
+        public const string ThirdPartyPlayniteMetadataDownloadError = "third-party-playnite-metadata-download-error";
+        /// <summary>
+        /// Uninstalling
+        /// </summary>
+        public const string ThirdPartyPlayniteUninstalling = "third-party-playnite-uninstalling";
+        /// <summary>
+        /// Do nothing
+        /// </summary>
+        public const string ThirdPartyPlayniteDoNothing = "third-party-playnite-do-nothing";
+        /// <summary>
+        /// Update Available
+        /// </summary>
+        public const string ThirdPartyPlayniteUpdaterWindowTitle = "third-party-playnite-updater-window-title";
+        /// <summary>
+        /// Download and Install Update
+        /// </summary>
+        public const string ThirdPartyPlayniteUpdaterInstallUpdate = "third-party-playnite-updater-install-update";
+        /// <summary>
+        /// Check for Updates
+        /// </summary>
+        public const string ThirdPartyPlayniteCheckForUpdates = "third-party-playnite-check-for-updates";
+        /// <summary>
+        /// Failed to check for new version.
+        /// </summary>
+        public const string ThirdPartyPlayniteUpdateCheckFailMessage = "third-party-playnite-update-check-fail-message";
+        /// <summary>
+        /// Install
+        /// </summary>
+        public const string ThirdPartyPlayniteInstallGame = "third-party-playnite-install-game";
+        /// <summary>
+        /// Uninstall
+        /// </summary>
+        public const string ThirdPartyPlayniteUninstallGame = "third-party-playnite-uninstall-game";
+        /// <summary>
+        /// Don't Show Again
+        /// </summary>
+        public const string ThirdPartyPlayniteDontShowAgainTitle = "third-party-playnite-dont-show-again-title";
+        /// <summary>
+        /// Updates
+        /// </summary>
+        public const string ThirdPartyPlayniteExtensionsUpdates = "third-party-playnite-extensions-updates";
+        /// <summary>
+        /// Select file…
+        /// </summary>
+        public const string ThirdPartyPlayniteSelectFileTooltip = "third-party-playnite-select-file-tooltip";
+        /// <summary>
+        /// Select folder…
+        /// </summary>
+        public const string ThirdPartyPlayniteSelectDirectoryTooltip = "third-party-playnite-select-directory-tooltip";
+        /// <summary>
+        /// Only manually
+        /// </summary>
+        public const string ThirdPartyPlayniteOptionOnlyManually = "third-party-playnite-option-only-manually";
+        /// <summary>
+        /// Once a day
+        /// </summary>
+        public const string ThirdPartyPlayniteOptionOnceADay = "third-party-playnite-option-once-a-day";
+        /// <summary>
+        /// Once a week
+        /// </summary>
+        public const string ThirdPartyPlayniteOptionOnceAWeek = "third-party-playnite-option-once-a-week";
+        /// <summary>
+        /// Open
+        /// </summary>
+        public const string ThirdPartyPlayniteOpen = "third-party-playnite-open";
+        /// <summary>
+        /// Import installed games
+        /// </summary>
+        public const string ThirdPartyAmazonSettingsImportInstalledLabel = "third-party-amazon-settings-import-installed-label";
+        /// <summary>
+        /// Import not installed games
+        /// </summary>
+        public const string ThirdPartyAmazonSettingsImportUninstalledLabel = "third-party-amazon-settings-import-uninstalled-label";
+        /// <summary>
+        /// Connect account
+        /// </summary>
+        public const string ThirdPartyAmazonSettingsConnectAccount = "third-party-amazon-settings-connect-account";
+        /// <summary>
+        /// Checking authentication status…
+        /// </summary>
+        public const string ThirdPartyAmazonLoginChecking = "third-party-amazon-login-checking";
+        /// <summary>
+        /// User is authenticated
+        /// </summary>
+        public const string ThirdPartyAmazonLoggedIn = "third-party-amazon-logged-in";
+        /// <summary>
+        /// Requires authentication
+        /// </summary>
+        public const string ThirdPartyAmazonNotLoggedIn = "third-party-amazon-not-logged-in";
+        /// <summary>
+        /// Failed to authenticate user.
+        /// </summary>
+        public const string ThirdPartyAmazonNotLoggedInError = "third-party-amazon-not-logged-in-error";
+        /// <summary>
+        /// Authenticate
+        /// </summary>
+        public const string ThirdPartyAmazonAuthenticateLabel = "third-party-amazon-authenticate-label";
+        /// <summary>
+        /// Start games directly without running official client
+        /// </summary>
+        public const string ThirdPartyAmazonSettingsStartGameDirectly = "third-party-amazon-settings-start-game-directly";
+        /// <summary>
+        /// Troubleshooting account sync issues
+        /// </summary>
+        public const string ThirdPartyAmazonTroubleShootingAccountLink = "third-party-amazon-trouble-shooting-account-link";
+        /// <summary>
+        /// Troubleshooting issues
+        /// </summary>
+        public const string ThirdPartyAmazonTroubleShootingIssues = "third-party-amazon-trouble-shooting-issues";
+        /// <summary>
+        /// Import all games
+        /// </summary>
+        public const string ThirdPartyAmazonSettingsImportLibraryLabel = "third-party-amazon-settings-import-library-label";
+        /// <summary>
+        /// Private Account
+        /// </summary>
+        public const string ThirdPartyAmazonPrivateAccount = "third-party-amazon-private-account";
+        /// <summary>
+        /// Public Account
+        /// </summary>
+        public const string ThirdPartyAmazonPublicAccount = "third-party-amazon-public-account";
+        /// <summary>
+        /// API Key
+        /// </summary>
+        public const string ThirdPartyAmazonApiKey = "third-party-amazon-api-key";
+        /// <summary>
+        /// Start using {$var0} client
+        /// </summary>
+        public const string ThirdPartyAmazonStartUsingClient = "third-party-amazon-start-using-client";
     }
 }

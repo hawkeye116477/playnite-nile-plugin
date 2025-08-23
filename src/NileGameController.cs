@@ -69,7 +69,7 @@ namespace NileLibraryNS
             window.SizeToContent = SizeToContent.WidthAndHeight;
             window.MinWidth = 600;
             window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            var title = ResourceProvider.GetString(LOC.Nile3P_PlayniteInstallGame);
+            var title = LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteInstallGame);
             if (installData[0].downloadProperties.downloadAction == DownloadAction.Repair)
             {
                 title = LocalizationManager.Instance.GetString(LOC.CommonRepair);
@@ -112,7 +112,7 @@ namespace NileLibraryNS
             }
             var playniteAPI = API.Instance;
             string gamesCombined = string.Join(", ", games.Select(item => item.Name));
-            var result = MessageCheckBoxDialog.ShowMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteUninstallGame), LocalizationManager.Instance.GetString(LOC.CommonUninstallGameConfirm, new Dictionary<string, IFluentType> { ["gameTitle"] = (FluentString)gamesCombined }), LOC.CommonRemoveGameLaunchSettings, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var result = MessageCheckBoxDialog.ShowMessage(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteUninstallGame), LocalizationManager.Instance.GetString(LOC.CommonUninstallGameConfirm, new Dictionary<string, IFluentType> { ["gameTitle"] = (FluentString)gamesCombined }), LOC.CommonRemoveGameLaunchSettings, MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result.Result)
             {
                 var canContinue = NileLibrary.Instance.StopDownloadManager(true);
@@ -122,7 +122,7 @@ namespace NileLibraryNS
                 }
                 var notUninstalledGames = new List<Game>();
                 var uninstalledGames = new List<Game>();
-                GlobalProgressOptions globalProgressOptions = new GlobalProgressOptions($"{ResourceProvider.GetString(LOC.Nile3P_PlayniteUninstalling)}... ", false);
+                GlobalProgressOptions globalProgressOptions = new GlobalProgressOptions($"{LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteUninstalling)}... ", false);
                 playniteAPI.Dialogs.ActivateGlobalProgress(async (a) =>
                 {
                     a.IsIndeterminate = false;
@@ -132,7 +132,7 @@ namespace NileLibraryNS
                         var counter = 0;
                         foreach (var game in games)
                         {
-                            a.Text = $"{ResourceProvider.GetString(LOC.Nile3P_PlayniteUninstalling)} {game.Name}... ";
+                            a.Text = $"{LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteUninstalling)} {game.Name}... ";
                             var cmd = await Cli.Wrap(Nile.ClientExecPath)
                                                .WithArguments(new[] { "uninstall", game.GameId })
                                                .WithEnvironmentVariables(Nile.DefaultEnvironmentVariables)
@@ -191,7 +191,7 @@ namespace NileLibraryNS
                     string notUninstalledGamesCombined = notUninstalledGames[0].Name;
                     if (notUninstalledGames.Count == 1)
                     {
-                        playniteAPI.Dialogs.ShowErrorMessage(ResourceProvider.GetString(LOC.Nile3P_PlayniteGameUninstallError).Format(LocalizationManager.Instance.GetString(LOC.CommonCheckLog)), notUninstalledGamesCombined);
+                        playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteGameUninstallError, new Dictionary<string, IFluentType> { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.CommonCheckLog) }), notUninstalledGamesCombined);
                     }
                     else
                     {
@@ -212,7 +212,7 @@ namespace NileLibraryNS
 
         public NilePlayController(Game game) : base(game)
         {
-            Name = string.Format(ResourceProvider.GetString(LOC.Nile3P_AmazonStartUsingClient), "Nile");
+            Name = LocalizationManager.Instance.GetString(LOC.ThirdPartyAmazonStartUsingClient, new Dictionary<string, IFluentType> { ["var0"] = (FluentString)"Nile" });
         }
 
         public override void Dispose()
@@ -348,8 +348,8 @@ namespace NileLibraryNS
                             if (errorMessage.Contains("not logged in") && canLaunchWithoutLauncher)
                             {
                                 var tryOfflineResponse = new MessageBoxOption(LOC.NileLaunchGameDirectly);
-                                var okResponse = new MessageBoxOption(LOC.Nile3P_PlayniteOKLabel, true, true);
-                                var offlineConfirm = playniteAPI.Dialogs.ShowMessage(string.Format(ResourceProvider.GetString(LOC.Nile3P_PlayniteGameStartError), ResourceProvider.GetString(LOC.Nile3P_PlayniteLoginRequired)), "", MessageBoxImage.Error,
+                                var okResponse = new MessageBoxOption(LOC.ThirdPartyPlayniteOkLabel, true, true);
+                                var offlineConfirm = playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteGameStartError, new Dictionary<string, IFluentType> { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteLoginRequired) }), "", MessageBoxImage.Error,
                                     new List<MessageBoxOption> { tryOfflineResponse, okResponse });
                                 if (offlineConfirm == tryOfflineResponse)
                                 {
@@ -365,7 +365,7 @@ namespace NileLibraryNS
                             else
                             {
                                 InvokeOnStopped(new GameStoppedEventArgs());
-                                playniteAPI.Dialogs.ShowErrorMessage(string.Format(ResourceProvider.GetString(LOC.Nile3P_PlayniteGameStartError), LocalizationManager.Instance.GetString(LOC.CommonCheckLog)));
+                                playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteGameStartError, new Dictionary<string, IFluentType> { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.CommonCheckLog) }));
                             }
                         }
                         else
@@ -524,11 +524,11 @@ namespace NileLibraryNS
                 {
                     if (errorMessage.Contains("not logged in"))
                     {
-                        playniteAPI.Dialogs.ShowErrorMessage(NileLibrary.Instance.Name, $"{ResourceProvider.GetString(LOC.Nile3P_PlayniteUpdateCheckFailMessage)} {ResourceProvider.GetString(LOC.Nile3P_PlayniteLoginRequired)}");
+                        playniteAPI.Dialogs.ShowErrorMessage(NileLibrary.Instance.Name, $"{LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteUpdateCheckFailMessage)} {LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteLoginRequired)}");
                     }
                     else
                     {
-                        playniteAPI.Dialogs.ShowErrorMessage(NileLibrary.Instance.Name, $"{ResourceProvider.GetString(LOC.Nile3P_PlayniteUpdateCheckFailMessage)} {LocalizationManager.Instance.GetString(LOC.CommonCheckLog)}");
+                        playniteAPI.Dialogs.ShowErrorMessage(NileLibrary.Instance.Name, $"{LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteUpdateCheckFailMessage)} {LocalizationManager.Instance.GetString(LOC.CommonCheckLog)}");
                     }
                 }
             }
