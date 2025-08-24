@@ -19,6 +19,7 @@ namespace NileLibraryNS.Services
         private NileLibrary library;
         private const string loginUrl = @"https://www.amazon.com/ap/signin?openid.ns=http://specs.openid.net/auth/2.0&openid.claimed_id=http://specs.openid.net/auth/2.0/identifier_select&openid.identity=http://specs.openid.net/auth/2.0/identifier_select&openid.mode=checkid_setup&openid.oa2.scope=device_auth_access&openid.ns.oa2=http://www.amazon.com/ap/ext/oauth/2&openid.oa2.response_type=code&openid.oa2.code_challenge_method=S256&openid.oa2.client_id=device:3733646238643238366332613932346432653737653161663637373636363435234132554d56484f58375550345637&language=en_US&marketPlaceId=ATVPDKIKX0DER&openid.return_to=https://www.amazon.com&openid.pape.max_auth_age=0&openid.assoc_handle=amzn_sonic_games_launcher&pageId=amzn_sonic_games_launcher&openid.oa2.code_challenge=";
         private readonly string tokensPath;
+        private string userAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) @amzn/aga-electron-platform/1.0.0 Chrome/78.0.3904.130 Electron/7.1.9 Safari/537.36";
 
         public AmazonAccountClient(NileLibrary library)
         {
@@ -45,7 +46,12 @@ namespace NileLibraryNS.Services
             var callbackUrl = string.Empty;
             var codeChallenge = GenerateCodeChallenge();
             FileSystem.DeleteFile(tokensPath);
-            using (var webView = library.PlayniteApi.WebViews.CreateView(490, 660))
+            using (var webView = library.PlayniteApi.WebViews.CreateView(new WebViewSettings
+            {
+                WindowWidth = 490,
+                WindowHeight = 660,
+                UserAgent = userAgent,
+            }))
             {
                 webView.LoadingChanged += (s, e) =>
                 {
