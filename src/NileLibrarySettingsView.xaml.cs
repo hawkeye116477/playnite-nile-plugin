@@ -187,7 +187,7 @@ namespace NileLibraryNS
             }
             else
             {
-                playniteAPI.Dialogs.ShowErrorMessage(LOC.CommonPathNotExistsError);
+                playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(LOC.CommonPathNotExistsError));
             }
         }
 

@@ -438,7 +438,7 @@ namespace NileLibraryNS
                                     }
                                     var bitmap = new System.Drawing.Bitmap(Nile.Icon);
                                     var iconHandle = bitmap.GetHicon();
-                                    Playnite.WindowsNotifyIconManager.Notify(System.Drawing.Icon.FromHandle(iconHandle), gameTitle, ResourceProvider.GetString(notificationMessage), null);
+                                    Playnite.WindowsNotifyIconManager.Notify(System.Drawing.Icon.FromHandle(iconHandle), gameTitle, LocalizationManager.Instance.GetString(notificationMessage), null);
                                 }
                             }
                             gracefulInstallerCTS?.Dispose();

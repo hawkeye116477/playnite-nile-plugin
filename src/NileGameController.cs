@@ -347,8 +347,8 @@ namespace NileLibraryNS
                             logger.Error("[Nile] exit code: " + exited.ExitCode);
                             if (errorMessage.Contains("not logged in") && canLaunchWithoutLauncher)
                             {
-                                var tryOfflineResponse = new MessageBoxOption(LOC.NileLaunchGameDirectly);
-                                var okResponse = new MessageBoxOption(LOC.ThirdPartyPlayniteOkLabel, true, true);
+                                var tryOfflineResponse = new MessageBoxOption(LocalizationManager.Instance.GetString(LOC.NileLaunchGameDirectly));
+                                var okResponse = new MessageBoxOption(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteOkLabel), true, true);
                                 var offlineConfirm = playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteGameStartError, new Dictionary<string, IFluentType> { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteLoginRequired) }), "", MessageBoxImage.Error,
                                     new List<MessageBoxOption> { tryOfflineResponse, okResponse });
                                 if (offlineConfirm == tryOfflineResponse)
