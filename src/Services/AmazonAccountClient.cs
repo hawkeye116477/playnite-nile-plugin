@@ -218,15 +218,20 @@ namespace NileLibraryNS.Services
                 var strcont = new StringContent(authPostContent, Encoding.UTF8, "application/json");
                 strcont.Headers.TryAddWithoutValidation("Expect", "100-continue");
 
-                var authResponse = await client.PostAsync(
-                    @"https://api.amazon.com/auth/token",
-                    strcont);
-
-                var authResponseContent = await authResponse.Content.ReadAsStringAsync();
-                var authData = Serialization.FromJson<DeviceRegistrationResponse.Response.Success.Bearer>(authResponseContent);
-                tokens.tokens.bearer.access_token = authData.access_token;
-                tokens.NILE.token_obtain_time = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-                File.WriteAllText(tokensPath, Serialization.ToJson(tokens));
+                try
+                {
+                    var authResponse = await client.PostAsync(@"https://api.amazon.com/auth/token",
+                                                              strcont);
+                    var authResponseContent = await authResponse.Content.ReadAsStringAsync();
+                    var authData = Serialization.FromJson<DeviceRegistrationResponse.Response.Success.Bearer>(authResponseContent);
+                    tokens.tokens.bearer.access_token = authData.access_token;
+                    tokens.NILE.token_obtain_time = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+                    File.WriteAllText(tokensPath, Serialization.ToJson(tokens));
+                }
+                catch (Exception ex)
+                {
+                    logger.Error($"Failed to renew tokens: {ex}");
+                }
                 return tokens;
             }
         }
@@ -253,10 +258,18 @@ namespace NileLibraryNS.Services
                 client.DefaultRequestHeaders.Add("User-Agent", "AGSLauncher/1.0.0");
                 client.DefaultRequestHeaders.Add("Authorization", "bearer " + tokens.tokens.bearer.access_token);
                 client.DefaultRequestHeaders.Add("Accept", "application/json");
-                var infoResponse = await client.GetAsync(@"https://api.amazon.com/user/profile");
-                var infoResponseContent = await infoResponse.Content.ReadAsStringAsync();
-                var infoData = Serialization.FromJson<ProfileInfo>(infoResponseContent);
-                return !infoData.user_id.IsNullOrEmpty();
+                try
+                {
+                    var infoResponse = await client.GetAsync(@"https://api.amazon.com/user/profile");
+                    var infoResponseContent = await infoResponse.Content.ReadAsStringAsync();
+                    var infoData = Serialization.FromJson<ProfileInfo>(infoResponseContent);
+                    return !infoData.user_id.IsNullOrEmpty();
+                }
+                catch (Exception ex)
+                {
+                    logger.Error($"Failed to check Amazon login status. Error: {ex}");
+                    return false;
+                }
             }
         }
 
