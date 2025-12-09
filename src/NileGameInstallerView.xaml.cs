@@ -2,6 +2,7 @@
 using CommonPlugin.Enums;
 using Linguini.Shared.Types.Bundle;
 using NileLibraryNS.Models;
+using NileLibraryNS.Services;
 using Playnite.SDK;
 using System;
 using System.Collections.Generic;
@@ -207,6 +208,15 @@ namespace NileLibraryNS
             NileDownloadManagerView downloadManager = NileLibrary.GetNileDownloadManager();
 
             bool gamesListShouldBeDisplayed = false;
+
+            var clientApi = new AmazonAccountClient(NileLibrary.Instance);
+            var userLoggedIn = await clientApi.GetIsUserLoggedIn();
+            if (!userLoggedIn)
+            {
+                playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteGameInstallError, new Dictionary<string, IFluentType> { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteLoginRequired) }));
+                InstallerWindow.Close();
+                return;
+            }
 
             var installedAppList = Nile.GetInstalledAppList();
 
