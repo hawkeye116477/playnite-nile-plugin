@@ -586,7 +586,6 @@ namespace NileLibraryNS
                     NileDownloadManagerView downloadManager = NileLibrary.GetNileDownloadManager();
                     foreach (var gameToUpdate in gamesToUpdate)
                     {
-                        var downloadData = new DownloadManagerData.Download { gameID = gameToUpdate.Key, downloadProperties = downloadProperties };
                         var wantedItem = downloadManager.downloadManagerData.downloads.FirstOrDefault(item => item.gameID == gameToUpdate.Key);
                         if (wantedItem != null)
                         {
@@ -606,26 +605,23 @@ namespace NileLibraryNS
                         }
                         else
                         {
-                            if (downloadProperties == null)
+                            var settings = NileLibrary.GetSettings();
+                            var newDownloadProperties = new DownloadProperties()
                             {
-                                var settings = NileLibrary.GetSettings();
-                                downloadProperties = new DownloadProperties()
-                                {
-                                    downloadAction = DownloadAction.Update,
-                                    maxWorkers = settings.MaxWorkers,
-                                };
-                            }
+                                downloadAction = DownloadAction.Update,
+                                maxWorkers = settings.MaxWorkers,
+                            };
                             if (!gameToUpdate.Value.Install_path.IsNullOrEmpty())
                             {
-                                downloadProperties.installPath = gameToUpdate.Value.Install_path;
+                                newDownloadProperties.installPath = gameToUpdate.Value.Install_path;
                             }
                             var updateTask = new DownloadManagerData.Download
                             {
                                 gameID = gameToUpdate.Key,
                                 name = gameToUpdate.Value.Title,
                                 downloadSizeNumber = gameToUpdate.Value.Download_size,
-                                downloadProperties = downloadProperties,
-                                fullInstallPath = downloadProperties.installPath
+                                downloadProperties = newDownloadProperties,
+                                fullInstallPath = newDownloadProperties.installPath
                             };
                             updateTasks.Add(updateTask);
                         }
