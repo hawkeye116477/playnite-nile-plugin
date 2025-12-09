@@ -1,7 +1,7 @@
 ###
 ### Automatically generated via update_3p_localization.py script using files from 
-### https://github.com/JosefNemec/PlayniteExtensions/tree/b5a78cd385a99d4b5eb36263f239e74265946290 and 
-### https://github.com/JosefNemec/Playnite/tree/653bd468101c98dbd176b78ae94c10a0679fa0e4. 
+### https://github.com/JosefNemec/PlayniteExtensions/tree/2571993a388889c024561d1626dfaf2b3fd55da7 and 
+### https://github.com/JosefNemec/Playnite/tree/81a66b1b0cdca691eefcc03095ca20ce627db907. 
 ### DO NOT MODIFY, CUZ IT MIGHT BE OVERWRITTEN DURING NEXT RUN!
 ###
 third-party-playnite-filter-active-label = Филтърът е активен
@@ -12,7 +12,7 @@ third-party-playnite-game-uninstall-error = Не може да се деинст
 third-party-playnite-install-size-label = Размер на инсталиране
 third-party-playnite-added-label = Добавено
 third-party-playnite-ok-label = OK
-third-party-playnite-save-label = Запазване
+third-party-playnite-save-label = Запази
 third-party-playnite-cancel-label = Отказ
 third-party-playnite-yes-label = Да
 third-party-playnite-no-label = Не
