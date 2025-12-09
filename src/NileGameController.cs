@@ -39,7 +39,7 @@ namespace NileLibraryNS
                 new DownloadManagerData.Download { gameID = Game.GameId, name = Game.Name, downloadProperties = installProperties }
             };
             LaunchInstaller(installData);
-            Game.IsInstalling = false;
+            InvokeOnInstallationCancelled(new GameInstallationCancelledEventArgs());
         }
 
         public static void LaunchInstaller(List<DownloadManagerData.Download> installData)
