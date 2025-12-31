@@ -352,5 +352,62 @@ namespace NileLibraryNS
                 }
             }, globalProgressOptions);
         }
+
+        private void MigrateRevertAmazonBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var commonFluentArgs = new Dictionary<string, IFluentType>
+            {
+                { "pluginShortName", (FluentString)"Nile" },
+                { "originalPluginShortName", (FluentString)"Amazon" },
+            };
+            var result = playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonMigrationConfirm, commonFluentArgs), LocalizationManager.Instance.GetString(LOC.CommonRevertMigrateGames), MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.No)
+            {
+                return;
+            }
+            GlobalProgressOptions globalProgressOptions = new GlobalProgressOptions(LocalizationManager.Instance.GetString(LOC.CommonRevertMigratingGames), false) { IsIndeterminate = false };
+            playniteAPI.Dialogs.ActivateGlobalProgress((a) =>
+            {
+                using (playniteAPI.Database.BufferedUpdate())
+                {
+                    var gamesToMigrate = playniteAPI.Database.Games.Where(i => i.PluginId == NileLibrary.Instance.Id).ToList();
+                    var migratedGames = new List<string>();
+                    if (gamesToMigrate.Count > 0)
+                    {
+                        var iterator = 0;
+                        a.ProgressMaxValue = gamesToMigrate.Count() + 1;
+                        a.CurrentProgressValue = 0;
+                        foreach (var game in gamesToMigrate.ToList())
+                        {
+                            iterator++;
+                            var alreadyExists = playniteAPI.Database.Games.FirstOrDefault(i => i.GameId == game.GameId && i.PluginId == NileLibrary.Instance.Id);
+                            if (alreadyExists == null)
+                            {
+                                game.PluginId = Guid.Parse("402674cd-4af6-4886-b6ec-0e695bfa0688");
+                                playniteAPI.Database.Games.Update(game);
+                                migratedGames.Add(game.GameId);
+                                a.CurrentProgressValue = iterator;
+                            }
+                        }
+                        a.CurrentProgressValue = gamesToMigrate.Count() + 1;
+                        if (migratedGames.Count > 0)
+                        {
+                            playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonMigrationCompleted), LocalizationManager.Instance.GetString(LOC.CommonRevertMigrateGames), MessageBoxButton.OK, MessageBoxImage.Information);
+                            logger.Info($"Successfully migrated {migratedGames.Count} game(s) from Nile to Amazon.");
+                        }
+                        if (migratedGames.Count == 0)
+                        {
+                            playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(LOC.CommonMigrationNoGames));
+                        }
+                    }
+                    else
+                    {
+                        a.ProgressMaxValue = 1;
+                        a.CurrentProgressValue = 1;
+                        playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(LOC.CommonMigrationNoGames));
+                    }
+                }
+            }, globalProgressOptions);
+        }
     }
 }
