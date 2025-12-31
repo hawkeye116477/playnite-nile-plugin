@@ -76,11 +76,6 @@ namespace NileLibraryNS
             }
         }
 
-        private void CancelBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Window.GetWindow(this).Close();
-        }
-
         private void NileUpdaterUC_Loaded(object sender, RoutedEventArgs e)
         {
             CommonHelpers.SetControlBackground(this);
