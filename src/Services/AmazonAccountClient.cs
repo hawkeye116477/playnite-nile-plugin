@@ -10,6 +10,10 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using PlayniteExtensions.Common;
+using System.Security.Principal;
+using CliWrap;
+using CliWrap.Buffered;
 
 namespace NileLibraryNS.Services
 {
@@ -35,17 +39,14 @@ namespace NileLibraryNS.Services
                 WindowHeight = 700,
             });
             webView.DeleteDomainCookies(".amazon.com");
-            if (File.Exists(Nile.TokensPath))
-            {
-                File.Delete(Nile.TokensPath);
-            }
+            FileSystem.DeleteFile(Nile.TokensPath);
+            FileSystem.DeleteFile(Nile.EncryptedTokensPath);
         }
 
         public async Task Login()
         {
             var callbackUrl = string.Empty;
             var codeChallenge = GenerateCodeChallenge();
-            FileSystem.DeleteFile(tokensPath);
             using (var webView = library.PlayniteApi.WebViews.CreateView(new WebViewSettings
             {
                 WindowWidth = 490,
@@ -112,12 +113,39 @@ namespace NileLibraryNS.Services
                 var authData = Serialization.FromJson<DeviceRegistrationResponse>(authResponseContent);
                 if (authData.response?.success != null)
                 {
-                    if (!Directory.Exists(Path.GetDirectoryName(tokensPath)))
+                    bool useEncryptedTokens = true;
+                    if (Nile.IsInstalled)
                     {
-                        FileSystem.CreateDirectory(Path.GetDirectoryName(tokensPath));
+                        var result = await Cli.Wrap(Nile.ClientExecPath)
+                                              .AddCommandToLog()
+                                              .WithValidation(CommandResultValidation.None)
+                                              .ExecuteBufferedAsync();
+                        if (!result.StandardOutput.Contains("secret-user-data"))
+                        {
+                            useEncryptedTokens = false;
+                        }
                     }
                     authData.response.success.NILE.token_obtain_time = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-                    File.WriteAllText(tokensPath, Serialization.ToJson(authData.response.success));
+                    var finalResponse = Serialization.ToJson(authData.response.success);
+                    if (!useEncryptedTokens)
+                    {
+                        if (!Directory.Exists(Path.GetDirectoryName(tokensPath)))
+                        {
+                            FileSystem.CreateDirectory(Path.GetDirectoryName(tokensPath));
+                        }
+                        File.WriteAllText(tokensPath, finalResponse);
+                    }
+                    else
+                    {
+                        if (!Directory.Exists(Path.GetDirectoryName(Nile.EncryptedTokensPath)))
+                        {
+                            FileSystem.CreateDirectory(Path.GetDirectoryName(Nile.EncryptedTokensPath));
+                        }
+                        Encryption.EncryptToFile(Nile.EncryptedTokensPath,
+                                                 finalResponse,
+                                                 Encoding.UTF8,
+                                                 WindowsIdentity.GetCurrent().User.Value);
+                    }
                 }
             }
         }
@@ -183,7 +211,7 @@ namespace NileLibraryNS.Services
             return username;
         }
 
-        private DeviceRegistrationResponse.Response.Success LoadTokens()
+        public DeviceRegistrationResponse.Response.Success LoadTokens()
         {
             if (File.Exists(tokensPath))
             {
@@ -196,7 +224,18 @@ namespace NileLibraryNS.Services
                     logger.Error(e, "Failed to load saved tokens.");
                 }
             }
-
+            else if (File.Exists(Nile.EncryptedTokensPath))
+            {
+                try
+                {
+                    return Serialization.FromJson<DeviceRegistrationResponse.Response.Success>(Encryption.DecryptFromFile(Nile.EncryptedTokensPath, Encoding.UTF8,
+                                                WindowsIdentity.GetCurrent().User.Value));
+                }
+                catch (Exception e)
+                {
+                    logger.Error(e, "Failed to load saved tokens.");
+                }
+            }
             return null;
         }
 
@@ -226,7 +265,26 @@ namespace NileLibraryNS.Services
                     var authData = Serialization.FromJson<DeviceRegistrationResponse.Response.Success.Bearer>(authResponseContent);
                     tokens.tokens.bearer.access_token = authData.access_token;
                     tokens.NILE.token_obtain_time = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-                    File.WriteAllText(tokensPath, Serialization.ToJson(tokens));
+
+                    var jsonTokens = Serialization.ToJson(tokens);
+                    bool useEncryptedTokens = false;
+                    if (File.Exists(Nile.EncryptedTokensPath))
+                    {
+                        useEncryptedTokens = true;
+                    }
+
+                    if (!useEncryptedTokens)
+                    {
+                        File.WriteAllText(tokensPath, jsonTokens);
+                    }
+                    else
+                    {
+                        Encryption.EncryptToFile(Nile.EncryptedTokensPath,
+                                                 jsonTokens,
+                                                 Encoding.UTF8,
+                                                 WindowsIdentity.GetCurrent().User.Value);
+                    }
+                    
                 }
                 catch (Exception ex)
                 {

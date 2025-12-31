@@ -3,6 +3,7 @@ using CliWrap.Buffered;
 using CommonPlugin;
 using Linguini.Shared.Types.Bundle;
 using NileLibraryNS.Models;
+using NileLibraryNS.Services;
 using Playnite.Common;
 using Playnite.SDK;
 using Playnite.SDK.Data;
@@ -13,6 +14,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
@@ -137,6 +139,14 @@ namespace NileLibraryNS
             get
             {
                 return Path.Combine(ConfigPath, "user.json");
+            }
+        }
+
+        public static string EncryptedTokensPath
+        {
+            get
+            {
+                return Path.Combine(Path.Combine(NileLibrary.Instance.GetPluginUserDataPath(), "tokens_encrypted.json"));
             }
         }
 
@@ -286,6 +296,12 @@ namespace NileLibraryNS
                 if (ConfigPath == heroicNileConfigPath)
                 {
                     envDict.Add("NILE_CONFIG_PATH", Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "heroic", "nile_config"));
+                }
+                var clientApi = new AmazonAccountClient(NileLibrary.Instance);
+                var tokens = clientApi.LoadTokens();
+                if (tokens != null)
+                {
+                    envDict.Add("NILE_SECRET_USER_DATA", Convert.ToBase64String(Encoding.UTF8.GetBytes(Serialization.ToJson(tokens))));
                 }
                 return envDict;
             }
