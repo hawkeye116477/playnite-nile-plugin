@@ -27,6 +27,7 @@ namespace NileLibraryNS
         public long availableFreeSpace;
         private GameDownloadInfo manifest;
         public DownloadManagerData.Download singleGameInstallData;
+        public string installPath;
 
         public NileGameInstallerView()
         {
@@ -190,7 +191,7 @@ namespace NileLibraryNS
                 AfterInstallingSP.Visibility = Visibility.Collapsed;
             }
             var settings = NileLibrary.GetSettings();
-            var installPath = Nile.GamesInstallationPath;
+            installPath = Nile.GamesInstallationPath;
             var playniteDirectoryVariable = ExpandableVariables.PlayniteDirectory.ToString();
             if (installPath.Contains(playniteDirectoryVariable))
             {
@@ -205,13 +206,27 @@ namespace NileLibraryNS
             }
             MaxWorkersNI.MaxValue = CommonHelpers.CpuThreadsNumber;
             MaxWorkersNI.Value = settings.MaxWorkers.ToString();
+
+            await RefreshAll();
+            var games = MultiInstallData;
+            if (settings.UnattendedInstall && (games.First().downloadProperties.downloadAction == DownloadAction.Install))
+            {
+                await StartTask(DownloadAction.Install);
+            }
+        }
+
+        public async Task RefreshAll()
+        {
+            InstallBtn.IsEnabled = false;
+            ReloadBtn.IsEnabled = false;
+            UpdateSpaceInfo(installPath);
+
             var downloadItemsAlreadyAdded = new List<string>();
             downloadSizeNumber = 0;
 
             NileDownloadManagerView downloadManager = NileLibrary.GetNileDownloadManager();
 
             bool gamesListShouldBeDisplayed = false;
-
 
             var installedAppList = Nile.GetInstalledAppList();
 
@@ -251,6 +266,7 @@ namespace NileLibraryNS
                 playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonDownloadAlreadyExists, new Dictionary<string, IFluentType> { ["appName"] = (FluentString)downloadItemsAlreadyAddedCombined, ["count"] = (FluentNumber)downloadItemsAlreadyAdded.Count }), "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
+
             var games = MultiInstallData;
             GamesLB.ItemsSource = games;
             if ((games.Count > 1 && singleGameInstallData == null) || gamesListShouldBeDisplayed)
@@ -266,26 +282,30 @@ namespace NileLibraryNS
                 {
                     playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteGameInstallError, new Dictionary<string, IFluentType> { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteLoginRequired) }));
                 }
-                InstallerWindow.Close();
+                if (games.Count <= 0)
+                {
+                    InstallerWindow.Close();
+                }
                 return;
             }
             if (downloadSizeNumber != 0)
             {
                 InstallBtn.IsEnabled = true;
             }
-            else if (games.First().downloadProperties.downloadAction != DownloadAction.Repair)
-            {
-                InstallerWindow.Close();
-            }
-            if (settings.UnattendedInstall && (games.First().downloadProperties.downloadAction == DownloadAction.Install))
-            {
-                await StartTask(DownloadAction.Install);
-            }
+            ReloadBtn.IsEnabled = true;
         }
 
-        private void CancelBtn_Click(object sender, RoutedEventArgs e)
+        private async void ReloadBtn_Click(object sender, RoutedEventArgs e)
         {
-            Window.GetWindow(this).Close();
+            var result = playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonReloadConfirm), LocalizationManager.Instance.GetString(LOC.CommonReload), MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                InstallBtn.IsEnabled = false;
+                DownloadSizeTB.Text = LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteLoadingLabel);
+                InstallSizeTB.Text = LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteLoadingLabel);
+                Nile.ClearCache();
+                await RefreshAll();
+            }
         }
     }
 }
