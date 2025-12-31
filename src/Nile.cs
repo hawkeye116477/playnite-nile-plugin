@@ -24,6 +24,8 @@ namespace NileLibraryNS
     public class Nile
     {
         public static string UserAgent => @"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36";
+        public static readonly RetryHandler retryHandler = new RetryHandler(new HttpClientHandler());
+        public static readonly HttpClient httpClient = new HttpClient(retryHandler);
 
         public static string ClientExecPath
         {
@@ -248,11 +250,12 @@ namespace NileLibraryNS
             }
             if (!File.Exists(cacheVersionFile))
             {
-                var httpClient = new HttpClient();
-                httpClient.DefaultRequestHeaders.Add("User-Agent", UserAgent);
-                var response = await httpClient.GetAsync("https://api.github.com/repos/hawkeye116477/nile/releases/latest");
-                if (response.IsSuccessStatusCode)
+                var request = new HttpRequestMessage(HttpMethod.Get, "https://api.github.com/repos/hawkeye116477/nile/releases/latest");
+                request.Headers.Add("User-Agent", UserAgent);
+                try
                 {
+                    using var response = await httpClient.SendAsync(request);
+                    response.EnsureSuccessStatusCode();
                     content = await response.Content.ReadAsStringAsync();
                     if (!Directory.Exists(cacheVersionPath))
                     {
@@ -260,7 +263,10 @@ namespace NileLibraryNS
                     }
                     File.WriteAllText(cacheVersionFile, content);
                 }
-                httpClient.Dispose();
+                catch (Exception ex)
+                {
+                    logger.Error(ex, $"An error occured during checking for new launcher version");
+                }
             }
             else
             {

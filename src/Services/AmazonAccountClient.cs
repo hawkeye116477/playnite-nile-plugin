@@ -14,6 +14,7 @@ using PlayniteExtensions.Common;
 using System.Security.Principal;
 using CliWrap;
 using CliWrap.Buffered;
+using CommonPlugin;
 
 namespace NileLibraryNS.Services
 {
@@ -24,6 +25,8 @@ namespace NileLibraryNS.Services
         private const string loginUrl = @"https://www.amazon.com/ap/signin?openid.ns=http://specs.openid.net/auth/2.0&openid.claimed_id=http://specs.openid.net/auth/2.0/identifier_select&openid.identity=http://specs.openid.net/auth/2.0/identifier_select&openid.mode=checkid_setup&openid.oa2.scope=device_auth_access&openid.ns.oa2=http://www.amazon.com/ap/ext/oauth/2&openid.oa2.response_type=code&openid.oa2.code_challenge_method=S256&openid.oa2.client_id=device:3733646238643238366332613932346432653737653161663637373636363435234132554d56484f58375550345637&language=en_US&marketPlaceId=ATVPDKIKX0DER&openid.return_to=https://www.amazon.com&openid.pape.max_auth_age=0&openid.assoc_handle=amzn_sonic_games_launcher&pageId=amzn_sonic_games_launcher&openid.oa2.code_challenge=";
         private readonly string tokensPath;
         private string userAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) @amzn/aga-electron-platform/1.0.0 Chrome/78.0.3904.130 Electron/7.1.9 Safari/537.36";
+        public static readonly RetryHandler retryHandler = new RetryHandler(new HttpClientHandler());
+        public static readonly HttpClient httpClient = new HttpClient(retryHandler);
 
         public AmazonAccountClient(NileLibrary library)
         {
@@ -81,34 +84,37 @@ namespace NileLibraryNS.Services
 
         private async Task Authenticate(string accessToken, string codeChallenge)
         {
-            using (var client = new HttpClient())
+            var reqData = new DeviceRegistrationRequest();
+            reqData.auth_data.use_global_authentication = false;
+            reqData.auth_data.authorization_code = accessToken;
+            reqData.auth_data.code_verifier = codeChallenge;
+            reqData.auth_data.code_algorithm = "SHA-256";
+            reqData.auth_data.client_id = "3733646238643238366332613932346432653737653161663637373636363435234132554d56484f58375550345637";
+            reqData.auth_data.client_domain = "DeviceLegacy";
+
+            reqData.registration_data.app_name = "AGSLauncher for Windows";
+            reqData.registration_data.app_version = "1.0.0";
+            reqData.registration_data.device_model = "Windows";
+            reqData.registration_data.device_serial = GetMachineGuid().ToString("N");
+            reqData.registration_data.device_type = "A2UMVHOX7UP4V7";
+            reqData.registration_data.domain = "Device";
+            reqData.registration_data.os_version = Environment.OSVersion.Version.ToString(4);
+
+            reqData.requested_extensions = new List<string> { "customer_info", "device_info" };
+            reqData.requested_token_type = new List<string> { "bearer", "mac_dms" };
+
+            var authPostContent = Serialization.ToJson(reqData, true);
+
+            var request = new HttpRequestMessage(HttpMethod.Post, @"https://api.amazon.com/auth/register")
             {
-                client.DefaultRequestHeaders.Add("User-Agent", "AGSLauncher/1.0.0");
-                var reqData = new DeviceRegistrationRequest();
-                reqData.auth_data.use_global_authentication = false;
-                reqData.auth_data.authorization_code = accessToken;
-                reqData.auth_data.code_verifier = codeChallenge;
-                reqData.auth_data.code_algorithm = "SHA-256";
-                reqData.auth_data.client_id = "3733646238643238366332613932346432653737653161663637373636363435234132554d56484f58375550345637";
-                reqData.auth_data.client_domain = "DeviceLegacy";
+                Content = new StringContent(authPostContent, Encoding.UTF8, "application/json")
+            };
+            request.Headers.Add("User-Agent", "AGSLauncher/1.0.0");
 
-                reqData.registration_data.app_name = "AGSLauncher for Windows";
-                reqData.registration_data.app_version = "1.0.0";
-                reqData.registration_data.device_model = "Windows";
-                reqData.registration_data.device_serial = GetMachineGuid().ToString("N");
-                reqData.registration_data.device_type = "A2UMVHOX7UP4V7";
-                reqData.registration_data.domain = "Device";
-                reqData.registration_data.os_version = Environment.OSVersion.Version.ToString(4);
-
-                reqData.requested_extensions = new List<string> { "customer_info", "device_info" };
-                reqData.requested_token_type = new List<string> { "bearer", "mac_dms" };
-
-                var authPostContent = Serialization.ToJson(reqData, true);
-
-                var authResponse = await client.PostAsync(
-                    @"https://api.amazon.com/auth/register",
-                    new StringContent(authPostContent, Encoding.UTF8, "application/json"));
-
+            try
+            {
+                using var authResponse = await httpClient.SendAsync(request);
+                authResponse.EnsureSuccessStatusCode();
                 var authResponseContent = await authResponse.Content.ReadAsStringAsync();
                 var authData = Serialization.FromJson<DeviceRegistrationResponse>(authResponseContent);
                 if (authData.response?.success != null)
@@ -148,6 +154,10 @@ namespace NileLibraryNS.Services
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                logger.Error(ex, $"Failed to authenticate with Amazon");
+            }
         }
 
         public async Task<List<Entitlement>> GetAccountEntitlements()
@@ -159,30 +169,33 @@ namespace NileLibraryNS.Services
 
             var entitlements = new List<Entitlement>();
             var tokens = LoadTokens();
-            using (var client = new HttpClient())
+            string nextToken = null;
+            var reqData = new EntitlementsRequest
             {
-                client.DefaultRequestHeaders.Add("User-Agent", "com.amazon.agslauncher.win/3.0.9495.3");
-                client.DefaultRequestHeaders.Add("X-Amz-Target", "com.amazon.animusdistributionservice.entitlement.AnimusEntitlementsService.GetEntitlements");
-                client.DefaultRequestHeaders.Add("x-amzn-token", tokens.tokens.bearer.access_token);
+                // not sure what key this is but it's some key from Amazon.Fuel.Plugin.Entitlement.dll
+                keyId = "d5dc8b8b-86c8-4fc4-ae93-18c0def5314d",
+                hardwareHash = Guid.NewGuid().ToString("N")
+            };
 
-                string nextToken = null;
-                var reqData = new EntitlementsRequest
+            do
+            {
+                reqData.nextToken = nextToken;
+                var strCont = new StringContent(Serialization.ToJson(reqData, true), Encoding.UTF8, "application/json");
+                strCont.Headers.TryAddWithoutValidation("Expect", "100-continue");
+                strCont.Headers.TryAddWithoutValidation("Content-Encoding", "amz-1.0");
+
+                using var request = new HttpRequestMessage(HttpMethod.Post, @"https://gaming.amazon.com/api/distribution/entitlements")
                 {
-                    // not sure what key this is but it's some key from Amazon.Fuel.Plugin.Entitlement.dll
-                    keyId = "d5dc8b8b-86c8-4fc4-ae93-18c0def5314d",
-                    hardwareHash = Guid.NewGuid().ToString("N")
+                    Content = strCont
                 };
+                request.Headers.Add("User-Agent", "com.amazon.agslauncher.win/3.0.9495.3");
+                request.Headers.Add("X-Amz-Target", "com.amazon.animusdistributionservice.entitlement.AnimusEntitlementsService.GetEntitlements");
+                request.Headers.Add("x-amzn-token", tokens.tokens.bearer.access_token);
 
-                do
+                try
                 {
-                    reqData.nextToken = nextToken;
-                    var strCont = new StringContent(Serialization.ToJson(reqData, true), Encoding.UTF8, "application/json");
-                    strCont.Headers.TryAddWithoutValidation("Expect", "100-continue");
-                    strCont.Headers.TryAddWithoutValidation("Content-Encoding", "amz-1.0");
-
-                    var entlsResponse = await client.PostAsync(
-                        @"https://gaming.amazon.com/api/distribution/entitlements",
-                        strCont);
+                    using var entlsResponse = await httpClient.SendAsync(request);
+                    entlsResponse.EnsureSuccessStatusCode();
 
                     var entlsResponseContent = await entlsResponse.Content.ReadAsStringAsync();
                     var entlsData = Serialization.FromJson<EntitlementsResponse>(entlsResponseContent);
@@ -191,10 +204,15 @@ namespace NileLibraryNS.Services
                     {
                         entitlements.AddRange(entlsData.entitlements);
                     }
-                } while (!nextToken.IsNullOrEmpty());
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex, $"Failed to get account entitlements");
+                }
 
-                return entitlements;
-            }
+            } while (!nextToken.IsNullOrEmpty());
+
+            return entitlements;
         }
 
         public string GetUsername()
@@ -242,56 +260,55 @@ namespace NileLibraryNS.Services
         private async Task<DeviceRegistrationResponse.Response.Success> RefreshTokens()
         {
             var tokens = LoadTokens();
-            using (var client = new HttpClient())
+
+            var reqData = new TokenRefreshRequest
             {
-                var reqData = new TokenRefreshRequest
+                app_name = "AGSLauncher",
+                app_version = "3.0.9495.3",
+                source_token = tokens.tokens.bearer.refresh_token,
+                requested_token_type = "access_token",
+                source_token_type = "refresh_token"
+            };
+
+            var authPostContent = Serialization.ToJson(reqData, true);
+            var strcont = new StringContent(authPostContent, Encoding.UTF8, "application/json");
+            strcont.Headers.TryAddWithoutValidation("Expect", "100-continue");
+
+            try
+            {
+                var authResponse = await httpClient.PostAsync(@"https://api.amazon.com/auth/token",
+                                                          strcont);
+                var authResponseContent = await authResponse.Content.ReadAsStringAsync();
+                var authData = Serialization.FromJson<DeviceRegistrationResponse.Response.Success.Bearer>(authResponseContent);
+                tokens.tokens.bearer.access_token = authData.access_token;
+                tokens.NILE.token_obtain_time = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+
+                var jsonTokens = Serialization.ToJson(tokens);
+                bool useEncryptedTokens = false;
+                if (File.Exists(Nile.EncryptedTokensPath))
                 {
-                    app_name = "AGSLauncher",
-                    app_version = "3.0.9495.3",
-                    source_token = tokens.tokens.bearer.refresh_token,
-                    requested_token_type = "access_token",
-                    source_token_type = "refresh_token"
-                };
-
-                var authPostContent = Serialization.ToJson(reqData, true);
-                var strcont = new StringContent(authPostContent, Encoding.UTF8, "application/json");
-                strcont.Headers.TryAddWithoutValidation("Expect", "100-continue");
-
-                try
-                {
-                    var authResponse = await client.PostAsync(@"https://api.amazon.com/auth/token",
-                                                              strcont);
-                    var authResponseContent = await authResponse.Content.ReadAsStringAsync();
-                    var authData = Serialization.FromJson<DeviceRegistrationResponse.Response.Success.Bearer>(authResponseContent);
-                    tokens.tokens.bearer.access_token = authData.access_token;
-                    tokens.NILE.token_obtain_time = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-
-                    var jsonTokens = Serialization.ToJson(tokens);
-                    bool useEncryptedTokens = false;
-                    if (File.Exists(Nile.EncryptedTokensPath))
-                    {
-                        useEncryptedTokens = true;
-                    }
-
-                    if (!useEncryptedTokens)
-                    {
-                        File.WriteAllText(tokensPath, jsonTokens);
-                    }
-                    else
-                    {
-                        Encryption.EncryptToFile(Nile.EncryptedTokensPath,
-                                                 jsonTokens,
-                                                 Encoding.UTF8,
-                                                 WindowsIdentity.GetCurrent().User.Value);
-                    }
-                    
+                    useEncryptedTokens = true;
                 }
-                catch (Exception ex)
+
+                if (!useEncryptedTokens)
                 {
-                    logger.Error($"Failed to renew tokens: {ex}");
+                    File.WriteAllText(tokensPath, jsonTokens);
                 }
-                return tokens;
+                else
+                {
+                    Encryption.EncryptToFile(Nile.EncryptedTokensPath,
+                                             jsonTokens,
+                                             Encoding.UTF8,
+                                             WindowsIdentity.GetCurrent().User.Value);
+                }
+
             }
+            catch (Exception ex)
+            {
+                logger.Error($"Failed to renew tokens: {ex}");
+            }
+            return tokens;
+
         }
 
         public async Task<bool> GetIsUserLoggedIn()
@@ -310,24 +327,21 @@ namespace NileLibraryNS.Services
             {
                 tokens = await RefreshTokens();
             }
-
-            using (var client = new HttpClient())
+            try
             {
-                client.DefaultRequestHeaders.Add("User-Agent", "AGSLauncher/1.0.0");
-                client.DefaultRequestHeaders.Add("Authorization", "bearer " + tokens.tokens.bearer.access_token);
-                client.DefaultRequestHeaders.Add("Accept", "application/json");
-                try
-                {
-                    var infoResponse = await client.GetAsync(@"https://api.amazon.com/user/profile");
-                    var infoResponseContent = await infoResponse.Content.ReadAsStringAsync();
-                    var infoData = Serialization.FromJson<ProfileInfo>(infoResponseContent);
-                    return !infoData.user_id.IsNullOrEmpty();
-                }
-                catch (Exception ex)
-                {
-                    logger.Error($"Failed to check Amazon login status. Error: {ex}");
-                    return false;
-                }
+                var infoRequest = new HttpRequestMessage(HttpMethod.Get, @"https://api.amazon.com/user/profile");
+                infoRequest.Headers.Add("User-Agent", "AGSLauncher/1.0.0");
+                infoRequest.Headers.Add("Authorization", "bearer " + tokens.tokens.bearer.access_token);
+                infoRequest.Headers.Add("Accept", "application/json");
+                using var infoResponse = await httpClient.SendAsync(infoRequest);
+                var infoResponseContent = await infoResponse.Content.ReadAsStringAsync();
+                var infoData = Serialization.FromJson<ProfileInfo>(infoResponseContent);
+                return !infoData.user_id.IsNullOrEmpty();
+            }
+            catch (Exception ex)
+            {
+                logger.Error($"Failed to check Amazon login status. Error: {ex}");
+                return false;
             }
         }
 
