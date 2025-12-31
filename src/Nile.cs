@@ -250,7 +250,7 @@ namespace NileLibraryNS
             {
                 var httpClient = new HttpClient();
                 httpClient.DefaultRequestHeaders.Add("User-Agent", UserAgent);
-                var response = await httpClient.GetAsync("https://api.github.com/repos/imLinguin/nile/releases/latest");
+                var response = await httpClient.GetAsync("https://api.github.com/repos/hawkeye116477/nile/releases/latest");
                 if (response.IsSuccessStatusCode)
                 {
                     content = await response.Content.ReadAsStringAsync();
@@ -273,6 +273,10 @@ namespace NileLibraryNS
             else if (Serialization.TryFromJson(content, out LauncherVersion versionInfoContent))
             {
                 newVersionInfoContent = versionInfoContent;
+            }
+            if (!Version.TryParse(newVersionInfoContent.Tag_name, out Version validVersion))
+            {
+                newVersionInfoContent.Tag_name = Regex.Replace(newVersionInfoContent.Tag_name, @"[^\d\.]", "");
             }
             return newVersionInfoContent;
         }
