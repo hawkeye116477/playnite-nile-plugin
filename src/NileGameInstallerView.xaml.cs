@@ -4,6 +4,7 @@ using Linguini.Shared.Types.Bundle;
 using NileLibraryNS.Models;
 using NileLibraryNS.Services;
 using Playnite.SDK;
+using Playnite.SDK.Data;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -155,13 +156,15 @@ namespace NileLibraryNS
             {
                 maxWorkers = int.Parse(MaxWorkersNI.Value);
             }
-            installData.downloadProperties.downloadAction = downloadAction;
+            var newDownloadProperties = new DownloadProperties();
+            newDownloadProperties = Serialization.GetClone(installData.downloadProperties);
+            newDownloadProperties.downloadAction = downloadAction;
             if (installPath != "")
             {
-                installData.downloadProperties.installPath = installPath;
+                newDownloadProperties.installPath = installPath;
             }
-            installData.downloadProperties.maxWorkers = maxWorkers;
-            return installData.downloadProperties;
+            newDownloadProperties.maxWorkers = maxWorkers;
+            return newDownloadProperties;
         }
 
         private void CalculateTotalSize()
@@ -209,14 +212,6 @@ namespace NileLibraryNS
 
             bool gamesListShouldBeDisplayed = false;
 
-            var clientApi = new AmazonAccountClient(NileLibrary.Instance);
-            var userLoggedIn = await clientApi.GetIsUserLoggedIn();
-            if (!userLoggedIn)
-            {
-                playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteGameInstallError, new Dictionary<string, IFluentType> { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteLoginRequired) }));
-                InstallerWindow.Close();
-                return;
-            }
 
             var installedAppList = Nile.GetInstalledAppList();
 
@@ -263,8 +258,14 @@ namespace NileLibraryNS
                 GamesBrd.Visibility = Visibility.Visible;
             }
 
-            if (games.Count <= 0)
+            var clientApi = new AmazonAccountClient(NileLibrary.Instance);
+            var userLoggedIn = await clientApi.GetIsUserLoggedIn();
+            if (games.Count <= 0 || !userLoggedIn)
             {
+                if (!userLoggedIn)
+                {
+                    playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteGameInstallError, new Dictionary<string, IFluentType> { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteLoginRequired) }));
+                }
                 InstallerWindow.Close();
                 return;
             }
