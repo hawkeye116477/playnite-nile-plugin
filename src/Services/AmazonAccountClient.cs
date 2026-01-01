@@ -229,7 +229,7 @@ namespace NileLibraryNS.Services
             return username;
         }
 
-        public DeviceRegistrationResponse.Response.Success LoadTokens()
+        private DeviceRegistrationResponse.Response.Success LoadTokens()
         {
             if (File.Exists(tokensPath))
             {
@@ -242,7 +242,7 @@ namespace NileLibraryNS.Services
                     logger.Error(e, "Failed to load saved tokens.");
                 }
             }
-            else if (File.Exists(Nile.EncryptedTokensPath))
+            if (File.Exists(Nile.EncryptedTokensPath))
             {
                 try
                 {
@@ -257,75 +257,74 @@ namespace NileLibraryNS.Services
             return null;
         }
 
-        private async Task<DeviceRegistrationResponse.Response.Success> RefreshTokens()
+        public async Task<DeviceRegistrationResponse.Response.Success> RefreshTokens()
         {
             var tokens = LoadTokens();
-
-            var reqData = new TokenRefreshRequest
+            if (tokens != null)
             {
-                app_name = "AGSLauncher",
-                app_version = "3.0.9495.3",
-                source_token = tokens.tokens.bearer.refresh_token,
-                requested_token_type = "access_token",
-                source_token_type = "refresh_token"
-            };
-
-            var authPostContent = Serialization.ToJson(reqData, true);
-            var strcont = new StringContent(authPostContent, Encoding.UTF8, "application/json");
-            strcont.Headers.TryAddWithoutValidation("Expect", "100-continue");
-
-            try
-            {
-                var authResponse = await httpClient.PostAsync(@"https://api.amazon.com/auth/token",
-                                                          strcont);
-                var authResponseContent = await authResponse.Content.ReadAsStringAsync();
-                var authData = Serialization.FromJson<DeviceRegistrationResponse.Response.Success.Bearer>(authResponseContent);
-                tokens.tokens.bearer.access_token = authData.access_token;
-                tokens.NILE.token_obtain_time = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-
-                var jsonTokens = Serialization.ToJson(tokens);
-                bool useEncryptedTokens = false;
-                if (File.Exists(Nile.EncryptedTokensPath))
+                var tokenLastUpdateTime = File.GetLastWriteTime(Nile.TokensPath);
+                var tokenExpirySeconds = tokens.tokens.bearer.expires_in;
+                DateTime tokenExpiryTime = tokenLastUpdateTime.AddSeconds(tokenExpirySeconds);
+                if (DateTime.Now > tokenExpiryTime)
                 {
-                    useEncryptedTokens = true;
-                }
+                    var reqData = new TokenRefreshRequest
+                    {
+                        app_name = "AGSLauncher",
+                        app_version = "3.0.9495.3",
+                        source_token = tokens.tokens.bearer.refresh_token,
+                        requested_token_type = "access_token",
+                        source_token_type = "refresh_token"
+                    };
 
-                if (!useEncryptedTokens)
-                {
-                    File.WriteAllText(tokensPath, jsonTokens);
-                }
-                else
-                {
-                    Encryption.EncryptToFile(Nile.EncryptedTokensPath,
-                                             jsonTokens,
-                                             Encoding.UTF8,
-                                             WindowsIdentity.GetCurrent().User.Value);
-                }
+                    var authPostContent = Serialization.ToJson(reqData, true);
+                    var strcont = new StringContent(authPostContent, Encoding.UTF8, "application/json");
+                    strcont.Headers.TryAddWithoutValidation("Expect", "100-continue");
 
-            }
-            catch (Exception ex)
-            {
-                logger.Error($"Failed to renew tokens: {ex}");
+                    try
+                    {
+                        var authResponse = await httpClient.PostAsync(@"https://api.amazon.com/auth/token",
+                                                                  strcont);
+                        var authResponseContent = await authResponse.Content.ReadAsStringAsync();
+                        var authData = Serialization.FromJson<DeviceRegistrationResponse.Response.Success.Bearer>(authResponseContent);
+                        tokens.tokens.bearer.access_token = authData.access_token;
+                        tokens.NILE.token_obtain_time = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+
+                        var jsonTokens = Serialization.ToJson(tokens);
+                        bool useEncryptedTokens = false;
+                        if (File.Exists(Nile.EncryptedTokensPath))
+                        {
+                            useEncryptedTokens = true;
+                        }
+
+                        if (!useEncryptedTokens)
+                        {
+                            File.WriteAllText(tokensPath, jsonTokens);
+                        }
+                        else
+                        {
+                            Encryption.EncryptToFile(Nile.EncryptedTokensPath,
+                                                     jsonTokens,
+                                                     Encoding.UTF8,
+                                                     WindowsIdentity.GetCurrent().User.Value);
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.Error($"Failed to renew tokens: {ex}");
+                    }
+                }
             }
             return tokens;
-
         }
+
 
         public async Task<bool> GetIsUserLoggedIn()
         {
-            var tokens = LoadTokens();
+            var tokens = await RefreshTokens();
             if (tokens == null)
             {
                 return false;
-            }
-
-            var tokenLastUpdateTime = File.GetLastWriteTime(Nile.TokensPath);
-            var tokenExpirySeconds = tokens.tokens.bearer.expires_in;
-            DateTime tokenExpiryTime = tokenLastUpdateTime.AddSeconds(tokenExpirySeconds);
-
-            if (DateTime.Now > tokenExpiryTime)
-            {
-                tokens = await RefreshTokens();
             }
             try
             {

@@ -297,24 +297,24 @@ namespace NileLibraryNS
             }
         }
 
-        public static Dictionary<string, string> DefaultEnvironmentVariables
+        public static async Task<Dictionary<string, string>> GetDefaultEnvironmentVariables()
         {
-            get
+            var envDict = new Dictionary<string, string>();
+            var heroicNileConfigPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "heroic", "nile_config", "nile");
+            if (ConfigPath == heroicNileConfigPath)
             {
-                var envDict = new Dictionary<string, string>();
-                var heroicNileConfigPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "heroic", "nile_config", "nile");
-                if (ConfigPath == heroicNileConfigPath)
-                {
-                    envDict.Add("NILE_CONFIG_PATH", Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "heroic", "nile_config"));
-                }
+                envDict.Add("NILE_CONFIG_PATH", Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "heroic", "nile_config"));
+            }
+            if (File.Exists(EncryptedTokensPath))
+            {
                 var clientApi = new AmazonAccountClient(NileLibrary.Instance);
-                var tokens = clientApi.LoadTokens();
+                var tokens = await clientApi.RefreshTokens();
                 if (tokens != null)
                 {
                     envDict.Add("NILE_SECRET_USER_DATA", Convert.ToBase64String(Encoding.UTF8.GetBytes(Serialization.ToJson(tokens))));
                 }
-                return envDict;
             }
+            return envDict;
         }
 
         public static async Task<string> SyncLibIfNeeded(Game game)
@@ -346,7 +346,7 @@ namespace NileLibraryNS
             {
                 BufferedCommandResult syncLibResult = await Cli.Wrap(ClientExecPath)
                                                                .WithArguments(new[] { "library", "sync" })
-                                                               .WithEnvironmentVariables(DefaultEnvironmentVariables)
+                                                               .WithEnvironmentVariables(await GetDefaultEnvironmentVariables())
                                                                .AddCommandToLog()
                                                                .WithValidation(CommandResultValidation.None)
                                                                .ExecuteBufferedAsync();
@@ -427,7 +427,7 @@ namespace NileLibraryNS
                 manifest.title = await SyncLibIfNeeded(game);
                 BufferedCommandResult result = await Cli.Wrap(ClientExecPath)
                                       .WithArguments(new[] { "install", gameID, "--info", "--json" })
-                                      .WithEnvironmentVariables(DefaultEnvironmentVariables)
+                                      .WithEnvironmentVariables(await GetDefaultEnvironmentVariables())
                                       .AddCommandToLog()
                                       .WithValidation(CommandResultValidation.None)
                                       .ExecuteBufferedAsync();
