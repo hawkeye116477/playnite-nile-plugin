@@ -46,11 +46,6 @@ namespace NileLibraryNS
 
         public static void LaunchInstaller(List<DownloadManagerData.Download> installData)
         {
-            if (!Nile.IsInstalled)
-            {
-                Nile.ShowNotInstalledError();
-                return;
-            }
             var playniteAPI = API.Instance;
             Window window = playniteAPI.Dialogs.CreateWindow(new WindowCreationOptions
             {

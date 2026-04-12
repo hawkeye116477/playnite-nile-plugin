@@ -418,7 +418,8 @@ namespace NileLibraryNS
                 if (globalSettings.GamesUpdatePolicy != UpdatePolicy.Never)
                 {
                     var nextGamesUpdateTime = globalSettings.NextGamesUpdateTime;
-                    if (nextGamesUpdateTime != 0)
+                    bool udmInstalled = PlayniteApi.Addons.Plugins.Any(plugin => plugin.Id.Equals(UnifiedDownloadManagerSharedProperties.Id));
+                    if (nextGamesUpdateTime != 0 && udmInstalled)
                     {
                         DateTimeOffset now = DateTime.UtcNow;
                         if (now.ToUnixTimeSeconds() >= nextGamesUpdateTime)
@@ -782,12 +783,6 @@ namespace NileLibraryNS
                         Icon = "RepairIcon",
                         Action = (args) =>
                         {
-                            if (!Nile.IsInstalled)
-                            {
-                                Nile.ShowNotInstalledError();
-                                return;
-                            }
-
                             Window window = PlayniteApi.Dialogs.CreateWindow(new WindowCreationOptions
                             {
                                 ShowMaximizeButton = false,

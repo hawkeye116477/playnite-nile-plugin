@@ -185,6 +185,16 @@ namespace NileLibraryNS
 
         private async void NileGameInstallerUC_Loaded(object sender, RoutedEventArgs e)
         {
+            if (!Nile.IsInstalled)
+            {
+                Nile.ShowNotInstalledError();
+                return;
+            }
+            var isUdmInstalled = NileDownloadLogic.CheckIfUdmInstalled();
+            if (!isUdmInstalled)
+            {
+                return;
+            }
             CommonHelpers.SetControlBackground(this);
             if (MultiInstallData.First().downloadProperties.downloadAction == DownloadAction.Repair)
             {

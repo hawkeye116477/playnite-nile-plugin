@@ -78,6 +78,12 @@ namespace NileLibraryNS
 
         private void NileUpdaterUC_Loaded(object sender, RoutedEventArgs e)
         {
+            var isUdmInstalled = NileDownloadLogic.CheckIfUdmInstalled();
+            if (!isUdmInstalled)
+            {
+                Window.GetWindow(this).Close();
+                return;
+            }
             CommonHelpers.SetControlBackground(this);
             UpdatesLB.ItemsSource = UpdatesList;
             UpdatesLB.Visibility = Visibility.Visible;
