@@ -81,12 +81,6 @@
         <TabItem Header="{common:Localize Key={x:Static system:LOC.CommonDownloadSettings}}">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel Margin="20">
-                    <CheckBox Grid.Column="0" Grid.Row="0"
-                            Content="{common:Localize Key={x:Static system:LOC.CommonDisplayDownloadTaskFinishedNotifications}}"
-                            IsChecked="{Binding Settings.DisplayDownloadTaskFinishedNotifications}" Margin="0,0,0,8" />
-                    <CheckBox Grid.Column="0" Grid.Row="1"
-                            Content="{common:Localize Key={x:Static system:LOC.CommonDisplayDownloadSpeedInBits}}"
-                            IsChecked="{Binding Settings.DisplayDownloadSpeedInBits}" Margin="0,0,0,8" />
                     <CheckBox Grid.Column="0" Grid.Row="5"
                             Content="{common:Localize Key={x:Static system:LOC.CommonUnattendedInstall}}" ToolTip="{common:Localize Key={x:Static system:LOC.CommonUnattendedInstallToolTip}}"
                             IsChecked="{Binding Settings.UnattendedInstall}" Margin="0,0,0,8 " />
@@ -115,11 +109,6 @@
                         <TextBlock Text="{common:Localize Key={x:Static system:LOC.CommonMaxWorkers}}" Grid.Column="0"
                             Grid.Row="0" Margin="0,0,15,8" VerticalAlignment="Center" HorizontalAlignment="Left" />
                         <common:NumericInput Grid.Row="0" Grid.Column="1" Margin="0,0,0,8" MinValue="0" x:Name="MaxWorkersNI" Value="{Binding Settings.MaxWorkers}" HorizontalAlignment="Left"/>
-                        <TextBlock Grid.Column="0" Grid.Row="1"
-                            Text="{common:Localize Key={x:Static system:LOC.CommonAfterDownloadComplete}}" Margin="0,0,10,8" VerticalAlignment="Center" HorizontalAlignment="Left"  />
-                        <ComboBox Grid.Column="1" Grid.Row="1" x:Name="AfterDownloadCompleteCBo" DisplayMemberPath="Value" SelectedValue="{Binding Settings.DoActionAfterDownloadComplete}" SelectedValuePath="Key"  VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Margin="0,0,0,8" HorizontalAlignment="Left"/>
-                        <TextBlock Grid.Row="2" Grid.Column="0" Text="{common:Localize Key={x:Static system:LOC.CommonAutoRemoveCompletedDownloads}}" Margin="0,0,0,8" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
-                        <ComboBox Grid.Row="2" Grid.Column="1" x:Name="AutoRemoveCompletedDownloadsCBo" DisplayMemberPath="Value" SelectedValue="{Binding Settings.AutoRemoveCompletedDownloads}" SelectedValuePath="Key" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"  Margin="10,0,0,8" HorizontalAlignment="Left" />
                     </Grid>
                 </StackPanel>
             </ScrollViewer>

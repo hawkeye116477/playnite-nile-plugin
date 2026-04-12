@@ -3,10 +3,9 @@
 """Update third-party localization"""
 import os
 import shutil
-from lxml import etree as ET
-from pathlib import Path
-import git
 import importlib.util
+from lxml import etree as ET
+import git
 
 pj = os.path.join
 pn = os.path.normpath
@@ -15,6 +14,7 @@ script_path = os.path.dirname(os.path.realpath(__file__))
 main_path = pn(pj(script_path, ".."))
 third_party_path = pj(main_path, "third_party")
 localization_path = pj(third_party_path, "Localization")
+common_localization_path = pj(third_party_path, "CommonLocalization")
 src_path = pj(main_path, "src")
 
 amazon_loc_keys = {}
@@ -34,6 +34,10 @@ with open(pj(script_path, "config", "playniteLocKeys.txt"),
 if os.path.exists(localization_path):
     shutil.rmtree(localization_path)
 os.makedirs(localization_path)
+
+if os.path.exists(common_localization_path):
+    shutil.rmtree(common_localization_path)
+os.makedirs(common_localization_path)
 
 xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 xmlns_x = "http://schemas.microsoft.com/winfx/2006/xaml"
@@ -145,4 +149,4 @@ def copy_specific_named_files_with_subdirs(source_dir, destination_dir, file_nam
                     print(f"An error occured during copying file {source_file_path}: {e}")
 
 common_loc_path = pj(main_path, "..", "playnite-common-plugin", "src", "Localization")
-copy_specific_named_files_with_subdirs(common_loc_path, pj(third_party_path, "CommonLocalization"), file_names="common.ftl")
+copy_specific_named_files_with_subdirs(common_loc_path, pj(third_party_path, "CommonLocalization"), file_names=["common.ftl", "common-libplugin.ftl"])

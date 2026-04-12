@@ -105,16 +105,6 @@ namespace NileLibraryNS
                 MigrateAmazonBtn.IsEnabled = true;
             }
 
-            var downloadCompleteActions = new Dictionary<DownloadCompleteAction, string>
-            {
-                { DownloadCompleteAction.Nothing, LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteDoNothing) },
-                { DownloadCompleteAction.ShutDown, LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteMenuShutdownSystem) },
-                { DownloadCompleteAction.Reboot, LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteMenuRestartSystem) },
-                { DownloadCompleteAction.Hibernate, LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteMenuHibernateSystem) },
-                { DownloadCompleteAction.Sleep, LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteMenuSuspendSystem) },
-            };
-            AfterDownloadCompleteCBo.ItemsSource = downloadCompleteActions;
-
             var autoClearOptions = new Dictionary<ClearCacheTime, string>
             {
                 { ClearCacheTime.Day, LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteOptionOnceADay) },
@@ -125,7 +115,6 @@ namespace NileLibraryNS
                 { ClearCacheTime.Never, LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteSettingsPlaytimeImportModeNever) }
             };
             AutoClearCacheCBo.ItemsSource = autoClearOptions;
-            AutoRemoveCompletedDownloadsCBo.ItemsSource = autoClearOptions;
 
             var updatePolicyOptions = new Dictionary<UpdatePolicy, string>
             {
