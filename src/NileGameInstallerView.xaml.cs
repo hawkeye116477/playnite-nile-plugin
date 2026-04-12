@@ -255,7 +255,7 @@ namespace NileLibraryNS
                 }
                 installData.downloadSizeNumber = manifest.download_size;
                 var wantedItem = pluginDownloadData.downloads.FirstOrDefault(item => item.gameID == installData.gameID);
-                var wantedUnifiedTask = unifiedDownloadManagerApi.GetTask(wantedItem.gameID, NileLibrary.Instance.Id.ToString());
+                var wantedUnifiedTask = unifiedDownloadManagerApi.GetTask(installData.gameID, NileLibrary.Instance.Id.ToString());
                 if (wantedItem != null)
                 {
                     bool completedDownload = true;
