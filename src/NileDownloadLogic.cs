@@ -39,10 +39,10 @@ namespace NileLibraryNS
                     pluginId = NileLibrary.Instance.Id.ToString(),
                     fullInstallPath = downloadTask.fullInstallPath,
                     sourceName = "Amazon",
-                    addedTime = downloadTask.addedTime,
                 };
                 if (migrate)
                 {
+                    unifiedTask.addedTime = downloadTask.addedTime;
                     unifiedTask.status = (UnifiedDownloadStatus)downloadTask.status;
                     unifiedTask.progress = downloadTask.progress;
                     unifiedTask.downloadedBytes = downloadTask.downloadedNumber;

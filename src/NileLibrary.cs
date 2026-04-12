@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using UnifiedDownloadManagerApiNS;
 using UnifiedDownloadManagerApiNS.Interfaces;
@@ -52,7 +53,7 @@ namespace NileLibraryNS
         public DownloadManagerData LoadSavedDownloadData()
         {
             var dataDir = Instance.GetPluginUserDataPath();
-            var dataFile = Path.Combine(dataDir, "downloadManager.json");
+            var dataFile = Path.Combine(dataDir, "downloads.json");
             bool correctJson = false;
             if (File.Exists(dataFile))
             {
@@ -78,7 +79,42 @@ namespace NileLibraryNS
 
         public void SaveDownloadData()
         {
-            commonHelpers.SaveJsonSettingsToFile(pluginDownloadData, "", "downloadManager", true);
+            commonHelpers.SaveJsonSettingsToFile(pluginDownloadData, "", "downloads", true);
+        }
+
+        public async Task MigrateOldDownloadData()
+        {
+            var oldPluginDownloadDataForMigration = new DownloadManagerData();
+            var dataDir = Instance.GetPluginUserDataPath();
+            var oldDataFile = Path.Combine(dataDir, "downloadManager.json");
+            var oldDataBackupFile = Path.Combine(dataDir, "downloadManager.json.migrated");
+
+            bool udmInstalled = PlayniteApi.Addons.Plugins.Any(plugin => plugin.Id.Equals(UnifiedDownloadManagerSharedProperties.Id));
+            if (File.Exists(oldDataFile) && udmInstalled)
+            {
+                logger.Debug("Migrating old downloads data...");
+                var content = FileSystem.ReadFileAsStringSafe(oldDataFile);
+                if (!content.IsNullOrWhiteSpace() && Serialization.TryFromJson(content, out DownloadManagerData oldPluginDownloadData))
+                {
+                    if (oldPluginDownloadData != null && oldPluginDownloadData.downloads != null)
+                    {
+                        oldPluginDownloadDataForMigration = oldPluginDownloadData;
+                    }
+                }
+                var nileDownloadLogic = (NileDownloadLogic)Instance.UnifiedDownloadLogic;
+                var oldData = oldPluginDownloadDataForMigration.downloads;
+                foreach (var oldDownload in oldData)
+                {
+                    if (oldDownload.status == DownloadStatus.Running || oldDownload.status == DownloadStatus.Queued)
+                    {
+                        oldDownload.status = DownloadStatus.Paused;
+                    }
+                    logger.Debug(oldDownload.downloadSizeNumber.ToString());
+                }
+                await nileDownloadLogic.AddTasks(oldData.ToList(), true);
+                File.Move(oldDataFile, oldDataBackupFile);
+                logger.Debug("Migration done.");
+            }
         }
 
         public static NileLibrarySettings GetSettings()
@@ -412,6 +448,7 @@ namespace NileLibraryNS
 
         public override async void OnApplicationStarted(OnApplicationStartedEventArgs args)
         {
+            await MigrateOldDownloadData();
             var globalSettings = GetSettings();
             if (globalSettings != null)
             {
