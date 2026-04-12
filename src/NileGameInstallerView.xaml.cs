@@ -12,6 +12,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using UnifiedDownloadManagerApiNS;
+using UnifiedDownloadManagerApiNS.Models;
 
 namespace NileLibraryNS
 {
@@ -87,13 +89,13 @@ namespace NileLibraryNS
                 installPath = installPath.Replace(playniteDirectoryVariable, playniteAPI.Paths.ApplicationPath);
             }
             InstallerWindow.Close();
-            NileDownloadManagerView downloadManager = NileLibrary.GetNileDownloadManager();
+
             var downloadTasks = new List<DownloadManagerData.Download>();
             var downloadItemsAlreadyAdded = new List<string>();
             foreach (var installData in MultiInstallData)
             {
                 var gameId = installData.gameID;
-                var wantedItem = downloadManager.downloadManagerData.downloads.FirstOrDefault(item => item.gameID == gameId);
+                var wantedItem = NileLibrary.Instance.pluginDownloadData.downloads.FirstOrDefault(item => item.gameID == gameId);
                 if (wantedItem == null)
                 {
                     if (installData.downloadProperties.downloadAction == DownloadAction.Install)
@@ -131,7 +133,8 @@ namespace NileLibraryNS
             }
             if (downloadTasks.Count > 0)
             {
-                await downloadManager.EnqueueMultipleJobs(downloadTasks);
+                var nileDownloadLogic = new NileDownloadLogic();
+                await nileDownloadLogic.AddTasks(downloadTasks);
             }
         }
 
@@ -217,6 +220,7 @@ namespace NileLibraryNS
 
         public async Task RefreshAll()
         {
+            UnifiedDownloadManagerApi unifiedDownloadManagerApi = new UnifiedDownloadManagerApi();
             InstallBtn.IsEnabled = false;
             ReloadBtn.IsEnabled = false;
             UpdateSpaceInfo(installPath);
@@ -224,12 +228,12 @@ namespace NileLibraryNS
             var downloadItemsAlreadyAdded = new List<string>();
             downloadSizeNumber = 0;
 
-            NileDownloadManagerView downloadManager = NileLibrary.GetNileDownloadManager();
 
             bool gamesListShouldBeDisplayed = false;
 
             var installedAppList = Nile.GetInstalledAppList();
 
+            var pluginDownloadData = NileLibrary.Instance.pluginDownloadData;
             foreach (var installData in MultiInstallData.ToList())
             {
                 manifest = await Nile.GetGameInfo(installData);
@@ -240,12 +244,23 @@ namespace NileLibraryNS
                     continue;
                 }
                 installData.downloadSizeNumber = manifest.download_size;
-                var wantedItem = downloadManager.downloadManagerData.downloads.FirstOrDefault(item => item.gameID == installData.gameID);
+                var wantedItem = pluginDownloadData.downloads.FirstOrDefault(item => item.gameID == installData.gameID);
+                var wantedUnifiedTask = unifiedDownloadManagerApi.GetTask(wantedItem.gameID, NileLibrary.Instance.Id.ToString());
                 if (wantedItem != null)
                 {
-                    if (wantedItem.status == DownloadStatus.Completed && installedAppList.FirstOrDefault(i => i.id == installData.gameID) == null)
+                    bool completedDownload = true;
+                    if (wantedUnifiedTask != null)
                     {
-                        downloadManager.downloadManagerData.downloads.Remove(wantedItem);
+                        if (wantedUnifiedTask.status != UnifiedDownloadStatus.Completed)
+                        {
+                            completedDownload = false;
+                        }
+                    }
+                    if (completedDownload && installedAppList.FirstOrDefault(i => i.id == installData.gameID) == null)
+                    {
+                        pluginDownloadData.downloads.Remove(wantedItem);
+                        unifiedDownloadManagerApi.RemoveTask(wantedUnifiedTask);
+                        wantedUnifiedTask = unifiedDownloadManagerApi.GetTask(installData.gameID, NileLibrary.Instance.Id.ToString());
                     }
                     else
                     {

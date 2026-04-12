@@ -19,6 +19,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using UnifiedDownloadManagerApiNS;
+using UnifiedDownloadManagerApiNS.Models;
 
 namespace NileLibraryNS
 {
@@ -564,6 +566,7 @@ namespace NileLibraryNS
 
         public async Task UpdateGame(Dictionary<string, UpdateInfo> gamesToUpdate, string gameTitle = "", bool silently = false, DownloadProperties downloadProperties = null)
         {
+            var unifiedDownloadManagerApi = new UnifiedDownloadManagerApi();
             var updateTasks = new List<DownloadManagerData.Download>();
             if (gamesToUpdate.Count > 0)
             {
@@ -575,24 +578,30 @@ namespace NileLibraryNS
                         var playniteApi = API.Instance;
                         playniteApi.Notifications.Add(new NotificationMessage("NileGamesUpdates", LocalizationManager.Instance.GetString(LOC.CommonGamesUpdatesUnderway), NotificationType.Info));
                     }
-                    NileDownloadManagerView downloadManager = NileLibrary.GetNileDownloadManager();
                     foreach (var gameToUpdate in gamesToUpdate)
                     {
-                        var wantedItem = downloadManager.downloadManagerData.downloads.FirstOrDefault(item => item.gameID == gameToUpdate.Key);
-                        if (wantedItem != null)
+                        var wantedUnifiedItem = unifiedDownloadManagerApi.GetTask(gameToUpdate.Key, NileLibrary.Instance.Id.ToString());
+                        bool completedDownload = true;
+                        if (wantedUnifiedItem != null)
                         {
-                            if (wantedItem.status == DownloadStatus.Completed)
+                            if (wantedUnifiedItem.status != UnifiedDownloadStatus.Completed)
                             {
-                                downloadManager.downloadManagerData.downloads.Remove(wantedItem);
-                                downloadManager.downloadsChanged = true;
-                                wantedItem = null;
+                                completedDownload = false;
                             }
                         }
-                        if (wantedItem != null)
+                        if (completedDownload)
+                        {
+                            var wantedPluginItem = NileLibrary.Instance.pluginDownloadData.downloads.FirstOrDefault(i => i.gameID == wantedUnifiedItem.gameID);
+                            NileLibrary.Instance.pluginDownloadData.downloads.Remove(wantedPluginItem);
+                            wantedPluginItem = null;
+                            unifiedDownloadManagerApi.RemoveTask(wantedUnifiedItem);
+                            wantedUnifiedItem = unifiedDownloadManagerApi.GetTask(gameToUpdate.Key, NileLibrary.Instance.Id.ToString());
+                        }
+                        if (wantedUnifiedItem != null)
                         {
                             if (!silently)
                             {
-                                playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonDownloadAlreadyExists, new Dictionary<string, IFluentType> { ["appName"] = (FluentString)wantedItem.name }), "", MessageBoxButton.OK, MessageBoxImage.Error);
+                                playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonDownloadAlreadyExists, new Dictionary<string, IFluentType> { ["appName"] = (FluentString)wantedUnifiedItem.name }), "", MessageBoxButton.OK, MessageBoxImage.Error);
                             }
                         }
                         else
@@ -603,6 +612,10 @@ namespace NileLibraryNS
                                 downloadAction = DownloadAction.Update,
                                 maxWorkers = settings.MaxWorkers,
                             };
+                            if (downloadProperties != null)
+                            {
+                                newDownloadProperties = Serialization.GetClone(downloadProperties);
+                            }
                             if (!gameToUpdate.Value.Install_path.IsNullOrEmpty())
                             {
                                 newDownloadProperties.installPath = gameToUpdate.Value.Install_path;
@@ -620,7 +633,8 @@ namespace NileLibraryNS
                     }
                     if (updateTasks.Count > 0)
                     {
-                        await downloadManager.EnqueueMultipleJobs(updateTasks, silently);
+                        var downloadLogic = (NileDownloadLogic)NileLibrary.Instance.UnifiedDownloadLogic;
+                        await downloadLogic.AddTasks(updateTasks);
                     }
                 }
             }

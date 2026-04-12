@@ -24,14 +24,6 @@ namespace NileLibraryNS
         public NileDownloadProperties()
         {
             InitializeComponent();
-            LoadSavedData();
-        }
-
-        private DownloadManagerData LoadSavedData()
-        {
-            var downloadManager = NileLibrary.GetNileDownloadManager();
-            downloadManagerData = downloadManager.downloadManagerData;
-            return downloadManagerData;
         }
 
         private void NileDownloadPropertiesUC_Loaded(object sender, RoutedEventArgs e)
@@ -79,39 +71,8 @@ namespace NileLibraryNS
             wantedItem.downloadProperties.installPath = installPath;
             wantedItem.downloadProperties.downloadAction = (DownloadAction)TaskCBo.SelectedValue;
             wantedItem.downloadProperties.maxWorkers = int.Parse(MaxWorkersNI.Value);
-            var downloadManager = NileLibrary.GetNileDownloadManager();
-            var previouslySelected = downloadManager.DownloadsDG.SelectedIndex;
-            for (int i = 0; i < downloadManager.downloadManagerData.downloads.Count; i++)
-            {
-                if (downloadManager.downloadManagerData.downloads[i].gameID == SelectedDownload.gameID)
-                {
-                    downloadManager.downloadManagerData.downloads[i] = wantedItem;
-                    break;
-                }
-            }
-            downloadManager.DownloadsDG.SelectedIndex = previouslySelected;
+            NileLibrary.Instance.SaveDownloadData();
             Window.GetWindow(this).Close();
-        }
-
-        private void UpdateSpaceInfo(string path, double installSizeNumber)
-        {
-            DriveInfo dDrive = new DriveInfo(path);
-            if (dDrive.IsReady)
-            {
-                long availableFreeSpace = dDrive.AvailableFreeSpace;
-                SpaceTB.Text = CommonHelpers.FormatSize(availableFreeSpace);
-                UpdateAfterInstallingSize(availableFreeSpace, installSizeNumber);
-            }
-        }
-
-        private void UpdateAfterInstallingSize(long availableFreeSpace, double installSizeNumber)
-        {
-            double afterInstallSizeNumber = (double)(availableFreeSpace - installSizeNumber);
-            if (afterInstallSizeNumber < 0)
-            {
-                afterInstallSizeNumber = 0;
-            }
-            AfterInstallingTB.Text = CommonHelpers.FormatSize(afterInstallSizeNumber);
         }
     }
 }

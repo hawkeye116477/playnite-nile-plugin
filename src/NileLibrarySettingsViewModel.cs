@@ -18,14 +18,9 @@ namespace NileLibraryNS
         public string SelectedNilePath { get; set; } = "";
         public int MaxWorkers { get; set; } = 0;
         public bool UnattendedInstall { get; set; } = false;
-        public DownloadCompleteAction DoActionAfterDownloadComplete { get; set; } = DownloadCompleteAction.Nothing;
-        public bool DisplayDownloadSpeedInBits { get; set; } = false;
-        public bool DisplayDownloadTaskFinishedNotifications { get; set; } = true;
-        public ClearCacheTime AutoRemoveCompletedDownloads { get; set; } = ClearCacheTime.Never;
         public ClearCacheTime AutoClearCache { get; set; } = ClearCacheTime.Never;
         public UpdatePolicy GamesUpdatePolicy { get; set; } = UpdatePolicy.Month;
         public long NextClearingTime { get; set; } = 0;
-        public long NextRemovingCompletedDownloadsTime { get; set; } = 0;
         public long NextGamesUpdateTime { get; set; } = 0;
         public UpdatePolicy LauncherUpdatePolicy { get; set; } = UpdatePolicy.Month;
         public long NextLauncherUpdateTime { get; set; } = 0;
@@ -89,17 +84,6 @@ namespace NileLibraryNS
                 else
                 {
                     Settings.NextClearingTime = 0;
-                }
-            }
-            if (EditingClone.AutoRemoveCompletedDownloads != Settings.AutoRemoveCompletedDownloads)
-            {
-                if (Settings.AutoRemoveCompletedDownloads != ClearCacheTime.Never)
-                {
-                    Settings.NextRemovingCompletedDownloadsTime = NileLibrary.GetNextClearingTime(Settings.AutoRemoveCompletedDownloads);
-                }
-                else
-                {
-                    Settings.NextRemovingCompletedDownloadsTime = 0;
                 }
             }
             if (EditingClone.GamesUpdatePolicy != Settings.GamesUpdatePolicy)

@@ -1,6 +1,4 @@
-﻿using CliWrap;
-using CliWrap.Buffered;
-using CommonPlugin;
+﻿using CommonPlugin;
 using CommonPlugin.Enums;
 using Linguini.Shared.Types.Bundle;
 using NileLibraryNS.Enums;
@@ -14,21 +12,24 @@ using Playnite.SDK.Models;
 using Playnite.SDK.Plugins;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Windows;
+using UnifiedDownloadManagerApiNS;
+using UnifiedDownloadManagerApiNS.Interfaces;
+using UnifiedDownloadManagerApiNS.Models;
 
 namespace NileLibraryNS
 {
     [LoadPlugin]
-    public class NileLibrary : LibraryPluginBase<NileLibrarySettingsViewModel>
+    public class NileLibrary : LibraryPluginBase<NileLibrarySettingsViewModel>, IUnifiedDownloadProvider
     {
         private static readonly ILogger logger = LogManager.GetLogger();
         public static NileLibrary Instance { get; set; }
-        private NileDownloadManagerView NileDownloadManagerView;
-        private SidebarItem downloadManagerSidebarItem;
         public CommonHelpers commonHelpers { get; set; }
+        public IUnifiedDownloadLogic UnifiedDownloadLogic { get; set; }
+        public DownloadManagerData pluginDownloadData { get; set; }
 
         public NileLibrary(IPlayniteAPI api) : base(
             "Nile (Amazon)",
@@ -44,7 +45,40 @@ namespace NileLibraryNS
             SettingsViewModel = new NileLibrarySettingsViewModel(this, PlayniteApi);
             LoadExtraLocalization();
             commonHelpers.LoadNeededResources();
-            NileDownloadManagerView = new NileDownloadManagerView();
+            UnifiedDownloadLogic = new NileDownloadLogic();
+            pluginDownloadData = LoadSavedDownloadData();
+        }
+
+        public DownloadManagerData LoadSavedDownloadData()
+        {
+            var dataDir = Instance.GetPluginUserDataPath();
+            var dataFile = Path.Combine(dataDir, "downloadManager.json");
+            bool correctJson = false;
+            if (File.Exists(dataFile))
+            {
+                var content = FileSystem.ReadFileAsStringSafe(dataFile);
+                if (!content.IsNullOrWhiteSpace() && Serialization.TryFromJson(content, out DownloadManagerData newPluginDownloadData))
+                {
+                    if (newPluginDownloadData != null && newPluginDownloadData.downloads != null)
+                    {
+                        correctJson = true;
+                        pluginDownloadData = newPluginDownloadData;
+                    }
+                }
+            }
+            if (!correctJson)
+            {
+                pluginDownloadData = new DownloadManagerData
+                {
+                    downloads = new ObservableCollection<DownloadManagerData.Download>()
+                };
+            }
+            return pluginDownloadData;
+        }
+
+        public void SaveDownloadData()
+        {
+            commonHelpers.SaveJsonSettingsToFile(pluginDownloadData, "", "downloadManager", true);
         }
 
         public static NileLibrarySettings GetSettings()
@@ -84,11 +118,6 @@ namespace NileLibraryNS
                 yield break;
             }
             yield return new NilePlayController(args.Game);
-        }
-
-        public static NileDownloadManagerView GetNileDownloadManager()
-        {
-            return Instance.NileDownloadManagerView;
         }
 
         internal Dictionary<string, GameMetadata> GetInstalledGames()
@@ -361,33 +390,11 @@ namespace NileLibraryNS
             return updateTime?.ToUnixTimeSeconds() ?? 0;
         }
 
-        public static SidebarItem GetPanel()
-        {
-            if (Instance.downloadManagerSidebarItem == null)
-            {
-                Instance.downloadManagerSidebarItem = new SidebarItem
-                {
-                    Title = LocalizationManager.Instance.GetString(LOC.CommonPanel),
-                    Icon = Nile.Icon,
-                    Type = SiderbarItemType.View,
-                    Opened = () => GetNileDownloadManager(),
-                    ProgressValue = 0,
-                    ProgressMaximum = 100,
-                };
-            }
-            return Instance.downloadManagerSidebarItem;
-        }
-
-        public override IEnumerable<SidebarItem> GetSidebarItems()
-        {
-            yield return downloadManagerSidebarItem;
-        }
-
         public bool StopDownloadManager(bool displayConfirm = false)
         {
-            NileDownloadManagerView downloadManager = GetNileDownloadManager();
-            var runningAndQueuedDownloads = downloadManager.downloadManagerData.downloads.Where(i => i.status == DownloadStatus.Running
-                                                                                                     || i.status == DownloadStatus.Queued).ToList();
+            var unifiedDownloadManagerApi = new UnifiedDownloadManagerApi();
+            var allDownloads = unifiedDownloadManagerApi.GetAllDownloads();
+            var runningAndQueuedDownloads = allDownloads.Where(i => i.status == UnifiedDownloadStatus.Running || i.status == UnifiedDownloadStatus.Queued).ToList();
             if (runningAndQueuedDownloads.Count > 0)
             {
                 if (displayConfirm)
@@ -398,17 +405,7 @@ namespace NileLibraryNS
                         return false;
                     }
                 }
-                foreach (var download in runningAndQueuedDownloads)
-                {
-                    if (download.status == DownloadStatus.Running)
-                    {
-                        downloadManager.gracefulInstallerCTS?.Cancel();
-                        downloadManager.gracefulInstallerCTS?.Dispose();
-                        downloadManager.forcefulInstallerCTS?.Dispose();
-                    }
-                    download.status = DownloadStatus.Paused;
-                }
-                downloadManager.SaveData();
+                unifiedDownloadManagerApi.PauseAllTasks(Instance.Id.ToString());
             }
             return true;
         }
@@ -525,37 +522,9 @@ namespace NileLibraryNS
 
         public override void OnApplicationStopped(OnApplicationStoppedEventArgs args)
         {
-            StopDownloadManager();
-            NileDownloadManagerView downloadManager = GetNileDownloadManager();
             var settings = GetSettings();
             if (settings != null)
             {
-                if (settings.AutoRemoveCompletedDownloads != ClearCacheTime.Never)
-                {
-                    var nextRemovingCompletedDownloadsTime = settings.NextRemovingCompletedDownloadsTime;
-                    if (nextRemovingCompletedDownloadsTime != 0)
-                    {
-                        DateTimeOffset now = DateTime.UtcNow;
-                        if (now.ToUnixTimeSeconds() >= nextRemovingCompletedDownloadsTime)
-                        {
-                            foreach (var downloadItem in downloadManager.downloadManagerData.downloads.ToList())
-                            {
-                                if (downloadItem.status == DownloadStatus.Completed)
-                                {
-                                    downloadManager.downloadManagerData.downloads.Remove(downloadItem);
-                                    downloadManager.downloadsChanged = true;
-                                }
-                            }
-                            settings.NextRemovingCompletedDownloadsTime = GetNextClearingTime(settings.AutoRemoveCompletedDownloads);
-                            SavePluginSettings(settings);
-                        }
-                    }
-                    else
-                    {
-                        settings.NextRemovingCompletedDownloadsTime = GetNextClearingTime(settings.AutoRemoveCompletedDownloads);
-                        SavePluginSettings(settings);
-                    }
-                }
                 if (settings.AutoClearCache != ClearCacheTime.Never)
                 {
                     var nextClearingTime = settings.NextClearingTime;
@@ -575,7 +544,7 @@ namespace NileLibraryNS
                         SavePluginSettings(settings);
                     }
                 }
-                downloadManager.SaveData();
+                SaveDownloadData();
             }
         }
 
@@ -912,27 +881,6 @@ namespace NileLibraryNS
                     }
                 }
             };
-            if (PlayniteApi.ApplicationInfo.Mode == ApplicationMode.Fullscreen)
-            {
-                yield return new MainMenuItem
-                {
-                    Description = LocalizationManager.Instance.GetString(LOC.CommonDownloadManager),
-                    MenuSection = $"@{Instance.Name}",
-                    Icon = "InstallIcon",
-                    Action = (args) =>
-                    {
-                        Window window = PlayniteApi.Dialogs.CreateWindow(new WindowCreationOptions
-                        {
-                            ShowMaximizeButton = true,
-                        });
-                        window.Title = $"{LocalizationManager.Instance.GetString(LOC.CommonPanel)}";
-                        window.Content = GetNileDownloadManager();
-                        window.Owner = PlayniteApi.Dialogs.GetCurrentAppWindow();
-                        window.SizeToContent = SizeToContent.WidthAndHeight;
-                        window.ShowDialog();
-                    }
-                };
-            }
         }
     }
 }

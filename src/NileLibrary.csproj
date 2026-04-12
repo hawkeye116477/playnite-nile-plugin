@@ -54,6 +54,10 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="UnifiedDownloadManagerApi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\playnite-unifiedDownloadManager-plugin\src\api\bin\Release\UnifiedDownloadManagerApi.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup Label="compileInclude3p">
@@ -233,7 +237,6 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Converters\DownloadStatusEnumToStringConverter.cs" />
     <Compile Include="Enums\UpdatePolicy.cs" />
     <Compile Include="Models\AmazonProductData.cs" />
     <Compile Include="Models\DownloadManagerData.cs" />
@@ -244,12 +247,7 @@
     <Compile Include="Models\NileLibraryFile.cs" />
     <Compile Include="Models\UpdateInfo.cs" />
     <Compile Include="Nile.cs" />
-    <Compile Include="NileDownloadCompleteActionView.xaml.cs">
-      <DependentUpon>NileDownloadCompleteActionView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="NileDownloadManagerView.xaml.cs">
-      <DependentUpon>NileDownloadManagerView.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="NileDownloadLogic.cs" />
     <Compile Include="NileDownloadProperties.xaml.cs">
       <DependentUpon>NileDownloadProperties.xaml</DependentUpon>
     </Compile>
@@ -314,14 +312,6 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <Page Include="NileDownloadCompleteActionView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="NileDownloadManagerView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="NileDownloadProperties.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
