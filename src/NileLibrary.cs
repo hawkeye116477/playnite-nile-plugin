@@ -550,46 +550,7 @@ namespace NileLibraryNS
                         {
                             globalSettings.NextLauncherUpdateTime = GetNextUpdateCheckTime(globalSettings.LauncherUpdatePolicy);
                             SavePluginSettings(globalSettings);
-                            var nileVersionInfoContent = await Nile.GetVersionInfoContent();
-                            if (nileVersionInfoContent.Tag_name != null)
-                            {
-                                var newVersion = new Version(nileVersionInfoContent.Tag_name.Replace("v", ""));
-                                var oldVersion = new Version(await Nile.GetLauncherVersion());
-                                if (oldVersion.CompareTo(newVersion) < 0)
-                                {
-                                    var options = new List<MessageBoxOption>
-                                    {
-                                        new MessageBoxOption(LocalizationManager.Instance.GetString(LOC.CommonViewChangelog), true),
-                                        new MessageBoxOption(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteOkLabel), false, true),
-                                    };
-                                    var result = PlayniteApi.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonNewVersionAvailable, new Dictionary<string, IFluentType> { ["appName"] = (FluentString)"Nile", ["appVersion"] = (FluentString)newVersion.ToString() }), LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteUpdaterWindowTitle), MessageBoxImage.Information, options);
-                                    if (result == options[0])
-                                    {
-                                        var changelogURL = $"https://github.com/imLinguin/nile/releases/tag/v{newVersion}";
-                                        Playnite.Commands.GlobalCommands.NavigateUrl(changelogURL);
-                                    }
-                                }
-                            }
-                            var gogdlVersionInfoContent = await Nile.GetVersionInfoContent();
-                            if (gogdlVersionInfoContent.Tag_name != null)
-                            {
-                                var newVersion = new Version(gogdlVersionInfoContent.Tag_name.Replace("v", ""));
-                                var oldVersion = new Version(await Nile.GetLauncherVersion());
-                                if (oldVersion.CompareTo(newVersion) < 0)
-                                {
-                                    var options = new List<MessageBoxOption>
-                                    {
-                                        new MessageBoxOption(LocalizationManager.Instance.GetString(LOC.CommonViewChangelog), true),
-                                        new MessageBoxOption(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteOkLabel), false, true),
-                                    };
-                                    var result = PlayniteApi.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonNewVersionAvailable, new Dictionary<string, IFluentType> { ["appName"] = (FluentString)"Nile", ["appVersion"] = (FluentString)$"{newVersion}" }), LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteUpdaterWindowTitle), MessageBoxImage.Information, options);
-                                    if (result == options[0])
-                                    {
-                                        var changelogURL = $"https://github.com/Heroic-Games-Launcher/heroic-gogdl/releases/tag/v{newVersion}";
-                                        Playnite.Commands.GlobalCommands.NavigateUrl(changelogURL);
-                                    }
-                                }
-                            }
+                            await Nile.CheckForLauncherUpdates(false);
                         }
                     }
 

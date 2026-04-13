@@ -193,34 +193,7 @@ namespace NileLibraryNS
 
         private async void CheckForNileUpdatesBtn_Click(object sender, RoutedEventArgs e)
         {
-            var versionInfoContent = await Nile.GetVersionInfoContent();
-            if (versionInfoContent.Tag_name != null)
-            {
-                var newVersion = new Version(versionInfoContent.Tag_name.Replace("v", ""));
-                var oldVersion = new Version(troubleshootingInformation.NileVersion);
-                if (oldVersion.CompareTo(newVersion) < 0)
-                {
-                    var options = new List<MessageBoxOption>
-                    {
-                        new MessageBoxOption(LocalizationManager.Instance.GetString(LOC.CommonViewChangelog)),
-                        new MessageBoxOption(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteOkLabel)),
-                    };
-                    var result = playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonNewVersionAvailable, new Dictionary<string, IFluentType> { ["appName"] = (FluentString)"Nile", ["appVersion"] = (FluentString)newVersion.ToString()}), LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteUpdaterWindowTitle), MessageBoxImage.Information, options);
-                    if (result == options[0])
-                    {
-                        var changelogURL = $"https://github.com/hawkeye116477/nile/releases/tag/v{newVersion}";
-                        Playnite.Commands.GlobalCommands.NavigateUrl(changelogURL);
-                    }
-                }
-                else
-                {
-                    playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonNoUpdatesAvailable));
-                }
-            }
-            else
-            {
-                playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteUpdateCheckFailMessage), "Nile");
-            }
+            await Nile.CheckForLauncherUpdates();
         }
 
         private void ClearCacheBtn_Click(object sender, RoutedEventArgs e)
