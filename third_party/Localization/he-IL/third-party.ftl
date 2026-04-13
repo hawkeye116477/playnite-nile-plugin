@@ -4,13 +4,9 @@
 ### https://github.com/JosefNemec/Playnite/tree/81a66b1b0cdca691eefcc03095ca20ce627db907. 
 ### DO NOT MODIFY, CUZ IT MIGHT BE OVERWRITTEN DURING NEXT RUN!
 ###
-third-party-playnite-filter-active-label = סינון פעיל
-third-party-playnite-filters = מסננים
 third-party-playnite-game-start-error = אי אפשר להתחיל משחק: { $var0 }
 third-party-playnite-game-install-error = לא ניתן להתקין את המשחק: { $var0 }
 third-party-playnite-game-uninstall-error = לא ניתן להסיר את המשחק: { $var0 }
-third-party-playnite-install-size-label = גודל ההתקנה
-third-party-playnite-added-label = נוסף
 third-party-playnite-ok-label = אישור
 third-party-playnite-save-label = שמור
 third-party-playnite-cancel-label = ביטול
@@ -18,10 +14,6 @@ third-party-playnite-yes-label = כן
 third-party-playnite-no-label = לא
 third-party-playnite-downloading-label = מוריד…
 third-party-playnite-loading-label = טוען…
-third-party-playnite-menu-restart-system = איתחול מערכת
-third-party-playnite-menu-shutdown-system = כבה מערכת
-third-party-playnite-menu-suspend-system = השהה מערכת
-third-party-playnite-menu-hibernate-system = מצב שינה
 third-party-playnite-settings-label = הגדרות
 third-party-playnite-settings-general-label = כללי
 third-party-playnite-settings-advanced-label = מתקדם
@@ -29,7 +21,6 @@ third-party-playnite-settings-clear-cache-title = לנקות מטמון?
 third-party-playnite-settings-playtime-import-mode-never = אף פעם
 third-party-playnite-login-required = נדרש אימות
 third-party-playnite-executable-title = ניתן להרצה
-third-party-playnite-game-name-title = שם
 third-party-playnite-game-install-dir-title = תיקיית התקנה
 third-party-playnite-library-import-error = נכשל ביבוא משחקים מ { $var0 }.
 third-party-playnite-metadata-download-error = נכשלה הורדת נתונים: { $var0 }

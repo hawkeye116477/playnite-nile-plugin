@@ -4,13 +4,9 @@
 ### https://github.com/JosefNemec/Playnite/tree/81a66b1b0cdca691eefcc03095ca20ce627db907. 
 ### DO NOT MODIFY, CUZ IT MIGHT BE OVERWRITTEN DURING NEXT RUN!
 ###
-third-party-playnite-filter-active-label = Фільтр Активний
-third-party-playnite-filters = Фільтри
 third-party-playnite-game-start-error = Неможливо запустити гру: { $var0 }
 third-party-playnite-game-install-error = Не вдається встановити гру: { $var0 }
 third-party-playnite-game-uninstall-error = Не вдається видалити гру: { $var0 }
-third-party-playnite-install-size-label = Розмір встановлення
-third-party-playnite-added-label = Додано
 third-party-playnite-ok-label = ОК
 third-party-playnite-save-label = Зберегти
 third-party-playnite-cancel-label = Скасувати
@@ -18,10 +14,6 @@ third-party-playnite-yes-label = Так
 third-party-playnite-no-label = Ні
 third-party-playnite-downloading-label = Завантаження...
 third-party-playnite-loading-label = Завантаження...
-third-party-playnite-menu-restart-system = Перезавантажити систему
-third-party-playnite-menu-shutdown-system = Вимкнути систему
-third-party-playnite-menu-suspend-system = Призупинити систему
-third-party-playnite-menu-hibernate-system = Режим глибокого сну
 third-party-playnite-settings-label = Налаштування
 third-party-playnite-settings-general-label = Загальні
 third-party-playnite-settings-advanced-label = Додатково
@@ -29,7 +21,6 @@ third-party-playnite-settings-clear-cache-title = Очистити кеш?
 third-party-playnite-settings-playtime-import-mode-never = Ніколи
 third-party-playnite-login-required = Необхідна автентифікація
 third-party-playnite-executable-title = Виконуваний файл
-third-party-playnite-game-name-title = Назва
 third-party-playnite-game-install-dir-title = Тека встановлення
 third-party-playnite-library-import-error = Не вдалося імпортувати ігри з { $var0 }.
 third-party-playnite-metadata-download-error = Не вдалося завантажити метадані: { $var0 }

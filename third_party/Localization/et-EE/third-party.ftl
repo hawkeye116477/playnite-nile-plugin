@@ -4,13 +4,9 @@
 ### https://github.com/JosefNemec/Playnite/tree/81a66b1b0cdca691eefcc03095ca20ce627db907. 
 ### DO NOT MODIFY, CUZ IT MIGHT BE OVERWRITTEN DURING NEXT RUN!
 ###
-third-party-playnite-filter-active-label = Filter aktiivne
-third-party-playnite-filters = Filtrid
 third-party-playnite-game-start-error = Ei saa käivitada mängu: { $var0 }
 third-party-playnite-game-install-error = Ei saa installida mängu: { $var0 }
 third-party-playnite-game-uninstall-error = Ei saa desinstallida mängu: { $var0 }
-third-party-playnite-install-size-label = Installi suurus
-third-party-playnite-added-label = Lisatud
 third-party-playnite-ok-label = OK
 third-party-playnite-save-label = Salvesta
 third-party-playnite-cancel-label = Tühista
@@ -18,10 +14,6 @@ third-party-playnite-yes-label = Jah
 third-party-playnite-no-label = Ei
 third-party-playnite-downloading-label = Allalaadimine…
 third-party-playnite-loading-label = Laadimine…
-third-party-playnite-menu-restart-system = Taaskäivita süsteem
-third-party-playnite-menu-shutdown-system = Lülita süsteem välja
-third-party-playnite-menu-suspend-system = Peata süsteem
-third-party-playnite-menu-hibernate-system = Pane süsteem talveunne
 third-party-playnite-settings-label = Seaded
 third-party-playnite-settings-general-label = Üldine
 third-party-playnite-settings-advanced-label = Täpsem
@@ -29,7 +21,6 @@ third-party-playnite-settings-clear-cache-title = Tühjenda vahemälu?
 third-party-playnite-settings-playtime-import-mode-never = Mitte kunagi
 third-party-playnite-login-required = Autentimine vajalik
 third-party-playnite-executable-title = Täitmisprogramm
-third-party-playnite-game-name-title = Nimi
 third-party-playnite-game-install-dir-title = Paigalduse asukoht
 third-party-playnite-library-import-error = Ei saanud importida mänge kohast { $var0 }.
 third-party-playnite-metadata-download-error = Metaandmete allalaadimine ebaõnnestus: { $var0 }

@@ -4,13 +4,9 @@
 ### https://github.com/JosefNemec/Playnite/tree/81a66b1b0cdca691eefcc03095ca20ce627db907. 
 ### DO NOT MODIFY, CUZ IT MIGHT BE OVERWRITTEN DURING NEXT RUN!
 ###
-third-party-playnite-filter-active-label = Filtru activ
-third-party-playnite-filters = Filtre
 third-party-playnite-game-start-error = Nu poate fi pornită camera: { $var0 }
 third-party-playnite-game-install-error = Nu se poate instala jocul: { $var0 }
 third-party-playnite-game-uninstall-error = Nu se poate dezinstala jocul: { $var0 }
-third-party-playnite-install-size-label = Dimensiunea instalării
-third-party-playnite-added-label = Adăugat
 third-party-playnite-ok-label = OK
 third-party-playnite-save-label = Salvează
 third-party-playnite-cancel-label = Anulează
@@ -18,10 +14,6 @@ third-party-playnite-yes-label = Da
 third-party-playnite-no-label = Nu
 third-party-playnite-downloading-label = Se descarcă...
 third-party-playnite-loading-label = Se încarcă...
-third-party-playnite-menu-restart-system = Repornire Sistem
-third-party-playnite-menu-shutdown-system = Închidere Sistem
-third-party-playnite-menu-suspend-system = Suspendare Sistem
-third-party-playnite-menu-hibernate-system = Hibernează Sistemul
 third-party-playnite-settings-label = Setări
 third-party-playnite-settings-general-label = General
 third-party-playnite-settings-advanced-label = Avansat
@@ -29,7 +21,6 @@ third-party-playnite-settings-clear-cache-title = Curățați Cache-ul?
 third-party-playnite-settings-playtime-import-mode-never = Niciodată
 third-party-playnite-login-required = Autentificare necesară
 third-party-playnite-executable-title = Executabil
-third-party-playnite-game-name-title = Nume
 third-party-playnite-game-install-dir-title = Directorul de instalare
 third-party-playnite-library-import-error = Nu s-a putut importa jocuri de la { $var0 }.
 third-party-playnite-metadata-download-error = Nu s-a putut descărca metadata: { $var0 }

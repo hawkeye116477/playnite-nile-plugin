@@ -4,13 +4,9 @@
 ### https://github.com/JosefNemec/Playnite/tree/81a66b1b0cdca691eefcc03095ca20ce627db907. 
 ### DO NOT MODIFY, CUZ IT MIGHT BE OVERWRITTEN DURING NEXT RUN!
 ###
-third-party-playnite-filter-active-label = Filtr Aktivován
-third-party-playnite-filters = Filtry
 third-party-playnite-game-start-error = Nelze spustit hru: { $var0 }
 third-party-playnite-game-install-error = Nelze nainstalovat hru: { $var0 }
 third-party-playnite-game-uninstall-error = Nelze odinstalovat hru: { $var0 }
-third-party-playnite-install-size-label = Velikost instalace
-third-party-playnite-added-label = Přidáno
 third-party-playnite-ok-label = OK
 third-party-playnite-save-label = Uložit
 third-party-playnite-cancel-label = Zrušit
@@ -18,10 +14,6 @@ third-party-playnite-yes-label = Ano
 third-party-playnite-no-label = Ne
 third-party-playnite-downloading-label = Stahování…
 third-party-playnite-loading-label = Načítání…
-third-party-playnite-menu-restart-system = Restartovat Systém
-third-party-playnite-menu-shutdown-system = Vypnout Systém
-third-party-playnite-menu-suspend-system = Uspat Systém
-third-party-playnite-menu-hibernate-system = Hibernovat Systém
 third-party-playnite-settings-label = Nastavení
 third-party-playnite-settings-general-label = Obecné
 third-party-playnite-settings-advanced-label = Pokročilé
@@ -29,7 +21,6 @@ third-party-playnite-settings-clear-cache-title = Vyčistit Mezipaměť?
 third-party-playnite-settings-playtime-import-mode-never = Nikdy
 third-party-playnite-login-required = Vyžaduje se přihlášení
 third-party-playnite-executable-title = Spustitelný soubor
-third-party-playnite-game-name-title = Jméno
 third-party-playnite-game-install-dir-title = Instalační Adresář
 third-party-playnite-library-import-error = Nepodařilo se importovat hry z { $var0 }.
 third-party-playnite-metadata-download-error = Selhalo stahování metadat: { $var0 }

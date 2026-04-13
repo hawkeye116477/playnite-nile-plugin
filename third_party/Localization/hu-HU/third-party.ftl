@@ -4,13 +4,9 @@
 ### https://github.com/JosefNemec/Playnite/tree/81a66b1b0cdca691eefcc03095ca20ce627db907. 
 ### DO NOT MODIFY, CUZ IT MIGHT BE OVERWRITTEN DURING NEXT RUN!
 ###
-third-party-playnite-filter-active-label = Szűrő bekapcsolva
-third-party-playnite-filters = Szűrők
 third-party-playnite-game-start-error = Nem lehet elindítani a játékot: { $var0 }
 third-party-playnite-game-install-error = { $var0 } játék nem telepíthető
 third-party-playnite-game-uninstall-error = { $var0 } játék nem eltávolítható
-third-party-playnite-install-size-label = Telepített méret
-third-party-playnite-added-label = Hozzáadva
 third-party-playnite-ok-label = OK
 third-party-playnite-save-label = Mentés
 third-party-playnite-cancel-label = Mégse
@@ -18,10 +14,6 @@ third-party-playnite-yes-label = Igen
 third-party-playnite-no-label = Nem
 third-party-playnite-downloading-label = Letöltés...
 third-party-playnite-loading-label = Betöltés…
-third-party-playnite-menu-restart-system = Újraindítás
-third-party-playnite-menu-shutdown-system = Leállítás
-third-party-playnite-menu-suspend-system = Készenléti állapot
-third-party-playnite-menu-hibernate-system = Hibernálás
 third-party-playnite-settings-label = Beállítások
 third-party-playnite-settings-general-label = Általános
 third-party-playnite-settings-advanced-label = Speciális beállítások
@@ -29,7 +21,6 @@ third-party-playnite-settings-clear-cache-title = Gyorsítótár ürítése?
 third-party-playnite-settings-playtime-import-mode-never = Sosem
 third-party-playnite-login-required = Hitelesítés szükséges
 third-party-playnite-executable-title = Program
-third-party-playnite-game-name-title = Név
 third-party-playnite-game-install-dir-title = Telepítési hely
 third-party-playnite-library-import-error = Nem sikerült a { $var0 } játékok importálása.
 third-party-playnite-metadata-download-error = Hiba a metaadatok letöltésekor: { $var0 }

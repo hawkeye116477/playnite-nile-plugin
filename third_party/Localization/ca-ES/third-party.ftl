@@ -4,13 +4,9 @@
 ### https://github.com/JosefNemec/Playnite/tree/81a66b1b0cdca691eefcc03095ca20ce627db907. 
 ### DO NOT MODIFY, CUZ IT MIGHT BE OVERWRITTEN DURING NEXT RUN!
 ###
-third-party-playnite-filter-active-label = Filtre actiu
-third-party-playnite-filters = Filtres
 third-party-playnite-game-start-error = No es pot iniciar el joc: { $var0 }
 third-party-playnite-game-install-error = No es pot instal·lar el joc: { $var0 }
 third-party-playnite-game-uninstall-error = No es pot desinstal·lar el joc: { $var0 }
-third-party-playnite-install-size-label = Mida de la instal·lació
-third-party-playnite-added-label = Afegit el
 third-party-playnite-ok-label = D'acord
 third-party-playnite-save-label = Desar
 third-party-playnite-cancel-label = Cancel·lar
@@ -18,10 +14,6 @@ third-party-playnite-yes-label = Sí
 third-party-playnite-no-label = No
 third-party-playnite-downloading-label = Descarregant…
 third-party-playnite-loading-label = Carregant...
-third-party-playnite-menu-restart-system = Reiniciar el sistema
-third-party-playnite-menu-shutdown-system = Tancar el sistema
-third-party-playnite-menu-suspend-system = Suspendre el sistema
-third-party-playnite-menu-hibernate-system = Hibernar el sistema
 third-party-playnite-settings-label = Configuració
 third-party-playnite-settings-general-label = General
 third-party-playnite-settings-advanced-label = Avançat
@@ -29,7 +21,6 @@ third-party-playnite-settings-clear-cache-title = Esborrar memòria cau?
 third-party-playnite-settings-playtime-import-mode-never = Mai
 third-party-playnite-login-required = Es requereix autenticació
 third-party-playnite-executable-title = Executable
-third-party-playnite-game-name-title = Nom
 third-party-playnite-game-install-dir-title = Carpeta d'instal·lació
 third-party-playnite-library-import-error = No s’han pogut importar els jocs de { $var0 }.
 third-party-playnite-metadata-download-error = No s'ha pogut descarregar les metadades: { $var0 }

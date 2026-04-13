@@ -4,13 +4,9 @@
 ### https://github.com/JosefNemec/Playnite/tree/81a66b1b0cdca691eefcc03095ca20ce627db907. 
 ### DO NOT MODIFY, CUZ IT MIGHT BE OVERWRITTEN DURING NEXT RUN!
 ###
-third-party-playnite-filter-active-label = Filtar je aktivan
-third-party-playnite-filters = Filteri
 third-party-playnite-game-start-error = Ne može da se uđe u igru: { $var0 }
 third-party-playnite-game-install-error = Ne može da se instalira igra: { $var0 }
 third-party-playnite-game-uninstall-error = Ne može da se deinstalira igra: { $var0 }
-third-party-playnite-install-size-label = Veličina instalacije
-third-party-playnite-added-label = Dodato
 third-party-playnite-ok-label = OK
 third-party-playnite-save-label = Sačuvaj
 third-party-playnite-cancel-label = Poništi
@@ -18,10 +14,6 @@ third-party-playnite-yes-label = Da
 third-party-playnite-no-label = Ne
 third-party-playnite-downloading-label = Preuzimanje…
 third-party-playnite-loading-label = Učitavanje…
-third-party-playnite-menu-restart-system = Ponovno pokreni sustav
-third-party-playnite-menu-shutdown-system = Isključi sustav
-third-party-playnite-menu-suspend-system = Suspendiraj sustav
-third-party-playnite-menu-hibernate-system = Hibernacija sustava
 third-party-playnite-settings-label = Postavke
 third-party-playnite-settings-general-label = Općenito
 third-party-playnite-settings-advanced-label = Napredno
@@ -29,7 +21,6 @@ third-party-playnite-settings-clear-cache-title = Očisti predmemoriju?
 third-party-playnite-settings-playtime-import-mode-never = Nikad
 third-party-playnite-login-required = Autentifikacija potrebna
 third-party-playnite-executable-title = Fajl za pokretanje
-third-party-playnite-game-name-title = Naziv
 third-party-playnite-game-install-dir-title = Lokacija instalacije
 third-party-playnite-library-import-error = Neuspjeli uvod igara iz { $var0 }.
 third-party-playnite-metadata-download-error = Neuspjelo preuzimanje metapodataka: { $var0 }

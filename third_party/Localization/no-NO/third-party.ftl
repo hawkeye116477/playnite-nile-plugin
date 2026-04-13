@@ -4,13 +4,9 @@
 ### https://github.com/JosefNemec/Playnite/tree/81a66b1b0cdca691eefcc03095ca20ce627db907. 
 ### DO NOT MODIFY, CUZ IT MIGHT BE OVERWRITTEN DURING NEXT RUN!
 ###
-third-party-playnite-filter-active-label = Filter i bruk
-third-party-playnite-filters = Filtre
 third-party-playnite-game-start-error = Kan ikke starte spill: { $var0 }
 third-party-playnite-game-install-error = Kan ikke installere spill: { $var0 }
 third-party-playnite-game-uninstall-error = Kan ikke avinstallere spill: { $var0 }
-third-party-playnite-install-size-label = Installasjonsstørrelse
-third-party-playnite-added-label = Lagt til
 third-party-playnite-ok-label = OK
 third-party-playnite-save-label = Lagre
 third-party-playnite-cancel-label = Avbryt
@@ -18,10 +14,6 @@ third-party-playnite-yes-label = Ja
 third-party-playnite-no-label = Nei
 third-party-playnite-downloading-label = Laster ned …
 third-party-playnite-loading-label = Laster …
-third-party-playnite-menu-restart-system = Systemomstart
-third-party-playnite-menu-shutdown-system = Slå av systemet
-third-party-playnite-menu-suspend-system = Suspender systemet
-third-party-playnite-menu-hibernate-system = Dvalemodus
 third-party-playnite-settings-label = Innstillinger
 third-party-playnite-settings-general-label = Generelt
 third-party-playnite-settings-advanced-label = Avansert
@@ -29,7 +21,6 @@ third-party-playnite-settings-clear-cache-title = Tøm hurtigminne?
 third-party-playnite-settings-playtime-import-mode-never = Aldri
 third-party-playnite-login-required = Godkjennelse er påkrevd
 third-party-playnite-executable-title = Kjørbar fil
-third-party-playnite-game-name-title = Navn
 third-party-playnite-game-install-dir-title = Installasjonsmappe
 third-party-playnite-library-import-error = Kunne ikke importere spill fra { $var0 }.
 third-party-playnite-metadata-download-error = Kunne ikke laste ned metadata: { $var0 }

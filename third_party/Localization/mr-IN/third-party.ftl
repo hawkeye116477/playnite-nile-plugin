@@ -4,13 +4,9 @@
 ### https://github.com/JosefNemec/Playnite/tree/81a66b1b0cdca691eefcc03095ca20ce627db907. 
 ### DO NOT MODIFY, CUZ IT MIGHT BE OVERWRITTEN DURING NEXT RUN!
 ###
-third-party-playnite-filter-active-label = गाळणी सक्षम
-third-party-playnite-filters = गाळण्या
 third-party-playnite-game-start-error = गेम सुरू करता आला नाही: { $var0 }
 third-party-playnite-game-install-error = गेम स्थापित करता आला नाही: { $var0 }
 third-party-playnite-game-uninstall-error = गेम विस्थापित करता आला नाही: { $var0 }
-third-party-playnite-install-size-label = स्थापनेचा आकार
-third-party-playnite-added-label = जोडले
 third-party-playnite-ok-label = ओके
 third-party-playnite-save-label = सेव्ह करा
 third-party-playnite-cancel-label = रद्द करा
@@ -18,10 +14,6 @@ third-party-playnite-yes-label = होय
 third-party-playnite-no-label = नाही
 third-party-playnite-downloading-label = डाउनलोड करत आहे…
 third-party-playnite-loading-label = लोड करत आहे…
-third-party-playnite-menu-restart-system = सिस्टम रीस्टार्ट करा
-third-party-playnite-menu-shutdown-system = सिस्टम बंद करा
-third-party-playnite-menu-suspend-system = सिस्टम विलंबित करा
-third-party-playnite-menu-hibernate-system = सिस्टम हायबरनेट करा
 third-party-playnite-settings-label = सेटिंग्झ
 third-party-playnite-settings-general-label = साधारण
 third-party-playnite-settings-advanced-label = आधुनिक
@@ -29,7 +21,6 @@ third-party-playnite-settings-clear-cache-title = कॅश साफ करा�
 third-party-playnite-settings-playtime-import-mode-never = कधीच नाही
 third-party-playnite-login-required = प्रमाणीकरणाची गरज आहे
 third-party-playnite-executable-title = एग्झेक्युटेबल
-third-party-playnite-game-name-title = नाव
 third-party-playnite-game-install-dir-title = स्थापना फोल्डर
 third-party-playnite-library-import-error = { $var0 } पासून गेम आयात करण्यात अपयशी.
 third-party-playnite-metadata-download-error = मेटाडेटा डाउनलोड करण्यात अयशस्वी: { $var0 }

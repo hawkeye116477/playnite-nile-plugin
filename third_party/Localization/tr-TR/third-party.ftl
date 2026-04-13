@@ -4,13 +4,9 @@
 ### https://github.com/JosefNemec/Playnite/tree/81a66b1b0cdca691eefcc03095ca20ce627db907. 
 ### DO NOT MODIFY, CUZ IT MIGHT BE OVERWRITTEN DURING NEXT RUN!
 ###
-third-party-playnite-filter-active-label = Filtre Etkin
-third-party-playnite-filters = Filtreler
 third-party-playnite-game-start-error = Oyun başlatılamıyor: { $var0 }
 third-party-playnite-game-install-error = Oyun kurulamıyor: { $var0 }
 third-party-playnite-game-uninstall-error = Oyun kaldırılamıyor: { $var0 }
-third-party-playnite-install-size-label = Kurulu Boyut
-third-party-playnite-added-label = Eklenme
 third-party-playnite-ok-label = TAMAM
 third-party-playnite-save-label = Kaydet
 third-party-playnite-cancel-label = İptal
@@ -18,10 +14,6 @@ third-party-playnite-yes-label = Evet
 third-party-playnite-no-label = Hayır
 third-party-playnite-downloading-label = İndiriliyor…
 third-party-playnite-loading-label = Yükleniyor…
-third-party-playnite-menu-restart-system = Sistemi Yeniden Başlat
-third-party-playnite-menu-shutdown-system = Sistemi Kapat
-third-party-playnite-menu-suspend-system = Sistemi Askıya Al
-third-party-playnite-menu-hibernate-system = Sistemi Hazırda Beklet
 third-party-playnite-settings-label = Ayarlar
 third-party-playnite-settings-general-label = Genel
 third-party-playnite-settings-advanced-label = Gelişmiş
@@ -29,7 +21,6 @@ third-party-playnite-settings-clear-cache-title = Önbelleği Temizle?
 third-party-playnite-settings-playtime-import-mode-never = Asla
 third-party-playnite-login-required = Doğrulama gerekli
 third-party-playnite-executable-title = Uygulama
-third-party-playnite-game-name-title = İsim
 third-party-playnite-game-install-dir-title = Kurulum Klasörü
 third-party-playnite-library-import-error = { $var0 } konumundan oyun içe aktarılamadı.
 third-party-playnite-metadata-download-error = Üst veriler indirilemedi: { $var0 }

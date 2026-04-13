@@ -21,16 +21,6 @@ LOCDontShowAgainTitle
 LOCDownloadingLabel
 LOCGameInstallError
 LOCMemoryError
-LOCFilterActiveLabel
-LOCFilters
-LOCGameNameTitle
-LOCInstallSizeLabel
-LOCAddedLabel
-LOCMenuShutdownSystem
-LOCMenuRestartSystem
-LOCMenuHibernateSystem
-LOCMenuSuspendSystem
-LOCSaveLabel
 LOCUpdaterInstallUpdate
 LOCUninstallGame
 LOCUninstalling
@@ -44,3 +34,4 @@ LOCGameStartError
 LOCExtensionsUpdates
 LOCOptionOnlyManually
 LOCLibraryImportError
+LOCSaveLabel

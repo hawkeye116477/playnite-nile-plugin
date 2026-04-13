@@ -4,13 +4,9 @@
 ### https://github.com/JosefNemec/Playnite/tree/81a66b1b0cdca691eefcc03095ca20ce627db907. 
 ### DO NOT MODIFY, CUZ IT MIGHT BE OVERWRITTEN DURING NEXT RUN!
 ###
-third-party-playnite-filter-active-label = Filter aktif
-third-party-playnite-filters = Filter
 third-party-playnite-game-start-error = Gagal memulai game: { $var0 }
 third-party-playnite-game-install-error = Gagal menginstal game: { $var0 }
 third-party-playnite-game-uninstall-error = Gagal menguninstall game: { $var0 }
-third-party-playnite-install-size-label = Besar Instalasi
-third-party-playnite-added-label = Ditambahkan
 third-party-playnite-ok-label = OK
 third-party-playnite-save-label = Simpan
 third-party-playnite-cancel-label = Batal
@@ -18,10 +14,6 @@ third-party-playnite-yes-label = Ya
 third-party-playnite-no-label = Tidak
 third-party-playnite-downloading-label = Mengunduh…
 third-party-playnite-loading-label = Memuat...
-third-party-playnite-menu-restart-system = Restart Sistem
-third-party-playnite-menu-shutdown-system = Matikan Sistem
-third-party-playnite-menu-suspend-system = Suspend System
-third-party-playnite-menu-hibernate-system = Hibernasikan Sistem
 third-party-playnite-settings-label = Pengaturan
 third-party-playnite-settings-general-label = Umum
 third-party-playnite-settings-advanced-label = Opsi Lanjut
@@ -29,7 +21,6 @@ third-party-playnite-settings-clear-cache-title = Bersihkan Cache?
 third-party-playnite-settings-playtime-import-mode-never = Tidak pernah
 third-party-playnite-login-required = Login dibutuhkan
 third-party-playnite-executable-title = File program (file .exe/.sh/.bat, dll..)
-third-party-playnite-game-name-title = Nama
 third-party-playnite-game-install-dir-title = Direktori Instalasi
 third-party-playnite-library-import-error = Gagal mengimpor game dari { $var0 }
 third-party-playnite-metadata-download-error = Gagal mendownload metadata: { $var0 }

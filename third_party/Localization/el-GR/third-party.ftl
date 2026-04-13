@@ -4,13 +4,9 @@
 ### https://github.com/JosefNemec/Playnite/tree/81a66b1b0cdca691eefcc03095ca20ce627db907. 
 ### DO NOT MODIFY, CUZ IT MIGHT BE OVERWRITTEN DURING NEXT RUN!
 ###
-third-party-playnite-filter-active-label = Φίλτρο Ενεργό
-third-party-playnite-filters = Φίλτρα
 third-party-playnite-game-start-error = Δεν είναι δυνατή η έναρξη του παιχνιδιού: { $var0 }
 third-party-playnite-game-install-error = Δεν είναι δυνατή η εγκατάσταση του παιχνιδιού: { $var0 }
 third-party-playnite-game-uninstall-error = Δεν είναι δυνατή η απεγκατάσταση του παιχνιδιού: { $var0 }
-third-party-playnite-install-size-label = Μέγεθος Εγκατάστασης
-third-party-playnite-added-label = Προστέθηκε
 third-party-playnite-ok-label = ΟΚ
 third-party-playnite-save-label = Αποθήκευση
 third-party-playnite-cancel-label = Ακύρωση
@@ -18,10 +14,6 @@ third-party-playnite-yes-label = Ναι
 third-party-playnite-no-label = Όχι
 third-party-playnite-downloading-label = Γίνεται λήψη...
 third-party-playnite-loading-label = Φόρτωση…
-third-party-playnite-menu-restart-system = Επανεκκίνηση του Συστήματος
-third-party-playnite-menu-shutdown-system = Απενεργοποίηση Συστήματος
-third-party-playnite-menu-suspend-system = Αναστολή Λειτουργίας
-third-party-playnite-menu-hibernate-system = Αδρανοποίηση
 third-party-playnite-settings-label = Ρυθμίσεις
 third-party-playnite-settings-general-label = Γενικά
 third-party-playnite-settings-advanced-label = Για Προχωρημένους
@@ -29,7 +21,6 @@ third-party-playnite-settings-clear-cache-title = Καθαρισμός Cache?
 third-party-playnite-settings-playtime-import-mode-never = Ποτέ
 third-party-playnite-login-required = Απαιτείται πιστοποίηση
 third-party-playnite-executable-title = Εκτελέσιμο
-third-party-playnite-game-name-title = Ονομα
 third-party-playnite-game-install-dir-title = Κατάλογος εγκατάστασης
 third-party-playnite-library-import-error = Αποτυχία εισαγωγής παιχνιδιών από { $var0 }.
 third-party-playnite-metadata-download-error = Αποτυχία λήψης metadata: { $var0 }

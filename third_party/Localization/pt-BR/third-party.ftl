@@ -4,13 +4,9 @@
 ### https://github.com/JosefNemec/Playnite/tree/81a66b1b0cdca691eefcc03095ca20ce627db907. 
 ### DO NOT MODIFY, CUZ IT MIGHT BE OVERWRITTEN DURING NEXT RUN!
 ###
-third-party-playnite-filter-active-label = Filtro ativado
-third-party-playnite-filters = Filtros
 third-party-playnite-game-start-error = Não foi possível iniciar o jogo: { $var0 }
 third-party-playnite-game-install-error = Não foi possível instalar o jogo: { $var0 }
 third-party-playnite-game-uninstall-error = Não foi possível desinstalar o jogo: { $var0 }
-third-party-playnite-install-size-label = Tamanho da Instalação
-third-party-playnite-added-label = Adicionado
 third-party-playnite-ok-label = OK
 third-party-playnite-save-label = Salvar
 third-party-playnite-cancel-label = Cancelar
@@ -18,10 +14,6 @@ third-party-playnite-yes-label = Sim
 third-party-playnite-no-label = Não
 third-party-playnite-downloading-label = Baixando…
 third-party-playnite-loading-label = Carregando…
-third-party-playnite-menu-restart-system = Reiniciar o sistema
-third-party-playnite-menu-shutdown-system = Desligar o sistema
-third-party-playnite-menu-suspend-system = Suspender o sistema
-third-party-playnite-menu-hibernate-system = Hibernar o sistema
 third-party-playnite-settings-label = Configurações
 third-party-playnite-settings-general-label = Geral
 third-party-playnite-settings-advanced-label = Avançado
@@ -29,7 +21,6 @@ third-party-playnite-settings-clear-cache-title = Limpar o cache?
 third-party-playnite-settings-playtime-import-mode-never = Nunca
 third-party-playnite-login-required = Autenticação requerida
 third-party-playnite-executable-title = Executável
-third-party-playnite-game-name-title = Nome
 third-party-playnite-game-install-dir-title = Local de instalação
 third-party-playnite-library-import-error = Falha ao importar os jogos de { $var0 }.
 third-party-playnite-metadata-download-error = Falha ao baixar metadados: { $var0 }

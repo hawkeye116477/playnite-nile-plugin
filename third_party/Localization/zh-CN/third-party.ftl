@@ -4,13 +4,9 @@
 ### https://github.com/JosefNemec/Playnite/tree/81a66b1b0cdca691eefcc03095ca20ce627db907. 
 ### DO NOT MODIFY, CUZ IT MIGHT BE OVERWRITTEN DURING NEXT RUN!
 ###
-third-party-playnite-filter-active-label = 筛选器激活
-third-party-playnite-filters = 筛选
 third-party-playnite-game-start-error = 无法启动游戏：{ $var0 }
 third-party-playnite-game-install-error = 无法安装游戏：{ $var0 }
 third-party-playnite-game-uninstall-error = 无法卸载游戏：{ $var0 }
-third-party-playnite-install-size-label = 占用空间
-third-party-playnite-added-label = 添加日期
 third-party-playnite-ok-label = 好的
 third-party-playnite-save-label = 保存
 third-party-playnite-cancel-label = 取消
@@ -18,10 +14,6 @@ third-party-playnite-yes-label = 是
 third-party-playnite-no-label = 否
 third-party-playnite-downloading-label = 正在下载…
 third-party-playnite-loading-label = 正在加载…
-third-party-playnite-menu-restart-system = 重启系统
-third-party-playnite-menu-shutdown-system = 关闭系统
-third-party-playnite-menu-suspend-system = 挂起系统
-third-party-playnite-menu-hibernate-system = 休眠系统
 third-party-playnite-settings-label = 设置
 third-party-playnite-settings-general-label = 通用
 third-party-playnite-settings-advanced-label = 高级
@@ -29,7 +21,6 @@ third-party-playnite-settings-clear-cache-title = 清除缓存？
 third-party-playnite-settings-playtime-import-mode-never = 从未
 third-party-playnite-login-required = 需要身份验证
 third-party-playnite-executable-title = 可执行文件
-third-party-playnite-game-name-title = 名称
 third-party-playnite-game-install-dir-title = 安装目录
 third-party-playnite-library-import-error = 从 { $var0 } 导入游戏失败。
 third-party-playnite-metadata-download-error = 下载资料数据失败：{ $var0 }

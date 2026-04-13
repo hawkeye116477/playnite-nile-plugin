@@ -4,13 +4,9 @@
 ### https://github.com/JosefNemec/Playnite/tree/81a66b1b0cdca691eefcc03095ca20ce627db907. 
 ### DO NOT MODIFY, CUZ IT MIGHT BE OVERWRITTEN DURING NEXT RUN!
 ###
-third-party-playnite-filter-active-label = フィルター有効
-third-party-playnite-filters = フィルター
 third-party-playnite-game-start-error = ゲームを開始できませんでした: { $var0 }
 third-party-playnite-game-install-error = ゲームをインストールできません: { $var0 }
 third-party-playnite-game-uninstall-error = ゲームをアンインストールできません: { $var0 }
-third-party-playnite-install-size-label = インストールサイズ
-third-party-playnite-added-label = 追加日
 third-party-playnite-ok-label = OK
 third-party-playnite-save-label = 保存
 third-party-playnite-cancel-label = キャンセル
@@ -18,10 +14,6 @@ third-party-playnite-yes-label = はい
 third-party-playnite-no-label = いいえ
 third-party-playnite-downloading-label = ダウンロード中
 third-party-playnite-loading-label = 読み込み中…
-third-party-playnite-menu-restart-system = システムの再起動
-third-party-playnite-menu-shutdown-system = システムのシャットダウン
-third-party-playnite-menu-suspend-system = システムのスリープ
-third-party-playnite-menu-hibernate-system = システムの休止
 third-party-playnite-settings-label = 設定
 third-party-playnite-settings-general-label = 一般設定
 third-party-playnite-settings-advanced-label = 詳細設定
@@ -29,7 +21,6 @@ third-party-playnite-settings-clear-cache-title = キャッシュをクリアし
 third-party-playnite-settings-playtime-import-mode-never = 常に無効
 third-party-playnite-login-required = 認証が必要です
 third-party-playnite-executable-title = 実行ファイル
-third-party-playnite-game-name-title = タイトル
 third-party-playnite-game-install-dir-title = インストールフォルダ
 third-party-playnite-library-import-error = { $var0 } からゲームをインポートできませんでした。
 third-party-playnite-metadata-download-error = メタデータをダウンロードできませんでした: { $var0 }

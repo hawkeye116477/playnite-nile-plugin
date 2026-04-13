@@ -4,13 +4,9 @@
 ### https://github.com/JosefNemec/Playnite/tree/81a66b1b0cdca691eefcc03095ca20ce627db907. 
 ### DO NOT MODIFY, CUZ IT MIGHT BE OVERWRITTEN DURING NEXT RUN!
 ###
-third-party-playnite-filter-active-label = 필터 적용 중
-third-party-playnite-filters = 필터
 third-party-playnite-game-start-error = 게임을 시작할 수 없습니다: { $var0 }
 third-party-playnite-game-install-error = 게임을 설치할 수 없습니다: { $var0 }
 third-party-playnite-game-uninstall-error = 게임을 삭제할 수 없습니다: { $var0 }
-third-party-playnite-install-size-label = 설치 용량
-third-party-playnite-added-label = 추가일
 third-party-playnite-ok-label = 확인
 third-party-playnite-save-label = 저장
 third-party-playnite-cancel-label = 취소
@@ -18,10 +14,6 @@ third-party-playnite-yes-label = 예
 third-party-playnite-no-label = 아니오
 third-party-playnite-downloading-label = 다운로드 중…
 third-party-playnite-loading-label = 로딩 중…
-third-party-playnite-menu-restart-system = 시스템 재시작
-third-party-playnite-menu-shutdown-system = 시스템 종료
-third-party-playnite-menu-suspend-system = 시스템 정지
-third-party-playnite-menu-hibernate-system = 시스템 최대 절전
 third-party-playnite-settings-label = 설정
 third-party-playnite-settings-general-label = 일반
 third-party-playnite-settings-advanced-label = 고급 설정
@@ -29,7 +21,6 @@ third-party-playnite-settings-clear-cache-title = 캐시를 삭제하시겠습�
 third-party-playnite-settings-playtime-import-mode-never = 가져오지 않음
 third-party-playnite-login-required = 인증이 필요함
 third-party-playnite-executable-title = 실행파일
-third-party-playnite-game-name-title = 이름
 third-party-playnite-game-install-dir-title = 설치 경로
 third-party-playnite-library-import-error = { $var0 }(으)로부터 게임 불러오기 실패.
 third-party-playnite-metadata-download-error = 메타 데이터 다운로드 실패 : { $var0 }

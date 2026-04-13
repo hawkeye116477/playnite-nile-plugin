@@ -4,13 +4,9 @@
 ### https://github.com/JosefNemec/Playnite/tree/81a66b1b0cdca691eefcc03095ca20ce627db907. 
 ### DO NOT MODIFY, CUZ IT MIGHT BE OVERWRITTEN DURING NEXT RUN!
 ###
-third-party-playnite-filter-active-label = Filter Actief
-third-party-playnite-filters = Filters
 third-party-playnite-game-start-error = Kan het spel niet starten: { $var0 }
 third-party-playnite-game-install-error = Kan het spel niet installeren: { $var0 }
 third-party-playnite-game-uninstall-error = Kan het spel niet deïnstalleren: { $var0 }
-third-party-playnite-install-size-label = Installatiegrootte
-third-party-playnite-added-label = Toegevoegd
 third-party-playnite-ok-label = Oké
 third-party-playnite-save-label = Opslaan
 third-party-playnite-cancel-label = Annuleren
@@ -18,10 +14,6 @@ third-party-playnite-yes-label = Ja
 third-party-playnite-no-label = Nee
 third-party-playnite-downloading-label = Downloaden…
 third-party-playnite-loading-label = Laden…
-third-party-playnite-menu-restart-system = Opnieuw opstarten
-third-party-playnite-menu-shutdown-system = Systeem uitschakelen
-third-party-playnite-menu-suspend-system = Systeem Onderbreken
-third-party-playnite-menu-hibernate-system = Systeem in slaapstand zetten
 third-party-playnite-settings-label = Instellingen
 third-party-playnite-settings-general-label = Algemeen
 third-party-playnite-settings-advanced-label = Geavanceerd
@@ -29,7 +21,6 @@ third-party-playnite-settings-clear-cache-title = Leeg Cache?
 third-party-playnite-settings-playtime-import-mode-never = Nooit
 third-party-playnite-login-required = Authenticatie nodig
 third-party-playnite-executable-title = Uitvoerbaar bestand
-third-party-playnite-game-name-title = Naam
 third-party-playnite-game-install-dir-title = Installatie Map
 third-party-playnite-library-import-error = Kan geen spellen importeren van { $var0 }.
 third-party-playnite-metadata-download-error = Downloaden van metadata mislukt: { $var0 }

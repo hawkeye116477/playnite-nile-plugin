@@ -4,13 +4,9 @@
 ### https://github.com/JosefNemec/Playnite/tree/81a66b1b0cdca691eefcc03095ca20ce627db907. 
 ### DO NOT MODIFY, CUZ IT MIGHT BE OVERWRITTEN DURING NEXT RUN!
 ###
-third-party-playnite-filter-active-label = Suodatin käytössä
-third-party-playnite-filters = Suodattimet
 third-party-playnite-game-start-error = Peliä ei voida käynnistää: { $var0 }
 third-party-playnite-game-install-error = Peliä ei voida asentaa: { $var0 }
 third-party-playnite-game-uninstall-error = Peliä ei voida poistaa: { $var0 }
-third-party-playnite-install-size-label = Koko asennettuna
-third-party-playnite-added-label = Lisätty
 third-party-playnite-ok-label = OK
 third-party-playnite-save-label = Tallenna
 third-party-playnite-cancel-label = Peruuta
@@ -18,10 +14,6 @@ third-party-playnite-yes-label = Kyllä
 third-party-playnite-no-label = Ei
 third-party-playnite-downloading-label = Ladataan…
 third-party-playnite-loading-label = Ladataan…
-third-party-playnite-menu-restart-system = Käynnistä järjestelmä uudelleen
-third-party-playnite-menu-shutdown-system = Sammuta järjestelmä
-third-party-playnite-menu-suspend-system = Aseta järjestelmä valmiustilaan
-third-party-playnite-menu-hibernate-system = Aseta järjestelmä horrostilaan
 third-party-playnite-settings-label = Asetukset
 third-party-playnite-settings-general-label = Yleiset
 third-party-playnite-settings-advanced-label = Lisäasetukset
@@ -29,7 +21,6 @@ third-party-playnite-settings-clear-cache-title = Tyhjennä välimuisti?
 third-party-playnite-settings-playtime-import-mode-never = Ei koskaan
 third-party-playnite-login-required = Todennus vaaditaan
 third-party-playnite-executable-title = Suoritettava ohjelma
-third-party-playnite-game-name-title = Nimi
 third-party-playnite-game-install-dir-title = Asennushakemisto
 third-party-playnite-library-import-error = Pelejä ei voitu tuoda sijainnista { $var0 }.
 third-party-playnite-metadata-download-error = Tietojen lataaminen epäonnistui: { $var0 }
