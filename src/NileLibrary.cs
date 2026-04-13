@@ -82,9 +82,9 @@ namespace NileLibraryNS
             commonHelpers.SaveJsonSettingsToFile(pluginDownloadData, "", "downloads", true);
         }
 
-        public async Task MigrateOldDownloadData()
+        public void MigrateOldDownloadData()
         {
-            var oldPluginDownloadDataForMigration = new DownloadManagerData();
+            var oldPluginDownloadDataForMigration = new OldDownloadManagerData();
             var dataDir = Instance.GetPluginUserDataPath();
             var oldDataFile = Path.Combine(dataDir, "downloadManager.json");
             var oldDataBackupFile = Path.Combine(dataDir, "downloadManager.json.migrated");
@@ -92,28 +92,67 @@ namespace NileLibraryNS
             bool udmInstalled = PlayniteApi.Addons.Plugins.Any(plugin => plugin.Id.Equals(UnifiedDownloadManagerSharedProperties.Id));
             if (File.Exists(oldDataFile) && udmInstalled)
             {
-                logger.Debug("Migrating old downloads data...");
-                var content = FileSystem.ReadFileAsStringSafe(oldDataFile);
-                if (!content.IsNullOrWhiteSpace() && Serialization.TryFromJson(content, out DownloadManagerData oldPluginDownloadData))
+                GlobalProgressOptions globalProgressOptions = new GlobalProgressOptions(LocalizationManager.Instance.GetString(LOC.CommonMigratingData), false) { IsIndeterminate = true };
+                PlayniteApi.Dialogs.ActivateGlobalProgress(async (a) =>
                 {
-                    if (oldPluginDownloadData != null && oldPluginDownloadData.downloads != null)
+                    await PlayniteApi.MainView.UIDispatcher.InvokeAsync(async () =>
                     {
-                        oldPluginDownloadDataForMigration = oldPluginDownloadData;
-                    }
-                }
-                var nileDownloadLogic = (NileDownloadLogic)Instance.UnifiedDownloadLogic;
-                var oldData = oldPluginDownloadDataForMigration.downloads;
-                foreach (var oldDownload in oldData)
-                {
-                    if (oldDownload.status == DownloadStatus.Running || oldDownload.status == DownloadStatus.Queued)
-                    {
-                        oldDownload.status = DownloadStatus.Paused;
-                    }
-                    logger.Debug(oldDownload.downloadSizeNumber.ToString());
-                }
-                await nileDownloadLogic.AddTasks(oldData.ToList(), true);
-                File.Move(oldDataFile, oldDataBackupFile);
-                logger.Debug("Migration done.");
+                        logger.Debug("Migrating old downloads data...");
+                        var content = FileSystem.ReadFileAsStringSafe(oldDataFile);
+                        if (!content.IsNullOrWhiteSpace() && Serialization.TryFromJson(content, out OldDownloadManagerData oldPluginDownloadData))
+                        {
+                            if (oldPluginDownloadData != null && oldPluginDownloadData.downloads != null)
+                            {
+                                oldPluginDownloadDataForMigration = oldPluginDownloadData;
+                            }
+                        }
+                        var nileDownloadLogic = (NileDownloadLogic)Instance.UnifiedDownloadLogic;
+                        var oldData = oldPluginDownloadDataForMigration.downloads;
+                        var unifiedTasks = new List<UnifiedDownload>();
+                        foreach (var oldDownload in oldData)
+                        {
+                            if (oldDownload.status == DownloadStatus.Running || oldDownload.status == DownloadStatus.Queued)
+                            {
+                                oldDownload.status = DownloadStatus.Paused;
+                            }
+                            var newPluginTask = new DownloadManagerData.Download
+                            {
+                                addedTime = oldDownload.addedTime,
+                                completedTime = oldDownload.completedTime,
+                                downloadedNumber = oldDownload.downloadedNumber,
+                                downloadProperties = Serialization.GetClone(oldDownload.downloadProperties),
+                                downloadSizeNumber = oldDownload.downloadSizeNumber,
+                                fullInstallPath = oldDownload.fullInstallPath,
+                                gameID = oldDownload.gameID,
+                                name = oldDownload.name,
+                                progress = oldDownload.progress,
+                                status = oldDownload.status
+                            };
+                            Instance.pluginDownloadData.downloads.Add(newPluginTask);
+                            var unifiedTask = new UnifiedDownload
+                            {
+                                gameID = oldDownload.gameID,
+                                name = oldDownload.name,
+                                downloadSizeBytes = oldDownload.downloadSizeNumber,
+                                installSizeBytes = oldDownload.downloadSizeNumber,
+                                fullInstallPath = oldDownload.fullInstallPath,
+                                pluginId = Instance.Id.ToString(),
+                                sourceName = "Amazon",
+                                addedTime = oldDownload.addedTime,
+                            };
+                            unifiedTask.status = (UnifiedDownloadStatus)oldDownload.status;
+                            unifiedTask.progress = oldDownload.progress;
+                            unifiedTask.downloadedBytes = oldDownload.downloadedNumber;
+                            unifiedTask.completedTime = oldDownload.completedTime;
+                            unifiedTasks.Add(unifiedTask);
+                        }
+                        UnifiedDownloadManagerApi unifiedDownloadManagerApi = new UnifiedDownloadManagerApi();
+                        await unifiedDownloadManagerApi.AddTasks(unifiedTasks);
+                        Instance.SaveDownloadData();
+                        File.Move(oldDataFile, oldDataBackupFile);
+                        logger.Debug("Migration done.");
+                    });
+                }, globalProgressOptions);
             }
         }
 
@@ -448,7 +487,7 @@ namespace NileLibraryNS
 
         public override async void OnApplicationStarted(OnApplicationStartedEventArgs args)
         {
-            await MigrateOldDownloadData();
+            MigrateOldDownloadData();
             var globalSettings = GetSettings();
             if (globalSettings != null)
             {

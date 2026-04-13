@@ -24,7 +24,7 @@ namespace NileLibraryNS
         private IPlayniteAPI playniteAPI = API.Instance;
         public bool downloadsChanged = false;
 
-        public async Task AddTasks(List<DownloadManagerData.Download> downloadTasks, bool migrate = false)
+        public async Task AddTasks(List<DownloadManagerData.Download> downloadTasks)
         {
             var unifiedTasks = new List<UnifiedDownload>();
             foreach (var downloadTask in downloadTasks)
@@ -40,14 +40,6 @@ namespace NileLibraryNS
                     fullInstallPath = downloadTask.fullInstallPath,
                     sourceName = "Amazon",
                 };
-                if (migrate)
-                {
-                    unifiedTask.addedTime = downloadTask.addedTime;
-                    unifiedTask.status = (UnifiedDownloadStatus)downloadTask.status;
-                    unifiedTask.progress = downloadTask.progress;
-                    unifiedTask.downloadedBytes = downloadTask.downloadedNumber;
-                    unifiedTask.completedTime = downloadTask.completedTime;
-                }
                 unifiedTasks.Add(unifiedTask);
             }
             UnifiedDownloadManagerApi unifiedDownloadManagerApi = new UnifiedDownloadManagerApi();
