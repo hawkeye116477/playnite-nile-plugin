@@ -588,7 +588,7 @@ namespace NileLibraryNS
                     }
                     else if (result == options[1])
                     {
-                        var newAsset = versionInfoContent.Assets.FirstOrDefault(a => a.Browser_download_url.Contains($"{versionInfoContent.Tag_name}/legendary")
+                        var newAsset = versionInfoContent.Assets.FirstOrDefault(a => a.Browser_download_url.Contains($"{versionInfoContent.Tag_name}/nile")
                                                                                      && a.Browser_download_url.EndsWith(".exe"));
                         if (newAsset != null)
                         {
@@ -601,7 +601,7 @@ namespace NileLibraryNS
                                 Download_size = newAsset.Size,
                                 Title = appTitle,
                             };
-                            appsToUpdate.Add("legendary-launcher", updateInfo);
+                            appsToUpdate.Add("nile-launcher", updateInfo);
                             if (appsToUpdate.Count > 0)
                             {
                                 Window window = playniteAPI.Dialogs.CreateWindow(new WindowCreationOptions
@@ -632,12 +632,12 @@ namespace NileLibraryNS
             {
                 if (displayMessages)
                 {
-                    playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteUpdateCheckFailMessage), "Legendary Launcher");
+                    playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteUpdateCheckFailMessage), "Nile Launcher");
                 }
                 else
                 {
                     var logger = LogManager.GetLogger();
-                    logger.Error("An error occured during checking for Legendary launcher update");
+                    logger.Error("An error occured during checking for Nile launcher update");
                 }
             }
         }

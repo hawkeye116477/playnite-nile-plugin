@@ -586,7 +586,7 @@ namespace NileLibraryNS
                         }
                         if (completedDownload)
                         {
-                            var wantedPluginItem = NileLibrary.Instance.pluginDownloadData.downloads.FirstOrDefault(i => i.gameID == wantedUnifiedItem.gameID);
+                            var wantedPluginItem = NileLibrary.Instance.pluginDownloadData.downloads.FirstOrDefault(i => i.gameID == gameToUpdate.Key);
                             NileLibrary.Instance.pluginDownloadData.downloads.Remove(wantedPluginItem);
                             wantedPluginItem = null;
                             unifiedDownloadManagerApi.RemoveTask(wantedUnifiedItem);

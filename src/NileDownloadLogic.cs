@@ -331,6 +331,8 @@ namespace NileLibraryNS
         {
             var totalStopwatch = Stopwatch.StartNew();
             downloadTask.status = UnifiedDownloadStatus.Running;
+            downloadTask.activity = LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteDownloadingLabel);
+
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", Nile.UserAgent);
 
@@ -513,6 +515,7 @@ namespace NileLibraryNS
             }
             downloadTask.progress = newCurrentPercentProgress;
             downloadTask.elapsed = totalStopwatch.Elapsed;
+            downloadTask.activity = "";
             downloadTask.status = UnifiedDownloadStatus.Completed;
             DateTimeOffset now = DateTime.UtcNow;
             downloadTask.completedTime = now.ToUnixTimeSeconds();
