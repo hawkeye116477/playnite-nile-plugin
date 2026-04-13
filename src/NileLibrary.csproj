@@ -195,20 +195,11 @@
     <Compile Include="..\third_party\playnite-common-plugin\src\RetryHandler.cs">
       <Link>Shared\RetryHandler.cs</Link>
     </Compile>
-    <Compile Include="..\third_party\playnite-common-plugin\src\Converters\LongToDateConverter.cs">
-      <Link>Shared\Converters\LongToDateConverter.cs</Link>
-    </Compile>
-    <Compile Include="..\third_party\playnite-common-plugin\src\Converters\NumericalSizeToStringConverter.cs">
-      <Link>Shared\Converters\NumericalSizeToStringConverter.cs</Link>
-    </Compile>
     <Compile Include="..\third_party\playnite-common-plugin\src\Enums\ClearCacheTime.cs">
       <Link>Shared\Enums\ClearCacheTime.cs</Link>
     </Compile>
     <Compile Include="..\third_party\playnite-common-plugin\src\Enums\DownloadAction.cs">
       <Link>Shared\Enums\DownloadAction.cs</Link>
-    </Compile>
-    <Compile Include="..\third_party\playnite-common-plugin\src\Enums\DownloadCompleteAction.cs">
-      <Link>Shared\Enums\DownloadCompleteAction.cs</Link>
     </Compile>
     <Compile Include="..\third_party\playnite-common-plugin\src\Enums\DownloadStatus.cs">
       <Link>Shared\Enums\DownloadStatus.cs</Link>
