@@ -25,7 +25,6 @@ namespace NileLibraryNS
     {
         private static readonly ILogger logger = LogManager.GetLogger();
         private IPlayniteAPI playniteAPI = API.Instance;
-        public bool downloadsChanged = false;
         private static readonly RetryHandler retryHandler = new RetryHandler(new HttpClientHandler());
         private static readonly HttpClient client = new HttpClient(retryHandler);
 
@@ -57,13 +56,22 @@ namespace NileLibraryNS
             var matchingPluginTask = NileLibrary.Instance.pluginDownloadData.downloads.FirstOrDefault(t => t.gameID == downloadTask.gameID);
             var resumeFile = Path.Combine(Nile.ConfigPath, "tmp", downloadTask.gameID + ".resume");
             var repairFile = Path.Combine(Nile.ConfigPath, "tmp", downloadTask.gameID + ".repair");
-
+            var tempDir = Path.Combine(downloadTask.fullInstallPath, ".Downloader_temp");
+            if (!Directory.Exists(tempDir))
+            {
+                var tempFolderName = $"{downloadTask.gameID}_PlayniteNilePlugin";
+                tempDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "temp", tempFolderName);
+            }
             const int maxRetries = 5;
             int delayMs = 100;
             for (int i = 0; i < maxRetries; i++)
             {
                 try
                 {
+                    if (Directory.Exists(tempDir))
+                    {
+                        Directory.Delete(tempDir, true);
+                    }
                     if (File.Exists(resumeFile))
                     {
                         File.Delete(resumeFile);
@@ -102,7 +110,6 @@ namespace NileLibraryNS
             var matchingPluginTask = NileLibrary.Instance.pluginDownloadData.downloads.FirstOrDefault(t => t.gameID == downloadTask.gameID);
             if (matchingPluginTask != null)
             {
-                downloadsChanged = true;
                 NileLibrary.Instance.pluginDownloadData.downloads.Remove(matchingPluginTask);
                 NileLibrary.Instance.SaveDownloadData();
             }
@@ -330,7 +337,7 @@ namespace NileLibraryNS
             var tempDir = Path.Combine(downloadTask.fullInstallPath, ".Downloader_temp");
             if (!CommonHelpers.IsDirectoryWritable(tempDir))
             {
-                var tempFolderName = $"{downloadTask.gameID}_PlayniteLegendaryPlugin";
+                var tempFolderName = $"{downloadTask.gameID}_PlayniteNilePlugin";
                 tempDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "temp", tempFolderName);
             }
             Directory.CreateDirectory(tempDir);
