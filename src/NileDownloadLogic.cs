@@ -28,11 +28,41 @@ namespace NileLibraryNS
         private static readonly RetryHandler retryHandler = new RetryHandler(new HttpClientHandler());
         private static readonly HttpClient client = new HttpClient(retryHandler);
 
-        public async Task AddTasks(List<DownloadManagerData.Download> downloadTasks)
+        public async Task AddTasks(List<DownloadManagerData.Download> downloadTasks, bool silently = false)
         {
+            var downloadItemsAlreadyAdded = new List<string>();
             var unifiedTasks = new List<UnifiedDownload>();
+            UnifiedDownloadManagerApi unifiedDownloadManagerApi = new UnifiedDownloadManagerApi();
             foreach (var downloadTask in downloadTasks)
             {
+                bool completedDownload = true;
+                var wantedUnifiedItem = unifiedDownloadManagerApi.GetTask(downloadTask.gameID, NileLibrary.Instance.Id.ToString());
+                if (wantedUnifiedItem != null)
+                {
+                    if (wantedUnifiedItem.status != UnifiedDownloadStatus.Completed)
+                    {
+                        completedDownload = false;
+                    }
+                }
+                if (completedDownload)
+                {
+                    var wantedPluginItem = NileLibrary.Instance.pluginDownloadData.downloads.FirstOrDefault(item => item.gameID == downloadTask.gameID);
+                    if (wantedPluginItem != null)
+                    {
+                        NileLibrary.Instance.pluginDownloadData.downloads.Remove(wantedPluginItem);
+                        wantedPluginItem = NileLibrary.Instance.pluginDownloadData.downloads.FirstOrDefault(item => item.gameID == downloadTask.gameID);
+                    }
+                    if (wantedUnifiedItem != null)
+                    {
+                        unifiedDownloadManagerApi.RemoveTask(wantedUnifiedItem);
+                        wantedUnifiedItem = unifiedDownloadManagerApi.GetTask(downloadTask.gameID, NileLibrary.Instance.Id.ToString());
+                    }
+                }
+                if (wantedUnifiedItem != null)
+                {
+                    downloadItemsAlreadyAdded.Add(wantedUnifiedItem.name);
+                    continue;
+                }
                 NileLibrary.Instance.pluginDownloadData.downloads.Add(downloadTask);
                 var unifiedTask = new UnifiedDownload
                 {
@@ -46,9 +76,21 @@ namespace NileLibraryNS
                 };
                 unifiedTasks.Add(unifiedTask);
             }
-            UnifiedDownloadManagerApi unifiedDownloadManagerApi = new UnifiedDownloadManagerApi();
             await unifiedDownloadManagerApi.AddTasks(unifiedTasks);
             NileLibrary.Instance.SaveDownloadData();
+
+            if (!silently && unifiedTasks.Count == 0)
+            {
+                if (downloadItemsAlreadyAdded.Count > 0)
+                {
+                    string downloadItemsAlreadyAddedCombined = downloadItemsAlreadyAdded[0];
+                    if (downloadItemsAlreadyAdded.Count > 1)
+                    {
+                        downloadItemsAlreadyAddedCombined = string.Join(", ", downloadItemsAlreadyAdded.Select(item => item.ToString()));
+                    }
+                    playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonDownloadAlreadyExists, new Dictionary<string, IFluentType> { ["appName"] = (FluentString)downloadItemsAlreadyAddedCombined, ["count"] = (FluentNumber)downloadItemsAlreadyAdded.Count, ["pluginShortName"] = (FluentString)"Unified Download Manager" }), "", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
 
         public async Task OnCancelDownload(UnifiedDownload downloadTask)

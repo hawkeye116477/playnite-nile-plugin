@@ -575,61 +575,34 @@ namespace NileLibraryNS
                     }
                     foreach (var gameToUpdate in gamesToUpdate)
                     {
-                        var wantedUnifiedItem = unifiedDownloadManagerApi.GetTask(gameToUpdate.Key, NileLibrary.Instance.Id.ToString());
-                        bool completedDownload = true;
-                        if (wantedUnifiedItem != null)
+                        var settings = NileLibrary.GetSettings();
+                        var newDownloadProperties = new DownloadProperties()
                         {
-                            if (wantedUnifiedItem.status != UnifiedDownloadStatus.Completed)
-                            {
-                                completedDownload = false;
-                            }
-                        }
-                        if (completedDownload)
+                            downloadAction = DownloadAction.Update,
+                            maxWorkers = settings.MaxWorkers,
+                        };
+                        if (downloadProperties != null)
                         {
-                            var wantedPluginItem = NileLibrary.Instance.pluginDownloadData.downloads.FirstOrDefault(i => i.gameID == gameToUpdate.Key);
-                            NileLibrary.Instance.pluginDownloadData.downloads.Remove(wantedPluginItem);
-                            wantedPluginItem = null;
-                            unifiedDownloadManagerApi.RemoveTask(wantedUnifiedItem);
-                            wantedUnifiedItem = unifiedDownloadManagerApi.GetTask(gameToUpdate.Key, NileLibrary.Instance.Id.ToString());
+                            newDownloadProperties = Serialization.GetClone(downloadProperties);
                         }
-                        if (wantedUnifiedItem != null)
+                        if (!gameToUpdate.Value.Install_path.IsNullOrEmpty())
                         {
-                            if (!silently)
-                            {
-                                playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonDownloadAlreadyExists, new Dictionary<string, IFluentType> { ["appName"] = (FluentString)wantedUnifiedItem.name }), "", MessageBoxButton.OK, MessageBoxImage.Error);
-                            }
+                            newDownloadProperties.installPath = gameToUpdate.Value.Install_path;
                         }
-                        else
+                        var updateTask = new DownloadManagerData.Download
                         {
-                            var settings = NileLibrary.GetSettings();
-                            var newDownloadProperties = new DownloadProperties()
-                            {
-                                downloadAction = DownloadAction.Update,
-                                maxWorkers = settings.MaxWorkers,
-                            };
-                            if (downloadProperties != null)
-                            {
-                                newDownloadProperties = Serialization.GetClone(downloadProperties);
-                            }
-                            if (!gameToUpdate.Value.Install_path.IsNullOrEmpty())
-                            {
-                                newDownloadProperties.installPath = gameToUpdate.Value.Install_path;
-                            }
-                            var updateTask = new DownloadManagerData.Download
-                            {
-                                gameID = gameToUpdate.Key,
-                                name = gameToUpdate.Value.Title,
-                                downloadSizeNumber = gameToUpdate.Value.Download_size,
-                                downloadProperties = newDownloadProperties,
-                                fullInstallPath = newDownloadProperties.installPath
-                            };
-                            updateTasks.Add(updateTask);
-                        }
+                            gameID = gameToUpdate.Key,
+                            name = gameToUpdate.Value.Title,
+                            downloadSizeNumber = gameToUpdate.Value.Download_size,
+                            downloadProperties = newDownloadProperties,
+                            fullInstallPath = newDownloadProperties.installPath
+                        };
+                        updateTasks.Add(updateTask);
                     }
                     if (updateTasks.Count > 0)
                     {
                         var downloadLogic = (NileDownloadLogic)NileLibrary.Instance.UnifiedDownloadLogic;
-                        await downloadLogic.AddTasks(updateTasks);
+                        await downloadLogic.AddTasks(updateTasks, silently);
                     }
                 }
             }

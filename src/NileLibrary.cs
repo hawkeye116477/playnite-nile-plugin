@@ -147,7 +147,7 @@ namespace NileLibraryNS
                             unifiedTasks.Add(unifiedTask);
                         }
                         UnifiedDownloadManagerApi unifiedDownloadManagerApi = new UnifiedDownloadManagerApi();
-                        await unifiedDownloadManagerApi.AddTasks(unifiedTasks);
+                        await unifiedDownloadManagerApi.AddTasks(unifiedTasks, true);
                         Instance.SaveDownloadData();
                         File.Move(oldDataFile, oldDataBackupFile);
                         logger.Debug("Migration done.");

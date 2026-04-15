@@ -75,7 +75,7 @@ namespace NileLibraryNS
             AfterInstallingTB.Text = CommonHelpers.FormatSize(afterInstallSizeNumber);
         }
 
-        public async Task StartTask(DownloadAction downloadAction)
+        public async Task StartTask(DownloadAction downloadAction, bool silently = false)
         {
             var settings = NileLibrary.GetSettings();
             var installPath = SelectedGamePathTxt.Text;
@@ -91,7 +91,7 @@ namespace NileLibraryNS
             InstallerWindow.Close();
 
             var downloadTasks = new List<DownloadManagerData.Download>();
-            var downloadItemsAlreadyAdded = new List<string>();
+            
             foreach (var installData in MultiInstallData)
             {
                 var gameId = installData.gameID;
@@ -122,19 +122,10 @@ namespace NileLibraryNS
                     downloadTasks.Add(installData);
                 }
             }
-            if (downloadItemsAlreadyAdded.Count > 0)
-            {
-                string downloadItemsAlreadyAddedCombined = downloadItemsAlreadyAdded[0];
-                if (downloadItemsAlreadyAdded.Count > 1)
-                {
-                    downloadItemsAlreadyAddedCombined = string.Join(", ", downloadItemsAlreadyAdded.Select(item => item.ToString()));
-                }
-                playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonDownloadAlreadyExists, new Dictionary<string, IFluentType> { ["appName"] = (FluentString)downloadItemsAlreadyAddedCombined, ["count"] = (FluentNumber)downloadItemsAlreadyAdded.Count }), "", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
             if (downloadTasks.Count > 0)
             {
                 var nileDownloadLogic = new NileDownloadLogic();
-                await nileDownloadLogic.AddTasks(downloadTasks);
+                await nileDownloadLogic.AddTasks(downloadTasks, silently);
             }
         }
 
@@ -224,7 +215,7 @@ namespace NileLibraryNS
             var games = MultiInstallData;
             if (settings.UnattendedInstall && (games.First().downloadProperties.downloadAction == DownloadAction.Install))
             {
-                await StartTask(DownloadAction.Install);
+                await StartTask(DownloadAction.Install, true);
             }
         }
 
@@ -235,7 +226,6 @@ namespace NileLibraryNS
             ReloadBtn.IsEnabled = false;
             UpdateSpaceInfo(installPath);
 
-            var downloadItemsAlreadyAdded = new List<string>();
             downloadSizeNumber = 0;
 
 
@@ -256,40 +246,9 @@ namespace NileLibraryNS
                 installData.downloadSizeNumber = manifest.download_size;
                 var wantedItem = pluginDownloadData.downloads.FirstOrDefault(item => item.gameID == installData.gameID);
                 var wantedUnifiedTask = unifiedDownloadManagerApi.GetTask(installData.gameID, NileLibrary.Instance.Id.ToString());
-                if (wantedItem != null)
-                {
-                    bool completedDownload = true;
-                    if (wantedUnifiedTask != null)
-                    {
-                        if (wantedUnifiedTask.status != UnifiedDownloadStatus.Completed)
-                        {
-                            completedDownload = false;
-                        }
-                    }
-                    if (completedDownload && installedAppList.FirstOrDefault(i => i.id == installData.gameID) == null)
-                    {
-                        pluginDownloadData.downloads.Remove(wantedItem);
-                        unifiedDownloadManagerApi.RemoveTask(wantedUnifiedTask);
-                        wantedUnifiedTask = unifiedDownloadManagerApi.GetTask(installData.gameID, NileLibrary.Instance.Id.ToString());
-                    }
-                    else
-                    {
-                        downloadItemsAlreadyAdded.Add(installData.name);
-                        MultiInstallData.Remove(installData);
-                    }
-                }
             }
 
             CalculateTotalSize();
-            if (downloadItemsAlreadyAdded.Count > 0)
-            {
-                string downloadItemsAlreadyAddedCombined = downloadItemsAlreadyAdded[0];
-                if (downloadItemsAlreadyAdded.Count > 1)
-                {
-                    downloadItemsAlreadyAddedCombined = string.Join(", ", downloadItemsAlreadyAdded.Select(item => item.ToString()));
-                }
-                playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonDownloadAlreadyExists, new Dictionary<string, IFluentType> { ["appName"] = (FluentString)downloadItemsAlreadyAddedCombined, ["count"] = (FluentNumber)downloadItemsAlreadyAdded.Count }), "", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
 
 
             var games = MultiInstallData;
