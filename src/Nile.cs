@@ -56,8 +56,9 @@ namespace NileLibraryNS
             get
             {
                 string[] nileExes = { "nile_windows_x86_64.exe", "nile.exe" };
-                string envPath = Environment.GetEnvironmentVariable("PATH")
-                                .Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries)
+                string envPath = Environment.GetEnvironmentVariable("PATH")?
+                                .Split(new char[] { Path.PathSeparator }, StringSplitOptions.RemoveEmptyEntries)
+                                .Where(p => p.IndexOfAny(Path.GetInvalidPathChars()) < 0)
                                 .SelectMany(pathEntry => nileExes.Select(nileExe => Path.Combine(pathEntry.Trim(), nileExe)))
                                 .FirstOrDefault(File.Exists);
 
