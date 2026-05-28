@@ -15,6 +15,7 @@ using System.Security.Principal;
 using CliWrap;
 using CliWrap.Buffered;
 using CommonPlugin;
+using System.Security.Cryptography;
 
 namespace NileLibraryNS.Services
 {
@@ -23,7 +24,7 @@ namespace NileLibraryNS.Services
         private static readonly ILogger logger = LogManager.GetLogger();
         private NileLibrary library;
         private const string loginUrl = @"https://www.amazon.com/ap/signin?openid.ns=http://specs.openid.net/auth/2.0&openid.claimed_id=http://specs.openid.net/auth/2.0/identifier_select&openid.identity=http://specs.openid.net/auth/2.0/identifier_select&openid.mode=checkid_setup&openid.oa2.scope=device_auth_access&openid.ns.oa2=http://www.amazon.com/ap/ext/oauth/2&openid.oa2.response_type=code&openid.oa2.code_challenge_method=S256&openid.oa2.client_id=device:3733646238643238366332613932346432653737653161663637373636363435234132554d56484f58375550345637&language=en_US&marketPlaceId=ATVPDKIKX0DER&openid.return_to=https://www.amazon.com&openid.pape.max_auth_age=0&openid.assoc_handle=amzn_sonic_games_launcher&pageId=amzn_sonic_games_launcher&openid.oa2.code_challenge=";
-        private readonly string tokensPath;
+        private readonly string userInfoPath;
         private string userAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) @amzn/aga-electron-platform/1.0.0 Chrome/78.0.3904.130 Electron/7.1.9 Safari/537.36";
         public static readonly RetryHandler retryHandler = new RetryHandler(new HttpClientHandler());
         public static readonly HttpClient httpClient = new HttpClient(retryHandler);
@@ -31,7 +32,7 @@ namespace NileLibraryNS.Services
         public AmazonAccountClient(NileLibrary library)
         {
             this.library = library;
-            tokensPath = Nile.TokensPath;
+            userInfoPath = Nile.UserInfoPath;
         }
 
         public void LogOut()
@@ -42,7 +43,13 @@ namespace NileLibraryNS.Services
                 WindowHeight = 700,
             });
             webView.DeleteDomainCookies(".amazon.com");
-            FileSystem.DeleteFile(Nile.TokensPath);
+            var nileUserInfo = GetNileUserInfo();
+            if (!nileUserInfo.user_id.IsNullOrEmpty())
+            {
+                var tokensPath = Path.Combine(Nile.ConfigPath, $"{Helpers.GetMD5(nileUserInfo.user_id)}.enc");
+                FileSystem.DeleteFile(tokensPath);
+                FileSystem.DeleteFile(Nile.UserInfoPath);
+            }
             FileSystem.DeleteFile(Nile.EncryptedTokensPath);
         }
 
@@ -68,7 +75,7 @@ namespace NileLibraryNS.Services
                 };
 
                 webView.DeleteDomainCookies(".amazon.com");
-                var lurl = loginUrl + EncodeBase64Url(GetSHA256HashByte(codeChallenge));
+                var lurl = loginUrl + EncodeBase64Url(codeChallenge.GetSHA256HashByte());
                 webView.Navigate(lurl);
                 webView.OpenDialog();
             }
@@ -119,7 +126,7 @@ namespace NileLibraryNS.Services
                 var authData = Serialization.FromJson<DeviceRegistrationResponse>(authResponseContent);
                 if (authData.response?.success != null)
                 {
-                    bool useEncryptedTokens = true;
+                    bool useEncryptedTokensPluginWay = true;
                     if (Nile.IsInstalled)
                     {
                         var result = await Cli.Wrap(Nile.ClientExecPath)
@@ -128,18 +135,26 @@ namespace NileLibraryNS.Services
                                               .ExecuteBufferedAsync();
                         if (!result.StandardOutput.Contains("secret-user-data"))
                         {
-                            useEncryptedTokens = false;
+                            useEncryptedTokensPluginWay = false;
                         }
                     }
                     authData.response.success.NILE.token_obtain_time = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
                     var finalResponse = Serialization.ToJson(authData.response.success);
-                    if (!useEncryptedTokens)
+                    if (!useEncryptedTokensPluginWay)
                     {
-                        if (!Directory.Exists(Path.GetDirectoryName(tokensPath)))
+                        if (!Directory.Exists(Path.GetDirectoryName(userInfoPath)))
                         {
-                            FileSystem.CreateDirectory(Path.GetDirectoryName(tokensPath));
+                            FileSystem.CreateDirectory(Path.GetDirectoryName(userInfoPath));
                         }
-                        File.WriteAllText(tokensPath, finalResponse);
+                        var userId = authData.response.success.extensions.customer_info.user_id;
+                        var tokensPath = Path.Combine(Nile.ConfigPath, $"{Helpers.GetMD5(userId)}.enc");
+                        Helpers.EncryptToNileFile(tokensPath, finalResponse, userId);
+                        var nileUserInfo = new NileUserInfo
+                        {
+                            name = authData.response.success.extensions.customer_info.name,
+                            user_id = userId
+                        };
+                        FileSystem.WriteStringToFileSafe(userInfoPath, Serialization.ToJson(nileUserInfo));
                     }
                     else
                     {
@@ -229,13 +244,62 @@ namespace NileLibraryNS.Services
             return username;
         }
 
+        private NileUserInfo GetNileUserInfo()
+        {
+            var userInfoJson = new NileUserInfo();
+            if (File.Exists(userInfoPath))
+            {
+                var userInfoContent = FileSystem.ReadFileAsStringSafe(userInfoPath);
+                if (!userInfoContent.IsNullOrEmpty() && Serialization.TryFromJson(userInfoContent, out NileUserInfo newUserInfoJson))
+                {
+                    userInfoJson = newUserInfoJson;
+                }
+            }
+            return userInfoJson;
+        }
+
         private DeviceRegistrationResponse.Response.Success LoadTokens()
         {
-            if (File.Exists(tokensPath))
+            if (File.Exists(userInfoPath))
             {
                 try
                 {
-                    return Serialization.FromJson<DeviceRegistrationResponse.Response.Success>(FileSystem.ReadFileAsStringSafe(tokensPath));
+                    var userInfoJson = GetNileUserInfo();
+                    if (!userInfoJson.user_id.IsNullOrEmpty())
+                    {
+                        var tokensPath = Path.Combine(Nile.ConfigPath, $"{Helpers.GetMD5(userInfoJson.user_id)}.enc");
+                        byte[] encryptionKey = userInfoJson.user_id.GetSHA256HashByte();
+                        using var stream = new FileStream(tokensPath, FileMode.Open);
+                        byte[] encryptedIv = new byte[16];
+                        stream.Read(encryptedIv, 0, 16);
+
+                        byte[] iv;
+
+                        using Aes ivCipher = Aes.Create();
+                        ivCipher.Key = encryptionKey;
+                        ivCipher.Mode = CipherMode.ECB;
+                        ivCipher.Padding = PaddingMode.None;
+
+                        using ICryptoTransform decryptor = ivCipher.CreateDecryptor();
+                        iv = decryptor.TransformFinalBlock(encryptedIv, 0, encryptedIv.Length);
+
+                        byte[] encryptedData = new byte[stream.Length - 16];
+                        stream.Read(encryptedData, 0, encryptedData.Length);
+
+                        using Aes cipher = Aes.Create();
+                        cipher.Key = encryptionKey;
+                        cipher.Mode = CipherMode.CBC;
+                        cipher.IV = iv;
+                        cipher.Padding = PaddingMode.PKCS7;
+
+                        using ICryptoTransform finalDecryptor = cipher.CreateDecryptor();
+                        byte[] decryptedBytes = finalDecryptor.TransformFinalBlock(encryptedData, 0, encryptedData.Length);
+                        var decryptedData = Encoding.UTF8.GetString(decryptedBytes);
+                        if (!decryptedData.IsNullOrEmpty())
+                        {
+                            return Serialization.FromJson<DeviceRegistrationResponse.Response.Success>(decryptedData);
+                        }
+                    }
                 }
                 catch (Exception e)
                 {
@@ -262,7 +326,17 @@ namespace NileLibraryNS.Services
             var tokens = LoadTokens();
             if (tokens != null)
             {
-                var tokenLastUpdateTime = File.GetLastWriteTime(Nile.TokensPath);
+                var tokenLastUpdateTime = new DateTime();
+                var userInfoJson = GetNileUserInfo();
+                if (File.Exists(userInfoPath) && !userInfoJson.user_id.IsNullOrEmpty())
+                {
+                    var tokensPath = Path.Combine(Nile.ConfigPath, $"{Helpers.GetMD5(userInfoJson.user_id)}.enc");
+                    tokenLastUpdateTime = File.GetLastWriteTime(tokensPath);
+                }
+                else if (File.Exists(Nile.EncryptedTokensPath))
+                {
+                    tokenLastUpdateTime = File.GetLastWriteTime(Nile.EncryptedTokensPath);
+                }
                 var tokenExpirySeconds = tokens.tokens.bearer.expires_in;
                 DateTime tokenExpiryTime = tokenLastUpdateTime.AddSeconds(tokenExpirySeconds);
                 if (DateTime.Now > tokenExpiryTime)
@@ -290,15 +364,17 @@ namespace NileLibraryNS.Services
                         tokens.NILE.token_obtain_time = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 
                         var jsonTokens = Serialization.ToJson(tokens);
-                        bool useEncryptedTokens = false;
+                        bool useEncryptedTokensPluginWay = false;
                         if (File.Exists(Nile.EncryptedTokensPath))
                         {
-                            useEncryptedTokens = true;
+                            useEncryptedTokensPluginWay = true;
                         }
 
-                        if (!useEncryptedTokens)
+                        if (!useEncryptedTokensPluginWay)
                         {
-                            File.WriteAllText(tokensPath, jsonTokens);
+                            var userId = userInfoJson.user_id;
+                            var tokensPath = Path.Combine(Nile.ConfigPath, $"{Helpers.GetMD5(userId)}.enc");
+                            Helpers.EncryptToNileFile(tokensPath, jsonTokens, userId);
                         }
                         else
                         {
@@ -372,14 +448,6 @@ namespace NileLibraryNS.Services
         private string EncodeBase64Url(byte[] input)
         {
             return Convert.ToBase64String(input).TrimEnd('=').Replace('+', '-').Replace('/', '_');
-        }
-
-        public static byte[] GetSHA256HashByte(string input)
-        {
-            using (var sha = System.Security.Cryptography.SHA256.Create())
-            {
-                return sha.ComputeHash(Encoding.UTF8.GetBytes(input));
-            }
         }
 
         private string GenerateCodeChallenge()

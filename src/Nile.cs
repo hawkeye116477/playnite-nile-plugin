@@ -137,11 +137,11 @@ namespace NileLibraryNS
                     config.Main.AuthScopes.HasItems();
         }
 
-        public static string TokensPath
+        public static string UserInfoPath
         {
             get
             {
-                return Path.Combine(ConfigPath, "user.json");
+                return Path.Combine(ConfigPath, "current_user.json");
             }
         }
 

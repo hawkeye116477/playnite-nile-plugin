@@ -228,6 +228,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\UpdatePolicy.cs" />
+    <Compile Include="Helpers.cs" />
     <Compile Include="Models\AmazonProductData.cs" />
     <Compile Include="Models\DownloadManagerData.cs" />
     <Compile Include="Models\GameDownloadInfo.cs" />
@@ -235,6 +236,7 @@
     <Compile Include="Models\Installed.cs" />
     <Compile Include="Models\LauncherVersion.cs" />
     <Compile Include="Models\NileLibraryFile.cs" />
+    <Compile Include="Models\NileUserInfo.cs" />
     <Compile Include="Models\OldDownloadManagerData.cs" />
     <Compile Include="Models\UpdateInfo.cs" />
     <Compile Include="Nile.cs" />
