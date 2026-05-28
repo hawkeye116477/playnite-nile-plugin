@@ -831,6 +831,7 @@ namespace NileLibraryNS
                                 var installProperties = new DownloadProperties { downloadAction = DownloadAction.Repair, installPath = CommonHelpers.NormalizePath(game.InstallDirectory) };
                                 installData.Add(new DownloadManagerData.Download { gameID = game.GameId, name = game.Name, downloadProperties = installProperties });
                             }
+                            window.Tag = "NileGameInstallerView";
                             window.DataContext = installData;
                             window.Content = new NileGameInstallerView();
                             window.Owner = PlayniteApi.Dialogs.GetCurrentAppWindow();
@@ -913,6 +914,19 @@ namespace NileLibraryNS
                     }
                 }
             };
+        }
+
+        public override void OnControllerButtonStateChanged(OnControllerButtonStateChangedArgs args)
+        {
+            if (args.State == ControllerInputState.Pressed)
+            {
+                var openedWindows = Application.Current.Windows;
+                var nileGameInstallerViewOpen = openedWindows.OfType<Window>().FirstOrDefault(w => Equals(w.Tag, "NileGameInstallerView") && w.IsVisible);
+                if (nileGameInstallerViewOpen != null)
+                {
+                    NileGameInstallerView.HandleControllerInput(args.Button, nileGameInstallerViewOpen);
+                }
+            }
         }
     }
 }

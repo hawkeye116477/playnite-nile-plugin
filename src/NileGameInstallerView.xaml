@@ -54,7 +54,7 @@
         </Grid>
         <StackPanel x:Name="TopSP" DockPanel.Dock="Top">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,0"
-                VerticalAlignment="Top">
+                VerticalAlignment="Top" Name="TopButtonsSP">
                 <Button x:Name="RepairBtn" Content="{common:Localize Key={x:Static system:LOC.CommonRepair}}" ContentStringFormat="&#xefd2; {0}" 
                     FontFamily="{DynamicResource FontIcoFont}" HorizontalAlignment="Right" VerticalAlignment="Bottom" 
                     Margin="0,0,8,0" Visibility="Collapsed" Click="RepairBtn_Click" />
@@ -88,8 +88,8 @@
                     </StackPanel>
                 </Expander>
             </Border>
-            <Border BorderThickness="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,5,0,0">
-                <Expander Header="{common:Localize Key={x:Static system:LOC.CommonAdvancedOptions}}" Margin="2,2,5,2" HorizontalAlignment="Left" >
+            <Border BorderThickness="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,5,0,0" x:Name="AdvancedOptionsExpBrd">
+                <Expander Header="{common:Localize Key={x:Static system:LOC.CommonAdvancedOptions}}" Margin="2,2,5,2" HorizontalAlignment="Left" x:Name="AdvancedOptionsExp" Focusable="True"  >
                     <Grid Margin="5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />

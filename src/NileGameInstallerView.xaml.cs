@@ -5,15 +5,18 @@ using NileLibraryNS.Models;
 using NileLibraryNS.Services;
 using Playnite.SDK;
 using Playnite.SDK.Data;
+using Playnite.SDK.Events;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Automation.Peers;
+using System.Windows.Automation.Provider;
 using System.Windows.Controls;
+using System.Windows.Input;
 using UnifiedDownloadManagerApiNS;
-using UnifiedDownloadManagerApiNS.Models;
 
 namespace NileLibraryNS
 {
@@ -30,6 +33,7 @@ namespace NileLibraryNS
         private GameDownloadInfo manifest;
         public DownloadManagerData.Download singleGameInstallData;
         public string installPath;
+        private IInputElement lastMenuElement;
 
         public NileGameInstallerView()
         {
@@ -91,7 +95,7 @@ namespace NileLibraryNS
             InstallerWindow.Close();
 
             var downloadTasks = new List<DownloadManagerData.Download>();
-            
+
             foreach (var installData in MultiInstallData)
             {
                 var gameId = installData.gameID;
@@ -213,9 +217,20 @@ namespace NileLibraryNS
 
             await RefreshAll();
             var games = MultiInstallData;
+
             if (settings.UnattendedInstall && (games.First().downloadProperties.downloadAction == DownloadAction.Install))
             {
                 await StartTask(DownloadAction.Install, true);
+            }
+            else if (playniteAPI.ApplicationInfo.Mode == ApplicationMode.Fullscreen)
+            {
+                var firstEnabledBtn = LogicalTreeHelper.GetChildren(TopButtonsSP).OfType<Button>().FirstOrDefault(b => b.IsEnabled && b.IsVisible);
+                if (firstEnabledBtn != null)
+                {
+                    firstEnabledBtn.Focus();
+                }
+                SelectedGamePathTxt.Focusable = false;
+                ChooseGamePathBtn.Focusable = false;
             }
         }
 
@@ -264,7 +279,11 @@ namespace NileLibraryNS
             {
                 if (!userLoggedIn)
                 {
-                    playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteGameInstallError, new Dictionary<string, IFluentType> { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteLoginRequired) }));
+                    var loginErrorMessage = LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteGameInstallError, new Dictionary<string, IFluentType>
+                    {
+                        ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteLoginRequired)
+                    });
+                    MessageCheckBoxDialog.ShowMessage("", loginErrorMessage, null, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 if (games.Count <= 0)
                 {
@@ -281,14 +300,62 @@ namespace NileLibraryNS
 
         private async void ReloadBtn_Click(object sender, RoutedEventArgs e)
         {
-            var result = playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonReloadConfirm), LocalizationManager.Instance.GetString(LOC.CommonReload), MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
+            var result = MessageCheckBoxDialog.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonReload), LocalizationManager.Instance.GetString(LOC.CommonReloadConfirm), null, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result.Result)
             {
                 InstallBtn.IsEnabled = false;
                 DownloadSizeTB.Text = LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteLoadingLabel);
                 InstallSizeTB.Text = LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteLoadingLabel);
                 Nile.ClearCache();
                 await RefreshAll();
+            }
+        }
+
+        public static void HandleControllerInput(ControllerInput button, Window window)
+        {
+            var thisUserControl = window.Content as NileGameInstallerView;
+            var focusedElement = Keyboard.FocusedElement as FrameworkElement;
+            if (!(focusedElement is TextBox))
+            {
+                thisUserControl.lastMenuElement = Keyboard.FocusedElement;
+            }
+            switch (button)
+            {
+                case ControllerInput.A:
+                    if (focusedElement is Button btn)
+                    {
+                        var peer = new ButtonAutomationPeer(btn);
+
+                        if (peer.GetPattern(PatternInterface.Invoke) is IInvokeProvider provider)
+                        {
+                            provider.Invoke();
+                        }
+                        return;
+                    }
+                    if (focusedElement?.TemplatedParent is Expander expander)
+                    {
+                        expander.IsExpanded = !expander.IsExpanded;
+                        return;
+                    }
+                    break;
+                case ControllerInput.B:
+                    if (focusedElement is TextBox)
+                    {
+                        thisUserControl.lastMenuElement?.Focus();
+                        return;
+                    }
+                    window.Close();
+                    break;
+                case ControllerInput.DPadLeft:
+                case ControllerInput.LeftStickLeft:
+                    if (focusedElement is TextBox)
+                    {
+                        thisUserControl.lastMenuElement?.Focus();
+                        return;
+                    }
+                    break;
+                default:
+                    break;
             }
         }
     }

@@ -51,7 +51,7 @@ namespace NileLibraryNS
             {
                 ShowMaximizeButton = false,
             });
-
+            window.Tag = "NileGameInstallerView";
             window.DataContext = installData;
             window.Content = new NileGameInstallerView();
             window.Owner = playniteAPI.Dialogs.GetCurrentAppWindow();
