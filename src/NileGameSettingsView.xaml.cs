@@ -8,6 +8,8 @@ using Playnite.Common;
 using Playnite.SDK.Models;
 using NileLibraryNS.Enums;
 using CommonPlugin;
+using Playnite.SDK;
+using System.Windows.Input;
 
 namespace NileLibraryNS
 {
@@ -19,6 +21,7 @@ namespace NileLibraryNS
         private Game Game => DataContext as Game;
         public string GameID => Game.GameId;
         public GameSettings gameSettings;
+        private IPlayniteAPI playniteAPI = API.Instance;
 
         public NileGameSettingsView()
         {
@@ -101,7 +104,20 @@ namespace NileLibraryNS
             {
                 LaunchGameDirectlyChk.IsChecked = globalSettings.StartGamesWithoutLauncher;
             }
+            if (playniteAPI.ApplicationInfo.Mode == ApplicationMode.Fullscreen)
+            {
+                StartupArgumentsTxt.Focusable = false;
+                var firstCheckBox = LogicalTreeHelper.GetChildren(ButtonsGrd).OfType<CheckBox>().FirstOrDefault(b => b.IsEnabled && b.IsVisible);
+                if (firstCheckBox != null)
+                {
+                    firstCheckBox.Focus();
+                }
+            }
         }
 
+        private void NileGameSettingsViewUC_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            NileLibrary.Instance.UC_PreviewKeyDown(sender, e);
+        }
     }
 }

@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:NileLibraryNS" xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:common="clr-namespace:CommonPlugin" xmlns:system="clr-namespace:System"
              mc:Ignorable="d" 
-             d:DesignHeight="550" d:DesignWidth="600" Loaded="NileGameSettingsViewUC_Loaded" Name="NileGameSettingsViewUC">
+             d:DesignHeight="550" d:DesignWidth="600" Loaded="NileGameSettingsViewUC_Loaded" Name="NileGameSettingsViewUC" PreviewKeyDown="NileGameSettingsViewUC_PreviewKeyDown">
     <UserControl.Resources>
         <sys:Boolean x:Key="True">True</sys:Boolean>
         <sys:Boolean x:Key="False">False</sys:Boolean>
@@ -18,21 +18,22 @@
         <Style TargetType="Button" BasedOn="{StaticResource HawkeyeButtonStyle}" />
         <Style TargetType="Expander" BasedOn="{StaticResource HawkeyeExpanderStyle}" />
         <Style TargetType="TabControl" BasedOn="{StaticResource HawkeyeTabControlStyle}" />
+        <Style TargetType="TabItem" BasedOn="{StaticResource HawkeyeTabItemStyle}" />
     </UserControl.Resources>
     <DockPanel Margin="0,0,10,10">
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
             <Button x:Name="SaveBtn" Content="{common:Localize Key={x:Static system:LOC.ThirdPartyPlayniteSaveLabel}}" 
-                    ContentStringFormat="&#xee00; {0}" FontFamily="{DynamicResource FontIcoFont}" Margin="0,0,8,0" Click="SaveBtn_Click" />
+                    ContentStringFormat="&#xee00; {0}" FontFamily="{DynamicResource FontIcoFont}" Margin="0,0,8,0" Click="SaveBtn_Click" Focusable="True" />
             <Button x:Name="CancelBtn" Content="{common:Localize Key={x:Static system:LOC.ThirdPartyPlayniteCancelLabel}}"
                     ContentStringFormat="&#xec4f; {0}"
                     FontFamily="{DynamicResource FontIcoFont}"
-                    IsCancel="True" />
+                    IsCancel="True" Focusable="True" />
         </StackPanel>
         <TabControl ScrollViewer.VerticalScrollBarVisibility="Disabled"
         HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
-            <TabItem Header="{common:Localize Key={x:Static system:LOC.ThirdPartyPlayniteSettingsGeneralLabel}}">
-                <StackPanel Margin="10">
-                    <Grid>
+            <TabItem Header="{common:Localize Key={x:Static system:LOC.ThirdPartyPlayniteSettingsGeneralLabel}}" KeyboardNavigation.IsTabStop="False">
+                <StackPanel Margin="10" KeyboardNavigation.DirectionalNavigation="Continue">
+                    <Grid x:Name="ButtonsGrd">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
@@ -52,7 +53,7 @@
                         <TextBlock Text="{common:Localize Key={x:Static system:LOC.CommonStartupArguments}}" Grid.Column="0"
                             Grid.Row="2" Margin="0,0,8,8" VerticalAlignment="Center" HorizontalAlignment="Left" />
                         <TextBox x:Name="StartupArgumentsTxt"
-                            Grid.Column="1" Grid.Row="2" Margin="0,0,0,8" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" />
+                            Grid.Column="1" Grid.Row="2" Margin="0,0,0,8" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Focusable="False" />
                     </Grid>
                 </StackPanel>
             </TabItem>

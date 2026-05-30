@@ -15,6 +15,7 @@ using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using UnifiedDownloadManagerApiNS;
 using UnifiedDownloadManagerApiNS.Interfaces;
 using UnifiedDownloadManagerApiNS.Models;
@@ -598,7 +599,6 @@ namespace NileLibraryNS
                 NileLibrary.Instance.SaveDownloadData();
             }
         }
-
 
         public void OpenDownloadPropertiesWindow(UnifiedDownload selectedEntry)
         {

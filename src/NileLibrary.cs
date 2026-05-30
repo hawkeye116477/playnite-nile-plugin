@@ -17,6 +17,11 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Automation.Peers;
+using System.Windows.Automation.Provider;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 using UnifiedDownloadManagerApiNS;
 using UnifiedDownloadManagerApiNS.Interfaces;
 using UnifiedDownloadManagerApiNS.Models;
@@ -916,6 +921,40 @@ namespace NileLibraryNS
             };
         }
 
+        public void UC_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (PlayniteApi.ApplicationInfo.Mode == ApplicationMode.Fullscreen)
+            {
+                var focused = Keyboard.FocusedElement as UIElement;
+                if (focused is TextBox)
+                {
+                    if (e.Key == Key.Left)
+                    {
+                        focused.MoveFocus(new TraversalRequest(FocusNavigationDirection.Previous));
+                        e.Handled = true;
+                    }
+                    else if (e.Key == Key.Right)
+                    {
+                        focused.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                        e.Handled = true;
+                    }
+                }
+                if (focused is CheckBox || focused is TabItem || focused is ComboBox)
+                {
+                    if (e.Key == Key.Up)
+                    {
+                        focused.MoveFocus(new TraversalRequest(FocusNavigationDirection.Previous));
+                        e.Handled = true;
+                    }
+                    else if (e.Key == Key.Down)
+                    {
+                        focused.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                        e.Handled = true;
+                    }
+                }
+            }
+        }
+
         public override void OnControllerButtonStateChanged(OnControllerButtonStateChangedArgs args)
         {
             if (args.State == ControllerInputState.Pressed)
@@ -927,17 +966,74 @@ namespace NileLibraryNS
                     {
                         continue;
                     }
+
                     switch (openedWindow.Content)
                     {
                         case NileGameInstallerView _:
-                            NileGameInstallerView.HandleControllerInput(args.Button, openedWindow);
-                            return;
+                        case NileGameSettingsView _:
+                        case NileDownloadProperties _:
+                        case NileUpdaterView _:
+                            var focusedElement = Keyboard.FocusedElement as FrameworkElement;
+                            switch (args.Button)
+                            {
+                                case ControllerInput.A:
+                                    if (focusedElement is Button btn)
+                                    {
+                                        var peer = new ButtonAutomationPeer(btn);
+
+                                        if (peer.GetPattern(PatternInterface.Invoke) is IInvokeProvider provider)
+                                        {
+                                            provider.Invoke();
+                                        }
+                                    }
+                                    else if (focusedElement is RepeatButton repeatBtn)
+                                    {
+                                        repeatBtn.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
+                                    }
+                                    else if (focusedElement?.TemplatedParent is Expander expander)
+                                    {
+                                        expander.IsExpanded = !expander.IsExpanded;
+                                    }
+                                    else if (focusedElement is CheckBox)
+                                    {
+                                        var checkBoxFocused = focusedElement as CheckBox;
+                                        checkBoxFocused.IsChecked = !checkBoxFocused.IsChecked;
+                                    }
+                                    else if (focusedElement is ComboBox)
+                                    {
+                                        var comboBoxFocused = focusedElement as ComboBox;
+                                        if (comboBoxFocused.IsDropDownOpen)
+                                        {
+                                            comboBoxFocused.IsDropDownOpen = true;
+                                        }
+                                    }
+                                    break;
+                                case ControllerInput.B:
+                                    if (focusedElement is ComboBox)
+                                    {
+                                        var comboBoxFocused = focusedElement as ComboBox;
+                                        if (comboBoxFocused.IsDropDownOpen)
+                                        {
+                                            comboBoxFocused.IsDropDownOpen = false;
+                                        }
+                                    }
+                                    else if (focusedElement is ComboBoxItem)
+                                    {
+                                        var parentComboBox = ItemsControl.ItemsControlFromItemContainer(focusedElement) as ComboBox;
+                                        parentComboBox.IsDropDownOpen = false;
+                                    }
+                                    else
+                                    {
+                                        openedWindow.Close();
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
                         case MessageCheckBoxDialog _:
                             MessageCheckBoxDialog.HandleControllerInput(args.Button);
-                            return;
-                        case NileUpdaterView _:
-                            NileGameInstallerView.HandleControllerInput(args.Button, openedWindow);
-                            return;
+                            break;
                         default:
                             break;
                     }

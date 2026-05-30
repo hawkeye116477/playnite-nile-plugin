@@ -103,7 +103,7 @@ namespace NileLibraryNS
 
         private void NileUpdaterUC_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            NileGameInstallerView.UC_PreviewKeyDown(sender, e);
+            NileLibrary.Instance.UC_PreviewKeyDown(sender, e);
         }
     }
 }

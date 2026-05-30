@@ -44,6 +44,10 @@ namespace NileLibraryNS
                 { DownloadAction.Update, LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteUpdaterInstallUpdate) }
             };
             TaskCBo.ItemsSource = downloadActionOptions;
+            if (playniteAPI.ApplicationInfo.Mode == ApplicationMode.Fullscreen)
+            {
+                GeneralTab.Focus();
+            }
         }
 
         private void ChooseGamePathBtn_Click(object sender, RoutedEventArgs e)
@@ -73,6 +77,11 @@ namespace NileLibraryNS
             wantedItem.downloadProperties.maxWorkers = int.Parse(MaxWorkersNI.Value);
             NileLibrary.Instance.SaveDownloadData();
             Window.GetWindow(this).Close();
+        }
+
+        private void NileDownloadPropertiesUC_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            NileLibrary.Instance.UC_PreviewKeyDown(sender, e);
         }
     }
 }

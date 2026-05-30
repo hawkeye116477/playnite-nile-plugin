@@ -311,81 +311,9 @@ namespace NileLibraryNS
             }
         }
 
-        public static void HandleControllerInput(ControllerInput button, Window window)
-        {
-            var focusedElement = Keyboard.FocusedElement as FrameworkElement;
-            switch (button)
-            {
-                case ControllerInput.A:
-                    if (focusedElement is Button btn)
-                    {
-                        var peer = new ButtonAutomationPeer(btn);
-
-                        if (peer.GetPattern(PatternInterface.Invoke) is IInvokeProvider provider)
-                        {
-                            provider.Invoke();
-                        }
-                        return;
-                    }
-                    if (focusedElement is RepeatButton repeatBtn)
-                    {
-                        repeatBtn.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
-                        return;
-                    }
-                    if (focusedElement?.TemplatedParent is Expander expander)
-                    {
-                        expander.IsExpanded = !expander.IsExpanded;
-                        return;
-                    }
-                    if (focusedElement is CheckBox)
-                    {
-                        var checkBoxFocused = focusedElement as CheckBox;
-                        checkBoxFocused.IsChecked = !checkBoxFocused.IsChecked;
-                        return;
-                    }
-                    break;
-                case ControllerInput.B:
-                    window.Close();
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        public static void UC_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            var focused = Keyboard.FocusedElement as UIElement;
-            if (focused is TextBox)
-            {
-                if (e.Key == Key.Left)
-                {
-                    focused.MoveFocus(new TraversalRequest(FocusNavigationDirection.Previous));
-                    e.Handled = true;
-                }
-                else if (e.Key == Key.Right)
-                {
-                    focused.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
-                    e.Handled = true;
-                }
-            }
-            if (focused is CheckBox)
-            {
-                if (e.Key == Key.Up)
-                {
-                    focused.MoveFocus(new TraversalRequest(FocusNavigationDirection.Previous));
-                    e.Handled = true;
-                }
-                else if (e.Key == Key.Down)
-                {
-                    focused.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
-                    e.Handled = true;
-                }
-            }
-        }
-
         private void NileGameInstallerUC_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            UC_PreviewKeyDown(sender, e);
+            NileLibrary.Instance.UC_PreviewKeyDown(sender, e);
         }
     }
 }

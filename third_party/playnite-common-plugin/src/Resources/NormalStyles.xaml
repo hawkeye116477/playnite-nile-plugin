@@ -17,4 +17,6 @@
     </Style>
     <Style x:Key="HawkeyeRepeatButtonStyle" TargetType="RepeatButton" BasedOn="{StaticResource {x:Type RepeatButton}}">
     </Style>
+    <Style x:Key="HawkeyeTabItemStyle" TargetType="{x:Type TabItem}" BasedOn="{StaticResource {x:Type TabItem}}">
+    </Style>
 </ResourceDictionary>
