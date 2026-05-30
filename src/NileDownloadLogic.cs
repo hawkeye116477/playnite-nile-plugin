@@ -607,13 +607,16 @@ namespace NileLibraryNS
                 ShowMaximizeButton = false,
             });
             var matchingPluginTask = NileLibrary.Instance.pluginDownloadData.downloads.FirstOrDefault(t => t.gameID == selectedEntry.gameID);
-            window.Title = selectedEntry.name + " — " + LocalizationManager.Instance.GetString(LOC.CommonDownloadProperties);
-            window.DataContext = matchingPluginTask;
-            window.Content = new NileDownloadProperties();
-            window.Owner = playniteAPI.Dialogs.GetCurrentAppWindow();
-            window.SizeToContent = SizeToContent.WidthAndHeight;
-            window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            window.ShowDialog();
+            if (matchingPluginTask != null)
+            {
+                window.Title = selectedEntry.name + " — " + LocalizationManager.Instance.GetString(LOC.CommonDownloadProperties);
+                window.DataContext = matchingPluginTask;
+                window.Content = new NileDownloadProperties();
+                window.Owner = playniteAPI.Dialogs.GetCurrentAppWindow();
+                window.SizeToContent = SizeToContent.WidthAndHeight;
+                window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                window.ShowDialog();
+            }
         }
 
         public static bool CheckIfUdmInstalled()
