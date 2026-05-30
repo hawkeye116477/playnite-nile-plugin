@@ -15,6 +15,7 @@ using System.Windows;
 using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using UnifiedDownloadManagerApiNS;
 
@@ -33,7 +34,6 @@ namespace NileLibraryNS
         private GameDownloadInfo manifest;
         public DownloadManagerData.Download singleGameInstallData;
         public string installPath;
-        private IInputElement lastMenuElement;
 
         public NileGameInstallerView()
         {
@@ -313,12 +313,7 @@ namespace NileLibraryNS
 
         public static void HandleControllerInput(ControllerInput button, Window window)
         {
-            var thisUserControl = window.Content as NileGameInstallerView;
             var focusedElement = Keyboard.FocusedElement as FrameworkElement;
-            if (!(focusedElement is TextBox))
-            {
-                thisUserControl.lastMenuElement = Keyboard.FocusedElement;
-            }
             switch (button)
             {
                 case ControllerInput.A:
@@ -332,31 +327,65 @@ namespace NileLibraryNS
                         }
                         return;
                     }
+                    if (focusedElement is RepeatButton repeatBtn)
+                    {
+                        repeatBtn.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
+                        return;
+                    }
                     if (focusedElement?.TemplatedParent is Expander expander)
                     {
                         expander.IsExpanded = !expander.IsExpanded;
                         return;
                     }
+                    if (focusedElement is CheckBox)
+                    {
+                        var checkBoxFocused = focusedElement as CheckBox;
+                        checkBoxFocused.IsChecked = !checkBoxFocused.IsChecked;
+                        return;
+                    }
                     break;
                 case ControllerInput.B:
-                    if (focusedElement is TextBox)
-                    {
-                        thisUserControl.lastMenuElement?.Focus();
-                        return;
-                    }
                     window.Close();
-                    break;
-                case ControllerInput.DPadLeft:
-                case ControllerInput.LeftStickLeft:
-                    if (focusedElement is TextBox)
-                    {
-                        thisUserControl.lastMenuElement?.Focus();
-                        return;
-                    }
                     break;
                 default:
                     break;
             }
+        }
+
+        public static void UC_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            var focused = Keyboard.FocusedElement as UIElement;
+            if (focused is TextBox)
+            {
+                if (e.Key == Key.Left)
+                {
+                    focused.MoveFocus(new TraversalRequest(FocusNavigationDirection.Previous));
+                    e.Handled = true;
+                }
+                else if (e.Key == Key.Right)
+                {
+                    focused.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                    e.Handled = true;
+                }
+            }
+            if (focused is CheckBox)
+            {
+                if (e.Key == Key.Up)
+                {
+                    focused.MoveFocus(new TraversalRequest(FocusNavigationDirection.Previous));
+                    e.Handled = true;
+                }
+                else if (e.Key == Key.Down)
+                {
+                    focused.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                    e.Handled = true;
+                }
+            }
+        }
+
+        private void NileGameInstallerUC_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            UC_PreviewKeyDown(sender, e);
         }
     }
 }

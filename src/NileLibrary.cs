@@ -920,11 +920,27 @@ namespace NileLibraryNS
         {
             if (args.State == ControllerInputState.Pressed)
             {
-                var openedWindows = Application.Current.Windows;
-                var nileGameInstallerViewOpen = openedWindows.OfType<Window>().FirstOrDefault(w => Equals(w.Tag, "NileGameInstallerView") && w.IsVisible);
-                if (nileGameInstallerViewOpen != null)
+                var openedWindows = Application.Current.Windows.OfType<Window>();
+                foreach (var openedWindow in openedWindows)
                 {
-                    NileGameInstallerView.HandleControllerInput(args.Button, nileGameInstallerViewOpen);
+                    if (!openedWindow.IsActive)
+                    {
+                        continue;
+                    }
+                    switch (openedWindow.Content)
+                    {
+                        case NileGameInstallerView _:
+                            NileGameInstallerView.HandleControllerInput(args.Button, openedWindow);
+                            return;
+                        case MessageCheckBoxDialog _:
+                            MessageCheckBoxDialog.HandleControllerInput(args.Button);
+                            return;
+                        case NileUpdaterView _:
+                            NileGameInstallerView.HandleControllerInput(args.Button, openedWindow);
+                            return;
+                        default:
+                            break;
+                    }
                 }
             }
         }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace NileLibraryNS
 {
@@ -16,7 +17,6 @@ namespace NileLibraryNS
     {
         private IPlayniteAPI playniteAPI = API.Instance;
         public Dictionary<string, UpdateInfo> UpdatesList => (Dictionary<string, UpdateInfo>)DataContext;
-
         public NileUpdaterView()
         {
             InitializeComponent();
@@ -91,6 +91,19 @@ namespace NileLibraryNS
             var settings = NileLibrary.GetSettings();
             MaxWorkersNI.MaxValue = CommonHelpers.CpuThreadsNumber;
             MaxWorkersNI.Value = settings.MaxWorkers.ToString();
+            if (playniteAPI.ApplicationInfo.Mode == ApplicationMode.Fullscreen)
+            {
+                var firstEnabledBtn = LogicalTreeHelper.GetChildren(TopButtonsSP).OfType<Button>().FirstOrDefault(b => b.IsEnabled && b.IsVisible);
+                if (firstEnabledBtn != null)
+                {
+                    firstEnabledBtn.Focus();
+                }
+            }
+        }
+
+        private void NileUpdaterUC_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            NileGameInstallerView.UC_PreviewKeyDown(sender, e);
         }
     }
 }

@@ -16,7 +16,7 @@
             <ColumnDefinition Width="auto"  />
         </Grid.ColumnDefinitions>
         <TextBox Text="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=Value}" Grid.Column="0" Grid.RowSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Name="NumericTxt" TextChanged="NumericTxt_TextChanged" PreviewKeyDown="NumericTxt_PreviewKeyDown" />
-        <RepeatButton Grid.Column="1" Grid.Row="0" Content="▲" FontSize="10" Margin="0" Padding="1,0" Name="IncrementBtn" Click="IncrementBtn_Click"/>
-        <RepeatButton Grid.Column="1" Grid.Row="1" Content="▼" FontSize="10" Margin="0" Padding="1,0" Name="DecrementBtn" Click="DecrementBtn_Click"/>
+        <RepeatButton Grid.Column="1" Grid.Row="0" Content="▲" FontSize="10" Margin="0" Padding="1,0" Name="IncrementBtn" Click="IncrementBtn_Click" />
+        <RepeatButton Grid.Column="1" Grid.Row="1" Content="▼" FontSize="10" Margin="0" Padding="1,0" Name="DecrementBtn" Click="DecrementBtn_Click" />
     </Grid>
 </UserControl>
