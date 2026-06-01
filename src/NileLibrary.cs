@@ -1002,10 +1002,13 @@ namespace NileLibraryNS
                                     else if (focusedElement is ComboBox)
                                     {
                                         var comboBoxFocused = focusedElement as ComboBox;
-                                        if (comboBoxFocused.IsDropDownOpen)
-                                        {
-                                            comboBoxFocused.IsDropDownOpen = true;
-                                        }
+                                        comboBoxFocused.IsDropDownOpen = !comboBoxFocused.IsDropDownOpen;
+                                    }
+                                    else if (focusedElement is ComboBoxItem)
+                                    {
+                                        var parentComboBox = ItemsControl.ItemsControlFromItemContainer(focusedElement) as ComboBox;
+                                        parentComboBox.SelectedItem = parentComboBox.ItemContainerGenerator.ItemFromContainer(focusedElement);
+                                        parentComboBox.IsDropDownOpen = false;
                                     }
                                     break;
                                 case ControllerInput.B:
