@@ -205,9 +205,6 @@
     <Compile Include="..\third_party\playnite-common-plugin\src\Enums\DownloadStatus.cs">
       <Link>Shared\Enums\DownloadStatus.cs</Link>
     </Compile>
-    <Compile Include="..\third_party\playnite-common-plugin\src\SplitOutsideQuotesExtensions.cs">
-      <Link>Shared\SplitOutsideQuotesExtensions.cs</Link>
-    </Compile>
     <None Include="..\third_party\playnite-common-plugin\src\Resources\FullScreenStyles.xaml">
       <Link>Shared\Resources\FullScreenStyles.xaml</Link>
       <SubType>Designer</SubType>

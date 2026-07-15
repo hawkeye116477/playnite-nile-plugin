@@ -269,6 +269,7 @@ namespace NileLibraryNS
 
             var workingDirectory = Path.Combine(Game.InstallDirectory);
             var mainBinaryPath = Nile.ClientExecPath;
+            var providedArgs = new List<string>();
             if (noLauncher || noLauncherModeEnabled)
             {
                 var gameConfig = Nile.GetGameConfiguration(Game.InstallDirectory);
@@ -278,7 +279,7 @@ namespace NileLibraryNS
                     mainBinaryPath = Path.Combine(Game.InstallDirectory, gameConfig.Main.Command);
                     if (gameConfig.Main.Args.HasNonEmptyItems())
                     {
-                        playArgs.AddRange(gameConfig.Main.Args);
+                        providedArgs.AddRange(gameConfig.Main.Args);
                     }
                     if (!gameConfig.Main.WorkingSubdirOverride.IsNullOrEmpty())
                     {
@@ -300,8 +301,30 @@ namespace NileLibraryNS
 
             if (gameSettings.StartupArguments?.Any() == true)
             {
-                playArgs.AddRange(gameSettings.StartupArguments);
+                foreach (var userArg in gameSettings.StartupArguments)
+                {
+                    if (userArg.Equals("{Args}", StringComparison.OrdinalIgnoreCase))
+                    {
+                        if (providedArgs.Count > 0)
+                        {
+                            playArgs.AddRange(providedArgs);
+                        }
+                    }
+                    else if (userArg.Contains("{"))
+                    {
+                        playArgs.Add(playniteAPI.ExpandGameVariables(Game, userArg));
+                    }
+                    else
+                    {
+                        playArgs.Add(userArg);
+                    }
+                }
             }
+            else if (providedArgs.Count > 0)
+            {
+                playArgs.AddRange(providedArgs);
+            }
+
             var stdOutBuffer = new StringBuilder();
             var cmd = Cli.Wrap(mainBinaryPath)
                          .WithArguments(playArgs)

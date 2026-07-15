@@ -60,7 +60,7 @@ namespace NileLibraryNS
             }
             if (StartupArgumentsTxt.Text != "")
             {
-                newGameSettings.StartupArguments = StartupArgumentsTxt.Text.SplitOutsideQuotes(' ').ToList();
+                newGameSettings.StartupArguments = CommonHelpers.SplitArguments(StartupArgumentsTxt.Text).ToList();
             }
             if (globalSettings.StartGamesWithoutLauncher != LaunchGameDirectlyChk.IsChecked)
             {
@@ -94,7 +94,11 @@ namespace NileLibraryNS
             }
             if (gameSettings.StartupArguments != null)
             {
-                StartupArgumentsTxt.Text = string.Join(" ", gameSettings.StartupArguments);
+                StartupArgumentsTxt.Text = string.Join(" ",
+                   gameSettings.StartupArguments.Select(a =>
+                   {
+                       return a.Contains(" ") ? $"\"{a}\"" : a;
+                   }));
             }
             if (gameSettings.LaunchDirectly != null)
             {
