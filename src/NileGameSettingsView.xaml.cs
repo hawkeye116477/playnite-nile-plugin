@@ -111,6 +111,7 @@ namespace NileLibraryNS
             if (playniteAPI.ApplicationInfo.Mode == ApplicationMode.Fullscreen)
             {
                 StartupArgumentsTxt.Focusable = false;
+                StartupArgumentsHelpBtn.Focusable = false;
                 var firstCheckBox = LogicalTreeHelper.GetChildren(ButtonsGrd).OfType<CheckBox>().FirstOrDefault(b => b.IsEnabled && b.IsVisible);
                 if (firstCheckBox != null)
                 {
