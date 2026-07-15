@@ -1,5 +1,19 @@
 AddonId: NileLibrary
 Packages:
+  - Version: 1.5.0
+    RequiredApiVersion: 6.14.0
+    ReleaseDate: 2026-07-15
+    PackageUrl: https://github.com/hawkeye116477/playnite-nile-plugin/releases/download/1.5.0/NileLibrary_1_5_0.pext
+    Changelog:
+      - Added "finish installation of games" option to top menu (as a alternative
+        to first run of game)
+      - Fixed parsing startup arguments
+      - Added possibility to use Playnite's variables for startup arguments in "modify
+        launch settings" window
+      - For no launcher mode, now official provided arguments by devs won't be appended
+        to custom args unless typed "{Args}" variable
+      - Fixed adding already completed non-installed tasks to downloader
+      - Added Japanese translations by coil3569
   - Version: 1.4.0
     RequiredApiVersion: 6.14.0
     ReleaseDate: 2026-05-31
