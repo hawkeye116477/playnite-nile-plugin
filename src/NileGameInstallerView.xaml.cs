@@ -99,32 +99,28 @@ namespace NileLibraryNS
             foreach (var installData in MultiInstallData)
             {
                 var gameId = installData.gameID;
-                var wantedItem = NileLibrary.Instance.pluginDownloadData.downloads.FirstOrDefault(item => item.gameID == gameId);
-                if (wantedItem == null)
+                if (installData.downloadProperties.downloadAction == DownloadAction.Install)
                 {
-                    if (installData.downloadProperties.downloadAction == DownloadAction.Install)
+                    var folderName = installData.name;
+                    string[] inappropriateDirChars = { ":", "/", "*", "?", "<", ">", "\\", "|", "™", "\"", "®" };
+                    foreach (var inappropriateDirChar in inappropriateDirChars)
                     {
-                        var folderName = installData.name;
-                        string[] inappropriateDirChars = { ":", "/", "*", "?", "<", ">", "\\", "|", "™", "\"", "®" };
-                        foreach (var inappropriateDirChar in inappropriateDirChars)
-                        {
-                            folderName = folderName.Replace(inappropriateDirChar, "");
-                        }
-                        installData.fullInstallPath = Path.Combine(installPath, folderName);
+                        folderName = folderName.Replace(inappropriateDirChar, "");
                     }
-                    else if (!installData.downloadProperties.installPath.IsNullOrEmpty())
-                    {
-                        installPath = installData.downloadProperties.installPath;
-                        installData.fullInstallPath = installPath;
-                    }
-                    if (!CommonHelpers.IsDirectoryWritable(installPath, LOC.CommonPermissionError))
-                    {
-                        continue;
-                    }
-                    var downloadProperties = GetDownloadProperties(installData, downloadAction, installPath);
-                    installData.downloadProperties = downloadProperties;
-                    downloadTasks.Add(installData);
+                    installData.fullInstallPath = Path.Combine(installPath, folderName);
                 }
+                else if (!installData.downloadProperties.installPath.IsNullOrEmpty())
+                {
+                    installPath = installData.downloadProperties.installPath;
+                    installData.fullInstallPath = installPath;
+                }
+                if (!CommonHelpers.IsDirectoryWritable(installPath, LOC.CommonPermissionError))
+                {
+                    continue;
+                }
+                var downloadProperties = GetDownloadProperties(installData, downloadAction, installPath);
+                installData.downloadProperties = downloadProperties;
+                downloadTasks.Add(installData);
             }
             if (downloadTasks.Count > 0)
             {
