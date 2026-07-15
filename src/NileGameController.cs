@@ -233,22 +233,7 @@ namespace NileLibraryNS
                 GlobalProgressOptions installProgressOptions = new GlobalProgressOptions(LocalizationManager.Instance.GetString(LOC.CommonFinishingInstallation), false);
                 playniteAPI.Dialogs.ActivateGlobalProgress((a) =>
                 {
-                    var gameConfig = Nile.GetGameConfiguration(Game.InstallDirectory);
-                    if (gameConfig.PostInstall.Count > 0)
-                    {
-                        foreach (var depend in gameConfig.PostInstall)
-                        {
-                            var dependExe = Path.GetFullPath(Path.Combine(Game.InstallDirectory, depend.Command));
-                            if (File.Exists(dependExe))
-                            {
-                                var process = ProcessStarter.StartProcess(dependExe, string.Join(" ", depend.Args));
-                                process.WaitForExit();
-                            }
-                        }
-                    }
-                    gameSettings.IsFullyInstalled = true;
-                    var commonHelpers = NileLibrary.Instance.commonHelpers;
-                    commonHelpers.SaveJsonSettingsToFile(gameSettings, "GamesSettings", Game.GameId, true);
+                    Nile.CompleteGameInstallation(Game.GameId, Game.InstallDirectory);
                 }, installProgressOptions);
             }
         }

@@ -919,6 +919,38 @@ namespace NileLibraryNS
                     }
                 }
             };
+
+            yield return new MainMenuItem
+            {
+                Description = LocalizationManager.Instance.GetString(LOC.CommonFinishInstallation),
+                MenuSection = $"@{Instance.Name}",
+                Icon = "FinishInstallationIcon",
+                Action = (args) =>
+                {
+                    var installedAppList = Nile.GetInstalledAppList();
+                    var gamesToCompleteInstall = installedAppList.Where(g => !NileGameSettingsView.LoadGameSettings(g.id).IsFullyInstalled).ToList();
+                    if (gamesToCompleteInstall.Any())
+                    {
+                        GlobalProgressOptions installProgressOptions = new GlobalProgressOptions(LocalizationManager.Instance.GetString(LOC.CommonFinishingInstallation), false) { IsIndeterminate = false };
+                        PlayniteApi.Dialogs.ActivateGlobalProgress((progress) =>
+                        {
+                            progress.ProgressMaxValue = gamesToCompleteInstall.Count;
+                            int current = 0;
+                            foreach (var game in gamesToCompleteInstall)
+                            {
+                                progress.Text = $"{LocalizationManager.Instance.GetString(LOC.CommonFinishingInstallation)} ({game.id})";
+                                Nile.CompleteGameInstallation(game.id, game.path);
+                                current++;
+                                progress.CurrentProgressValue = current;
+                            }
+                        }, installProgressOptions);
+                    }
+                    else
+                    {
+                        PlayniteApi.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonNoFinishNeeded));
+                    }
+                }
+            };
         }
 
         public void UC_PreviewKeyDown(object sender, KeyEventArgs e)

@@ -347,6 +347,14 @@ namespace System
         /// </summary>
         public const string CommonMigratingData = "common-migrating-data";
         /// <summary>
+        /// Finish installation of games
+        /// </summary>
+        public const string CommonFinishInstallation = "common-finish-installation";
+        /// <summary>
+        /// No games requiring finishing installation.
+        /// </summary>
+        public const string CommonNoFinishNeeded = "common-no-finish-needed";
+        /// <summary>
         /// Once a month
         /// </summary>
         public const string CommonOnceAMonth = "common-once-a-month";

@@ -642,5 +642,26 @@ namespace NileLibraryNS
                 }
             }
         }
+
+        public static void CompleteGameInstallation(string gameId, string installDirectory)
+        {
+            var gameSettings = NileGameSettingsView.LoadGameSettings(gameId);
+            var gameConfig = Nile.GetGameConfiguration(installDirectory);
+            if (gameConfig.PostInstall.Count > 0)
+            {
+                foreach (var depend in gameConfig.PostInstall)
+                {
+                    var dependExe = Path.GetFullPath(Path.Combine(gameId, depend.Command));
+                    if (File.Exists(dependExe))
+                    {
+                        var process = ProcessStarter.StartProcess(dependExe, string.Join(" ", depend.Args));
+                        process.WaitForExit();
+                    }
+                }
+            }
+            gameSettings.IsFullyInstalled = true;
+            var commonHelpers = NileLibrary.Instance.commonHelpers;
+            commonHelpers.SaveJsonSettingsToFile(gameSettings, "GamesSettings", gameId, true);
+        }
     }
 }
