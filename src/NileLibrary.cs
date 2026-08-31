@@ -989,91 +989,14 @@ namespace NileLibraryNS
 
         public override void OnControllerButtonStateChanged(OnControllerButtonStateChangedArgs args)
         {
-            if (args.State == ControllerInputState.Pressed)
+            var windows = new HashSet<Type>
             {
-                var openedWindows = Application.Current.Windows.OfType<Window>();
-                foreach (var openedWindow in openedWindows)
-                {
-                    if (!openedWindow.IsActive)
-                    {
-                        continue;
-                    }
-
-                    switch (openedWindow.Content)
-                    {
-                        case NileGameInstallerView _:
-                        case NileGameSettingsView _:
-                        case NileDownloadProperties _:
-                        case NileUpdaterView _:
-                            var focusedElement = Keyboard.FocusedElement as FrameworkElement;
-                            switch (args.Button)
-                            {
-                                case ControllerInput.A:
-                                    if (focusedElement is Button btn)
-                                    {
-                                        var peer = new ButtonAutomationPeer(btn);
-
-                                        if (peer.GetPattern(PatternInterface.Invoke) is IInvokeProvider provider)
-                                        {
-                                            provider.Invoke();
-                                        }
-                                    }
-                                    else if (focusedElement is RepeatButton repeatBtn)
-                                    {
-                                        repeatBtn.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
-                                    }
-                                    else if (focusedElement?.TemplatedParent is Expander expander)
-                                    {
-                                        expander.IsExpanded = !expander.IsExpanded;
-                                    }
-                                    else if (focusedElement is CheckBox)
-                                    {
-                                        var checkBoxFocused = focusedElement as CheckBox;
-                                        checkBoxFocused.IsChecked = !checkBoxFocused.IsChecked;
-                                    }
-                                    else if (focusedElement is ComboBox)
-                                    {
-                                        var comboBoxFocused = focusedElement as ComboBox;
-                                        comboBoxFocused.IsDropDownOpen = !comboBoxFocused.IsDropDownOpen;
-                                    }
-                                    else if (focusedElement is ComboBoxItem)
-                                    {
-                                        var parentComboBox = ItemsControl.ItemsControlFromItemContainer(focusedElement) as ComboBox;
-                                        parentComboBox.SelectedItem = parentComboBox.ItemContainerGenerator.ItemFromContainer(focusedElement);
-                                        parentComboBox.IsDropDownOpen = false;
-                                    }
-                                    break;
-                                case ControllerInput.B:
-                                    if (focusedElement is ComboBox)
-                                    {
-                                        var comboBoxFocused = focusedElement as ComboBox;
-                                        if (comboBoxFocused.IsDropDownOpen)
-                                        {
-                                            comboBoxFocused.IsDropDownOpen = false;
-                                        }
-                                    }
-                                    else if (focusedElement is ComboBoxItem)
-                                    {
-                                        var parentComboBox = ItemsControl.ItemsControlFromItemContainer(focusedElement) as ComboBox;
-                                        parentComboBox.IsDropDownOpen = false;
-                                    }
-                                    else
-                                    {
-                                        openedWindow.Close();
-                                    }
-                                    break;
-                                default:
-                                    break;
-                            }
-                            break;
-                        case MessageCheckBoxDialog _:
-                            MessageCheckBoxDialog.HandleControllerInput(args.Button);
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            }
+                typeof(NileGameInstallerView),
+                typeof(NileGameSettingsView),
+                typeof(NileDownloadProperties),
+                typeof(NileUpdaterView),
+            };
+            CommonControllerHelpers.OnControllerButtonStateChanged(args, windows);
         }
     }
 }
