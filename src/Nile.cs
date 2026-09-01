@@ -651,7 +651,7 @@ namespace NileLibraryNS
             {
                 foreach (var depend in gameConfig.PostInstall)
                 {
-                    var dependExe = Path.GetFullPath(Path.Combine(gameId, depend.Command));
+                    var dependExe = Path.GetFullPath(Path.Combine(installDirectory, depend.Command));
                     if (File.Exists(dependExe))
                     {
                         var process = ProcessStarter.StartProcess(dependExe, string.Join(" ", depend.Args));
