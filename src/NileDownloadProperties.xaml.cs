@@ -8,6 +8,8 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using UnifiedDownloadManagerApiNS;
+using UnifiedDownloadManagerApiNS.Models;
 
 namespace NileLibraryNS
 {
@@ -30,12 +32,11 @@ namespace NileLibraryNS
         {
             CommonHelpers.SetControlBackground(this);
             MaxWorkersNI.MaxValue = CommonHelpers.CpuThreadsNumber;
-            var wantedItem = SelectedDownload;
-            if (wantedItem.downloadProperties != null)
+            if (SelectedDownload.downloadProperties != null)
             {
-                SelectedGamePathTxt.Text = wantedItem.downloadProperties.installPath;
-                MaxWorkersNI.Value = wantedItem.downloadProperties.maxWorkers.ToString();
-                TaskCBo.SelectedValue = wantedItem.downloadProperties.downloadAction;
+                SelectedGamePathTxt.Text = SelectedDownload.downloadProperties.installPath;
+                MaxWorkersNI.Value = SelectedDownload.downloadProperties.maxWorkers.ToString();
+                TaskCBo.SelectedValue = SelectedDownload.downloadProperties.downloadAction;
             }
             var downloadActionOptions = new Dictionary<DownloadAction, string>
             {
@@ -46,6 +47,12 @@ namespace NileLibraryNS
             TaskCBo.ItemsSource = downloadActionOptions;
             UpdateSpaceInfo(SelectedDownload.downloadProperties.installPath);
             SizeGrd.Visibility = Visibility.Visible;
+            UnifiedDownloadManagerApi unifiedDownloadManagerApi = new UnifiedDownloadManagerApi();
+            var wantedItem = unifiedDownloadManagerApi.GetTask(SelectedDownload.gameID, NileLibrary.Instance.Id.ToString());
+            if (wantedItem?.status is UnifiedDownloadStatus.Completed or UnifiedDownloadStatus.Running)
+            {
+                SaveBtn.IsEnabled = false;
+            }
             if (playniteAPI.ApplicationInfo.Mode == ApplicationMode.Fullscreen)
             {
                 GeneralTab.Focus();
