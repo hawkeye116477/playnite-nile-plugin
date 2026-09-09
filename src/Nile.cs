@@ -251,7 +251,7 @@ namespace NileLibraryNS
             }
             if (!File.Exists(cacheVersionFile))
             {
-                var request = new HttpRequestMessage(HttpMethod.Get, "https://api.github.com/repos/hawkeye116477/nile/releases/latest");
+                var request = new HttpRequestMessage(HttpMethod.Get, "https://api.github.com/repos/imLinguin/nile/releases/latest");
                 request.Headers.Add("User-Agent", UserAgent);
                 try
                 {
