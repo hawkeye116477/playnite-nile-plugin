@@ -19,7 +19,7 @@ namespace NileLibraryNS
         private DownloadManagerData.Download SelectedDownload => (DownloadManagerData.Download)DataContext;
         public DownloadManagerData downloadManagerData;
         private IPlayniteAPI playniteAPI = API.Instance;
-        public List<string> requiredThings;
+        private long availableFreeSpace;
 
         public NileDownloadProperties()
         {
@@ -44,6 +44,8 @@ namespace NileLibraryNS
                 { DownloadAction.Update, LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteUpdaterInstallUpdate) }
             };
             TaskCBo.ItemsSource = downloadActionOptions;
+            UpdateSpaceInfo(SelectedDownload.downloadProperties.installPath);
+            SizeGrd.Visibility = Visibility.Visible;
             if (playniteAPI.ApplicationInfo.Mode == ApplicationMode.Fullscreen)
             {
                 GeneralTab.Focus();
@@ -77,6 +79,27 @@ namespace NileLibraryNS
             wantedItem.downloadProperties.maxWorkers = int.Parse(MaxWorkersNI.Value);
             NileLibrary.Instance.SaveDownloadData();
             Window.GetWindow(this).Close();
+        }
+
+        private void UpdateSpaceInfo(string path)
+        {
+            DriveInfo dDrive = new DriveInfo(path);
+            if (dDrive.IsReady)
+            {
+                availableFreeSpace = dDrive.AvailableFreeSpace;
+                SpaceTB.Text = CommonHelpers.FormatSize(availableFreeSpace);
+            }
+            UpdateAfterInstallingSize();
+        }
+
+        private void UpdateAfterInstallingSize()
+        {
+            double afterInstallSizeNumber = availableFreeSpace - SelectedDownload.downloadSizeNumber;
+            if (afterInstallSizeNumber < 0)
+            {
+                afterInstallSizeNumber = 0;
+            }
+            AfterInstallingTB.Text = CommonHelpers.FormatSize(afterInstallSizeNumber);
         }
 
         private void NileDownloadPropertiesUC_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
