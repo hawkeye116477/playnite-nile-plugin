@@ -46,12 +46,15 @@ namespace NileLibraryNS
             };
             TaskCBo.ItemsSource = downloadActionOptions;
             UpdateSpaceInfo(SelectedDownload.downloadProperties.installPath);
-            SizeGrd.Visibility = Visibility.Visible;
             UnifiedDownloadManagerApi unifiedDownloadManagerApi = new UnifiedDownloadManagerApi();
             var wantedItem = unifiedDownloadManagerApi.GetTask(SelectedDownload.gameID, NileLibrary.Instance.Id.ToString());
             if (wantedItem?.status is UnifiedDownloadStatus.Completed or UnifiedDownloadStatus.Running)
             {
                 SaveBtn.IsEnabled = false;
+            }
+            if (wantedItem?.status != UnifiedDownloadStatus.Completed)
+            {
+                SizeGrd.Visibility = Visibility.Visible;
             }
             if (playniteAPI.ApplicationInfo.Mode == ApplicationMode.Fullscreen)
             {
