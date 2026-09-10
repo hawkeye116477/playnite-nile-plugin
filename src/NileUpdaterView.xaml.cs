@@ -26,16 +26,13 @@ namespace NileLibraryNS
         {
             UpdateBtn.IsEnabled = UpdatesLB.SelectedIndex != -1;
             double initialDownloadSizeNumber = 0;
-            double initialInstallSizeNumber = 0;
             foreach (var selectedOption in UpdatesLB.SelectedItems.Cast<KeyValuePair<string, UpdateInfo>>().ToList())
             {
                 initialDownloadSizeNumber += selectedOption.Value.Download_size;
-                initialInstallSizeNumber += selectedOption.Value.Download_size;
             }
             var downloadSize = CommonHelpers.FormatSize(initialDownloadSizeNumber);
             DownloadSizeTB.Text = downloadSize;
-            var installSize = CommonHelpers.FormatSize(initialInstallSizeNumber);
-            InstallSizeTB.Text = installSize;
+            InstallSizeTB.Text = downloadSize;
         }
 
         private void SelectAllBtn_Click(object sender, RoutedEventArgs e)
