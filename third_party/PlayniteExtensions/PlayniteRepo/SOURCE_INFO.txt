@@ -1,2 +1,2 @@
 Source: https://github.com/JosefNemec/Playnite.git
-Commit: 02fc1972a1f0c4b7e5f2bc2b91d8dfe643141965
+Commit: 76e475b671f2fbb13c8cfa2a1dd85720f39f2775
