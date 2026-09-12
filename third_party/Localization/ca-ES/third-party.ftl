@@ -1,7 +1,7 @@
 ###
 ### Automatically generated via update_3p_localization.py script using files from 
-### https://github.com/JosefNemec/PlayniteExtensions/tree/2571993a388889c024561d1626dfaf2b3fd55da7 and 
-### https://github.com/JosefNemec/Playnite/tree/81a66b1b0cdca691eefcc03095ca20ce627db907. 
+### https://github.com/JosefNemec/PlayniteExtensions/tree/809eab47a2b3be92fad1017c6f4d92cfd7f421c6 and 
+### https://github.com/JosefNemec/Playnite/tree/76e475b671f2fbb13c8cfa2a1dd85720f39f2775. 
 ### DO NOT MODIFY, CUZ IT MIGHT BE OVERWRITTEN DURING NEXT RUN!
 ###
 third-party-playnite-game-start-error = No es pot iniciar el joc: { $var0 }
@@ -48,11 +48,11 @@ third-party-amazon-logged-in = L'usuari està autenticat
 third-party-amazon-not-logged-in = Requereix autenticació
 third-party-amazon-not-logged-in-error = No s’ha pogut autenticar l’usuari.
 third-party-amazon-authenticate-label = Autenticar
-third-party-amazon-settings-start-game-directly = Arrencar jocs directament sense executar el client oficial
+third-party-amazon-settings-start-game-directly = Iniciar jocs directament sense executar el client oficial
 third-party-amazon-trouble-shooting-account-link = Resolució de problemes de sincronització del compte
 third-party-amazon-trouble-shooting-issues = Resolució de problemes
 third-party-amazon-settings-import-library-label = Importar tots els jocs
 third-party-amazon-private-account = Compte privat
 third-party-amazon-public-account = Compte públic
 third-party-amazon-api-key = Clau API
-third-party-amazon-start-using-client = Iniciar mitjançant el client de { $var0 }
+third-party-amazon-start-using-client = Iniciar a través del client { $var0 }

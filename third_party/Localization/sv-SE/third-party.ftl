@@ -1,7 +1,7 @@
 ###
 ### Automatically generated via update_3p_localization.py script using files from 
-### https://github.com/JosefNemec/PlayniteExtensions/tree/2571993a388889c024561d1626dfaf2b3fd55da7 and 
-### https://github.com/JosefNemec/Playnite/tree/81a66b1b0cdca691eefcc03095ca20ce627db907. 
+### https://github.com/JosefNemec/PlayniteExtensions/tree/809eab47a2b3be92fad1017c6f4d92cfd7f421c6 and 
+### https://github.com/JosefNemec/Playnite/tree/76e475b671f2fbb13c8cfa2a1dd85720f39f2775. 
 ### DO NOT MODIFY, CUZ IT MIGHT BE OVERWRITTEN DURING NEXT RUN!
 ###
 third-party-playnite-game-start-error = Kan inte starta spelet: { $var0 }
@@ -36,3 +36,7 @@ third-party-playnite-dont-show-again-title = Visa Inte Igen
 third-party-playnite-extensions-updates = Uppdateringar
 third-party-playnite-select-file-tooltip = Välj fil…
 third-party-playnite-select-directory-tooltip = Välj mapp…
+third-party-playnite-option-only-manually = Endast manuellt
+third-party-playnite-option-once-a-day = En gång om dagen
+third-party-playnite-option-once-a-week = En gång i veckan
+third-party-playnite-open = Öppna

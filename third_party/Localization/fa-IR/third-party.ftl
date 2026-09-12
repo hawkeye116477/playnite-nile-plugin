@@ -1,7 +1,7 @@
 ###
 ### Automatically generated via update_3p_localization.py script using files from 
-### https://github.com/JosefNemec/PlayniteExtensions/tree/2571993a388889c024561d1626dfaf2b3fd55da7 and 
-### https://github.com/JosefNemec/Playnite/tree/81a66b1b0cdca691eefcc03095ca20ce627db907. 
+### https://github.com/JosefNemec/PlayniteExtensions/tree/809eab47a2b3be92fad1017c6f4d92cfd7f421c6 and 
+### https://github.com/JosefNemec/Playnite/tree/76e475b671f2fbb13c8cfa2a1dd85720f39f2775. 
 ### DO NOT MODIFY, CUZ IT MIGHT BE OVERWRITTEN DURING NEXT RUN!
 ###
 third-party-playnite-game-start-error = نمی‌توان بازی را آغاز کرد: { $var0 }
@@ -40,19 +40,19 @@ third-party-playnite-option-only-manually = تنها دستی
 third-party-playnite-option-once-a-day = یک بار در روز
 third-party-playnite-option-once-a-week = یکبار در هفته
 third-party-playnite-open = باز کن
-third-party-amazon-settings-import-installed-label = وارد کردن بازی های نصب شده
-third-party-amazon-settings-import-uninstalled-label = واردات بازی های نصب نشده
+third-party-amazon-settings-import-installed-label = درون‌برد بازی‌های نصب‌شده
+third-party-amazon-settings-import-uninstalled-label = درون‌برد بازی‌های نصب‌نشده
 third-party-amazon-settings-connect-account = اتصال حساب
 third-party-amazon-login-checking = بررسی وضیعت تایید…
 third-party-amazon-logged-in = کاربر تایید شد
-third-party-amazon-not-logged-in = نیاز به تائید هویت
-third-party-amazon-not-logged-in-error = شکست در تایید کاربر.
+third-party-amazon-not-logged-in = نیاز به تأیید هویت
+third-party-amazon-not-logged-in-error = ناکامی در تایید کاربر.
 third-party-amazon-authenticate-label = احراز هویت
-third-party-amazon-settings-start-game-directly = بازی ها را مستقیماً و بدون اجرای مشتری رسمی شروع کنید
-third-party-amazon-trouble-shooting-account-link = عیب یابی مشکلات همگام سازی حساب
-third-party-amazon-trouble-shooting-issues = عیب یابی مشکلات
-third-party-amazon-settings-import-library-label = وارد کردن همه بازی ها
+third-party-amazon-settings-start-game-directly = بازی‌ها را یک‌راست و بدون اجرای کارخواه رسمی آغاز کنید
+third-party-amazon-trouble-shooting-account-link = عیب‌یابی مشکل‌های همگام‌سازی حساب
+third-party-amazon-trouble-shooting-issues = عیب‌یابی مشکل‌ها
+third-party-amazon-settings-import-library-label = درون‌برد همهٔ بازی‌ها
 third-party-amazon-private-account = حساب خصوصی
 third-party-amazon-public-account = حساب عمومی
-third-party-amazon-api-key = کلید API
-third-party-amazon-start-using-client = شروع به استفاده از سرویس گیرنده { $var0 } کنید
+third-party-amazon-api-key = کلید اِی.پی.آی
+third-party-amazon-start-using-client = آغاز به‌کارگیری از کارخواه { $var0 }
