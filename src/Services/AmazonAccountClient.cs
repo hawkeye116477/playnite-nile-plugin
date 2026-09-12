@@ -23,11 +23,12 @@ namespace NileLibraryNS.Services
     {
         private static readonly ILogger logger = LogManager.GetLogger();
         private NileLibrary library;
-        private const string loginUrl = @"https://www.amazon.com/ap/signin?openid.ns=http://specs.openid.net/auth/2.0&openid.claimed_id=http://specs.openid.net/auth/2.0/identifier_select&openid.identity=http://specs.openid.net/auth/2.0/identifier_select&openid.mode=checkid_setup&openid.oa2.scope=device_auth_access&openid.ns.oa2=http://www.amazon.com/ap/ext/oauth/2&openid.oa2.response_type=code&openid.oa2.code_challenge_method=S256&openid.oa2.client_id=device:3733646238643238366332613932346432653737653161663637373636363435234132554d56484f58375550345637&language=en_US&marketPlaceId=ATVPDKIKX0DER&openid.return_to=https://www.amazon.com&openid.pape.max_auth_age=0&openid.assoc_handle=amzn_sonic_games_launcher&pageId=amzn_sonic_games_launcher&openid.oa2.code_challenge=";
+        private const string loginUrl = @"https://www.amazon.com/ap/signin";
         private readonly string userInfoPath;
-        private string userAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) @amzn/aga-electron-platform/1.0.0 Chrome/78.0.3904.130 Electron/7.1.9 Safari/537.36";
+        private string LoginUserAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) @amzn/aga-electron-platform/1.0.0 Chrome/78.0.3904.130 Electron/7.1.9 Safari/537.36";
         public static readonly RetryHandler retryHandler = new RetryHandler(new HttpClientHandler());
         public static readonly HttpClient httpClient = new HttpClient(retryHandler);
+        private const string LauncherUserAgent = "com.amazon.agslauncher.win/3.0.9782.3";
 
         public AmazonAccountClient(NileLibrary library)
         {
@@ -57,11 +58,13 @@ namespace NileLibraryNS.Services
         {
             var callbackUrl = string.Empty;
             var codeChallenge = GenerateCodeChallenge();
+            var deviceSerial = GetMachineGuid().ToString("N");
+            var clientId = BitConverter.ToString(Encoding.ASCII.GetBytes($"{deviceSerial}#A2UMVHOX7UP4V7")).ToLowerInvariant().Replace("-", "");
             using (var webView = library.PlayniteApi.WebViews.CreateView(new WebViewSettings
             {
                 WindowWidth = 490,
                 WindowHeight = 660,
-                UserAgent = userAgent,
+                UserAgent = LoginUserAgent,
             }))
             {
                 webView.LoadingChanged += (s, e) =>
@@ -75,7 +78,27 @@ namespace NileLibraryNS.Services
                 };
 
                 webView.DeleteDomainCookies(".amazon.com");
-                var lurl = loginUrl + EncodeBase64Url(codeChallenge.GetSHA256HashByte());
+                var query = HttpUtility.ParseQueryString("");
+                query["openid.ns"] = "http://specs.openid.net/auth/2.0";
+                var openidIdentity = "http://specs.openid.net/auth/2.0/identifier_select";
+                query["openid.claimed_id"] = openidIdentity;
+                query["openid.identity"] = openidIdentity;
+                query["openid.mode"] = "checkid_setup";
+                query["openid.oa2.scope"] = "device_auth_access";
+                query["openid.ns.oa2"] = "http://www.amazon.com/ap/ext/oauth/2";
+                query["openid.oa2.response_type"] = "code";
+                query["openid.oa2.code_challenge_method"] = "S256";
+                query["openid.oa2.client_id"] = $"device:{clientId}";
+                query["openid.oa2.code_challenge"] = EncodeBase64Url(codeChallenge.GetSHA256HashByte());
+                query["language"] = "en_US";
+                query["marketPlaceId"] = "ATVPDKIKX0DER";
+                query["openid.return_to"] = "https://www.amazon.com";
+                query["openid.pape.max_auth_age"] = "0";
+                query["openid.ns.pape"] = "http://specs.openid.net/extensions/pape/1.0";
+                var openidAssocHandle = "amzn_sonic_games_launcher";
+                query["openid.assoc_handle"] = openidAssocHandle;
+                query["pageId"] = openidAssocHandle;
+                var lurl = $"{loginUrl}?{query}";
                 webView.Navigate(lurl);
                 webView.OpenDialog();
             }
@@ -85,30 +108,36 @@ namespace NileLibraryNS.Services
                 var rediUri = new Uri(callbackUrl);
                 var fragments = HttpUtility.ParseQueryString(rediUri.Query);
                 var token = fragments["openid.oa2.authorization_code"];
-                await Authenticate(token, codeChallenge);
+                await Authenticate(token, codeChallenge, clientId);
             }
         }
 
-        private async Task Authenticate(string accessToken, string codeChallenge)
+        private async Task Authenticate(string accessToken, string codeChallenge, string clientId)
         {
-            var reqData = new DeviceRegistrationRequest();
-            reqData.auth_data.use_global_authentication = false;
-            reqData.auth_data.authorization_code = accessToken;
-            reqData.auth_data.code_verifier = codeChallenge;
-            reqData.auth_data.code_algorithm = "SHA-256";
-            reqData.auth_data.client_id = "3733646238643238366332613932346432653737653161663637373636363435234132554d56484f58375550345637";
-            reqData.auth_data.client_domain = "DeviceLegacy";
-
-            reqData.registration_data.app_name = "AGSLauncher for Windows";
-            reqData.registration_data.app_version = "1.0.0";
-            reqData.registration_data.device_model = "Windows";
-            reqData.registration_data.device_serial = GetMachineGuid().ToString("N");
-            reqData.registration_data.device_type = "A2UMVHOX7UP4V7";
-            reqData.registration_data.domain = "Device";
-            reqData.registration_data.os_version = Environment.OSVersion.Version.ToString(4);
-
-            reqData.requested_extensions = new List<string> { "customer_info", "device_info" };
-            reqData.requested_token_type = new List<string> { "bearer", "mac_dms" };
+            var reqData = new DeviceRegistrationRequest
+            {
+                auth_data =
+                {
+                    authorization_code = accessToken,
+                    client_domain = "DeviceLegacy",
+                    client_id = clientId,
+                    code_algorithm = "SHA-256",
+                    code_verifier = codeChallenge,
+                    use_global_authentication = false,
+                },
+                registration_data =
+                {
+                    app_name = "AGSLauncher for Windows",
+                    app_version = "1.0.0",
+                    device_model = "Windows",
+                    device_serial = GetMachineGuid().ToString("N"),
+                    device_type = "A2UMVHOX7UP4V7",
+                    domain = "Device",
+                    os_version = Environment.OSVersion.Version.ToString(4)
+                },
+                requested_extensions = new List<string> { "customer_info", "device_info" },
+                requested_token_type = new List<string> { "bearer", "mac_dms" }
+            };
 
             var authPostContent = Serialization.ToJson(reqData, true);
 
@@ -199,11 +228,9 @@ namespace NileLibraryNS.Services
                 strCont.Headers.TryAddWithoutValidation("Expect", "100-continue");
                 strCont.Headers.TryAddWithoutValidation("Content-Encoding", "amz-1.0");
 
-                using var request = new HttpRequestMessage(HttpMethod.Post, @"https://gaming.amazon.com/api/distribution/entitlements")
-                {
-                    Content = strCont
-                };
-                request.Headers.Add("User-Agent", "com.amazon.agslauncher.win/3.0.9495.3");
+                using var request = new HttpRequestMessage(HttpMethod.Post, @"https://gaming.amazon.com/api/distribution/entitlements");
+                request.Content = strCont;
+                request.Headers.Add("User-Agent", LauncherUserAgent);
                 request.Headers.Add("X-Amz-Target", "com.amazon.animusdistributionservice.entitlement.AnimusEntitlementsService.GetEntitlements");
                 request.Headers.Add("x-amzn-token", tokens.tokens.bearer.access_token);
 
@@ -311,7 +338,7 @@ namespace NileLibraryNS.Services
                 try
                 {
                     return Serialization.FromJson<DeviceRegistrationResponse.Response.Success>(Encryption.DecryptFromFile(Nile.EncryptedTokensPath, Encoding.UTF8,
-                                                WindowsIdentity.GetCurrent().User.Value));
+                                                WindowsIdentity.GetCurrent().User?.Value));
                 }
                 catch (Exception e)
                 {
@@ -381,7 +408,7 @@ namespace NileLibraryNS.Services
                             Encryption.EncryptToFile(Nile.EncryptedTokensPath,
                                                      jsonTokens,
                                                      Encoding.UTF8,
-                                                     WindowsIdentity.GetCurrent().User.Value);
+                                                     WindowsIdentity.GetCurrent().User?.Value);
                         }
 
                     }
@@ -434,7 +461,8 @@ namespace NileLibraryNS.Services
 
             try
             {
-                using (var cryptography = root.OpenSubKey("SOFTWARE\\Microsoft\\Cryptography"))
+                using var cryptography = root.OpenSubKey(@"SOFTWARE\Microsoft\Cryptography");
+                if (cryptography != null)
                 {
                     return Guid.Parse((string)cryptography.GetValue("MachineGuid"));
                 }
@@ -443,6 +471,8 @@ namespace NileLibraryNS.Services
             {
                 root.Dispose();
             }
+
+            return Guid.Empty;
         }
 
         private string EncodeBase64Url(byte[] input)
