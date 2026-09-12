@@ -599,6 +599,11 @@ namespace NileLibraryNS
                         {
                             newDownloadProperties.installPath = gameToUpdate.Value.Install_path;
                         }
+                        else
+                        {
+                            logger.Warn($"No install path for {gameToUpdate.Value.Title}, skipping...");
+                            continue;
+                        }
                         var updateTask = new DownloadManagerData.Download
                         {
                             gameID = gameToUpdate.Key,
