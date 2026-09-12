@@ -11,7 +11,7 @@ Packages:
       - Improved updater appearance
       - Fixed logging in
       - Fixed installing depends
-      - Fixed pcgamingwiki links for metaddata
+      - Fixed pcgamingwiki links for metadata
       - Added loading icon from installed exe files
       - Amazon Games Clientless library plugin is now available for Playnite 11+ at
         https://github.com/hawkeye116477/playnite-amazon-clientless-plugin/releases,
