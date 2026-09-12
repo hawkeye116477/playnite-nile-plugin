@@ -1,5 +1,21 @@
 AddonId: NileLibrary
 Packages:
+  - Version: 1.6.0
+    RequiredApiVersion: 6.14.0
+    ReleaseDate: 2026-09-12
+    PackageUrl: https://github.com/hawkeye116477/playnite-nile-plugin/releases/download/1.6.0/NileLibrary_1_6_0.pext
+    Changelog:
+      - Added missing after installing and space info for download properties
+      - Disabled save button for running and completed downloads
+      - Updater will now return to checking for upstream Nile updates
+      - Improved updater appearance
+      - Fixed logging in
+      - Fixed installing depends
+      - Fixed pcgamingwiki links for metaddata
+      - Added loading icon from installed exe files
+      - Amazon Games Clientless library plugin is now available for Playnite 11+ at
+        https://github.com/hawkeye116477/playnite-amazon-clientless-plugin/releases,
+        so you can test it and give me feedback
   - Version: 1.5.0
     RequiredApiVersion: 6.14.0
     ReleaseDate: 2026-07-15
