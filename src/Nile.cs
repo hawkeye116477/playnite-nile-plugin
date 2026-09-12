@@ -598,6 +598,7 @@ namespace NileLibraryNS
                             var updateInfo = new UpdateInfo
                             {
                                 Install_path = Path.GetDirectoryName(InstallationPath),
+                                OldVersion = oldVersion.ToString(),
                                 Version = newVersion.ToString(),
                                 Download_size = newAsset.Size,
                                 Title = appTitle,
