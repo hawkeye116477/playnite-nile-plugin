@@ -556,7 +556,9 @@ namespace NileLibraryNS
                                 updateInfo.Title = gameInfo.title;
                                 if (appList.FirstOrDefault(i => i.id == gameToUpdate) != null)
                                 {
-                                    updateInfo.Install_path = appList.FirstOrDefault(i => i.id == gameToUpdate).path;
+                                    var installedInfo = appList.FirstOrDefault(i => i.id == gameToUpdate);
+                                    updateInfo.OldVersion = installedInfo.version;
+                                    updateInfo.Install_path = installedInfo.path;
                                 }
                             }
                             gamesToUpdate.Add(gameToUpdate, updateInfo);
