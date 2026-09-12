@@ -487,7 +487,7 @@ namespace NileLibraryNS
         public async Task<Dictionary<string, UpdateInfo>> CheckGameUpdates(string gameId, bool forceRefreshCache = false)
         {
             var gameToUpdate = new Dictionary<string, UpdateInfo>();
-            var gamesToUpdate = await CheckAllGamesUpdates(false, forceRefreshCache);
+            var gamesToUpdate = await CheckAllGamesUpdates(false);
             if (gamesToUpdate.Count > 0)
             {
                 var wantedItem = gamesToUpdate.FirstOrDefault(g => g.Key == gameId && g.Value.Success);
@@ -499,7 +499,7 @@ namespace NileLibraryNS
             return gameToUpdate;
         }
 
-        public async Task<Dictionary<string, UpdateInfo>> CheckAllGamesUpdates(bool silently = false, bool forceRefreshCache = false)
+        public async Task<Dictionary<string, UpdateInfo>> CheckAllGamesUpdates(bool silently = false)
         {
             var gamesToUpdate = new Dictionary<string, UpdateInfo>();
             var appList = Nile.GetInstalledAppList();
@@ -571,7 +571,6 @@ namespace NileLibraryNS
 
         public async Task UpdateGame(Dictionary<string, UpdateInfo> gamesToUpdate, string gameTitle = "", bool silently = false, DownloadProperties downloadProperties = null)
         {
-            var unifiedDownloadManagerApi = new UnifiedDownloadManagerApi();
             var updateTasks = new List<DownloadManagerData.Download>();
             if (gamesToUpdate.Count > 0)
             {
