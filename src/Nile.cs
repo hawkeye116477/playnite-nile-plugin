@@ -150,7 +150,7 @@ namespace NileLibraryNS
             get { return Path.Combine(ConfigPath, "current_user.json"); }
         }
 
-        public static string EncryptedTokensPath
+        public static string OldEncryptedTokensPath
         {
             get { return Path.Combine(Path.Combine(NileLibrary.Instance.GetPluginUserDataPath(), "tokens_encrypted.json")); }
         }
@@ -317,16 +317,6 @@ namespace NileLibraryNS
             {
                 envDict.Add("NILE_CONFIG_PATH",
                     Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "heroic", "nile_config"));
-            }
-
-            if (File.Exists(EncryptedTokensPath))
-            {
-                var clientApi = new AmazonAccountClient(NileLibrary.Instance);
-                var tokens = await clientApi.RefreshTokens();
-                if (tokens != null)
-                {
-                    envDict.Add("NILE_SECRET_USER_DATA", Convert.ToBase64String(Encoding.UTF8.GetBytes(Serialization.ToJson(tokens))));
-                }
             }
 
             return envDict;

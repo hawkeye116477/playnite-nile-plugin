@@ -55,7 +55,7 @@ namespace NileLibraryNS.Services
                 FileSystem.DeleteFile(Nile.UserInfoPath);
             }
 
-            FileSystem.DeleteFile(Nile.EncryptedTokensPath);
+            FileSystem.DeleteFile(Nile.OldEncryptedTokensPath);
         }
 
         public async Task Login()
@@ -67,11 +67,11 @@ namespace NileLibraryNS.Services
                                        .ToLowerInvariant()
                                        .Replace("-", "");
             using (var webView = library.PlayniteApi.WebViews.CreateView(new WebViewSettings
-                   {
-                       WindowWidth = 490,
-                       WindowHeight = 660,
-                       UserAgent = LoginUserAgent,
-                   }))
+            {
+                WindowWidth = 490,
+                WindowHeight = 660,
+                UserAgent = LoginUserAgent,
+            }))
             {
                 webView.LoadingChanged += (s, e) =>
                 {
@@ -161,50 +161,21 @@ namespace NileLibraryNS.Services
                 var authData = Serialization.FromJson<DeviceRegistrationResponse>(authResponseContent);
                 if (authData.response?.success != null)
                 {
-                    bool useEncryptedTokensPluginWay = true;
-                    if (Nile.IsInstalled)
-                    {
-                        var result = await Cli.Wrap(Nile.ClientExecPath)
-                                              .AddCommandToLog()
-                                              .WithValidation(CommandResultValidation.None)
-                                              .ExecuteBufferedAsync();
-                        if (!result.StandardOutput.Contains("secret-user-data"))
-                        {
-                            useEncryptedTokensPluginWay = false;
-                        }
-                    }
-
                     authData.response.success.NILE.token_obtain_time = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
                     var finalResponse = Serialization.ToJson(authData.response.success);
-                    if (!useEncryptedTokensPluginWay)
+                    var userId = authData.response.success.extensions.customer_info.user_id;
+                    var tokensPath = Path.Combine(Nile.ConfigPath, $"{Helpers.GetMD5(userId)}.enc");
+                    Helpers.EncryptToNileFile(tokensPath, finalResponse, userId);
+                    var nileUserInfo = new NileUserInfo
                     {
-                        if (!Directory.Exists(Path.GetDirectoryName(userInfoPath)))
-                        {
-                            FileSystem.CreateDirectory(Path.GetDirectoryName(userInfoPath));
-                        }
-
-                        var userId = authData.response.success.extensions.customer_info.user_id;
-                        var tokensPath = Path.Combine(Nile.ConfigPath, $"{Helpers.GetMD5(userId)}.enc");
-                        Helpers.EncryptToNileFile(tokensPath, finalResponse, userId);
-                        var nileUserInfo = new NileUserInfo
-                        {
-                            name = authData.response.success.extensions.customer_info.name,
-                            user_id = userId
-                        };
-                        FileSystem.WriteStringToFileSafe(userInfoPath, Serialization.ToJson(nileUserInfo));
-                    }
-                    else
+                        name = authData.response.success.extensions.customer_info.name,
+                        user_id = userId
+                    };
+                    if (!Directory.Exists(Path.GetDirectoryName(userInfoPath)))
                     {
-                        if (!Directory.Exists(Path.GetDirectoryName(Nile.EncryptedTokensPath)))
-                        {
-                            FileSystem.CreateDirectory(Path.GetDirectoryName(Nile.EncryptedTokensPath));
-                        }
-
-                        Encryption.EncryptToFile(Nile.EncryptedTokensPath,
-                            finalResponse,
-                            Encoding.UTF8,
-                            WindowsIdentity.GetCurrent().User.Value);
+                        FileSystem.CreateDirectory(Path.GetDirectoryName(userInfoPath));
                     }
+                    FileSystem.WriteStringToFileSafe(userInfoPath, Serialization.ToJson(nileUserInfo));
                 }
             }
             catch (Exception ex)
@@ -345,13 +316,26 @@ namespace NileLibraryNS.Services
                 }
             }
 
-            if (File.Exists(Nile.EncryptedTokensPath))
+            // Migrate old tokens
+            if (File.Exists(Nile.OldEncryptedTokensPath))
             {
                 try
                 {
-                    return Serialization.FromJson<DeviceRegistrationResponse.Response.Success>(Encryption.DecryptFromFile(
-                        Nile.EncryptedTokensPath, Encoding.UTF8,
-                        WindowsIdentity.GetCurrent().User?.Value));
+                    var oldTokens = Serialization.FromJson<DeviceRegistrationResponse.Response.Success>(Encryption.DecryptFromFile(
+                        Nile.OldEncryptedTokensPath, Encoding.UTF8, WindowsIdentity.GetCurrent().User?.Value));
+                    var nileUserInfo = new NileUserInfo
+                    {
+                        name = oldTokens.extensions.customer_info.given_name,
+                        user_id = oldTokens.extensions.customer_info.user_id,
+                    };
+                    if (!Directory.Exists(Path.GetDirectoryName(userInfoPath)))
+                    {
+                        FileSystem.CreateDirectory(Path.GetDirectoryName(userInfoPath));
+                    }
+                    FileSystem.WriteStringToFileSafe(userInfoPath, Serialization.ToJson(nileUserInfo));
+                    var tokensPath = Path.Combine(Nile.ConfigPath, $"{Helpers.GetMD5(nileUserInfo.user_id)}.enc");
+                    Helpers.EncryptToNileFile(tokensPath, Serialization.ToJson(oldTokens), nileUserInfo.user_id);
+                    return oldTokens;
                 }
                 catch (Exception e)
                 {
@@ -374,9 +358,9 @@ namespace NileLibraryNS.Services
                     var tokensPath = Path.Combine(Nile.ConfigPath, $"{Helpers.GetMD5(userInfoJson.user_id)}.enc");
                     tokenLastUpdateTime = File.GetLastWriteTime(tokensPath);
                 }
-                else if (File.Exists(Nile.EncryptedTokensPath))
+                else if (File.Exists(Nile.OldEncryptedTokensPath))
                 {
-                    tokenLastUpdateTime = File.GetLastWriteTime(Nile.EncryptedTokensPath);
+                    tokenLastUpdateTime = File.GetLastWriteTime(Nile.OldEncryptedTokensPath);
                 }
 
                 var tokenExpirySeconds = tokens.tokens.bearer.expires_in;
@@ -406,25 +390,10 @@ namespace NileLibraryNS.Services
                         tokens.NILE.token_obtain_time = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 
                         var jsonTokens = Serialization.ToJson(tokens);
-                        bool useEncryptedTokensPluginWay = false;
-                        if (File.Exists(Nile.EncryptedTokensPath))
-                        {
-                            useEncryptedTokensPluginWay = true;
-                        }
 
-                        if (!useEncryptedTokensPluginWay)
-                        {
-                            var userId = userInfoJson.user_id;
-                            var tokensPath = Path.Combine(Nile.ConfigPath, $"{Helpers.GetMD5(userId)}.enc");
-                            Helpers.EncryptToNileFile(tokensPath, jsonTokens, userId);
-                        }
-                        else
-                        {
-                            Encryption.EncryptToFile(Nile.EncryptedTokensPath,
-                                jsonTokens,
-                                Encoding.UTF8,
-                                WindowsIdentity.GetCurrent().User?.Value);
-                        }
+                        var userId = userInfoJson.user_id;
+                        var tokensPath = Path.Combine(Nile.ConfigPath, $"{Helpers.GetMD5(userId)}.enc");
+                        Helpers.EncryptToNileFile(tokensPath, jsonTokens, userId);
                     }
                     catch (Exception ex)
                     {
