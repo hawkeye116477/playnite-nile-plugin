@@ -1,21 +1,21 @@
-﻿using NileLibraryNS.Models;
-using Microsoft.Win32;
-using Playnite.Common;
-using Playnite.SDK;
-using Playnite.SDK.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
+using System.Security.Cryptography;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using PlayniteExtensions.Common;
-using System.Security.Principal;
 using CliWrap;
 using CliWrap.Buffered;
 using CommonPlugin;
-using System.Security.Cryptography;
+using Microsoft.Win32;
+using NileLibraryNS.Models;
+using Playnite.Common;
+using Playnite.SDK;
+using Playnite.SDK.Data;
+using PlayniteExtensions.Common;
 
 namespace NileLibraryNS.Services
 {
@@ -25,7 +25,10 @@ namespace NileLibraryNS.Services
         private NileLibrary library;
         private const string loginUrl = @"https://www.amazon.com/ap/signin";
         private readonly string userInfoPath;
-        private string LoginUserAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) @amzn/aga-electron-platform/1.0.0 Chrome/78.0.3904.130 Electron/7.1.9 Safari/537.36";
+
+        private string LoginUserAgent =
+            "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) @amzn/aga-electron-platform/1.0.0 Chrome/78.0.3904.130 Electron/7.1.9 Safari/537.36";
+
         public static readonly RetryHandler retryHandler = new RetryHandler(new HttpClientHandler());
         public static readonly HttpClient httpClient = new HttpClient(retryHandler);
         private const string LauncherUserAgent = "com.amazon.agslauncher.win/3.0.9782.3";
@@ -51,6 +54,7 @@ namespace NileLibraryNS.Services
                 FileSystem.DeleteFile(tokensPath);
                 FileSystem.DeleteFile(Nile.UserInfoPath);
             }
+
             FileSystem.DeleteFile(Nile.EncryptedTokensPath);
         }
 
@@ -59,13 +63,15 @@ namespace NileLibraryNS.Services
             var callbackUrl = string.Empty;
             var codeChallenge = GenerateCodeChallenge();
             var deviceSerial = GetMachineGuid().ToString("N");
-            var clientId = BitConverter.ToString(Encoding.ASCII.GetBytes($"{deviceSerial}#A2UMVHOX7UP4V7")).ToLowerInvariant().Replace("-", "");
+            var clientId = BitConverter.ToString(Encoding.ASCII.GetBytes($"{deviceSerial}#A2UMVHOX7UP4V7"))
+                                       .ToLowerInvariant()
+                                       .Replace("-", "");
             using (var webView = library.PlayniteApi.WebViews.CreateView(new WebViewSettings
-            {
-                WindowWidth = 490,
-                WindowHeight = 660,
-                UserAgent = LoginUserAgent,
-            }))
+                   {
+                       WindowWidth = 490,
+                       WindowHeight = 660,
+                       UserAgent = LoginUserAgent,
+                   }))
             {
                 webView.LoadingChanged += (s, e) =>
                 {
@@ -167,6 +173,7 @@ namespace NileLibraryNS.Services
                             useEncryptedTokensPluginWay = false;
                         }
                     }
+
                     authData.response.success.NILE.token_obtain_time = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
                     var finalResponse = Serialization.ToJson(authData.response.success);
                     if (!useEncryptedTokensPluginWay)
@@ -175,6 +182,7 @@ namespace NileLibraryNS.Services
                         {
                             FileSystem.CreateDirectory(Path.GetDirectoryName(userInfoPath));
                         }
+
                         var userId = authData.response.success.extensions.customer_info.user_id;
                         var tokensPath = Path.Combine(Nile.ConfigPath, $"{Helpers.GetMD5(userId)}.enc");
                         Helpers.EncryptToNileFile(tokensPath, finalResponse, userId);
@@ -191,16 +199,17 @@ namespace NileLibraryNS.Services
                         {
                             FileSystem.CreateDirectory(Path.GetDirectoryName(Nile.EncryptedTokensPath));
                         }
+
                         Encryption.EncryptToFile(Nile.EncryptedTokensPath,
-                                                 finalResponse,
-                                                 Encoding.UTF8,
-                                                 WindowsIdentity.GetCurrent().User.Value);
+                            finalResponse,
+                            Encoding.UTF8,
+                            WindowsIdentity.GetCurrent().User.Value);
                     }
                 }
             }
             catch (Exception ex)
             {
-                logger.Error(ex, $"Failed to authenticate with Amazon");
+                logger.Error(ex, "Failed to authenticate with Amazon");
             }
         }
 
@@ -231,7 +240,8 @@ namespace NileLibraryNS.Services
                 using var request = new HttpRequestMessage(HttpMethod.Post, @"https://gaming.amazon.com/api/distribution/entitlements");
                 request.Content = strCont;
                 request.Headers.Add("User-Agent", LauncherUserAgent);
-                request.Headers.Add("X-Amz-Target", "com.amazon.animusdistributionservice.entitlement.AnimusEntitlementsService.GetEntitlements");
+                request.Headers.Add("X-Amz-Target",
+                    "com.amazon.animusdistributionservice.entitlement.AnimusEntitlementsService.GetEntitlements");
                 request.Headers.Add("x-amzn-token", tokens.tokens.bearer.access_token);
 
                 try
@@ -249,9 +259,8 @@ namespace NileLibraryNS.Services
                 }
                 catch (Exception ex)
                 {
-                    logger.Error(ex, $"Failed to get account entitlements");
+                    logger.Error(ex, "Failed to get account entitlements");
                 }
-
             } while (!nextToken.IsNullOrEmpty());
 
             return entitlements;
@@ -268,6 +277,7 @@ namespace NileLibraryNS.Services
                     username = tokens.extensions.customer_info.given_name;
                 }
             }
+
             return username;
         }
 
@@ -282,6 +292,7 @@ namespace NileLibraryNS.Services
                     userInfoJson = newUserInfoJson;
                 }
             }
+
             return userInfoJson;
         }
 
@@ -333,18 +344,21 @@ namespace NileLibraryNS.Services
                     logger.Error(e, "Failed to load saved tokens.");
                 }
             }
+
             if (File.Exists(Nile.EncryptedTokensPath))
             {
                 try
                 {
-                    return Serialization.FromJson<DeviceRegistrationResponse.Response.Success>(Encryption.DecryptFromFile(Nile.EncryptedTokensPath, Encoding.UTF8,
-                                                WindowsIdentity.GetCurrent().User?.Value));
+                    return Serialization.FromJson<DeviceRegistrationResponse.Response.Success>(Encryption.DecryptFromFile(
+                        Nile.EncryptedTokensPath, Encoding.UTF8,
+                        WindowsIdentity.GetCurrent().User?.Value));
                 }
                 catch (Exception e)
                 {
                     logger.Error(e, "Failed to load saved tokens.");
                 }
             }
+
             return null;
         }
 
@@ -364,6 +378,7 @@ namespace NileLibraryNS.Services
                 {
                     tokenLastUpdateTime = File.GetLastWriteTime(Nile.EncryptedTokensPath);
                 }
+
                 var tokenExpirySeconds = tokens.tokens.bearer.expires_in;
                 DateTime tokenExpiryTime = tokenLastUpdateTime.AddSeconds(tokenExpirySeconds);
                 if (DateTime.Now > tokenExpiryTime)
@@ -384,7 +399,7 @@ namespace NileLibraryNS.Services
                     try
                     {
                         var authResponse = await httpClient.PostAsync(@"https://api.amazon.com/auth/token",
-                                                                  strcont);
+                            strcont);
                         var authResponseContent = await authResponse.Content.ReadAsStringAsync();
                         var authData = Serialization.FromJson<DeviceRegistrationResponse.Response.Success.Bearer>(authResponseContent);
                         tokens.tokens.bearer.access_token = authData.access_token;
@@ -406,11 +421,10 @@ namespace NileLibraryNS.Services
                         else
                         {
                             Encryption.EncryptToFile(Nile.EncryptedTokensPath,
-                                                     jsonTokens,
-                                                     Encoding.UTF8,
-                                                     WindowsIdentity.GetCurrent().User?.Value);
+                                jsonTokens,
+                                Encoding.UTF8,
+                                WindowsIdentity.GetCurrent().User?.Value);
                         }
-
                     }
                     catch (Exception ex)
                     {
@@ -418,6 +432,7 @@ namespace NileLibraryNS.Services
                     }
                 }
             }
+
             return tokens;
         }
 
@@ -429,6 +444,7 @@ namespace NileLibraryNS.Services
             {
                 return false;
             }
+
             try
             {
                 var infoRequest = new HttpRequestMessage(HttpMethod.Get, @"https://api.amazon.com/user/profile");

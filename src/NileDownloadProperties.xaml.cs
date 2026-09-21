@@ -1,13 +1,14 @@
-﻿using CommonPlugin;
-using CommonPlugin.Enums;
-using NileLibraryNS.Models;
-using Playnite.SDK;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using CommonPlugin;
+using CommonPlugin.Enums;
+using NileLibraryNS.Models;
+using Playnite.SDK;
 using UnifiedDownloadManagerApiNS;
 using UnifiedDownloadManagerApiNS.Models;
 
@@ -38,6 +39,7 @@ namespace NileLibraryNS
                 MaxWorkersNI.Value = SelectedDownload.downloadProperties.maxWorkers.ToString();
                 TaskCBo.SelectedValue = SelectedDownload.downloadProperties.downloadAction;
             }
+
             var downloadActionOptions = new Dictionary<DownloadAction, string>
             {
                 { DownloadAction.Install, LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteInstallGame) },
@@ -52,10 +54,12 @@ namespace NileLibraryNS
             {
                 SaveBtn.IsEnabled = false;
             }
+
             if (wantedItem?.status != UnifiedDownloadStatus.Completed)
             {
                 SizeGrd.Visibility = Visibility.Visible;
             }
+
             if (playniteAPI.ApplicationInfo.Mode == ApplicationMode.Fullscreen)
             {
                 GeneralTab.Focus();
@@ -75,15 +79,17 @@ namespace NileLibraryNS
         {
             var wantedItem = downloadManagerData.downloads.FirstOrDefault(item => item.gameID == SelectedDownload.gameID);
             var installPath = SelectedGamePathTxt.Text;
-            var playniteDirectoryVariable = ExpandableVariables.PlayniteDirectory.ToString();
+            var playniteDirectoryVariable = ExpandableVariables.PlayniteDirectory;
             if (installPath.Contains(playniteDirectoryVariable))
             {
                 installPath = installPath.Replace(playniteDirectoryVariable, playniteAPI.Paths.ApplicationPath);
             }
+
             if (!CommonHelpers.IsDirectoryWritable(installPath, LOC.CommonPermissionError))
             {
                 return;
             }
+
             wantedItem.downloadProperties.installPath = installPath;
             wantedItem.downloadProperties.downloadAction = (DownloadAction)TaskCBo.SelectedValue;
             wantedItem.downloadProperties.maxWorkers = int.Parse(MaxWorkersNI.Value);
@@ -99,6 +105,7 @@ namespace NileLibraryNS
                 availableFreeSpace = dDrive.AvailableFreeSpace;
                 SpaceTB.Text = CommonHelpers.FormatSize(availableFreeSpace);
             }
+
             UpdateAfterInstallingSize();
         }
 
@@ -109,10 +116,11 @@ namespace NileLibraryNS
             {
                 afterInstallSizeNumber = 0;
             }
+
             AfterInstallingTB.Text = CommonHelpers.FormatSize(afterInstallSizeNumber);
         }
 
-        private void NileDownloadPropertiesUC_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void NileDownloadPropertiesUC_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             NileLibrary.Instance.UC_PreviewKeyDown(sender, e);
         }

@@ -1,10 +1,6 @@
-﻿using CommonPlugin.Enums;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CommonPlugin.Enums;
 
 namespace NileLibraryNS.Models
 {
@@ -19,6 +15,7 @@ namespace NileLibraryNS.Models
             public string fullInstallPath { get; set; }
 
             private double _downloadSizeNumber;
+
             public double downloadSizeNumber
             {
                 get => _downloadSizeNumber;
@@ -28,6 +25,7 @@ namespace NileLibraryNS.Models
             public long addedTime { get; set; }
 
             private long _completedTime;
+
             public long completedTime
             {
                 get => _completedTime;
@@ -35,6 +33,7 @@ namespace NileLibraryNS.Models
             }
 
             private DownloadStatus _status;
+
             public DownloadStatus status
             {
                 get => _status;
@@ -42,6 +41,7 @@ namespace NileLibraryNS.Models
             }
 
             private double _progress;
+
             public double progress
             {
                 get => _progress;
@@ -49,11 +49,13 @@ namespace NileLibraryNS.Models
             }
 
             private double _downloadedNumber;
+
             public double downloadedNumber
             {
                 get => _downloadedNumber;
                 set => SetValue(ref _downloadedNumber, value);
             }
+
             public DownloadProperties downloadProperties { get; set; } = new DownloadProperties();
         }
     }

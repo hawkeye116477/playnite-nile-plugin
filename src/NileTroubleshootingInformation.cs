@@ -1,4 +1,6 @@
-﻿using Playnite.SDK;
+﻿using System.Diagnostics;
+using System.Reflection;
+using Playnite.SDK;
 
 namespace NileLibraryNS
 {
@@ -17,8 +19,8 @@ namespace NileLibraryNS
         {
             get
             {
-                System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
-                System.Diagnostics.FileVersionInfo fvi = System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location);
+                Assembly assembly = Assembly.GetExecutingAssembly();
+                FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
                 return fvi.FileVersion;
             }
         }

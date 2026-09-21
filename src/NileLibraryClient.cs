@@ -12,6 +12,5 @@ namespace NileLibraryNS
         {
             Nile.StartClient();
         }
-
     }
 }

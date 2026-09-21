@@ -1,4 +1,12 @@
-﻿using CommonPlugin;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using CommonPlugin;
 using CommonPlugin.Enums;
 using Linguini.Shared.Types.Bundle;
 using NileLibraryNS.Enums;
@@ -10,18 +18,6 @@ using Playnite.SDK.Data;
 using Playnite.SDK.Events;
 using Playnite.SDK.Models;
 using Playnite.SDK.Plugins;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Automation.Peers;
-using System.Windows.Automation.Provider;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Input;
 using UnifiedDownloadManagerApiNS;
 using UnifiedDownloadManagerApiNS.Interfaces;
 using UnifiedDownloadManagerApiNS.Models;
@@ -43,7 +39,7 @@ namespace NileLibraryNS
             new LibraryPluginProperties { CanShutdownClient = false, HasSettings = true },
             new NileLibraryClient(),
             Nile.Icon,
-            (_) => new NileLibrarySettingsView(),
+            _ => new NileLibrarySettingsView(),
             api)
         {
             Instance = this;
@@ -72,6 +68,7 @@ namespace NileLibraryNS
                     }
                 }
             }
+
             if (!correctJson)
             {
                 pluginDownloadData = new DownloadManagerData
@@ -79,6 +76,7 @@ namespace NileLibraryNS
                     downloads = new ObservableCollection<DownloadManagerData.Download>()
                 };
             }
+
             return pluginDownloadData;
         }
 
@@ -97,20 +95,24 @@ namespace NileLibraryNS
             bool udmInstalled = PlayniteApi.Addons.Plugins.Any(plugin => plugin.Id.Equals(UnifiedDownloadManagerSharedProperties.Id));
             if (File.Exists(oldDataFile) && udmInstalled)
             {
-                GlobalProgressOptions globalProgressOptions = new GlobalProgressOptions(LocalizationManager.Instance.GetString(LOC.CommonMigratingData), false) { IsIndeterminate = true };
-                PlayniteApi.Dialogs.ActivateGlobalProgress(async (a) =>
+                GlobalProgressOptions globalProgressOptions =
+                    new GlobalProgressOptions(LocalizationManager.Instance.GetString(LOC.CommonMigratingData), false)
+                        { IsIndeterminate = true };
+                PlayniteApi.Dialogs.ActivateGlobalProgress(async a =>
                 {
                     await PlayniteApi.MainView.UIDispatcher.InvokeAsync(async () =>
                     {
                         logger.Debug("Migrating old downloads data...");
                         var content = FileSystem.ReadFileAsStringSafe(oldDataFile);
-                        if (!content.IsNullOrWhiteSpace() && Serialization.TryFromJson(content, out OldDownloadManagerData oldPluginDownloadData))
+                        if (!content.IsNullOrWhiteSpace() &&
+                            Serialization.TryFromJson(content, out OldDownloadManagerData oldPluginDownloadData))
                         {
                             if (oldPluginDownloadData != null && oldPluginDownloadData.downloads != null)
                             {
                                 oldPluginDownloadDataForMigration = oldPluginDownloadData;
                             }
                         }
+
                         var nileDownloadLogic = (NileDownloadLogic)Instance.UnifiedDownloadLogic;
                         var oldData = oldPluginDownloadDataForMigration.downloads;
                         var unifiedTasks = new List<UnifiedDownload>();
@@ -120,6 +122,7 @@ namespace NileLibraryNS
                             {
                                 oldDownload.status = DownloadStatus.Paused;
                             }
+
                             var newPluginTask = new DownloadManagerData.Download
                             {
                                 addedTime = oldDownload.addedTime,
@@ -151,6 +154,7 @@ namespace NileLibraryNS
                             unifiedTask.completedTime = oldDownload.completedTime;
                             unifiedTasks.Add(unifiedTask);
                         }
+
                         UnifiedDownloadManagerApi unifiedDownloadManagerApi = new UnifiedDownloadManagerApi();
                         await unifiedDownloadManagerApi.AddTasks(unifiedTasks, true);
                         Instance.SaveDownloadData();
@@ -197,6 +201,7 @@ namespace NileLibraryNS
             {
                 yield break;
             }
+
             yield return new NilePlayController(args.Game);
         }
 
@@ -220,13 +225,15 @@ namespace NileLibraryNS
                     logger.Error($"Amazon game {app.id} installation directory {installLocation} not detected.");
                     continue;
                 }
+
                 var gameName = new DirectoryInfo(installLocation).Name;
                 var nileLibSyncJsonPath = Path.Combine(Nile.ConfigPath, "library.json");
                 if (File.Exists(nileLibSyncJsonPath))
                 {
                     var nileLibSyncJson = new List<NileLibraryFile.NileGames>();
                     var nileLibyncJsonContent = FileSystem.ReadFileAsStringSafe(nileLibSyncJsonPath);
-                    if (!nileLibyncJsonContent.IsNullOrWhiteSpace() && Serialization.TryFromJson(nileLibyncJsonContent, out nileLibSyncJson))
+                    if (!nileLibyncJsonContent.IsNullOrWhiteSpace() &&
+                        Serialization.TryFromJson(nileLibyncJsonContent, out nileLibSyncJson))
                     {
                         var wantedGame = nileLibSyncJson.FirstOrDefault(i => i.product.id == app.id);
                         if (wantedGame != null)
@@ -236,7 +243,7 @@ namespace NileLibraryNS
                     }
                 }
 
-                var game = new GameMetadata()
+                var game = new GameMetadata
                 {
                     Source = new MetadataNameProperty("Amazon"),
                     Name = gameName,
@@ -305,7 +312,7 @@ namespace NileLibraryNS
                     continue;
                 }
 
-                var game = new GameMetadata()
+                var game = new GameMetadata
                 {
                     Source = new MetadataNameProperty("Amazon"),
                     GameId = item.product.id,
@@ -376,7 +383,8 @@ namespace NileLibraryNS
             {
                 PlayniteApi.Notifications.Add(new NotificationMessage(
                     ImportErrorMessageId,
-                    LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteLibraryImportError, new Dictionary<string, IFluentType> { ["var0"] = (FluentString)Name }) +
+                    LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteLibraryImportError,
+                        new Dictionary<string, IFluentType> { ["var0"] = (FluentString)Name }) +
                     Environment.NewLine + importError.Message,
                     NotificationType.Error,
                     () => OpenSettingsView()));
@@ -410,6 +418,7 @@ namespace NileLibraryNS
             {
                 Directory.CreateDirectory(cacheDir);
             }
+
             return cacheDir;
         }
 
@@ -434,9 +443,8 @@ namespace NileLibraryNS
                 case ClearCacheTime.SixMonths:
                     clearingTime = now.AddMonths(6);
                     break;
-                default:
-                    break;
             }
+
             return clearingTime?.ToUnixTimeSeconds() ?? 0;
         }
 
@@ -464,9 +472,8 @@ namespace NileLibraryNS
                 case UpdatePolicy.SixMonths:
                     updateTime = now.AddMonths(6);
                     break;
-                default:
-                    break;
             }
+
             return updateTime?.ToUnixTimeSeconds() ?? 0;
         }
 
@@ -474,19 +481,25 @@ namespace NileLibraryNS
         {
             var unifiedDownloadManagerApi = new UnifiedDownloadManagerApi();
             var allDownloads = unifiedDownloadManagerApi.GetAllDownloads();
-            var runningAndQueuedDownloads = allDownloads.Where(i => i.status == UnifiedDownloadStatus.Running || i.status == UnifiedDownloadStatus.Queued).ToList();
+            var runningAndQueuedDownloads = allDownloads
+                                           .Where(i => i.status == UnifiedDownloadStatus.Running ||
+                                                       i.status == UnifiedDownloadStatus.Queued)
+                                           .ToList();
             if (runningAndQueuedDownloads.Count > 0)
             {
                 if (displayConfirm)
                 {
-                    var stopConfirm = PlayniteApi.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonInstanceNotice), "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    var stopConfirm = PlayniteApi.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonInstanceNotice), "",
+                        MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (stopConfirm == MessageBoxResult.No)
                     {
                         return false;
                     }
                 }
+
                 unifiedDownloadManagerApi.PauseAllTasks(Instance.Id.ToString());
             }
+
             return true;
         }
 
@@ -499,7 +512,8 @@ namespace NileLibraryNS
                 if (globalSettings.GamesUpdatePolicy != UpdatePolicy.Never)
                 {
                     var nextGamesUpdateTime = globalSettings.NextGamesUpdateTime;
-                    bool udmInstalled = PlayniteApi.Addons.Plugins.Any(plugin => plugin.Id.Equals(UnifiedDownloadManagerSharedProperties.Id));
+                    bool udmInstalled =
+                        PlayniteApi.Addons.Plugins.Any(plugin => plugin.Id.Equals(UnifiedDownloadManagerSharedProperties.Id));
                     if (nextGamesUpdateTime != 0 && udmInstalled)
                     {
                         DateTimeOffset now = DateTime.UtcNow;
@@ -537,14 +551,15 @@ namespace NileLibraryNS
                                 else
                                 {
                                     PlayniteApi.Notifications.Add(new NotificationMessage("NileGamesUpdateCheckFail",
-                                                                                          $"{Name} {Environment.NewLine}" +
-                                                                                          $"{LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteUpdateCheckFailMessage)}",
-                                                                                          NotificationType.Error));
+                                        $"{Name} {Environment.NewLine}" +
+                                        $"{LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteUpdateCheckFailMessage)}",
+                                        NotificationType.Error));
                                 }
                             }
                         }
                     }
                 }
+
                 if (globalSettings.LauncherUpdatePolicy != UpdatePolicy.Never && Nile.IsInstalled)
                 {
                     var nextCometUpdateTime = globalSettings.NextLauncherUpdateTime;
@@ -558,7 +573,6 @@ namespace NileLibraryNS
                             await Nile.CheckForLauncherUpdates(false);
                         }
                     }
-
                 }
             }
         }
@@ -587,6 +601,7 @@ namespace NileLibraryNS
                         SavePluginSettings(settings);
                     }
                 }
+
                 SaveDownloadData();
             }
         }
@@ -605,13 +620,14 @@ namespace NileLibraryNS
                         {
                             Description = LocalizationManager.Instance.GetString(LOC.CommonLauncherSettings),
                             Icon = "ModifyLaunchSettingsIcon",
-                            Action = (args) =>
+                            Action = args =>
                             {
                                 if (!Nile.IsInstalled)
                                 {
                                     Nile.ShowNotInstalledError();
                                     return;
                                 }
+
                                 Window window = PlayniteApi.Dialogs.CreateWindow(new WindowCreationOptions
                                 {
                                     ShowMaximizeButton = false
@@ -630,7 +646,7 @@ namespace NileLibraryNS
                         {
                             Description = LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteCheckForUpdates),
                             Icon = "UpdateDbIcon",
-                            Action = (args) =>
+                            Action = args =>
                             {
                                 if (!Nile.IsInstalled)
                                 {
@@ -640,11 +656,12 @@ namespace NileLibraryNS
 
                                 NileUpdateController NileUpdateController = new NileUpdateController();
                                 var gamesToUpdate = new Dictionary<string, UpdateInfo>();
-                                GlobalProgressOptions updateCheckProgressOptions = new GlobalProgressOptions(LocalizationManager.Instance.GetString(LOC.CommonCheckingForUpdates), false) { IsIndeterminate = true };
-                                PlayniteApi.Dialogs.ActivateGlobalProgress(async (a) =>
-                                {
-                                    gamesToUpdate = await NileUpdateController.CheckGameUpdates(game.GameId);
-                                }, updateCheckProgressOptions);
+                                GlobalProgressOptions updateCheckProgressOptions =
+                                    new GlobalProgressOptions(LocalizationManager.Instance.GetString(LOC.CommonCheckingForUpdates), false)
+                                        { IsIndeterminate = true };
+                                PlayniteApi.Dialogs.ActivateGlobalProgress(
+                                    async a => { gamesToUpdate = await NileUpdateController.CheckGameUpdates(game.GameId); },
+                                    updateCheckProgressOptions);
                                 if (gamesToUpdate.Count > 0)
                                 {
                                     var successUpdates = gamesToUpdate.Where(i => i.Value.Success).ToDictionary(i => i.Key, i => i.Value);
@@ -665,12 +682,15 @@ namespace NileLibraryNS
                                     }
                                     else
                                     {
-                                        PlayniteApi.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteUpdateCheckFailMessage), game.Name);
+                                        PlayniteApi.Dialogs.ShowErrorMessage(
+                                            LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteUpdateCheckFailMessage),
+                                            game.Name);
                                     }
                                 }
                                 else
                                 {
-                                    PlayniteApi.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonNoUpdatesAvailable), game.Name);
+                                    PlayniteApi.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonNoUpdatesAvailable),
+                                        game.Name);
                                 }
                             }
                         };
@@ -681,7 +701,7 @@ namespace NileLibraryNS
                         {
                             Description = LocalizationManager.Instance.GetString(LOC.CommonImportInstalledGame),
                             Icon = "AddGameIcon",
-                            Action = (args) =>
+                            Action = args =>
                             {
                                 if (!Nile.IsInstalled)
                                 {
@@ -699,8 +719,13 @@ namespace NileLibraryNS
                                     {
                                         return;
                                     }
-                                    GlobalProgressOptions importProgressOptions = new GlobalProgressOptions(LocalizationManager.Instance.GetString(LOC.CommonImportingGame, new Dictionary<string, IFluentType> { ["gameTitle"] = (FluentString)game.Name }), false) { IsIndeterminate = true };
-                                    PlayniteApi.Dialogs.ActivateGlobalProgress(async (a) =>
+
+                                    GlobalProgressOptions importProgressOptions =
+                                        new GlobalProgressOptions(
+                                                LocalizationManager.Instance.GetString(LOC.CommonImportingGame,
+                                                    new Dictionary<string, IFluentType> { ["gameTitle"] = (FluentString)game.Name }), false)
+                                            { IsIndeterminate = true };
+                                    PlayniteApi.Dialogs.ActivateGlobalProgress(async a =>
                                     {
                                         await Nile.AddGameToInstalledList(game);
                                         PlayniteApi.Database.Games.Update(game);
@@ -710,13 +735,14 @@ namespace NileLibraryNS
                             }
                         };
                     }
+
                     if (game.IsInstalled)
                     {
                         yield return new GameMenuItem
                         {
                             Description = LocalizationManager.Instance.GetString(LOC.CommonMove),
                             Icon = "MoveIcon",
-                            Action = (args) =>
+                            Action = args =>
                             {
                                 if (!Nile.IsInstalled)
                                 {
@@ -736,13 +762,24 @@ namespace NileLibraryNS
                                         {
                                             oldPath += sepChar;
                                         }
+
                                         var folderName = Path.GetFileName(Path.GetDirectoryName(oldPath));
                                         newPath = Path.Combine(newPath, folderName);
-                                        var moveConfirm = PlayniteApi.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonMoveConfirm, new Dictionary<string, IFluentType> { ["appName"] = (FluentString)game.Name, ["path"] = (FluentString)newPath }), LocalizationManager.Instance.GetString(LOC.CommonMove), MessageBoxButton.YesNo, MessageBoxImage.Question);
+                                        var moveConfirm = PlayniteApi.Dialogs.ShowMessage(
+                                            LocalizationManager.Instance.GetString(LOC.CommonMoveConfirm,
+                                                new Dictionary<string, IFluentType>
+                                                    { ["appName"] = (FluentString)game.Name, ["path"] = (FluentString)newPath }),
+                                            LocalizationManager.Instance.GetString(LOC.CommonMove), MessageBoxButton.YesNo,
+                                            MessageBoxImage.Question);
                                         if (moveConfirm == MessageBoxResult.Yes)
                                         {
-                                            GlobalProgressOptions globalProgressOptions = new GlobalProgressOptions(LocalizationManager.Instance.GetString(LOC.CommonMovingGame, new Dictionary<string, IFluentType> { ["appName"] = (FluentString)game.Name, ["path"] = (FluentString)newPath }), false);
-                                            PlayniteApi.Dialogs.ActivateGlobalProgress((a) =>
+                                            GlobalProgressOptions globalProgressOptions =
+                                                new GlobalProgressOptions(
+                                                    LocalizationManager.Instance.GetString(LOC.CommonMovingGame,
+                                                        new Dictionary<string, IFluentType>
+                                                            { ["appName"] = (FluentString)game.Name, ["path"] = (FluentString)newPath }),
+                                                    false);
+                                            PlayniteApi.Dialogs.ActivateGlobalProgress(a =>
                                             {
                                                 a.ProgressMaxValue = 3;
                                                 a.CurrentProgressValue = 0;
@@ -755,6 +792,7 @@ namespace NileLibraryNS
                                                         {
                                                             return;
                                                         }
+
                                                         Directory.Move(oldPath, newPath);
                                                         a.CurrentProgressValue = 1;
                                                         var installListPath = Path.Combine(Nile.ConfigPath, "installed.json");
@@ -763,25 +801,38 @@ namespace NileLibraryNS
                                                             var content = FileSystem.ReadFileAsStringSafe(installListPath);
                                                             if (!content.IsNullOrWhiteSpace())
                                                             {
-                                                                var installListJson = Serialization.FromJson<List<InstalledGames.Installed>>(content);
+                                                                var installListJson =
+                                                                    Serialization.FromJson<List<InstalledGames.Installed>>(content);
                                                                 var wantedItem = installListJson.FirstOrDefault(g => g.id == game.GameId);
                                                                 if (wantedItem != null)
                                                                 {
                                                                     wantedItem.path = newPath;
                                                                 }
+
                                                                 var strConf = Serialization.ToJson(installListJson, true);
                                                                 File.WriteAllText(installListPath, strConf);
                                                             }
                                                         }
+
                                                         game.InstallDirectory = newPath;
                                                         PlayniteApi.Database.Games.Update(game);
                                                         a.CurrentProgressValue = 3;
-                                                        PlayniteApi.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonMoveGameSuccess, new Dictionary<string, IFluentType> { ["appName"] = (FluentString)game.Name, ["path"] = (FluentString)newPath }));
+                                                        PlayniteApi.Dialogs.ShowMessage(
+                                                            LocalizationManager.Instance.GetString(LOC.CommonMoveGameSuccess,
+                                                                new Dictionary<string, IFluentType>
+                                                                {
+                                                                    ["appName"] = (FluentString)game.Name, ["path"] = (FluentString)newPath
+                                                                }));
                                                     }
                                                     catch (Exception e)
                                                     {
                                                         a.CurrentProgressValue = 3;
-                                                        PlayniteApi.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(LOC.CommonMoveGameError, new Dictionary<string, IFluentType> { ["appName"] = (FluentString)game.Name, ["path"] = (FluentString)newPath }));
+                                                        PlayniteApi.Dialogs.ShowErrorMessage(
+                                                            LocalizationManager.Instance.GetString(LOC.CommonMoveGameError,
+                                                                new Dictionary<string, IFluentType>
+                                                                {
+                                                                    ["appName"] = (FluentString)game.Name, ["path"] = (FluentString)newPath
+                                                                }));
                                                         logger.Error(e.Message);
                                                     }
                                                 }));
@@ -794,7 +845,7 @@ namespace NileLibraryNS
                     }
                 }
 
-                var notInstalledNileGames = NileGames.Where(i => i.IsInstalled == false).ToList();
+                var notInstalledNileGames = NileGames.Where(i => !i.IsInstalled).ToList();
                 if (notInstalledNileGames.Count > 0)
                 {
                     if (NileGames.Count > 1)
@@ -803,19 +854,22 @@ namespace NileLibraryNS
                         foreach (var notInstalledNileGame in notInstalledNileGames)
                         {
                             var installProperties = new DownloadProperties { downloadAction = DownloadAction.Install };
-                            installData.Add(new DownloadManagerData.Download { gameID = notInstalledNileGame.GameId, name = notInstalledNileGame.Name, downloadProperties = installProperties });
+                            installData.Add(new DownloadManagerData.Download
+                            {
+                                gameID = notInstalledNileGame.GameId, name = notInstalledNileGame.Name,
+                                downloadProperties = installProperties
+                            });
                         }
+
                         yield return new GameMenuItem
                         {
                             Description = LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteInstallGame),
                             Icon = "InstallIcon",
-                            Action = (args) =>
-                            {
-                                NileInstallController.LaunchInstaller(installData);
-                            }
+                            Action = args => { NileInstallController.LaunchInstaller(installData); }
                         };
                     }
                 }
+
                 var installedNileGames = NileGames.Where(i => i.IsInstalled).ToList();
                 if (installedNileGames.Count > 0)
                 {
@@ -823,7 +877,7 @@ namespace NileLibraryNS
                     {
                         Description = LocalizationManager.Instance.GetString(LOC.CommonRepair),
                         Icon = "RepairIcon",
-                        Action = (args) =>
+                        Action = args =>
                         {
                             Window window = PlayniteApi.Dialogs.CreateWindow(new WindowCreationOptions
                             {
@@ -833,9 +887,14 @@ namespace NileLibraryNS
                             var installData = new List<DownloadManagerData.Download>();
                             foreach (var game in installedNileGames)
                             {
-                                var installProperties = new DownloadProperties { downloadAction = DownloadAction.Repair, installPath = CommonHelpers.NormalizePath(game.InstallDirectory) };
-                                installData.Add(new DownloadManagerData.Download { gameID = game.GameId, name = game.Name, downloadProperties = installProperties });
+                                var installProperties = new DownloadProperties
+                                {
+                                    downloadAction = DownloadAction.Repair, installPath = CommonHelpers.NormalizePath(game.InstallDirectory)
+                                };
+                                installData.Add(new DownloadManagerData.Download
+                                    { gameID = game.GameId, name = game.Name, downloadProperties = installProperties });
                             }
+
                             window.Tag = "NileGameInstallerView";
                             window.DataContext = installData;
                             window.Content = new NileGameInstallerView();
@@ -848,6 +907,7 @@ namespace NileLibraryNS
                             {
                                 title = installedNileGames[0].Name;
                             }
+
                             window.Title = title;
                             window.ShowDialog();
                         }
@@ -858,10 +918,7 @@ namespace NileLibraryNS
                         {
                             Description = LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteUninstallGame),
                             Icon = "UninstallIcon",
-                            Action = (args) =>
-                            {
-                                NileUninstallController.LaunchUninstaller(installedNileGames);
-                            }
+                            Action = args => { NileUninstallController.LaunchUninstaller(installedNileGames); }
                         };
                     }
                 }
@@ -875,7 +932,7 @@ namespace NileLibraryNS
                 Description = LocalizationManager.Instance.GetString(LOC.CommonCheckForGamesUpdatesButton),
                 MenuSection = $"@{Instance.Name}",
                 Icon = "UpdateDbIcon",
-                Action = (args) =>
+                Action = args =>
                 {
                     if (!Nile.IsInstalled)
                     {
@@ -885,11 +942,11 @@ namespace NileLibraryNS
 
                     var gamesUpdates = new Dictionary<string, UpdateInfo>();
                     NileUpdateController NileUpdateController = new NileUpdateController();
-                    GlobalProgressOptions updateCheckProgressOptions = new GlobalProgressOptions(LocalizationManager.Instance.GetString(LOC.CommonCheckingForUpdates), false) { IsIndeterminate = true };
-                    PlayniteApi.Dialogs.ActivateGlobalProgress(async (a) =>
-                    {
-                        gamesUpdates = await NileUpdateController.CheckAllGamesUpdates();
-                    }, updateCheckProgressOptions);
+                    GlobalProgressOptions updateCheckProgressOptions =
+                        new GlobalProgressOptions(LocalizationManager.Instance.GetString(LOC.CommonCheckingForUpdates), false)
+                            { IsIndeterminate = true };
+                    PlayniteApi.Dialogs.ActivateGlobalProgress(
+                        async a => { gamesUpdates = await NileUpdateController.CheckAllGamesUpdates(); }, updateCheckProgressOptions);
                     if (gamesUpdates.Count > 0)
                     {
                         var successUpdates = gamesUpdates.Where(i => i.Value.Success).ToDictionary(i => i.Key, i => i.Value);
@@ -910,7 +967,8 @@ namespace NileLibraryNS
                         }
                         else
                         {
-                            PlayniteApi.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteUpdateCheckFailMessage));
+                            PlayniteApi.Dialogs.ShowErrorMessage(
+                                LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteUpdateCheckFailMessage));
                         }
                     }
                     else
@@ -925,14 +983,17 @@ namespace NileLibraryNS
                 Description = LocalizationManager.Instance.GetString(LOC.CommonFinishInstallation),
                 MenuSection = $"@{Instance.Name}",
                 Icon = "FinishInstallationIcon",
-                Action = (args) =>
+                Action = args =>
                 {
                     var installedAppList = Nile.GetInstalledAppList();
-                    var gamesToCompleteInstall = installedAppList.Where(g => !NileGameSettingsView.LoadGameSettings(g.id).IsFullyInstalled).ToList();
+                    var gamesToCompleteInstall = installedAppList.Where(g => !NileGameSettingsView.LoadGameSettings(g.id).IsFullyInstalled)
+                                                                 .ToList();
                     if (gamesToCompleteInstall.Any())
                     {
-                        GlobalProgressOptions installProgressOptions = new GlobalProgressOptions(LocalizationManager.Instance.GetString(LOC.CommonFinishingInstallation), false) { IsIndeterminate = false };
-                        PlayniteApi.Dialogs.ActivateGlobalProgress((progress) =>
+                        GlobalProgressOptions installProgressOptions =
+                            new GlobalProgressOptions(LocalizationManager.Instance.GetString(LOC.CommonFinishingInstallation), false)
+                                { IsIndeterminate = false };
+                        PlayniteApi.Dialogs.ActivateGlobalProgress(progress =>
                         {
                             progress.ProgressMaxValue = gamesToCompleteInstall.Count;
                             int current = 0;
@@ -971,6 +1032,7 @@ namespace NileLibraryNS
                         e.Handled = true;
                     }
                 }
+
                 if (focused is CheckBox || focused is TabItem || focused is ComboBox)
                 {
                     if (e.Key == Key.Up)

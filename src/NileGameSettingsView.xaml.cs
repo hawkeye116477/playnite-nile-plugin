@@ -1,15 +1,15 @@
-﻿using NileLibraryNS.Models;
+﻿using System.IO;
 using System.Linq;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using Playnite.SDK.Data;
-using Playnite.Common;
-using Playnite.SDK.Models;
-using NileLibraryNS.Enums;
-using CommonPlugin;
-using Playnite.SDK;
 using System.Windows.Input;
+using CommonPlugin;
+using NileLibraryNS.Enums;
+using NileLibraryNS.Models;
+using Playnite.Common;
+using Playnite.SDK;
+using Playnite.SDK.Data;
+using Playnite.SDK.Models;
 
 namespace NileLibraryNS
 {
@@ -42,6 +42,7 @@ namespace NileLibraryNS
                     }
                 }
             }
+
             return gameSettings;
         }
 
@@ -54,18 +55,22 @@ namespace NileLibraryNS
             {
                 globalDisableUpdates = true;
             }
+
             if (DisableGameUpdateCheckingChk.IsChecked != globalDisableUpdates)
             {
                 newGameSettings.DisableGameVersionCheck = DisableGameUpdateCheckingChk.IsChecked;
             }
+
             if (StartupArgumentsTxt.Text != "")
             {
                 newGameSettings.StartupArguments = CommonHelpers.SplitArguments(StartupArgumentsTxt.Text).ToList();
             }
+
             if (globalSettings.StartGamesWithoutLauncher != LaunchGameDirectlyChk.IsChecked)
             {
                 newGameSettings.LaunchDirectly = LaunchGameDirectlyChk.IsChecked;
             }
+
             var gameSettingsFile = Path.Combine(NileLibrary.Instance.GetPluginUserDataPath(), "GamesSettings", $"{GameID}.json");
             if (newGameSettings.GetType().GetProperties().Any(p => p.GetValue(newGameSettings) != null) || File.Exists(gameSettingsFile))
             {
@@ -73,9 +78,11 @@ namespace NileLibraryNS
                 {
                     var oldGameSettings = LoadGameSettings(GameID);
                 }
+
                 var commonHelpers = NileLibrary.Instance.commonHelpers;
-                commonHelpers.SaveJsonSettingsToFile(newGameSettings,  "GamesSettings", GameID, true);
+                commonHelpers.SaveJsonSettingsToFile(newGameSettings, "GamesSettings", GameID, true);
             }
+
             Window.GetWindow(this).Close();
         }
 
@@ -87,19 +94,19 @@ namespace NileLibraryNS
             {
                 DisableGameUpdateCheckingChk.IsChecked = true;
             }
+
             gameSettings = LoadGameSettings(GameID);
             if (gameSettings.DisableGameVersionCheck != null)
             {
                 DisableGameUpdateCheckingChk.IsChecked = gameSettings.DisableGameVersionCheck;
             }
+
             if (gameSettings.StartupArguments != null)
             {
                 StartupArgumentsTxt.Text = string.Join(" ",
-                   gameSettings.StartupArguments.Select(a =>
-                   {
-                       return a.Contains(" ") ? $"\"{a}\"" : a;
-                   }));
+                    gameSettings.StartupArguments.Select(a => { return a.Contains(" ") ? $"\"{a}\"" : a; }));
             }
+
             if (gameSettings.LaunchDirectly != null)
             {
                 LaunchGameDirectlyChk.IsChecked = gameSettings.LaunchDirectly;
@@ -108,11 +115,14 @@ namespace NileLibraryNS
             {
                 LaunchGameDirectlyChk.IsChecked = globalSettings.StartGamesWithoutLauncher;
             }
+
             if (playniteAPI.ApplicationInfo.Mode == ApplicationMode.Fullscreen)
             {
                 StartupArgumentsTxt.Focusable = false;
                 StartupArgumentsHelpBtn.Focusable = false;
-                var firstCheckBox = LogicalTreeHelper.GetChildren(ButtonsGrd).OfType<CheckBox>().FirstOrDefault(b => b.IsEnabled && b.IsVisible);
+                var firstCheckBox = LogicalTreeHelper.GetChildren(ButtonsGrd)
+                                                     .OfType<CheckBox>()
+                                                     .FirstOrDefault(b => b.IsEnabled && b.IsVisible);
                 if (firstCheckBox != null)
                 {
                     firstCheckBox.Focus();

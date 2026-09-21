@@ -1,8 +1,7 @@
-﻿using CommonPlugin.Enums;
-using Playnite.SDK.Data;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-
+using CommonPlugin.Enums;
+using Playnite.SDK.Data;
 
 namespace NileLibraryNS.Models
 {
@@ -17,6 +16,7 @@ namespace NileLibraryNS.Models
             public string fullInstallPath { get; set; }
 
             private double _downloadSizeNumber;
+
             [DontSerialize]
             public double downloadSizeNumber
             {
@@ -28,6 +28,7 @@ namespace NileLibraryNS.Models
             public long addedTime { get; set; }
 
             private long _completedTime;
+
             [DontSerialize]
             public long completedTime
             {
@@ -36,6 +37,7 @@ namespace NileLibraryNS.Models
             }
 
             private DownloadStatus _status;
+
             [DontSerialize]
             public DownloadStatus status
             {
@@ -44,6 +46,7 @@ namespace NileLibraryNS.Models
             }
 
             private double _progress;
+
             [DontSerialize]
             public double progress
             {
@@ -52,12 +55,14 @@ namespace NileLibraryNS.Models
             }
 
             private double _downloadedNumber;
+
             [DontSerialize]
             public double downloadedNumber
             {
                 get => _downloadedNumber;
                 set => SetValue(ref _downloadedNumber, value);
             }
+
             public DownloadProperties downloadProperties { get; set; } = new DownloadProperties();
         }
     }

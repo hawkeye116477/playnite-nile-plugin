@@ -1,14 +1,4 @@
-﻿using CliWrap;
-using CliWrap.Buffered;
-using CommonPlugin;
-using Linguini.Shared.Types.Bundle;
-using NileLibraryNS.Models;
-using NileLibraryNS.Services;
-using Playnite.Common;
-using Playnite.SDK;
-using Playnite.SDK.Data;
-using Playnite.SDK.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -18,12 +8,25 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
+using CliWrap;
+using CliWrap.Buffered;
+using CommonPlugin;
+using Linguini.Shared.Types.Bundle;
+using NileLibraryNS.Models;
+using NileLibraryNS.Services;
+using Playnite.Commands;
+using Playnite.Common;
+using Playnite.SDK;
+using Playnite.SDK.Data;
+using Playnite.SDK.Models;
 
 namespace NileLibraryNS
 {
     public class Nile
     {
-        public static string UserAgent => @"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36";
+        public static string UserAgent =>
+            @"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36";
+
         public static readonly RetryHandler retryHandler = new RetryHandler(new HttpClientHandler());
         public static readonly HttpClient httpClient = new HttpClient(retryHandler);
 
@@ -44,10 +47,8 @@ namespace NileLibraryNS
                 {
                     return false;
                 }
-                else
-                {
-                    return true;
-                }
+
+                return true;
             }
         }
 
@@ -56,16 +57,17 @@ namespace NileLibraryNS
             get
             {
                 string[] nileExes = { "nile_windows_x86_64.exe", "nile.exe" };
-                string envPath = Environment.GetEnvironmentVariable("PATH")?
-                                .Split(new char[] { Path.PathSeparator }, StringSplitOptions.RemoveEmptyEntries)
-                                .Where(p => p.IndexOfAny(Path.GetInvalidPathChars()) < 0)
-                                .SelectMany(pathEntry => nileExes.Select(nileExe => Path.Combine(pathEntry.Trim(), nileExe)))
-                                .FirstOrDefault(File.Exists);
+                string envPath = Environment.GetEnvironmentVariable("PATH")
+                                 ?
+                                .Split(new[] { Path.PathSeparator }, StringSplitOptions.RemoveEmptyEntries)
+                                            .Where(p => p.IndexOfAny(Path.GetInvalidPathChars()) < 0)
+                                            .SelectMany(pathEntry => nileExes.Select(nileExe => Path.Combine(pathEntry.Trim(), nileExe)))
+                                            .FirstOrDefault(File.Exists);
 
                 var heroicNileBinary = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                                           @"Programs\heroic\resources\app.asar.unpacked\build\bin\x64\win32\nile.exe");
+                    @"Programs\heroic\resources\app.asar.unpacked\build\bin\x64\win32\nile.exe");
                 var launcherPath = "";
-                if (string.IsNullOrWhiteSpace(envPath) == false)
+                if (!string.IsNullOrWhiteSpace(envPath))
                 {
                     launcherPath = envPath;
                 }
@@ -80,6 +82,7 @@ namespace NileLibraryNS
                     {
                         pf64 = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
                     }
+
                     launcherPath = Path.Combine(pf64, "Nile", "nile_windows_x86_64.exe");
                     if (!File.Exists(launcherPath))
                     {
@@ -90,11 +93,12 @@ namespace NileLibraryNS
                         }
                     }
                 }
+
                 var savedSettings = NileLibrary.GetSettings();
                 if (savedSettings != null)
                 {
                     var savedLauncherPath = savedSettings.SelectedNilePath;
-                    var playniteDirectoryVariable = ExpandableVariables.PlayniteDirectory.ToString();
+                    var playniteDirectoryVariable = ExpandableVariables.PlayniteDirectory;
                     if (savedLauncherPath != "")
                     {
                         if (savedLauncherPath.Contains(playniteDirectoryVariable))
@@ -102,18 +106,22 @@ namespace NileLibraryNS
                             var playniteAPI = API.Instance;
                             savedLauncherPath = savedLauncherPath.Replace(playniteDirectoryVariable, playniteAPI.Paths.ApplicationPath);
                         }
+
                         launcherPath = savedLauncherPath;
                     }
                 }
+
                 if (!File.Exists(launcherPath))
                 {
                     launcherPath = "";
                 }
+
                 return launcherPath;
             }
         }
 
-        public static string Icon => Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Resources", @"icon.png");
+        public static string Icon =>
+            Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Resources", @"icon.png");
 
         public static void StartClient()
         {
@@ -134,23 +142,17 @@ namespace NileLibraryNS
         public static bool GetGameRequiresClient(GameConfiguration config)
         {
             return !config.Main.ClientId.IsNullOrEmpty() &&
-                    config.Main.AuthScopes.HasItems();
+                   config.Main.AuthScopes.HasItems();
         }
 
         public static string UserInfoPath
         {
-            get
-            {
-                return Path.Combine(ConfigPath, "current_user.json");
-            }
+            get { return Path.Combine(ConfigPath, "current_user.json"); }
         }
 
         public static string EncryptedTokensPath
         {
-            get
-            {
-                return Path.Combine(Path.Combine(NileLibrary.Instance.GetPluginUserDataPath(), "tokens_encrypted.json"));
-            }
+            get { return Path.Combine(Path.Combine(NileLibrary.Instance.GetPluginUserDataPath(), "tokens_encrypted.json")); }
         }
 
         public static string ConfigPath
@@ -158,7 +160,8 @@ namespace NileLibraryNS
             get
             {
                 var nileConfigPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "nile");
-                var heroicNileConfigPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "heroic", "nile_config", "nile");
+                var heroicNileConfigPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "heroic",
+                    "nile_config", "nile");
                 var originalNileInstallListPath = Path.Combine(nileConfigPath, "installed.json");
                 var heroicNileInstallListPath = Path.Combine(heroicNileConfigPath, "installed.json");
                 if (File.Exists(heroicNileInstallListPath))
@@ -175,11 +178,13 @@ namespace NileLibraryNS
                         nileConfigPath = heroicNileConfigPath;
                     }
                 }
+
                 var envNileConfigPath = Environment.GetEnvironmentVariable("NILE_CONFIG_PATH");
                 if (!envNileConfigPath.IsNullOrWhiteSpace() && Directory.Exists(envNileConfigPath))
                 {
                     nileConfigPath = envNileConfigPath;
                 }
+
                 return nileConfigPath;
             }
         }
@@ -192,9 +197,10 @@ namespace NileLibraryNS
                 var playniteAPI = API.Instance;
                 if (playniteAPI.ApplicationInfo.IsPortable)
                 {
-                    var playniteDirectoryVariable = ExpandableVariables.PlayniteDirectory.ToString();
+                    var playniteDirectoryVariable = ExpandableVariables.PlayniteDirectory;
                     installPath = Path.Combine(playniteDirectoryVariable, "Games");
                 }
+
                 var savedSettings = NileLibrary.GetSettings();
                 if (savedSettings != null)
                 {
@@ -204,6 +210,7 @@ namespace NileLibraryNS
                         installPath = savedGamesInstallationPath;
                     }
                 }
+
                 return installPath;
             }
         }
@@ -223,6 +230,7 @@ namespace NileLibraryNS
                     version = Regex.Match(versionCmd.StandardOutput, @"\d+(\.\d+)+").Value;
                 }
             }
+
             return version;
         }
 
@@ -235,11 +243,13 @@ namespace NileLibraryNS
                 ShowNotInstalledError();
                 return newVersionInfoContent;
             }
+
             var cacheVersionPath = NileLibrary.Instance.GetCachePath("infocache");
             if (!Directory.Exists(cacheVersionPath))
             {
                 Directory.CreateDirectory(cacheVersionPath);
             }
+
             var cacheVersionFile = Path.Combine(cacheVersionPath, "nileVersion.json");
             string content = null;
             if (File.Exists(cacheVersionFile))
@@ -249,6 +259,7 @@ namespace NileLibraryNS
                     File.Delete(cacheVersionFile);
                 }
             }
+
             if (!File.Exists(cacheVersionFile))
             {
                 var request = new HttpRequestMessage(HttpMethod.Get, "https://api.github.com/repos/imLinguin/nile/releases/latest");
@@ -262,17 +273,19 @@ namespace NileLibraryNS
                     {
                         Directory.CreateDirectory(cacheVersionPath);
                     }
+
                     File.WriteAllText(cacheVersionFile, content);
                 }
                 catch (Exception ex)
                 {
-                    logger.Error(ex, $"An error occured during checking for new launcher version");
+                    logger.Error(ex, "An error occured during checking for new launcher version");
                 }
             }
             else
             {
                 content = FileSystem.ReadFileAsStringSafe(cacheVersionFile);
             }
+
             if (content.IsNullOrWhiteSpace())
             {
                 logger.Error("An error occurred while downloading Nile's version info.");
@@ -281,6 +294,7 @@ namespace NileLibraryNS
             {
                 newVersionInfoContent = versionInfoContent;
             }
+
             return newVersionInfoContent;
         }
 
@@ -297,11 +311,14 @@ namespace NileLibraryNS
         public static async Task<Dictionary<string, string>> GetDefaultEnvironmentVariables()
         {
             var envDict = new Dictionary<string, string>();
-            var heroicNileConfigPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "heroic", "nile_config", "nile");
+            var heroicNileConfigPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "heroic",
+                "nile_config", "nile");
             if (ConfigPath == heroicNileConfigPath)
             {
-                envDict.Add("NILE_CONFIG_PATH", Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "heroic", "nile_config"));
+                envDict.Add("NILE_CONFIG_PATH",
+                    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "heroic", "nile_config"));
             }
+
             if (File.Exists(EncryptedTokensPath))
             {
                 var clientApi = new AmazonAccountClient(NileLibrary.Instance);
@@ -311,6 +328,7 @@ namespace NileLibraryNS
                     envDict.Add("NILE_SECRET_USER_DATA", Convert.ToBase64String(Encoding.UTF8.GetBytes(Serialization.ToJson(tokens))));
                 }
             }
+
             return envDict;
         }
 
@@ -339,6 +357,7 @@ namespace NileLibraryNS
                     }
                 }
             }
+
             if (!correctSyncJson)
             {
                 BufferedCommandResult syncLibResult = await Cli.Wrap(ClientExecPath)
@@ -352,30 +371,39 @@ namespace NileLibraryNS
                 {
                     if (syncErrorMessage.Contains("not logged in"))
                     {
-                        playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteMetadataDownloadError, new Dictionary<string, IFluentType> { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteLoginRequired) }), gameName);
+                        playniteAPI.Dialogs.ShowErrorMessage(
+                            LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteMetadataDownloadError,
+                                new Dictionary<string, IFluentType>
+                                {
+                                    ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteLoginRequired)
+                                }), gameName);
                     }
                     else
                     {
-                        playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteMetadataDownloadError, new Dictionary<string, IFluentType> { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.CommonCheckLog) }), gameName);
+                        playniteAPI.Dialogs.ShowErrorMessage(
+                            LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteMetadataDownloadError,
+                                new Dictionary<string, IFluentType>
+                                    { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.CommonCheckLog) }), gameName);
                     }
+
                     logger.Error(syncErrorMessage);
                     return gameName;
                 }
-                else
+
+                var nileLibyncJsonContent = FileSystem.ReadFileAsStringSafe(nileLibSyncJsonPath);
+                var nileLibyncJson = Serialization.FromJson<List<NileLibraryFile.NileGames>>(nileLibyncJsonContent);
+                var wantedItem = nileLibSyncJson.FirstOrDefault(i => i.product.id == game.GameId);
+                if (wantedItem != null)
                 {
-                    var nileLibyncJsonContent = FileSystem.ReadFileAsStringSafe(nileLibSyncJsonPath);
-                    var nileLibyncJson = Serialization.FromJson<List<NileLibraryFile.NileGames>>(nileLibyncJsonContent);
-                    var wantedItem = nileLibSyncJson.FirstOrDefault(i => i.product.id == game.GameId);
-                    if (wantedItem != null)
-                    {
-                        gameName = wantedItem.product.title.RemoveTrademarks();
-                    }
+                    gameName = wantedItem.product.title.RemoveTrademarks();
                 }
             }
+
             return gameName;
         }
 
-        public static async Task<GameDownloadInfo> GetGameInfo(DownloadManagerData.Download gameData, bool skipRefreshing = false, bool silently = false, bool forceRefreshCache = false)
+        public static async Task<GameDownloadInfo> GetGameInfo(
+            DownloadManagerData.Download gameData, bool skipRefreshing = false, bool silently = false, bool forceRefreshCache = false)
         {
             var gameID = gameData.gameID;
             var manifest = new GameDownloadInfo();
@@ -387,6 +415,7 @@ namespace NileLibraryNS
             {
                 Directory.CreateDirectory(cacheInfoPath);
             }
+
             bool correctJson = false;
             if (File.Exists(cacheInfoFile))
             {
@@ -399,10 +428,12 @@ namespace NileLibraryNS
                         {
                             File.Delete(metadataFile);
                         }
+
                         File.Delete(cacheInfoFile);
                     }
                 }
             }
+
             if (File.Exists(cacheInfoFile))
             {
                 var content = FileSystem.ReadFileAsStringSafe(cacheInfoFile);
@@ -414,6 +445,7 @@ namespace NileLibraryNS
                     }
                 }
             }
+
             if (!correctJson)
             {
                 var game = new Game
@@ -423,26 +455,37 @@ namespace NileLibraryNS
                 };
                 manifest.title = await SyncLibIfNeeded(game);
                 BufferedCommandResult result = await Cli.Wrap(ClientExecPath)
-                                      .WithArguments(new[] { "install", gameID, "--info", "--json" })
-                                      .WithEnvironmentVariables(await GetDefaultEnvironmentVariables())
-                                      .AddCommandToLog()
-                                      .WithValidation(CommandResultValidation.None)
-                                      .ExecuteBufferedAsync();
+                                                        .WithArguments(new[] { "install", gameID, "--info", "--json" })
+                                                        .WithEnvironmentVariables(await GetDefaultEnvironmentVariables())
+                                                        .AddCommandToLog()
+                                                        .WithValidation(CommandResultValidation.None)
+                                                        .ExecuteBufferedAsync();
                 var errorMessage = result.StandardError;
-                if (result.ExitCode != 0 || errorMessage.Contains("ERROR") || errorMessage.Contains("CRITICAL") || errorMessage.Contains("Error"))
+                if (result.ExitCode != 0 || errorMessage.Contains("ERROR") || errorMessage.Contains("CRITICAL") ||
+                    errorMessage.Contains("Error"))
                 {
                     logger.Error(result.StandardError);
                     if (!silently)
                     {
                         if (result.StandardError.Contains("not logged in"))
                         {
-                            playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteMetadataDownloadError, new Dictionary<string, IFluentType> { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteLoginRequired) }), gameData.name);
+                            playniteAPI.Dialogs.ShowErrorMessage(
+                                LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteMetadataDownloadError,
+                                    new Dictionary<string, IFluentType>
+                                    {
+                                        ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteLoginRequired)
+                                    }), gameData.name);
                         }
                         else
                         {
-                            playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteMetadataDownloadError, new Dictionary<string, IFluentType> { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.CommonCheckLog) }), gameData.name);
+                            playniteAPI.Dialogs.ShowErrorMessage(
+                                LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteMetadataDownloadError,
+                                    new Dictionary<string, IFluentType>
+                                        { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.CommonCheckLog) }),
+                                gameData.name);
                         }
                     }
+
                     manifest.errorDisplayed = true;
                 }
                 else
@@ -452,6 +495,7 @@ namespace NileLibraryNS
                     File.WriteAllText(cacheInfoFile, Serialization.ToJson(manifest));
                 }
             }
+
             return manifest;
         }
 
@@ -474,6 +518,7 @@ namespace NileLibraryNS
                         {
                             Directory.CreateDirectory(nileManifestsPath);
                         }
+
                         File.Copy(manifestPath, Path.Combine(nileManifestsPath, $"{gameId}.raw"));
                     }
                 }
@@ -494,6 +539,7 @@ namespace NileLibraryNS
                     installedList = Serialization.FromJson<List<InstalledGames.Installed>>(installListContent);
                 }
             }
+
             var folderName = new DirectoryInfo(game.InstallDirectory).Name;
             var parentDirectory = Directory.GetParent(game.InstallDirectory).FullName;
             var installDataDir = Path.Combine(parentDirectory, "__InstallData__", folderName);
@@ -510,6 +556,7 @@ namespace NileLibraryNS
                     game.Version = installDataJson.InstalledVersion;
                 }
             }
+
             if (installedList.FirstOrDefault(i => i.id == game.GameId) == null)
             {
                 double gameSize = 0;
@@ -521,6 +568,7 @@ namespace NileLibraryNS
                 {
                     gameSize = FileSystem.GetDirectorySize(game.InstallDirectory, false);
                 }
+
                 var installedInfo = new InstalledGames.Installed
                 {
                     id = game.GameId,
@@ -530,6 +578,7 @@ namespace NileLibraryNS
                 };
                 installedList.Add(installedInfo);
             }
+
             var commonHelpers = NileLibrary.Instance.commonHelpers;
             commonHelpers.SaveJsonSettingsToFile(installedList, ConfigPath, "installed");
         }
@@ -546,6 +595,7 @@ namespace NileLibraryNS
                     list = nonEmptyList;
                 }
             }
+
             return list;
         }
 
@@ -557,10 +607,12 @@ namespace NileLibraryNS
                 new MessageBoxOption(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteInstallGame)),
                 new MessageBoxOption(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteOkLabel)),
             };
-            var result = playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonLauncherNotInstalled), "Nile (Amazon Games) library integration", MessageBoxImage.Information, options);
+            var result = playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonLauncherNotInstalled),
+                "Nile (Amazon Games) library integration", MessageBoxImage.Information, options);
             if (result == options[0])
             {
-                Playnite.Commands.GlobalCommands.NavigateUrl("https://github.com/hawkeye116477/playnite-nile-plugin/wiki/Troubleshooting#nile-is-not-installed");
+                GlobalCommands.NavigateUrl(
+                    "https://github.com/hawkeye116477/playnite-nile-plugin/wiki/Troubleshooting#nile-is-not-installed");
             }
         }
 
@@ -581,16 +633,22 @@ namespace NileLibraryNS
                         new MessageBoxOption(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteInstallGame)),
                         new MessageBoxOption(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteOkLabel)),
                     };
-                    var result = playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonNewVersionAvailable, new Dictionary<string, IFluentType> { ["appName"] = (FluentString)"Nile", ["appVersion"] = (FluentString)newVersion.ToString() }), LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteUpdaterWindowTitle), MessageBoxImage.Information, options);
+                    var result = playniteAPI.Dialogs.ShowMessage(
+                        LocalizationManager.Instance.GetString(LOC.CommonNewVersionAvailable,
+                            new Dictionary<string, IFluentType>
+                                { ["appName"] = (FluentString)"Nile", ["appVersion"] = (FluentString)newVersion.ToString() }),
+                        LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteUpdaterWindowTitle), MessageBoxImage.Information,
+                        options);
                     if (result == options[0])
                     {
                         var changelogURL = versionInfoContent.Html_url;
-                        Playnite.Commands.GlobalCommands.NavigateUrl(changelogURL);
+                        GlobalCommands.NavigateUrl(changelogURL);
                     }
                     else if (result == options[1])
                     {
-                        var newAsset = versionInfoContent.Assets.FirstOrDefault(a => a.Browser_download_url.Contains($"{versionInfoContent.Tag_name}/nile")
-                                                                                     && a.Browser_download_url.EndsWith(".exe"));
+                        var newAsset = versionInfoContent.Assets.FirstOrDefault(a =>
+                            a.Browser_download_url.Contains($"{versionInfoContent.Tag_name}/nile")
+                            && a.Browser_download_url.EndsWith(".exe"));
                         if (newAsset != null)
                         {
                             var appsToUpdate = new Dictionary<string, UpdateInfo>();
@@ -634,7 +692,8 @@ namespace NileLibraryNS
             {
                 if (displayMessages)
                 {
-                    playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteUpdateCheckFailMessage), "Nile Launcher");
+                    playniteAPI.Dialogs.ShowErrorMessage(
+                        LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteUpdateCheckFailMessage), "Nile Launcher");
                 }
                 else
                 {
@@ -647,7 +706,7 @@ namespace NileLibraryNS
         public static void CompleteGameInstallation(string gameId, string installDirectory)
         {
             var gameSettings = NileGameSettingsView.LoadGameSettings(gameId);
-            var gameConfig = Nile.GetGameConfiguration(installDirectory);
+            var gameConfig = GetGameConfiguration(installDirectory);
             if (gameConfig.PostInstall.Count > 0)
             {
                 foreach (var depend in gameConfig.PostInstall)
@@ -660,6 +719,7 @@ namespace NileLibraryNS
                     }
                 }
             }
+
             gameSettings.IsFullyInstalled = true;
             var commonHelpers = NileLibrary.Instance.commonHelpers;
             commonHelpers.SaveJsonSettingsToFile(gameSettings, "GamesSettings", gameId, true);

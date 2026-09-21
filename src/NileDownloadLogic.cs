@@ -1,21 +1,23 @@
-﻿using CliWrap;
-using CliWrap.EventStream;
-using CommonPlugin;
-using CommonPlugin.Enums;
-using Linguini.Shared.Types.Bundle;
-using NileLibraryNS.Models;
-using Playnite.Common;
-using Playnite.SDK;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
+using CliWrap;
+using CliWrap.EventStream;
+using CommonPlugin;
+using CommonPlugin.Enums;
+using Linguini.Shared.Types.Bundle;
+using NileLibraryNS.Models;
+using Playnite.Commands;
+using Playnite.Common;
+using Playnite.SDK;
+using Playnite.SDK.Models;
 using UnifiedDownloadManagerApiNS;
 using UnifiedDownloadManagerApiNS.Interfaces;
 using UnifiedDownloadManagerApiNS.Models;
@@ -45,25 +47,31 @@ namespace NileLibraryNS
                         completedDownload = false;
                     }
                 }
+
                 if (completedDownload)
                 {
-                    var wantedPluginItem = NileLibrary.Instance.pluginDownloadData.downloads.FirstOrDefault(item => item.gameID == downloadTask.gameID);
+                    var wantedPluginItem =
+                        NileLibrary.Instance.pluginDownloadData.downloads.FirstOrDefault(item => item.gameID == downloadTask.gameID);
                     if (wantedPluginItem != null)
                     {
                         NileLibrary.Instance.pluginDownloadData.downloads.Remove(wantedPluginItem);
-                        wantedPluginItem = NileLibrary.Instance.pluginDownloadData.downloads.FirstOrDefault(item => item.gameID == downloadTask.gameID);
+                        wantedPluginItem =
+                            NileLibrary.Instance.pluginDownloadData.downloads.FirstOrDefault(item => item.gameID == downloadTask.gameID);
                     }
+
                     if (wantedUnifiedItem != null)
                     {
                         unifiedDownloadManagerApi.RemoveTask(wantedUnifiedItem);
                         wantedUnifiedItem = unifiedDownloadManagerApi.GetTask(downloadTask.gameID, NileLibrary.Instance.Id.ToString());
                     }
                 }
+
                 if (wantedUnifiedItem != null)
                 {
                     downloadItemsAlreadyAdded.Add(wantedUnifiedItem.name);
                     continue;
                 }
+
                 NileLibrary.Instance.pluginDownloadData.downloads.Add(downloadTask);
                 var unifiedTask = new UnifiedDownload
                 {
@@ -77,6 +85,7 @@ namespace NileLibraryNS
                 };
                 unifiedTasks.Add(unifiedTask);
             }
+
             await unifiedDownloadManagerApi.AddTasks(unifiedTasks);
             NileLibrary.Instance.SaveDownloadData();
 
@@ -89,7 +98,15 @@ namespace NileLibraryNS
                     {
                         downloadItemsAlreadyAddedCombined = string.Join(", ", downloadItemsAlreadyAdded.Select(item => item.ToString()));
                     }
-                    playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonDownloadAlreadyExists, new Dictionary<string, IFluentType> { ["appName"] = (FluentString)downloadItemsAlreadyAddedCombined, ["count"] = (FluentNumber)downloadItemsAlreadyAdded.Count, ["pluginShortName"] = (FluentString)"Unified Download Manager" }), "", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    playniteAPI.Dialogs.ShowMessage(
+                        LocalizationManager.Instance.GetString(LOC.CommonDownloadAlreadyExists,
+                            new Dictionary<string, IFluentType>
+                            {
+                                ["appName"] = (FluentString)downloadItemsAlreadyAddedCombined,
+                                ["count"] = (FluentNumber)downloadItemsAlreadyAdded.Count,
+                                ["pluginShortName"] = (FluentString)"Unified Download Manager"
+                            }), "", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -105,6 +122,7 @@ namespace NileLibraryNS
                 var tempFolderName = $"{downloadTask.gameID}_PlayniteNilePlugin";
                 tempDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "temp", tempFolderName);
             }
+
             const int maxRetries = 5;
             int delayMs = 100;
             for (int i = 0; i < maxRetries; i++)
@@ -115,6 +133,7 @@ namespace NileLibraryNS
                     {
                         Directory.Delete(tempDir, true);
                     }
+
                     if (File.Exists(resumeFile))
                     {
                         File.Delete(resumeFile);
@@ -124,7 +143,9 @@ namespace NileLibraryNS
                     {
                         File.Delete(repairFile);
                     }
-                    if (downloadTask.fullInstallPath != null && matchingPluginTask.downloadProperties.downloadAction == DownloadAction.Install)
+
+                    if (downloadTask.fullInstallPath != null &&
+                        matchingPluginTask.downloadProperties.downloadAction == DownloadAction.Install)
                     {
                         if (Directory.Exists(matchingPluginTask.fullInstallPath))
                         {
@@ -141,7 +162,7 @@ namespace NileLibraryNS
                     }
                     else
                     {
-                        logger.Warn(rex, $"Can't cleanup after cancellation. Please try removing files manually.");
+                        logger.Warn(rex, "Can't cleanup after cancellation. Please try removing files manually.");
                         break;
                     }
                 }
@@ -156,6 +177,7 @@ namespace NileLibraryNS
                 NileLibrary.Instance.pluginDownloadData.downloads.Remove(matchingPluginTask);
                 NileLibrary.Instance.SaveDownloadData();
             }
+
             return Task.CompletedTask;
         }
 
@@ -175,15 +197,18 @@ namespace NileLibraryNS
             {
                 installCommand.Add("install");
             }
+
             if (downloadProperties.downloadAction == DownloadAction.Repair)
             {
                 Nile.MigrateAmazonManifest(matchingPluginTask.fullInstallPath, matchingPluginTask.gameID);
                 installCommand.Add("verify");
             }
+
             if (downloadProperties.downloadAction == DownloadAction.Update)
             {
                 installCommand.Add("update");
             }
+
             installCommand.Add(gameID);
 
             if (!downloadTask.fullInstallPath.IsNullOrEmpty())
@@ -210,7 +235,8 @@ namespace NileLibraryNS
                          .WithArguments(installCommand)
                          .AddCommandToLog()
                          .WithValidation(CommandResultValidation.None);
-            await foreach (CommandEvent cmdEvent in cmd.ListenAsync(Console.OutputEncoding, Console.OutputEncoding, forcefulInstallerCTS.Token, gracefulInstallerCTS.Token))
+            await foreach (CommandEvent cmdEvent in cmd.ListenAsync(Console.OutputEncoding, Console.OutputEncoding,
+                               forcefulInstallerCTS.Token, gracefulInstallerCTS.Token))
             {
                 switch (cmdEvent)
                 {
@@ -222,6 +248,7 @@ namespace NileLibraryNS
                         {
                             wantedUnifiedTask.activity = LocalizationManager.Instance.GetString(LOC.CommonVerifying);
                         }
+
                         var progressMatch = Regex.Match(stdErr.Text, @"Progress: (\d+\.\d+)");
                         if (progressMatch.Length >= 2)
                         {
@@ -233,23 +260,28 @@ namespace NileLibraryNS
                             {
                                 wantedUnifiedTask.activity = LocalizationManager.Instance.GetString(LOC.CommonDownloadingUpdate);
                             }
+
                             double progress = CommonHelpers.ToDouble(progressMatch.Groups[1].Value);
                             wantedUnifiedTask.progress = progress;
                         }
+
                         var elapsedMatch = Regex.Match(stdErr.Text, @"Running for: (\d\d:\d\d:\d\d)");
                         if (elapsedMatch.Length >= 2)
                         {
                             wantedUnifiedTask.elapsed = TimeSpan.Parse(elapsedMatch.Groups[1].Value);
                         }
+
                         var ETAMatch = Regex.Match(stdErr.Text, @"ETA: (\d\d:\d\d:\d\d)");
                         if (ETAMatch.Length >= 2)
                         {
                             wantedUnifiedTask.eta = TimeSpan.Parse(ETAMatch.Groups[1].Value);
                         }
+
                         var downloadedMatch = Regex.Match(stdErr.Text, @"Downloaded: (\S+) (\wiB)");
                         if (downloadedMatch.Length >= 2)
                         {
-                            double downloadedNumber = CommonHelpers.ToBytes(CommonHelpers.ToDouble(downloadedMatch.Groups[1].Value), downloadedMatch.Groups[2].Value);
+                            double downloadedNumber = CommonHelpers.ToBytes(CommonHelpers.ToDouble(downloadedMatch.Groups[1].Value),
+                                downloadedMatch.Groups[2].Value);
                             double totalDownloadedNumber = downloadedNumber + downloadCache;
                             wantedUnifiedTask.downloadedBytes = totalDownloadedNumber;
                             //double newProgress = totalDownloadedNumber / wantedItem.downloadSizeNumber * 100;
@@ -261,7 +293,8 @@ namespace NileLibraryNS
                                 switch (downloadProperties.downloadAction)
                                 {
                                     case DownloadAction.Install:
-                                        wantedUnifiedTask.activity = LocalizationManager.Instance.GetString(LOC.CommonFinishingInstallation);
+                                        wantedUnifiedTask.activity =
+                                            LocalizationManager.Instance.GetString(LOC.CommonFinishingInstallation);
                                         break;
                                     case DownloadAction.Update:
                                         wantedUnifiedTask.activity = LocalizationManager.Instance.GetString(LOC.CommonFinishingUpdate);
@@ -269,31 +302,38 @@ namespace NileLibraryNS
                                     case DownloadAction.Repair:
                                         wantedUnifiedTask.activity = LocalizationManager.Instance.GetString(LOC.CommonFinishingRepair);
                                         break;
-                                    default:
-                                        break;
                                 }
                             }
                         }
+
                         var downloadSpeedMatch = Regex.Match(stdErr.Text, @"Download\t- (\S+) (\wiB)");
                         if (downloadSpeedMatch.Length >= 2)
                         {
-                            wantedUnifiedTask.downloadSpeedBytes = CommonHelpers.ToBytes(CommonHelpers.ToDouble(downloadSpeedMatch.Groups[1].Value), downloadSpeedMatch.Groups[2].Value);
+                            wantedUnifiedTask.downloadSpeedBytes = CommonHelpers.ToBytes(
+                                CommonHelpers.ToDouble(downloadSpeedMatch.Groups[1].Value), downloadSpeedMatch.Groups[2].Value);
                         }
+
                         var diskSpeedMatch = Regex.Match(stdErr.Text, @"Disk\t- (\S+) (\wiB)");
                         if (diskSpeedMatch.Length >= 2)
                         {
-                            wantedUnifiedTask.diskWriteSpeedBytes = CommonHelpers.ToBytes(CommonHelpers.ToDouble(diskSpeedMatch.Groups[1].Value), diskSpeedMatch.Groups[2].Value);
+                            wantedUnifiedTask.diskWriteSpeedBytes =
+                                CommonHelpers.ToBytes(CommonHelpers.ToDouble(diskSpeedMatch.Groups[1].Value),
+                                    diskSpeedMatch.Groups[2].Value);
                         }
+
                         var errorMessage = stdErr.Text;
-                        if (errorMessage.Contains("finished") || errorMessage.Contains("Finished") || errorMessage.Contains("already up to date"))
+                        if (errorMessage.Contains("finished") || errorMessage.Contains("Finished") ||
+                            errorMessage.Contains("already up to date"))
                         {
                             successDisplayed = true;
                         }
-                        else if (errorMessage.Contains("WARNING") && !errorMessage.Contains("exit requested") && !errorMessage.Contains("PermissionError"))
+                        else if (errorMessage.Contains("WARNING") && !errorMessage.Contains("exit requested") &&
+                                 !errorMessage.Contains("PermissionError"))
                         {
                             logger.Warn($"[Nile] {errorMessage}");
                         }
-                        else if (errorMessage.Contains("ERROR") || errorMessage.Contains("CRITICAL") || errorMessage.Contains("Error") || errorMessage.Contains("Failure"))
+                        else if (errorMessage.Contains("ERROR") || errorMessage.Contains("CRITICAL") || errorMessage.Contains("Error") ||
+                                 errorMessage.Contains("Failure"))
                         {
                             logger.Error($"[Nile] {errorMessage}");
                             if (errorMessage.Contains("not logged in"))
@@ -312,31 +352,48 @@ namespace NileLibraryNS
                             {
                                 diskSpaceErrorDisplayed = true;
                             }
+
                             if (!errorMessage.Contains("old manifest"))
                             {
                                 errorDisplayed = true;
                             }
                         }
+
                         break;
                     case ExitedCommandEvent exited:
                         if ((!successDisplayed && errorDisplayed) || exited.ExitCode != 0)
                         {
                             if (loginErrorDisplayed)
                             {
-                                playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteGameInstallError, new Dictionary<string, IFluentType> { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteLoginRequired) }));
+                                playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(
+                                    LOC.ThirdPartyPlayniteGameInstallError,
+                                    new Dictionary<string, IFluentType>
+                                    {
+                                        ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteLoginRequired)
+                                    }));
                             }
                             else if (permissionErrorDisplayed)
                             {
-                                playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteGameInstallError, new Dictionary<string, IFluentType> { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.CommonPermissionError) }));
+                                playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(
+                                    LOC.ThirdPartyPlayniteGameInstallError,
+                                    new Dictionary<string, IFluentType>
+                                        { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.CommonPermissionError) }));
                             }
                             else if (diskSpaceErrorDisplayed)
                             {
-                                playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteGameInstallError, new Dictionary<string, IFluentType> { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.CommonNotEnoughSpace) }));
+                                playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(
+                                    LOC.ThirdPartyPlayniteGameInstallError,
+                                    new Dictionary<string, IFluentType>
+                                        { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.CommonNotEnoughSpace) }));
                             }
                             else
                             {
-                                playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteGameInstallError, new Dictionary<string, IFluentType> { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.CommonCheckLog) }));
+                                playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(
+                                    LOC.ThirdPartyPlayniteGameInstallError,
+                                    new Dictionary<string, IFluentType>
+                                        { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.CommonCheckLog) }));
                             }
+
                             wantedUnifiedTask.status = UnifiedDownloadStatus.Error;
                         }
                         else
@@ -347,8 +404,9 @@ namespace NileLibraryNS
                                 if (installedAppList.FirstOrDefault(i => i.id == gameID) != null)
                                 {
                                     var installedGameInfo = installedAppList.FirstOrDefault(i => i.id == gameID);
-                                    Playnite.SDK.Models.Game game = new Playnite.SDK.Models.Game();
-                                    game = playniteAPI.Database.Games.FirstOrDefault(item => item.PluginId == NileLibrary.Instance.Id && item.GameId == gameID);
+                                    Game game = new Game();
+                                    game = playniteAPI.Database.Games.FirstOrDefault(item =>
+                                        item.PluginId == NileLibrary.Instance.Id && item.GameId == gameID);
                                     game.InstallDirectory = installedGameInfo.path;
                                     game.Version = installedGameInfo.version;
                                     game.InstallSize = (ulong?)installedGameInfo.size;
@@ -356,15 +414,15 @@ namespace NileLibraryNS
                                     playniteAPI.Database.Games.Update(game);
                                 }
                             }
+
                             wantedUnifiedTask.status = UnifiedDownloadStatus.Completed;
                             wantedUnifiedTask.progress = 100;
                             DateTimeOffset now = DateTime.UtcNow;
                             wantedUnifiedTask.completedTime = now.ToUnixTimeSeconds();
                         }
+
                         gracefulInstallerCTS?.Dispose();
                         forcefulInstallerCTS?.Dispose();
-                        break;
-                    default:
                         break;
                 }
             }
@@ -385,6 +443,7 @@ namespace NileLibraryNS
                 var tempFolderName = $"{downloadTask.gameID}_PlayniteNilePlugin";
                 tempDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "temp", tempFolderName);
             }
+
             Directory.CreateDirectory(tempDir);
 
             long totalSize = 0;
@@ -394,15 +453,18 @@ namespace NileLibraryNS
             var versionInfoContent = await Nile.GetVersionInfoContent();
             if (versionInfoContent.Tag_name != null)
             {
-                var newAsset = versionInfoContent.Assets.FirstOrDefault(a => a.Browser_download_url.Contains($"{versionInfoContent.Tag_name}/nile")
-                                                                             && a.Browser_download_url.EndsWith(".exe"));
+                var newAsset = versionInfoContent.Assets.FirstOrDefault(a =>
+                    a.Browser_download_url.Contains($"{versionInfoContent.Tag_name}/nile")
+                    && a.Browser_download_url.EndsWith(".exe"));
                 if (newAsset.Browser_download_url != null)
                 {
                     url = newAsset.Browser_download_url;
                 }
             }
+
             using var headRequest = new HttpRequestMessage(HttpMethod.Head, url);
-            using var headResponse = await client.SendAsync(headRequest, HttpCompletionOption.ResponseHeadersRead, downloadTask.gracefulCts.Token);
+            using var headResponse =
+                await client.SendAsync(headRequest, HttpCompletionOption.ResponseHeadersRead, downloadTask.gracefulCts.Token);
             headResponse.EnsureSuccessStatusCode();
             totalSize = headResponse.Content.Headers.ContentLength ?? 0;
             downloadTask.downloadSizeBytes = totalSize;
@@ -416,6 +478,7 @@ namespace NileLibraryNS
                 var finalUrl = headResponse.RequestMessage.RequestUri;
                 serverFileName = Path.GetFileName(finalUrl.LocalPath);
             }
+
             var tempPath = Path.Combine(tempDir, serverFileName.Trim('"'));
             downloadedBytes = File.Exists(tempPath) ? new FileInfo(tempPath).Length : 0;
             long lastBytes = downloadedBytes;
@@ -451,6 +514,7 @@ namespace NileLibraryNS
                             oldBinaryPath
                         });
                     }
+
                     var copyCmd = Cli.Wrap("cmd.exe")
                                      .WithArguments(copyCmdArgs);
                     var proc = ProcessStarter.StartProcess("cmd.exe", copyCmd.Arguments, true);
@@ -462,6 +526,7 @@ namespace NileLibraryNS
                     {
                         File.Delete(oldBinaryPath);
                     }
+
                     File.Move(tempPath, finalPath);
                 }
             }
@@ -478,7 +543,7 @@ namespace NileLibraryNS
 
             if (downloadedBytes > 0)
             {
-                request.Headers.Range = new System.Net.Http.Headers.RangeHeaderValue(downloadedBytes, null);
+                request.Headers.Range = new RangeHeaderValue(downloadedBytes, null);
             }
 
             var speedStopwatch = Stopwatch.StartNew();
@@ -498,7 +563,8 @@ namespace NileLibraryNS
 
             using (var tempFs = new FileStream(tempPath, fileMode, FileAccess.Write, FileShare.Read, bufferSize, FileOptions.Asynchronous))
             {
-                while ((bytesRead = await networkStream.ReadAsync(buffer, 0, buffer.Length, downloadTask.gracefulCts.Token).ConfigureAwait(false)) > 0)
+                while ((bytesRead = await networkStream.ReadAsync(buffer, 0, buffer.Length, downloadTask.gracefulCts.Token)
+                                                       .ConfigureAwait(false)) > 0)
                 {
                     totalNetWorkBytes += bytesRead;
 
@@ -526,6 +592,7 @@ namespace NileLibraryNS
                             {
                                 currentPercentProgress = totalDiskBytes / totalSize * 100;
                             }
+
                             downloadTask.progress = currentPercentProgress;
 
                             downloadTask.elapsed = totalStopwatch.Elapsed;
@@ -535,9 +602,9 @@ namespace NileLibraryNS
                                 if (downloadTask.downloadSpeedBytes > 0)
                                 {
                                     double remaining = (totalSize - totalDiskBytes) / downloadTask.downloadSpeedBytes;
-                                    downloadTask.eta = (remaining < TimeSpan.MaxValue.TotalSeconds)
-                                        ? TimeSpan.FromSeconds(remaining)
-                                        : TimeSpan.MaxValue;
+                                    downloadTask.eta = (remaining < TimeSpan.MaxValue.TotalSeconds) ?
+                                        TimeSpan.FromSeconds(remaining) :
+                                        TimeSpan.MaxValue;
                                 }
                                 else
                                 {
@@ -569,14 +636,15 @@ namespace NileLibraryNS
             }
             catch
             {
-
             }
+
             downloadTask.downloadedBytes = totalDiskBytes;
             long newCurrentPercentProgress = 0;
             if (downloadTask.downloadSizeBytes > 0)
             {
                 newCurrentPercentProgress = totalDiskBytes / totalSize * 100;
             }
+
             downloadTask.progress = newCurrentPercentProgress;
             downloadTask.elapsed = totalStopwatch.Elapsed;
             downloadTask.activity = "";
@@ -602,7 +670,8 @@ namespace NileLibraryNS
             }
             catch (Exception ex)
             {
-                if (ex is OperationCanceledException && (downloadTask.status == UnifiedDownloadStatus.Canceled || downloadTask.status == UnifiedDownloadStatus.Paused))
+                if (ex is OperationCanceledException && (downloadTask.status == UnifiedDownloadStatus.Canceled ||
+                                                         downloadTask.status == UnifiedDownloadStatus.Paused))
                 {
                     if (downloadTask.status == UnifiedDownloadStatus.Canceled)
                     {
@@ -627,7 +696,8 @@ namespace NileLibraryNS
             {
                 ShowMaximizeButton = false,
             });
-            var matchingPluginTask = NileLibrary.Instance.pluginDownloadData.downloads.FirstOrDefault(t => t.gameID == selectedEntry.gameID);
+            var matchingPluginTask =
+                NileLibrary.Instance.pluginDownloadData.downloads.FirstOrDefault(t => t.gameID == selectedEntry.gameID);
             if (matchingPluginTask != null)
             {
                 window.Title = selectedEntry.name + " — " + LocalizationManager.Instance.GetString(LOC.CommonDownloadProperties);
@@ -651,12 +721,16 @@ namespace NileLibraryNS
                     new MessageBoxOption(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteInstallGame)),
                     new MessageBoxOption(LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteOkLabel)),
                 };
-                var result = playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonLauncherNotInstalled, new Dictionary<string, IFluentType> { ["launcherName"] = (FluentString)"Unified Download Manager" }), "Nile (Amazon Games) library integration", MessageBoxImage.Information, options);
+                var result = playniteAPI.Dialogs.ShowMessage(
+                    LocalizationManager.Instance.GetString(LOC.CommonLauncherNotInstalled,
+                        new Dictionary<string, IFluentType> { ["launcherName"] = (FluentString)"Unified Download Manager" }),
+                    "Nile (Amazon Games) library integration", MessageBoxImage.Information, options);
                 if (result == options[0])
                 {
-                    Playnite.Commands.GlobalCommands.NavigateUrl("playnite://playnite/installaddon/UnifiedDownloadManager");
+                    GlobalCommands.NavigateUrl("playnite://playnite/installaddon/UnifiedDownloadManager");
                 }
             }
+
             return installed;
         }
     }

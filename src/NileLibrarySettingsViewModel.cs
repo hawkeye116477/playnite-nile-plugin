@@ -1,10 +1,10 @@
-﻿using CommonPlugin.Enums;
+﻿using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
+using CommonPlugin.Enums;
 using NileLibraryNS.Enums;
 using NileLibraryNS.Services;
 using Playnite.SDK;
-using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
 
 namespace NileLibraryNS
 {
@@ -20,10 +20,10 @@ namespace NileLibraryNS
         public bool UnattendedInstall { get; set; } = false;
         public ClearCacheTime AutoClearCache { get; set; } = ClearCacheTime.Never;
         public UpdatePolicy GamesUpdatePolicy { get; set; } = UpdatePolicy.Month;
-        public long NextClearingTime { get; set; } = 0;
-        public long NextGamesUpdateTime { get; set; } = 0;
+        public long NextClearingTime { get; set; }
+        public long NextGamesUpdateTime { get; set; }
         public UpdatePolicy LauncherUpdatePolicy { get; set; } = UpdatePolicy.Month;
-        public long NextLauncherUpdateTime { get; set; } = 0;
+        public long NextLauncherUpdateTime { get; set; }
         public bool AutoUpdateGames { get; set; } = false;
     }
 
@@ -48,10 +48,7 @@ namespace NileLibraryNS
 
         public RelayCommand<object> LoginCommand
         {
-            get => new RelayCommand<object>(async (a) =>
-            {
-                await Login();
-            });
+            get => new RelayCommand<object>(async a => { await Login(); });
         }
 
         public NileLibrarySettingsViewModel(NileLibrary library, IPlayniteAPI api) : base(library, api)
@@ -86,6 +83,7 @@ namespace NileLibraryNS
                     Settings.NextClearingTime = 0;
                 }
             }
+
             if (EditingClone.GamesUpdatePolicy != Settings.GamesUpdatePolicy)
             {
                 if (Settings.GamesUpdatePolicy != UpdatePolicy.Never)
@@ -97,6 +95,7 @@ namespace NileLibraryNS
                     Settings.NextGamesUpdateTime = 0;
                 }
             }
+
             if (EditingClone.LauncherUpdatePolicy != Settings.LauncherUpdatePolicy)
             {
                 if (Settings.LauncherUpdatePolicy != UpdatePolicy.Never)
@@ -108,6 +107,7 @@ namespace NileLibraryNS
                     Settings.NextLauncherUpdateTime = 0;
                 }
             }
+
             base.EndEdit();
         }
     }

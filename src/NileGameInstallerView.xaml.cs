@@ -1,22 +1,18 @@
-﻿using CommonPlugin;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using CommonPlugin;
 using CommonPlugin.Enums;
 using Linguini.Shared.Types.Bundle;
 using NileLibraryNS.Models;
 using NileLibraryNS.Services;
 using Playnite.SDK;
 using Playnite.SDK.Data;
-using Playnite.SDK.Events;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Automation.Peers;
-using System.Windows.Automation.Provider;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Input;
 using UnifiedDownloadManagerApiNS;
 
 namespace NileLibraryNS
@@ -66,16 +62,18 @@ namespace NileLibraryNS
                 availableFreeSpace = dDrive.AvailableFreeSpace;
                 SpaceTB.Text = CommonHelpers.FormatSize(availableFreeSpace);
             }
+
             UpdateAfterInstallingSize();
         }
 
         private void UpdateAfterInstallingSize()
         {
-            double afterInstallSizeNumber = (double)(availableFreeSpace - downloadSizeNumber);
+            double afterInstallSizeNumber = availableFreeSpace - downloadSizeNumber;
             if (afterInstallSizeNumber < 0)
             {
                 afterInstallSizeNumber = 0;
             }
+
             AfterInstallingTB.Text = CommonHelpers.FormatSize(afterInstallSizeNumber);
         }
 
@@ -87,11 +85,13 @@ namespace NileLibraryNS
             {
                 installPath = Nile.GamesInstallationPath;
             }
-            var playniteDirectoryVariable = ExpandableVariables.PlayniteDirectory.ToString();
+
+            var playniteDirectoryVariable = ExpandableVariables.PlayniteDirectory;
             if (installPath.Contains(playniteDirectoryVariable))
             {
                 installPath = installPath.Replace(playniteDirectoryVariable, playniteAPI.Paths.ApplicationPath);
             }
+
             InstallerWindow.Close();
 
             var downloadTasks = new List<DownloadManagerData.Download>();
@@ -107,6 +107,7 @@ namespace NileLibraryNS
                     {
                         folderName = folderName.Replace(inappropriateDirChar, "");
                     }
+
                     installData.fullInstallPath = Path.Combine(installPath, folderName);
                 }
                 else if (!installData.downloadProperties.installPath.IsNullOrEmpty())
@@ -114,14 +115,17 @@ namespace NileLibraryNS
                     installPath = installData.downloadProperties.installPath;
                     installData.fullInstallPath = installPath;
                 }
+
                 if (!CommonHelpers.IsDirectoryWritable(installPath, LOC.CommonPermissionError))
                 {
                     continue;
                 }
+
                 var downloadProperties = GetDownloadProperties(installData, downloadAction, installPath);
                 installData.downloadProperties = downloadProperties;
                 downloadTasks.Add(installData);
             }
+
             if (downloadTasks.Count > 0)
             {
                 var nileDownloadLogic = new NileDownloadLogic();
@@ -140,10 +144,12 @@ namespace NileLibraryNS
             {
                 installData.downloadSizeNumber = 0;
             }
+
             await StartTask(DownloadAction.Repair);
         }
 
-        public DownloadProperties GetDownloadProperties(DownloadManagerData.Download installData, DownloadAction downloadAction, string installPath = "")
+        public DownloadProperties GetDownloadProperties(
+            DownloadManagerData.Download installData, DownloadAction downloadAction, string installPath = "")
         {
             var settings = NileLibrary.GetSettings();
             int maxWorkers = settings.MaxWorkers;
@@ -151,6 +157,7 @@ namespace NileLibraryNS
             {
                 maxWorkers = int.Parse(MaxWorkersNI.Value);
             }
+
             var newDownloadProperties = new DownloadProperties();
             newDownloadProperties = Serialization.GetClone(installData.downloadProperties);
             newDownloadProperties.downloadAction = downloadAction;
@@ -158,6 +165,7 @@ namespace NileLibraryNS
             {
                 newDownloadProperties.installPath = installPath;
             }
+
             newDownloadProperties.maxWorkers = maxWorkers;
             return newDownloadProperties;
         }
@@ -169,6 +177,7 @@ namespace NileLibraryNS
             {
                 downloadSizeNumber += installData.downloadSizeNumber;
             }
+
             UpdateAfterInstallingSize();
             DownloadSizeTB.Text = CommonHelpers.FormatSize(downloadSizeNumber);
             InstallSizeTB.Text = CommonHelpers.FormatSize(downloadSizeNumber);
@@ -181,11 +190,13 @@ namespace NileLibraryNS
                 Nile.ShowNotInstalledError();
                 return;
             }
+
             var isUdmInstalled = NileDownloadLogic.CheckIfUdmInstalled();
             if (!isUdmInstalled)
             {
                 return;
             }
+
             CommonHelpers.SetControlBackground(this);
             if (MultiInstallData.First().downloadProperties.downloadAction == DownloadAction.Repair)
             {
@@ -194,13 +205,15 @@ namespace NileLibraryNS
                 RepairBtn.Visibility = Visibility.Visible;
                 AfterInstallingSP.Visibility = Visibility.Collapsed;
             }
+
             var settings = NileLibrary.GetSettings();
             installPath = Nile.GamesInstallationPath;
-            var playniteDirectoryVariable = ExpandableVariables.PlayniteDirectory.ToString();
+            var playniteDirectoryVariable = ExpandableVariables.PlayniteDirectory;
             if (installPath.Contains(playniteDirectoryVariable))
             {
                 installPath = installPath.Replace(playniteDirectoryVariable, playniteAPI.Paths.ApplicationPath);
             }
+
             SelectedGamePathTxt.Text = installPath;
             UpdateSpaceInfo(installPath);
             var cacheInfoPath = NileLibrary.Instance.GetCachePath("infocache");
@@ -208,6 +221,7 @@ namespace NileLibraryNS
             {
                 Directory.CreateDirectory(cacheInfoPath);
             }
+
             MaxWorkersNI.MaxValue = CommonHelpers.CpuThreadsNumber;
             MaxWorkersNI.Value = settings.MaxWorkers.ToString();
 
@@ -220,11 +234,14 @@ namespace NileLibraryNS
             }
             else if (playniteAPI.ApplicationInfo.Mode == ApplicationMode.Fullscreen)
             {
-                var firstEnabledBtn = LogicalTreeHelper.GetChildren(TopButtonsSP).OfType<Button>().FirstOrDefault(b => b.IsEnabled && b.IsVisible);
+                var firstEnabledBtn = LogicalTreeHelper.GetChildren(TopButtonsSP)
+                                                       .OfType<Button>()
+                                                       .FirstOrDefault(b => b.IsEnabled && b.IsVisible);
                 if (firstEnabledBtn != null)
                 {
                     firstEnabledBtn.Focus();
                 }
+
                 SelectedGamePathTxt.Focusable = false;
                 ChooseGamePathBtn.Focusable = false;
             }
@@ -254,6 +271,7 @@ namespace NileLibraryNS
                     MultiInstallData.Remove(installData);
                     continue;
                 }
+
                 installData.downloadSizeNumber = manifest.download_size;
                 var wantedItem = pluginDownloadData.downloads.FirstOrDefault(item => item.gameID == installData.gameID);
                 var wantedUnifiedTask = unifiedDownloadManagerApi.GetTask(installData.gameID, NileLibrary.Instance.Id.ToString());
@@ -275,28 +293,34 @@ namespace NileLibraryNS
             {
                 if (!userLoggedIn)
                 {
-                    var loginErrorMessage = LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteGameInstallError, new Dictionary<string, IFluentType>
-                    {
-                        ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteLoginRequired)
-                    });
+                    var loginErrorMessage = LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteGameInstallError,
+                        new Dictionary<string, IFluentType>
+                        {
+                            ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteLoginRequired)
+                        });
                     MessageCheckBoxDialog.ShowMessage("", loginErrorMessage, null, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+
                 if (games.Count <= 0)
                 {
                     InstallerWindow.Close();
                 }
+
                 return;
             }
+
             if (downloadSizeNumber != 0)
             {
                 InstallBtn.IsEnabled = true;
             }
+
             ReloadBtn.IsEnabled = true;
         }
 
         private async void ReloadBtn_Click(object sender, RoutedEventArgs e)
         {
-            var result = MessageCheckBoxDialog.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonReload), LocalizationManager.Instance.GetString(LOC.CommonReloadConfirm), null, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var result = MessageCheckBoxDialog.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonReload),
+                LocalizationManager.Instance.GetString(LOC.CommonReloadConfirm), null, MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result.Result)
             {
                 InstallBtn.IsEnabled = false;

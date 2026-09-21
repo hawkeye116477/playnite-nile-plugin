@@ -1,5 +1,9 @@
-﻿using CliWrap;
-using CliWrap.Buffered;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
 using CommonPlugin;
 using CommonPlugin.Enums;
 using Linguini.Shared.Types.Bundle;
@@ -8,13 +12,6 @@ using NileLibraryNS.Services;
 using Playnite.Common;
 using Playnite.SDK;
 using Playnite.SDK.Data;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
-
 
 namespace NileLibraryNS
 {
@@ -41,7 +38,8 @@ namespace NileLibraryNS
                 var userLoggedIn = await clientApi.GetIsUserLoggedIn();
                 if (userLoggedIn)
                 {
-                    AuthStatusTB.Text = LocalizationManager.Instance.GetString(LOC.CommonSignedInAs, new Dictionary<string, IFluentType> { ["userName"] = (FluentString)clientApi.GetUsername() });
+                    AuthStatusTB.Text = LocalizationManager.Instance.GetString(LOC.CommonSignedInAs,
+                        new Dictionary<string, IFluentType> { ["userName"] = (FluentString)clientApi.GetUsername() });
                     LoginBtn.Content = LocalizationManager.Instance.GetString(LOC.CommonSignOut);
                     LoginBtn.IsChecked = true;
                 }
@@ -51,6 +49,7 @@ namespace NileLibraryNS
                     LoginBtn.Content = LocalizationManager.Instance.GetString(LOC.ThirdPartyAmazonAuthenticateLabel);
                     LoginBtn.IsChecked = false;
                 }
+
                 LoginBtn.IsEnabled = true;
             }
             else
@@ -75,11 +74,13 @@ namespace NileLibraryNS
                     playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(LOC.ThirdPartyAmazonNotLoggedInError), "");
                     logger.Error(ex, "Failed to authenticate user.");
                 }
+
                 UpdateAuthStatus();
             }
             else
             {
-                var answer = playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonSignOutConfirm), LocalizationManager.Instance.GetString(LOC.CommonSignOut), MessageBoxButton.YesNo);
+                var answer = playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonSignOutConfirm),
+                    LocalizationManager.Instance.GetString(LOC.CommonSignOut), MessageBoxButton.YesNo);
                 if (answer == MessageBoxResult.Yes)
                 {
                     clientApi.LogOut();
@@ -160,7 +161,9 @@ namespace NileLibraryNS
                 CheckForNileUpdatesBtn.IsEnabled = false;
                 OpenNileBinaryBtn.IsEnabled = false;
             }
-            ReportBugHyp.NavigateUri = new Uri($"https://github.com/hawkeye116477/playnite-nile-plugin/issues/new?assignees=&labels=bug&projects=&template=bugs.yml&pluginV={troubleshootingInformation.PluginVersion}&playniteV={troubleshootingInformation.PlayniteVersion}&launcherV={troubleshootingInformation.NileVersion}");
+
+            ReportBugHyp.NavigateUri = new Uri(
+                $"https://github.com/hawkeye116477/playnite-nile-plugin/issues/new?assignees=&labels=bug&projects=&template=bugs.yml&pluginV={troubleshootingInformation.PluginVersion}&playniteV={troubleshootingInformation.PlayniteVersion}&launcherV={troubleshootingInformation.NileVersion}");
         }
 
         private void OpenLogFilesPathBtn_Click(object sender, RoutedEventArgs e)
@@ -198,7 +201,9 @@ namespace NileLibraryNS
 
         private void ClearCacheBtn_Click(object sender, RoutedEventArgs e)
         {
-            var result = playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonClearCacheConfirm), LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteSettingsClearCacheTitle), MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var result = playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonClearCacheConfirm),
+                LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteSettingsClearCacheTitle), MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
                 Nile.ClearCache();
@@ -207,7 +212,8 @@ namespace NileLibraryNS
 
         private void ChooseLauncherBtn_Click(object sender, RoutedEventArgs e)
         {
-            var file = playniteAPI.Dialogs.SelectFile($"{LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteExecutableTitle)}|*.exe");
+            var file = playniteAPI.Dialogs.SelectFile(
+                $"{LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteExecutableTitle)}|*.exe");
             if (file != "")
             {
                 SelectedNilePathTxt.Text = file;
@@ -243,17 +249,24 @@ namespace NileLibraryNS
                 Nile.ShowNotInstalledError();
                 return;
             }
-            var result = playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonMigrationConfirm), LocalizationManager.Instance.GetString(LOC.CommonMigrateGamesOriginal), MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            var result = playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonMigrationConfirm),
+                LocalizationManager.Instance.GetString(LOC.CommonMigrateGamesOriginal), MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.No)
             {
                 return;
             }
-            GlobalProgressOptions globalProgressOptions = new GlobalProgressOptions(LocalizationManager.Instance.GetString(LOC.CommonMigratingGamesOriginal), false) { IsIndeterminate = false };
-            playniteAPI.Dialogs.ActivateGlobalProgress(async (a) =>
+
+            GlobalProgressOptions globalProgressOptions =
+                new GlobalProgressOptions(LocalizationManager.Instance.GetString(LOC.CommonMigratingGamesOriginal), false)
+                    { IsIndeterminate = false };
+            playniteAPI.Dialogs.ActivateGlobalProgress(async a =>
             {
                 using (playniteAPI.Database.BufferedUpdate())
                 {
-                    var gamesToMigrate = playniteAPI.Database.Games.Where(i => i.PluginId == Guid.Parse("402674cd-4af6-4886-b6ec-0e695bfa0688")).ToList();
+                    var gamesToMigrate = playniteAPI.Database.Games
+                                                    .Where(i => i.PluginId == Guid.Parse("402674cd-4af6-4886-b6ec-0e695bfa0688"))
+                                                    .ToList();
                     var migratedGames = new List<string>();
                     var notImportedGames = new List<string>();
                     if (gamesToMigrate.Count > 0)
@@ -264,7 +277,8 @@ namespace NileLibraryNS
                         foreach (var game in gamesToMigrate.ToList())
                         {
                             iterator++;
-                            var alreadyExists = playniteAPI.Database.Games.FirstOrDefault(i => i.GameId == game.GameId && i.PluginId == NileLibrary.Instance.Id);
+                            var alreadyExists = playniteAPI.Database.Games.FirstOrDefault(i =>
+                                i.GameId == game.GameId && i.PluginId == NileLibrary.Instance.Id);
                             if (alreadyExists == null)
                             {
                                 game.PluginId = NileLibrary.Instance.Id;
@@ -277,6 +291,7 @@ namespace NileLibraryNS
                                         {
                                             game.Version = "0";
                                         }
+
                                         await Nile.AddGameToInstalledList(game);
                                     }
                                     else
@@ -285,21 +300,27 @@ namespace NileLibraryNS
                                         game.IsInstalled = false;
                                     }
                                 }
+
                                 playniteAPI.Database.Games.Update(game);
                                 migratedGames.Add(game.GameId);
                                 a.CurrentProgressValue = iterator;
                             }
                         }
+
                         a.CurrentProgressValue = gamesToMigrate.Count() + 1;
                         if (migratedGames.Count > 0)
                         {
-                            playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonMigrationCompleted), LocalizationManager.Instance.GetString(LOC.CommonMigrateGamesOriginal), MessageBoxButton.OK, MessageBoxImage.Information);
+                            playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonMigrationCompleted),
+                                LocalizationManager.Instance.GetString(LOC.CommonMigrateGamesOriginal), MessageBoxButton.OK,
+                                MessageBoxImage.Information);
                             logger.Info("Successfully migrated " + migratedGames.Count + " game(s) from Amazon Games to Nile.");
                         }
+
                         if (notImportedGames.Count > 0)
                         {
                             logger.Info(notImportedGames.Count + " game(s) probably needs to be imported or installed again.");
                         }
+
                         if (migratedGames.Count == 0 && notImportedGames.Count == 0)
                         {
                             playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(LOC.CommonMigrationNoGames));
@@ -322,13 +343,18 @@ namespace NileLibraryNS
                 { "pluginShortName", (FluentString)"Nile" },
                 { "originalPluginShortName", (FluentString)"Amazon" },
             };
-            var result = playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonMigrationConfirm, commonFluentArgs), LocalizationManager.Instance.GetString(LOC.CommonRevertMigrateGames), MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var result = playniteAPI.Dialogs.ShowMessage(
+                LocalizationManager.Instance.GetString(LOC.CommonMigrationConfirm, commonFluentArgs),
+                LocalizationManager.Instance.GetString(LOC.CommonRevertMigrateGames), MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.No)
             {
                 return;
             }
-            GlobalProgressOptions globalProgressOptions = new GlobalProgressOptions(LocalizationManager.Instance.GetString(LOC.CommonRevertMigratingGames), false) { IsIndeterminate = false };
-            playniteAPI.Dialogs.ActivateGlobalProgress((a) =>
+
+            GlobalProgressOptions globalProgressOptions =
+                new GlobalProgressOptions(LocalizationManager.Instance.GetString(LOC.CommonRevertMigratingGames), false)
+                    { IsIndeterminate = false };
+            playniteAPI.Dialogs.ActivateGlobalProgress(a =>
             {
                 using (playniteAPI.Database.BufferedUpdate())
                 {
@@ -342,7 +368,8 @@ namespace NileLibraryNS
                         foreach (var game in gamesToMigrate.ToList())
                         {
                             iterator++;
-                            var alreadyExists = playniteAPI.Database.Games.FirstOrDefault(i => i.GameId == game.GameId && i.PluginId == NileLibrary.Instance.Id);
+                            var alreadyExists = playniteAPI.Database.Games.FirstOrDefault(i =>
+                                i.GameId == game.GameId && i.PluginId == NileLibrary.Instance.Id);
                             if (alreadyExists == null)
                             {
                                 game.PluginId = Guid.Parse("402674cd-4af6-4886-b6ec-0e695bfa0688");
@@ -351,12 +378,16 @@ namespace NileLibraryNS
                                 a.CurrentProgressValue = iterator;
                             }
                         }
+
                         a.CurrentProgressValue = gamesToMigrate.Count() + 1;
                         if (migratedGames.Count > 0)
                         {
-                            playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonMigrationCompleted), LocalizationManager.Instance.GetString(LOC.CommonRevertMigrateGames), MessageBoxButton.OK, MessageBoxImage.Information);
+                            playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonMigrationCompleted),
+                                LocalizationManager.Instance.GetString(LOC.CommonRevertMigrateGames), MessageBoxButton.OK,
+                                MessageBoxImage.Information);
                             logger.Info($"Successfully migrated {migratedGames.Count} game(s) from Nile to Amazon.");
                         }
+
                         if (migratedGames.Count == 0)
                         {
                             playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(LOC.CommonMigrationNoGames));

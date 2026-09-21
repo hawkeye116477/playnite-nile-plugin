@@ -90,6 +90,7 @@ namespace NileLibraryNS.Models
                 {
                     public long token_obtain_time { get; set; }
                 }
+
                 public string customer_id { get; set; }
                 public Nile NILE { get; set; } = new Nile();
             }

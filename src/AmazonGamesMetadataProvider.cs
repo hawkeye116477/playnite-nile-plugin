@@ -1,9 +1,9 @@
-﻿using Playnite.SDK;
-using Playnite.SDK.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Playnite.SDK;
+using Playnite.SDK.Models;
 
 namespace NileLibraryNS
 {
@@ -25,7 +25,7 @@ namespace NileLibraryNS
                 game.Name = game.Name.TrimEndString("CE") + "Collector's Edition";
             }
 
-            gameInfo.Links.Add(new Link("PCGamingWiki", $"http://pcgamingwiki.com/w/index.php?search=" + Uri.EscapeDataString(game.Name)));
+            gameInfo.Links.Add(new Link("PCGamingWiki", "http://pcgamingwiki.com/w/index.php?search=" + Uri.EscapeDataString(game.Name)));
 
             // Load icon from exe
             if (game.IsInstalled && string.IsNullOrEmpty(game.Icon))
@@ -45,6 +45,7 @@ namespace NileLibraryNS
                     }
                 }
             }
+
             return gameInfo;
         }
     }

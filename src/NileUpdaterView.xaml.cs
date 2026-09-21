@@ -1,12 +1,12 @@
-﻿using CommonPlugin;
-using CommonPlugin.Enums;
-using NileLibraryNS.Models;
-using Playnite.SDK;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using CommonPlugin;
+using CommonPlugin.Enums;
+using NileLibraryNS.Models;
+using Playnite.SDK;
 
 namespace NileLibraryNS
 {
@@ -17,6 +17,7 @@ namespace NileLibraryNS
     {
         private IPlayniteAPI playniteAPI = API.Instance;
         public Dictionary<string, UpdateInfo> UpdatesList => (Dictionary<string, UpdateInfo>)DataContext;
+
         public NileUpdaterView()
         {
             InitializeComponent();
@@ -30,6 +31,7 @@ namespace NileLibraryNS
             {
                 initialDownloadSizeNumber += selectedOption.Value.Download_size;
             }
+
             var downloadSize = CommonHelpers.FormatSize(initialDownloadSizeNumber);
             DownloadSizeTB.Text = downloadSize;
             InstallSizeTB.Text = downloadSize;
@@ -57,6 +59,7 @@ namespace NileLibraryNS
                 {
                     maxWorkers = int.Parse(MaxWorkersNI.Value);
                 }
+
                 NileUpdateController NileUpdateController = new NileUpdateController();
                 DownloadProperties downloadProperties = new DownloadProperties
                 {
@@ -69,6 +72,7 @@ namespace NileLibraryNS
                 {
                     updatesList.Add(selectedOption.Key, selectedOption.Value);
                 }
+
                 await NileUpdateController.UpdateGame(updatesList, "", false, downloadProperties);
             }
         }
@@ -81,6 +85,7 @@ namespace NileLibraryNS
                 Window.GetWindow(this).Close();
                 return;
             }
+
             CommonHelpers.SetControlBackground(this);
             UpdatesLB.ItemsSource = UpdatesList;
             UpdatesLB.Visibility = Visibility.Visible;
@@ -90,7 +95,9 @@ namespace NileLibraryNS
             MaxWorkersNI.Value = settings.MaxWorkers.ToString();
             if (playniteAPI.ApplicationInfo.Mode == ApplicationMode.Fullscreen)
             {
-                var firstEnabledBtn = LogicalTreeHelper.GetChildren(TopButtonsSP).OfType<Button>().FirstOrDefault(b => b.IsEnabled && b.IsVisible);
+                var firstEnabledBtn = LogicalTreeHelper.GetChildren(TopButtonsSP)
+                                                       .OfType<Button>()
+                                                       .FirstOrDefault(b => b.IsEnabled && b.IsVisible);
                 if (firstEnabledBtn != null)
                 {
                     firstEnabledBtn.Focus();

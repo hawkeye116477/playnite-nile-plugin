@@ -1,13 +1,14 @@
 ﻿<UserControl x:Class="NileLibraryNS.NileGameSettingsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:NileLibraryNS" xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:common="clr-namespace:CommonPlugin" xmlns:system="clr-namespace:System"
              xmlns:pcmd="clr-namespace:Playnite.Commands"
-             mc:Ignorable="d" 
-             d:DesignHeight="550" d:DesignWidth="600" Loaded="NileGameSettingsViewUC_Loaded" Name="NileGameSettingsViewUC" PreviewKeyDown="NileGameSettingsViewUC_PreviewKeyDown">
+             mc:Ignorable="d"
+             d:DesignHeight="550" d:DesignWidth="600" Loaded="NileGameSettingsViewUC_Loaded"
+             Name="NileGameSettingsViewUC" PreviewKeyDown="NileGameSettingsViewUC_PreviewKeyDown">
     <UserControl.Resources>
         <sys:Boolean x:Key="True">True</sys:Boolean>
         <sys:Boolean x:Key="False">False</sys:Boolean>
@@ -23,16 +24,19 @@
     </UserControl.Resources>
     <DockPanel Margin="0,0,10,10">
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
-            <Button x:Name="SaveBtn" Content="{common:Localize Key={x:Static system:LOC.ThirdPartyPlayniteSaveLabel}}" 
-                    ContentStringFormat="&#xee00; {0}" FontFamily="{DynamicResource FontIcoFont}" Margin="0,0,8,0" Click="SaveBtn_Click" Focusable="True" />
-            <Button x:Name="CancelBtn" Content="{common:Localize Key={x:Static system:LOC.ThirdPartyPlayniteCancelLabel}}"
+            <Button x:Name="SaveBtn" Content="{common:Localize Key={x:Static system:LOC.ThirdPartyPlayniteSaveLabel}}"
+                    ContentStringFormat="&#xee00; {0}" FontFamily="{DynamicResource FontIcoFont}" Margin="0,0,8,0"
+                    Click="SaveBtn_Click" Focusable="True" />
+            <Button x:Name="CancelBtn"
+                    Content="{common:Localize Key={x:Static system:LOC.ThirdPartyPlayniteCancelLabel}}"
                     ContentStringFormat="&#xec4f; {0}"
                     FontFamily="{DynamicResource FontIcoFont}"
                     IsCancel="True" Focusable="True" />
         </StackPanel>
         <TabControl ScrollViewer.VerticalScrollBarVisibility="Disabled"
-        HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
-            <TabItem Header="{common:Localize Key={x:Static system:LOC.ThirdPartyPlayniteSettingsGeneralLabel}}" KeyboardNavigation.IsTabStop="False">
+                    HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+            <TabItem Header="{common:Localize Key={x:Static system:LOC.ThirdPartyPlayniteSettingsGeneralLabel}}"
+                     KeyboardNavigation.IsTabStop="False">
                 <StackPanel Margin="10" KeyboardNavigation.DirectionalNavigation="Continue">
                     <Grid x:Name="ButtonsGrd">
                         <Grid.ColumnDefinitions>
@@ -48,15 +52,21 @@
                             <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
                         <CheckBox Grid.Column="0" Grid.Row="0"
-                            Content="{common:Localize Key={x:Static system:LOC.NileLaunchGameDirectly}}" Margin="0,0,0,8" x:Name="LaunchGameDirectlyChk" />
+                                  Content="{common:Localize Key={x:Static system:LOC.NileLaunchGameDirectly}}"
+                                  Margin="0,0,0,8" x:Name="LaunchGameDirectlyChk" />
                         <CheckBox Grid.Column="0" Grid.Row="1"
-                            Content="{common:Localize Key={x:Static system:LOC.CommonDisableGameUpdateChecking}}" Margin="0,0,0,8" x:Name="DisableGameUpdateCheckingChk" />
-                        <TextBlock Text="{common:Localize Key={x:Static system:LOC.CommonStartupArguments}}" Grid.Column="0"
-                            Grid.Row="2" Margin="0,0,8,8" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                                  Content="{common:Localize Key={x:Static system:LOC.CommonDisableGameUpdateChecking}}"
+                                  Margin="0,0,0,8" x:Name="DisableGameUpdateCheckingChk" />
+                        <TextBlock Text="{common:Localize Key={x:Static system:LOC.CommonStartupArguments}}"
+                                   Grid.Column="0"
+                                   Grid.Row="2" Margin="0,0,8,8" VerticalAlignment="Center" HorizontalAlignment="Left" />
                         <TextBox x:Name="StartupArgumentsTxt"
-                            Grid.Column="1" Grid.Row="2" Margin="0,0,0,8" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Focusable="False" />
-                        <Button x:Name="StartupArgumentsHelpBtn" Grid.Column="2" Grid.Row="2" Margin="8,0,0,8" Content="&#xefca;" FontFamily="{DynamicResource FontIcoFont}" Command="{x:Static pcmd:GlobalCommands.NavigateUrlCommand}"
-                        CommandParameter="https://github.com/hawkeye116477/playnite-nile-plugin/wiki/Game-startup-arguments"/>
+                                 Grid.Column="1" Grid.Row="2" Margin="0,0,0,8" VerticalContentAlignment="Center"
+                                 HorizontalContentAlignment="Left" Focusable="False" />
+                        <Button x:Name="StartupArgumentsHelpBtn" Grid.Column="2" Grid.Row="2" Margin="8,0,0,8"
+                                Content="&#xefca;" FontFamily="{DynamicResource FontIcoFont}"
+                                Command="{x:Static pcmd:GlobalCommands.NavigateUrlCommand}"
+                                CommandParameter="https://github.com/hawkeye116477/playnite-nile-plugin/wiki/Game-startup-arguments" />
                     </Grid>
                 </StackPanel>
             </TabItem>
