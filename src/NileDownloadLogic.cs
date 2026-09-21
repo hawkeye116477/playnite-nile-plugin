@@ -424,23 +424,44 @@ namespace NileLibraryNS
 
             void DoFinalStep(string tempPath, string finalPath)
             {
+                var oldBinaryPath = Nile.ClientExecPath;
                 if (!CommonHelpers.IsDirectoryWritable(Path.GetDirectoryName(finalPath)))
                 {
-                    var roboCopyArgs = new List<string>()
+                    var newBinary = Path.GetFileName(tempPath);
+                    var copyCmdArgs = new List<string>
                     {
+                        "/c",
+                        "robocopy",
                         Path.GetDirectoryName(tempPath),
                         Path.GetDirectoryName(finalPath),
-                        Path.GetFileName(tempPath),
+                        newBinary,
                         "/R:3",
                         "/COPYALL"
                     };
-                    var roboCopyCmd = Cli.Wrap("robocopy")
-                                         .WithArguments(roboCopyArgs);
-                    var proc = ProcessStarter.StartProcess("robocopy", roboCopyCmd.Arguments, true);
+                    if (File.Exists(oldBinaryPath))
+                    {
+                        copyCmdArgs.AddRange(new List<string>
+                        {
+                            "&",
+                            "if",
+                            "%errorlevel%",
+                            "LSS",
+                            "2",
+                            "del",
+                            oldBinaryPath
+                        });
+                    }
+                    var copyCmd = Cli.Wrap("cmd.exe")
+                                     .WithArguments(copyCmdArgs);
+                    var proc = ProcessStarter.StartProcess("cmd.exe", copyCmd.Arguments, true);
                     proc.WaitForExit();
                 }
                 else
                 {
+                    if (File.Exists(oldBinaryPath))
+                    {
+                        File.Delete(oldBinaryPath);
+                    }
                     File.Move(tempPath, finalPath);
                 }
             }
