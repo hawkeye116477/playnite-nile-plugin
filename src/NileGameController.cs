@@ -131,7 +131,7 @@ namespace NileLibraryNS
                             a.Text = $"{LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteUninstalling)} {game.Name}... ";
                             var cmd = await Cli.Wrap(Nile.ClientExecPath)
                                                .WithArguments(new[] { "uninstall", game.GameId })
-                                               .WithEnvironmentVariables(await Nile.GetDefaultEnvironmentVariables())
+                                               .WithEnvironmentVariables(Nile.GetDefaultEnvironmentVariables())
                                                .AddCommandToLog()
                                                .WithValidation(CommandResultValidation.None)
                                                .ExecuteBufferedAsync();
@@ -335,7 +335,7 @@ namespace NileLibraryNS
             var stdOutBuffer = new StringBuilder();
             var cmd = Cli.Wrap(mainBinaryPath)
                          .WithArguments(playArgs)
-                         .WithEnvironmentVariables(await Nile.GetDefaultEnvironmentVariables())
+                         .WithEnvironmentVariables(Nile.GetDefaultEnvironmentVariables())
                          .AddCommandToLog()
                          .WithValidation(CommandResultValidation.None)
                          .WithWorkingDirectory(workingDirectory);
@@ -544,7 +544,7 @@ namespace NileLibraryNS
 
             var cmd = await Cli.Wrap(Nile.ClientExecPath)
                                .WithArguments(new[] { "list-updates", "--json" })
-                               .WithEnvironmentVariables(await Nile.GetDefaultEnvironmentVariables())
+                               .WithEnvironmentVariables(Nile.GetDefaultEnvironmentVariables())
                                .AddCommandToLog()
                                .WithValidation(CommandResultValidation.None)
                                .ExecuteBufferedAsync();

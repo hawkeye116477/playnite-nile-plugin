@@ -231,7 +231,7 @@ namespace NileLibraryNS
             bool permissionErrorDisplayed = false;
             bool diskSpaceErrorDisplayed = false;
             var cmd = Cli.Wrap(Nile.ClientExecPath)
-                         .WithEnvironmentVariables(await Nile.GetDefaultEnvironmentVariables())
+                         .WithEnvironmentVariables(Nile.GetDefaultEnvironmentVariables())
                          .WithArguments(installCommand)
                          .AddCommandToLog()
                          .WithValidation(CommandResultValidation.None);

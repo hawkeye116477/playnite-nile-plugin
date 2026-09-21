@@ -308,7 +308,7 @@ namespace NileLibraryNS
             }
         }
 
-        public static async Task<Dictionary<string, string>> GetDefaultEnvironmentVariables()
+        public static Dictionary<string, string> GetDefaultEnvironmentVariables()
         {
             var envDict = new Dictionary<string, string>();
             var heroicNileConfigPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "heroic",
@@ -352,7 +352,7 @@ namespace NileLibraryNS
             {
                 BufferedCommandResult syncLibResult = await Cli.Wrap(ClientExecPath)
                                                                .WithArguments(new[] { "library", "sync" })
-                                                               .WithEnvironmentVariables(await GetDefaultEnvironmentVariables())
+                                                               .WithEnvironmentVariables(GetDefaultEnvironmentVariables())
                                                                .AddCommandToLog()
                                                                .WithValidation(CommandResultValidation.None)
                                                                .ExecuteBufferedAsync();
@@ -446,7 +446,7 @@ namespace NileLibraryNS
                 manifest.title = await SyncLibIfNeeded(game);
                 BufferedCommandResult result = await Cli.Wrap(ClientExecPath)
                                                         .WithArguments(new[] { "install", gameID, "--info", "--json" })
-                                                        .WithEnvironmentVariables(await GetDefaultEnvironmentVariables())
+                                                        .WithEnvironmentVariables(GetDefaultEnvironmentVariables())
                                                         .AddCommandToLog()
                                                         .WithValidation(CommandResultValidation.None)
                                                         .ExecuteBufferedAsync();
