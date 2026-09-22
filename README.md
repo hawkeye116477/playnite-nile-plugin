@@ -1,5 +1,5 @@
 # playnite-nile-plugin
-Amazon library integration with [Nile](https://github.com/imLinguin/nile) for [Playnite](https://github.com/JosefNemec/Playnite), based on [Amazon Games library integration](https://github.com/JosefNemec/PlayniteExtensions/tree/master/source/Libraries/AmazonGamesLibrary).
+Amazon library integration with [Nile](https://github.com/imLinguin/nile) for [Playnite](https://codeberg.org/Playnite/Playnite), based on [Amazon Games library integration](https://codeberg.org/CrowIsTaken/PlayniteExtensions/src/branch/main10/source/Libraries/AmazonGamesLibrary).
 
 [![Crowdin](https://badges.crowdin.net/playnite-legendary-plugin/localized.svg)](https://crowdin.com/project/playnite-legendary-plugin)
 [![GitHub release (latest by date)](https://img.shields.io/github/downloads/hawkeye116477/playnite-nile-plugin/latest/total)](https://github.com/hawkeye116477/playnite-nile-plugin/releases/latest)
