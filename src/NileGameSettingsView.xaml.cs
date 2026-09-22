@@ -83,7 +83,7 @@ namespace NileLibraryNS
                 commonHelpers.SaveJsonSettingsToFile(newGameSettings, "GamesSettings", GameID, true);
             }
 
-            Window.GetWindow(this).Close();
+            Window.GetWindow(this)?.Close();
         }
 
         private void NileGameSettingsViewUC_Loaded(object sender, RoutedEventArgs e)

@@ -145,6 +145,7 @@ namespace NileLibraryNS
                     }
 
                     if (downloadTask.fullInstallPath != null &&
+                        matchingPluginTask != null &&
                         matchingPluginTask.downloadProperties.downloadAction == DownloadAction.Install)
                     {
                         if (Directory.Exists(matchingPluginTask.fullInstallPath))
@@ -188,242 +189,244 @@ namespace NileLibraryNS
             var settings = NileLibrary.GetSettings();
             var gameID = downloadTask.gameID;
             var matchingPluginTask = NileLibrary.Instance.pluginDownloadData.downloads.FirstOrDefault(t => t.gameID == gameID);
-            var wantedUnifiedTask = downloadTask;
-            var downloadProperties = matchingPluginTask.downloadProperties;
-            var gameTitle = downloadTask.name;
-            double cachedDownloadSizeNumber = wantedUnifiedTask.downloadSizeBytes;
-            double downloadCache = 0;
-            if (downloadProperties.downloadAction == DownloadAction.Install)
+            if (matchingPluginTask != null)
             {
-                installCommand.Add("install");
-            }
-
-            if (downloadProperties.downloadAction == DownloadAction.Repair)
-            {
-                Nile.MigrateAmazonManifest(matchingPluginTask.fullInstallPath, matchingPluginTask.gameID);
-                installCommand.Add("verify");
-            }
-
-            if (downloadProperties.downloadAction == DownloadAction.Update)
-            {
-                installCommand.Add("update");
-            }
-
-            installCommand.Add(gameID);
-
-            if (!downloadTask.fullInstallPath.IsNullOrEmpty())
-            {
-                installCommand.AddRange(new[] { "--path", matchingPluginTask.fullInstallPath });
-            }
-
-            if (downloadProperties.maxWorkers != 0)
-            {
-                installCommand.AddRange(new[] { "--max-workers", downloadProperties.maxWorkers.ToString() });
-            }
-
-            // We changing tokens to workaround that Nile doesn't support cancelation, so we need to force it :-)
-            var gracefulInstallerCTS = wantedUnifiedTask.forcefulCts;
-            var forcefulInstallerCTS = wantedUnifiedTask.gracefulCts;
-            bool errorDisplayed = false;
-            bool successDisplayed = false;
-            bool loginErrorDisplayed = false;
-            string memoryErrorMessage = "";
-            bool permissionErrorDisplayed = false;
-            bool diskSpaceErrorDisplayed = false;
-            var cmd = Cli.Wrap(Nile.ClientExecPath)
-                         .WithEnvironmentVariables(Nile.GetDefaultEnvironmentVariables())
-                         .WithArguments(installCommand)
-                         .AddCommandToLog()
-                         .WithValidation(CommandResultValidation.None);
-            await foreach (CommandEvent cmdEvent in cmd.ListenAsync(Console.OutputEncoding, Console.OutputEncoding,
-                               forcefulInstallerCTS.Token, gracefulInstallerCTS.Token))
-            {
-                switch (cmdEvent)
+                var downloadProperties = matchingPluginTask.downloadProperties;
+                var gameTitle = downloadTask.name;
+                double cachedDownloadSizeNumber = downloadTask.downloadSizeBytes;
+                double downloadCache = 0;
+                if (downloadProperties.downloadAction == DownloadAction.Install)
                 {
-                    case StartedCommandEvent started:
-                        wantedUnifiedTask.status = UnifiedDownloadStatus.Running;
-                        break;
-                    case StandardErrorCommandEvent stdErr:
-                        if (stdErr.Text.Contains("Verification") || stdErr.Text.Contains("Verifying"))
-                        {
-                            wantedUnifiedTask.activity = LocalizationManager.Instance.GetString(LOC.CommonVerifying);
-                        }
+                    installCommand.Add("install");
+                }
 
-                        var progressMatch = Regex.Match(stdErr.Text, @"Progress: (\d+\.\d+)");
-                        if (progressMatch.Length >= 2)
-                        {
-                            if (downloadProperties.downloadAction != DownloadAction.Update)
+                if (downloadProperties.downloadAction == DownloadAction.Repair)
+                {
+                    Nile.MigrateAmazonManifest(matchingPluginTask.fullInstallPath, matchingPluginTask.gameID);
+                    installCommand.Add("verify");
+                }
+
+                if (downloadProperties.downloadAction == DownloadAction.Update)
+                {
+                    installCommand.Add("update");
+                }
+
+                installCommand.Add(gameID);
+
+                if (!downloadTask.fullInstallPath.IsNullOrEmpty())
+                {
+                    installCommand.AddRange(new[] { "--path", matchingPluginTask.fullInstallPath });
+                }
+
+                if (downloadProperties.maxWorkers != 0)
+                {
+                    installCommand.AddRange(new[] { "--max-workers", downloadProperties.maxWorkers.ToString() });
+                }
+
+                // We changing tokens to workaround that Nile doesn't support cancelation, so we need to force it :-)
+                var gracefulInstallerCTS = downloadTask.forcefulCts;
+                var forcefulInstallerCTS = downloadTask.gracefulCts;
+                bool errorDisplayed = false;
+                bool successDisplayed = false;
+                bool loginErrorDisplayed = false;
+                string memoryErrorMessage = "";
+                bool permissionErrorDisplayed = false;
+                bool diskSpaceErrorDisplayed = false;
+                var cmd = Cli.Wrap(Nile.ClientExecPath)
+                             .WithEnvironmentVariables(Nile.GetDefaultEnvironmentVariables())
+                             .WithArguments(installCommand)
+                             .AddCommandToLog()
+                             .WithValidation(CommandResultValidation.None);
+                await foreach (CommandEvent cmdEvent in cmd.ListenAsync(Console.OutputEncoding, Console.OutputEncoding,
+                                   forcefulInstallerCTS.Token, gracefulInstallerCTS.Token))
+                {
+                    switch (cmdEvent)
+                    {
+                        case StartedCommandEvent started:
+                            downloadTask.status = UnifiedDownloadStatus.Running;
+                            break;
+                        case StandardErrorCommandEvent stdErr:
+                            if (stdErr.Text.Contains("Verification") || stdErr.Text.Contains("Verifying"))
                             {
-                                wantedUnifiedTask.activity = LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteDownloadingLabel);
+                                downloadTask.activity = LocalizationManager.Instance.GetString(LOC.CommonVerifying);
                             }
-                            else
+
+                            var progressMatch = Regex.Match(stdErr.Text, @"Progress: (\d+\.\d+)");
+                            if (progressMatch.Length >= 2)
                             {
-                                wantedUnifiedTask.activity = LocalizationManager.Instance.GetString(LOC.CommonDownloadingUpdate);
-                            }
-
-                            double progress = CommonHelpers.ToDouble(progressMatch.Groups[1].Value);
-                            wantedUnifiedTask.progress = progress;
-                        }
-
-                        var elapsedMatch = Regex.Match(stdErr.Text, @"Running for: (\d\d:\d\d:\d\d)");
-                        if (elapsedMatch.Length >= 2)
-                        {
-                            wantedUnifiedTask.elapsed = TimeSpan.Parse(elapsedMatch.Groups[1].Value);
-                        }
-
-                        var ETAMatch = Regex.Match(stdErr.Text, @"ETA: (\d\d:\d\d:\d\d)");
-                        if (ETAMatch.Length >= 2)
-                        {
-                            wantedUnifiedTask.eta = TimeSpan.Parse(ETAMatch.Groups[1].Value);
-                        }
-
-                        var downloadedMatch = Regex.Match(stdErr.Text, @"Downloaded: (\S+) (\wiB)");
-                        if (downloadedMatch.Length >= 2)
-                        {
-                            double downloadedNumber = CommonHelpers.ToBytes(CommonHelpers.ToDouble(downloadedMatch.Groups[1].Value),
-                                downloadedMatch.Groups[2].Value);
-                            double totalDownloadedNumber = downloadedNumber + downloadCache;
-                            wantedUnifiedTask.downloadedBytes = totalDownloadedNumber;
-                            //double newProgress = totalDownloadedNumber / wantedItem.downloadSizeNumber * 100;
-                            //wantedItem.progress = newProgress;
-                            //NilePanel.ProgressValue = newProgress;
-
-                            if (totalDownloadedNumber == wantedUnifiedTask.downloadSizeBytes)
-                            {
-                                switch (downloadProperties.downloadAction)
+                                if (downloadProperties.downloadAction != DownloadAction.Update)
                                 {
-                                    case DownloadAction.Install:
-                                        wantedUnifiedTask.activity =
-                                            LocalizationManager.Instance.GetString(LOC.CommonFinishingInstallation);
-                                        break;
-                                    case DownloadAction.Update:
-                                        wantedUnifiedTask.activity = LocalizationManager.Instance.GetString(LOC.CommonFinishingUpdate);
-                                        break;
-                                    case DownloadAction.Repair:
-                                        wantedUnifiedTask.activity = LocalizationManager.Instance.GetString(LOC.CommonFinishingRepair);
-                                        break;
+                                    downloadTask.activity = LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteDownloadingLabel);
                                 }
-                            }
-                        }
+                                else
+                                {
+                                    downloadTask.activity = LocalizationManager.Instance.GetString(LOC.CommonDownloadingUpdate);
+                                }
 
-                        var downloadSpeedMatch = Regex.Match(stdErr.Text, @"Download\t- (\S+) (\wiB)");
-                        if (downloadSpeedMatch.Length >= 2)
-                        {
-                            wantedUnifiedTask.downloadSpeedBytes = CommonHelpers.ToBytes(
-                                CommonHelpers.ToDouble(downloadSpeedMatch.Groups[1].Value), downloadSpeedMatch.Groups[2].Value);
-                        }
-
-                        var diskSpeedMatch = Regex.Match(stdErr.Text, @"Disk\t- (\S+) (\wiB)");
-                        if (diskSpeedMatch.Length >= 2)
-                        {
-                            wantedUnifiedTask.diskWriteSpeedBytes =
-                                CommonHelpers.ToBytes(CommonHelpers.ToDouble(diskSpeedMatch.Groups[1].Value),
-                                    diskSpeedMatch.Groups[2].Value);
-                        }
-
-                        var errorMessage = stdErr.Text;
-                        if (errorMessage.Contains("finished") || errorMessage.Contains("Finished") ||
-                            errorMessage.Contains("already up to date"))
-                        {
-                            successDisplayed = true;
-                        }
-                        else if (errorMessage.Contains("WARNING") && !errorMessage.Contains("exit requested") &&
-                                 !errorMessage.Contains("PermissionError"))
-                        {
-                            logger.Warn($"[Nile] {errorMessage}");
-                        }
-                        else if (errorMessage.Contains("ERROR") || errorMessage.Contains("CRITICAL") || errorMessage.Contains("Error") ||
-                                 errorMessage.Contains("Failure"))
-                        {
-                            logger.Error($"[Nile] {errorMessage}");
-                            if (errorMessage.Contains("not logged in"))
-                            {
-                                loginErrorDisplayed = true;
-                            }
-                            else if (errorMessage.Contains("MemoryError"))
-                            {
-                                memoryErrorMessage = errorMessage;
-                            }
-                            else if (errorMessage.Contains("PermissionError"))
-                            {
-                                permissionErrorDisplayed = true;
-                            }
-                            else if (errorMessage.Contains("Not enough available disk space"))
-                            {
-                                diskSpaceErrorDisplayed = true;
+                                double progress = CommonHelpers.ToDouble(progressMatch.Groups[1].Value);
+                                downloadTask.progress = progress;
                             }
 
-                            if (!errorMessage.Contains("old manifest"))
+                            var elapsedMatch = Regex.Match(stdErr.Text, @"Running for: (\d\d:\d\d:\d\d)");
+                            if (elapsedMatch.Length >= 2)
                             {
-                                errorDisplayed = true;
+                                downloadTask.elapsed = TimeSpan.Parse(elapsedMatch.Groups[1].Value);
                             }
-                        }
 
-                        break;
-                    case ExitedCommandEvent exited:
-                        if ((!successDisplayed && errorDisplayed) || exited.ExitCode != 0)
-                        {
-                            if (loginErrorDisplayed)
+                            var ETAMatch = Regex.Match(stdErr.Text, @"ETA: (\d\d:\d\d:\d\d)");
+                            if (ETAMatch.Length >= 2)
                             {
-                                playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(
-                                    LOC.ThirdPartyPlayniteGameInstallError,
-                                    new Dictionary<string, IFluentType>
+                                downloadTask.eta = TimeSpan.Parse(ETAMatch.Groups[1].Value);
+                            }
+
+                            var downloadedMatch = Regex.Match(stdErr.Text, @"Downloaded: (\S+) (\wiB)");
+                            if (downloadedMatch.Length >= 2)
+                            {
+                                double downloadedNumber = CommonHelpers.ToBytes(CommonHelpers.ToDouble(downloadedMatch.Groups[1].Value),
+                                    downloadedMatch.Groups[2].Value);
+                                double totalDownloadedNumber = downloadedNumber + downloadCache;
+                                downloadTask.downloadedBytes = totalDownloadedNumber;
+                                //double newProgress = totalDownloadedNumber / wantedItem.downloadSizeNumber * 100;
+                                //wantedItem.progress = newProgress;
+                                //NilePanel.ProgressValue = newProgress;
+
+                                if (totalDownloadedNumber == downloadTask.downloadSizeBytes)
+                                {
+                                    switch (downloadProperties.downloadAction)
                                     {
-                                        ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteLoginRequired)
-                                    }));
-                            }
-                            else if (permissionErrorDisplayed)
-                            {
-                                playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(
-                                    LOC.ThirdPartyPlayniteGameInstallError,
-                                    new Dictionary<string, IFluentType>
-                                        { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.CommonPermissionError) }));
-                            }
-                            else if (diskSpaceErrorDisplayed)
-                            {
-                                playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(
-                                    LOC.ThirdPartyPlayniteGameInstallError,
-                                    new Dictionary<string, IFluentType>
-                                        { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.CommonNotEnoughSpace) }));
-                            }
-                            else
-                            {
-                                playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(
-                                    LOC.ThirdPartyPlayniteGameInstallError,
-                                    new Dictionary<string, IFluentType>
-                                        { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.CommonCheckLog) }));
-                            }
-
-                            wantedUnifiedTask.status = UnifiedDownloadStatus.Error;
-                        }
-                        else
-                        {
-                            var installedAppList = Nile.GetInstalledAppList();
-                            if (installedAppList != null)
-                            {
-                                if (installedAppList.FirstOrDefault(i => i.id == gameID) != null)
-                                {
-                                    var installedGameInfo = installedAppList.FirstOrDefault(i => i.id == gameID);
-                                    Game game = new Game();
-                                    game = playniteAPI.Database.Games.FirstOrDefault(item =>
-                                        item.PluginId == NileLibrary.Instance.Id && item.GameId == gameID);
-                                    game.InstallDirectory = installedGameInfo.path;
-                                    game.Version = installedGameInfo.version;
-                                    game.InstallSize = (ulong?)installedGameInfo.size;
-                                    game.IsInstalled = true;
-                                    playniteAPI.Database.Games.Update(game);
+                                        case DownloadAction.Install:
+                                            downloadTask.activity =
+                                                LocalizationManager.Instance.GetString(LOC.CommonFinishingInstallation);
+                                            break;
+                                        case DownloadAction.Update:
+                                            downloadTask.activity = LocalizationManager.Instance.GetString(LOC.CommonFinishingUpdate);
+                                            break;
+                                        case DownloadAction.Repair:
+                                            downloadTask.activity = LocalizationManager.Instance.GetString(LOC.CommonFinishingRepair);
+                                            break;
+                                    }
                                 }
                             }
 
-                            wantedUnifiedTask.status = UnifiedDownloadStatus.Completed;
-                            wantedUnifiedTask.progress = 100;
-                            DateTimeOffset now = DateTime.UtcNow;
-                            wantedUnifiedTask.completedTime = now.ToUnixTimeSeconds();
-                        }
+                            var downloadSpeedMatch = Regex.Match(stdErr.Text, @"Download\t- (\S+) (\wiB)");
+                            if (downloadSpeedMatch.Length >= 2)
+                            {
+                                downloadTask.downloadSpeedBytes = CommonHelpers.ToBytes(
+                                    CommonHelpers.ToDouble(downloadSpeedMatch.Groups[1].Value), downloadSpeedMatch.Groups[2].Value);
+                            }
 
-                        gracefulInstallerCTS?.Dispose();
-                        forcefulInstallerCTS?.Dispose();
-                        break;
+                            var diskSpeedMatch = Regex.Match(stdErr.Text, @"Disk\t- (\S+) (\wiB)");
+                            if (diskSpeedMatch.Length >= 2)
+                            {
+                                downloadTask.diskWriteSpeedBytes =
+                                    CommonHelpers.ToBytes(CommonHelpers.ToDouble(diskSpeedMatch.Groups[1].Value),
+                                        diskSpeedMatch.Groups[2].Value);
+                            }
+
+                            var errorMessage = stdErr.Text;
+                            if (errorMessage.Contains("finished") || errorMessage.Contains("Finished") ||
+                                errorMessage.Contains("already up to date"))
+                            {
+                                successDisplayed = true;
+                            }
+                            else if (errorMessage.Contains("WARNING") && !errorMessage.Contains("exit requested") &&
+                                     !errorMessage.Contains("PermissionError"))
+                            {
+                                logger.Warn($"[Nile] {errorMessage}");
+                            }
+                            else if (errorMessage.Contains("ERROR") || errorMessage.Contains("CRITICAL") || errorMessage.Contains("Error") ||
+                                     errorMessage.Contains("Failure"))
+                            {
+                                logger.Error($"[Nile] {errorMessage}");
+                                if (errorMessage.Contains("not logged in"))
+                                {
+                                    loginErrorDisplayed = true;
+                                }
+                                else if (errorMessage.Contains("MemoryError"))
+                                {
+                                    memoryErrorMessage = errorMessage;
+                                }
+                                else if (errorMessage.Contains("PermissionError"))
+                                {
+                                    permissionErrorDisplayed = true;
+                                }
+                                else if (errorMessage.Contains("Not enough available disk space"))
+                                {
+                                    diskSpaceErrorDisplayed = true;
+                                }
+
+                                if (!errorMessage.Contains("old manifest"))
+                                {
+                                    errorDisplayed = true;
+                                }
+                            }
+
+                            break;
+                        case ExitedCommandEvent exited:
+                            if ((!successDisplayed && errorDisplayed) || exited.ExitCode != 0)
+                            {
+                                if (loginErrorDisplayed)
+                                {
+                                    playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(
+                                        LOC.ThirdPartyPlayniteGameInstallError,
+                                        new Dictionary<string, IFluentType>
+                                        {
+                                            ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteLoginRequired)
+                                        }));
+                                }
+                                else if (permissionErrorDisplayed)
+                                {
+                                    playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(
+                                        LOC.ThirdPartyPlayniteGameInstallError,
+                                        new Dictionary<string, IFluentType>
+                                            { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.CommonPermissionError) }));
+                                }
+                                else if (diskSpaceErrorDisplayed)
+                                {
+                                    playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(
+                                        LOC.ThirdPartyPlayniteGameInstallError,
+                                        new Dictionary<string, IFluentType>
+                                            { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.CommonNotEnoughSpace) }));
+                                }
+                                else
+                                {
+                                    playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(
+                                        LOC.ThirdPartyPlayniteGameInstallError,
+                                        new Dictionary<string, IFluentType>
+                                            { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.CommonCheckLog) }));
+                                }
+
+                                downloadTask.status = UnifiedDownloadStatus.Error;
+                            }
+                            else
+                            {
+                                var installedAppList = Nile.GetInstalledAppList();
+                                if (installedAppList != null)
+                                {
+                                    if (installedAppList.FirstOrDefault(i => i.id == gameID) != null)
+                                    {
+                                        var installedGameInfo = installedAppList.FirstOrDefault(i => i.id == gameID);
+                                        Game game = new Game();
+                                        game = playniteAPI.Database.Games.FirstOrDefault(item =>
+                                            item.PluginId == NileLibrary.Instance.Id && item.GameId == gameID);
+                                        game.InstallDirectory = installedGameInfo.path;
+                                        game.Version = installedGameInfo.version;
+                                        game.InstallSize = (ulong?)installedGameInfo.size;
+                                        game.IsInstalled = true;
+                                        playniteAPI.Database.Games.Update(game);
+                                    }
+                                }
+
+                                downloadTask.status = UnifiedDownloadStatus.Completed;
+                                downloadTask.progress = 100;
+                                DateTimeOffset now = DateTime.UtcNow;
+                                downloadTask.completedTime = now.ToUnixTimeSeconds();
+                            }
+
+                            gracefulInstallerCTS?.Dispose();
+                            forcefulInstallerCTS?.Dispose();
+                            break;
+                    }
                 }
             }
         }
@@ -456,7 +459,7 @@ namespace NileLibraryNS
                 var newAsset = versionInfoContent.Assets.FirstOrDefault(a =>
                     a.Browser_download_url.Contains($"{versionInfoContent.Tag_name}/nile")
                     && a.Browser_download_url.EndsWith(".exe"));
-                if (newAsset.Browser_download_url != null)
+                if (newAsset is { Browser_download_url: not null })
                 {
                     url = newAsset.Browser_download_url;
                 }
@@ -479,7 +482,7 @@ namespace NileLibraryNS
                 serverFileName = Path.GetFileName(finalUrl.LocalPath);
             }
 
-            var tempPath = Path.Combine(tempDir, serverFileName.Trim('"'));
+            var tempPath = Path.Combine(tempDir, serverFileName!.Trim('"'));
             downloadedBytes = File.Exists(tempPath) ? new FileInfo(tempPath).Length : 0;
             long lastBytes = downloadedBytes;
 
@@ -636,6 +639,7 @@ namespace NileLibraryNS
             }
             catch
             {
+                // ignored
             }
 
             downloadTask.downloadedBytes = totalDiskBytes;

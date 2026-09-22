@@ -306,7 +306,7 @@ namespace NileLibraryNS
                 playArgs.AddRange(new[] { "launch", Game.GameId });
             }
 
-            if (gameSettings.StartupArguments?.Any() == true)
+            if (gameSettings != null && gameSettings.StartupArguments?.Any() == true)
             {
                 foreach (var userArg in gameSettings.StartupArguments)
                 {
@@ -594,8 +594,11 @@ namespace NileLibraryNS
                                 if (appList.FirstOrDefault(i => i.id == gameToUpdate) != null)
                                 {
                                     var installedInfo = appList.FirstOrDefault(i => i.id == gameToUpdate);
-                                    updateInfo.OldVersion = installedInfo.version;
-                                    updateInfo.Install_path = installedInfo.path;
+                                    if (installedInfo != null)
+                                    {
+                                        updateInfo.OldVersion = installedInfo.version;
+                                        updateInfo.Install_path = installedInfo.path;
+                                    }
                                 }
                             }
 

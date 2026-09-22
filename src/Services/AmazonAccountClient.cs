@@ -7,8 +7,6 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using CliWrap;
-using CliWrap.Buffered;
 using CommonPlugin;
 using Microsoft.Win32;
 using NileLibraryNS.Models;
@@ -67,11 +65,11 @@ namespace NileLibraryNS.Services
                                        .ToLowerInvariant()
                                        .Replace("-", "");
             using (var webView = library.PlayniteApi.WebViews.CreateView(new WebViewSettings
-            {
-                WindowWidth = 490,
-                WindowHeight = 660,
-                UserAgent = LoginUserAgent,
-            }))
+                   {
+                       WindowWidth = 490,
+                       WindowHeight = 660,
+                       UserAgent = LoginUserAgent,
+                   }))
             {
                 webView.LoadingChanged += (s, e) =>
                 {
@@ -175,6 +173,7 @@ namespace NileLibraryNS.Services
                     {
                         FileSystem.CreateDirectory(Path.GetDirectoryName(userInfoPath));
                     }
+
                     FileSystem.WriteStringToFileSafe(userInfoPath, Serialization.ToJson(nileUserInfo));
                 }
             }
@@ -332,6 +331,7 @@ namespace NileLibraryNS.Services
                     {
                         FileSystem.CreateDirectory(Path.GetDirectoryName(userInfoPath));
                     }
+
                     FileSystem.WriteStringToFileSafe(userInfoPath, Serialization.ToJson(nileUserInfo));
                     var tokensPath = Path.Combine(Nile.ConfigPath, $"{Helpers.GetMD5(nileUserInfo.user_id)}.enc");
                     Helpers.EncryptToNileFile(tokensPath, Serialization.ToJson(oldTokens), nileUserInfo.user_id);

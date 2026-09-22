@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,7 +12,6 @@ using CliWrap.Buffered;
 using CommonPlugin;
 using Linguini.Shared.Types.Bundle;
 using NileLibraryNS.Models;
-using NileLibraryNS.Services;
 using Playnite.Commands;
 using Playnite.Common;
 using Playnite.SDK;
@@ -57,9 +55,8 @@ namespace NileLibraryNS
             get
             {
                 string[] nileExes = { "nile_windows_x86_64.exe", "nile.exe" };
-                string envPath = Environment.GetEnvironmentVariable("PATH")
-                                 ?
-                                .Split(new[] { Path.PathSeparator }, StringSplitOptions.RemoveEmptyEntries)
+                string envPath = Environment.GetEnvironmentVariable("PATH")?
+                                            .Split(new[] { Path.PathSeparator }, StringSplitOptions.RemoveEmptyEntries)
                                             .Where(p => p.IndexOfAny(Path.GetInvalidPathChars()) < 0)
                                             .SelectMany(pathEntry => nileExes.Select(nileExe => Path.Combine(pathEntry.Trim(), nileExe)))
                                             .FirstOrDefault(File.Exists);
@@ -121,7 +118,7 @@ namespace NileLibraryNS
         }
 
         public static string Icon =>
-            Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Resources", @"icon.png");
+            Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!, "Resources", @"icon.png");
 
         public static void StartClient()
         {
@@ -150,10 +147,7 @@ namespace NileLibraryNS
             get { return Path.Combine(ConfigPath, "current_user.json"); }
         }
 
-        public static string OldEncryptedTokensPath
-        {
-            get { return Path.Combine(Path.Combine(NileLibrary.Instance.GetPluginUserDataPath(), "tokens_encrypted.json")); }
-        }
+        public static string OldEncryptedTokensPath => Path.Combine(Path.Combine(NileLibrary.Instance.GetPluginUserDataPath(), "tokens_encrypted.json"));
 
         public static string ConfigPath
         {
@@ -443,46 +437,50 @@ namespace NileLibraryNS
                     GameId = gameData.gameID,
                     Name = gameData.name
                 };
-                manifest.title = await SyncLibIfNeeded(game);
-                BufferedCommandResult result = await Cli.Wrap(ClientExecPath)
-                                                        .WithArguments(new[] { "install", gameID, "--info", "--json" })
-                                                        .WithEnvironmentVariables(GetDefaultEnvironmentVariables())
-                                                        .AddCommandToLog()
-                                                        .WithValidation(CommandResultValidation.None)
-                                                        .ExecuteBufferedAsync();
-                var errorMessage = result.StandardError;
-                if (result.ExitCode != 0 || errorMessage.Contains("ERROR") || errorMessage.Contains("CRITICAL") ||
-                    errorMessage.Contains("Error"))
+                if (manifest != null)
                 {
-                    logger.Error(result.StandardError);
-                    if (!silently)
+                    manifest.title = await SyncLibIfNeeded(game);
+                    BufferedCommandResult result = await Cli.Wrap(ClientExecPath)
+                                                            .WithArguments(new[] { "install", gameID, "--info", "--json" })
+                                                            .WithEnvironmentVariables(GetDefaultEnvironmentVariables())
+                                                            .AddCommandToLog()
+                                                            .WithValidation(CommandResultValidation.None)
+                                                            .ExecuteBufferedAsync();
+                    var errorMessage = result.StandardError;
+                    if (result.ExitCode != 0 || errorMessage.Contains("ERROR") || errorMessage.Contains("CRITICAL") ||
+                        errorMessage.Contains("Error"))
                     {
-                        if (result.StandardError.Contains("not logged in"))
+                        logger.Error(result.StandardError);
+                        if (!silently)
                         {
-                            playniteAPI.Dialogs.ShowErrorMessage(
-                                LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteMetadataDownloadError,
-                                    new Dictionary<string, IFluentType>
-                                    {
-                                        ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteLoginRequired)
-                                    }), gameData.name);
+                            if (result.StandardError.Contains("not logged in"))
+                            {
+                                playniteAPI.Dialogs.ShowErrorMessage(
+                                    LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteMetadataDownloadError,
+                                        new Dictionary<string, IFluentType>
+                                        {
+                                            ["var0"] = (FluentString)LocalizationManager.Instance.GetString(
+                                                LOC.ThirdPartyPlayniteLoginRequired)
+                                        }), gameData.name);
+                            }
+                            else
+                            {
+                                playniteAPI.Dialogs.ShowErrorMessage(
+                                    LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteMetadataDownloadError,
+                                        new Dictionary<string, IFluentType>
+                                            { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.CommonCheckLog) }),
+                                    gameData.name);
+                            }
                         }
-                        else
-                        {
-                            playniteAPI.Dialogs.ShowErrorMessage(
-                                LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteMetadataDownloadError,
-                                    new Dictionary<string, IFluentType>
-                                        { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.CommonCheckLog) }),
-                                gameData.name);
-                        }
-                    }
 
-                    manifest.errorDisplayed = true;
-                }
-                else
-                {
-                    var newManifest = Serialization.FromJson<GameDownloadInfo>(result.StandardOutput);
-                    manifest.download_size = newManifest.download_size;
-                    File.WriteAllText(cacheInfoFile, Serialization.ToJson(manifest));
+                        manifest.errorDisplayed = true;
+                    }
+                    else
+                    {
+                        var newManifest = Serialization.FromJson<GameDownloadInfo>(result.StandardOutput);
+                        manifest.download_size = newManifest.download_size;
+                        File.WriteAllText(cacheInfoFile, Serialization.ToJson(manifest));
+                    }
                 }
             }
 
@@ -531,19 +529,22 @@ namespace NileLibraryNS
             }
 
             var folderName = new DirectoryInfo(game.InstallDirectory).Name;
-            var parentDirectory = Directory.GetParent(game.InstallDirectory).FullName;
-            var installDataDir = Path.Combine(parentDirectory, "__InstallData__", folderName);
-            var installDataFile = Path.Combine(installDataDir, "product_data.json");
-
-            MigrateAmazonManifest(game.InstallDirectory, game.GameId);
-
-            if (File.Exists(installDataFile))
+            var parentDirectory = Directory.GetParent(game.InstallDirectory)?.FullName;
+            if (parentDirectory != null)
             {
-                var installDataFileContent = FileSystem.ReadFileAsStringSafe(installDataFile);
-                if (!installDataFileContent.IsNullOrWhiteSpace())
+                var installDataDir = Path.Combine(parentDirectory, "__InstallData__", folderName);
+                var installDataFile = Path.Combine(installDataDir, "product_data.json");
+
+                MigrateAmazonManifest(game.InstallDirectory, game.GameId);
+
+                if (File.Exists(installDataFile))
                 {
-                    var installDataJson = Serialization.FromJson<AmazonProductData>(installDataFileContent);
-                    game.Version = installDataJson.InstalledVersion;
+                    var installDataFileContent = FileSystem.ReadFileAsStringSafe(installDataFile);
+                    if (!installDataFileContent.IsNullOrWhiteSpace())
+                    {
+                        var installDataJson = Serialization.FromJson<AmazonProductData>(installDataFileContent);
+                        game.Version = installDataJson.InstalledVersion;
+                    }
                 }
             }
 

@@ -158,8 +158,7 @@ namespace NileLibraryNS
                 maxWorkers = int.Parse(MaxWorkersNI.Value);
             }
 
-            var newDownloadProperties = new DownloadProperties();
-            newDownloadProperties = Serialization.GetClone(installData.downloadProperties);
+            var newDownloadProperties = Serialization.GetClone(installData.downloadProperties);
             newDownloadProperties.downloadAction = downloadAction;
             if (installPath != "")
             {

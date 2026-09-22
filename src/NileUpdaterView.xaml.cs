@@ -66,7 +66,7 @@ namespace NileLibraryNS
                     downloadAction = DownloadAction.Update,
                     maxWorkers = maxWorkers,
                 };
-                Window.GetWindow(this).Close();
+                Window.GetWindow(this)?.Close();
                 var updatesList = new Dictionary<string, UpdateInfo>();
                 foreach (var selectedOption in UpdatesLB.SelectedItems.Cast<KeyValuePair<string, UpdateInfo>>().ToList())
                 {
@@ -82,7 +82,7 @@ namespace NileLibraryNS
             var isUdmInstalled = NileDownloadLogic.CheckIfUdmInstalled();
             if (!isUdmInstalled)
             {
-                Window.GetWindow(this).Close();
+                Window.GetWindow(this)?.Close();
                 return;
             }
 

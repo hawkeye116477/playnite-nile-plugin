@@ -47,7 +47,11 @@ namespace NileLibraryNS
                 { DownloadAction.Update, LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteUpdaterInstallUpdate) }
             };
             TaskCBo.ItemsSource = downloadActionOptions;
-            UpdateSpaceInfo(SelectedDownload.downloadProperties.installPath);
+            if (SelectedDownload.downloadProperties != null)
+            {
+                UpdateSpaceInfo(SelectedDownload.downloadProperties.installPath);
+            }
+
             UnifiedDownloadManagerApi unifiedDownloadManagerApi = new UnifiedDownloadManagerApi();
             var wantedItem = unifiedDownloadManagerApi.GetTask(SelectedDownload.gameID, NileLibrary.Instance.Id.ToString());
             if (wantedItem?.status is UnifiedDownloadStatus.Completed or UnifiedDownloadStatus.Running)
@@ -90,11 +94,15 @@ namespace NileLibraryNS
                 return;
             }
 
-            wantedItem.downloadProperties.installPath = installPath;
-            wantedItem.downloadProperties.downloadAction = (DownloadAction)TaskCBo.SelectedValue;
-            wantedItem.downloadProperties.maxWorkers = int.Parse(MaxWorkersNI.Value);
+            if (wantedItem != null)
+            {
+                wantedItem.downloadProperties.installPath = installPath;
+                wantedItem.downloadProperties.downloadAction = (DownloadAction)TaskCBo.SelectedValue;
+                wantedItem.downloadProperties.maxWorkers = int.Parse(MaxWorkersNI.Value);
+            }
+
             NileLibrary.Instance.SaveDownloadData();
-            Window.GetWindow(this).Close();
+            Window.GetWindow(this)?.Close();
         }
 
         private void UpdateSpaceInfo(string path)
