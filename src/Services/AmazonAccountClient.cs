@@ -335,6 +335,7 @@ namespace NileLibraryNS.Services
                     FileSystem.WriteStringToFileSafe(userInfoPath, Serialization.ToJson(nileUserInfo));
                     var tokensPath = Path.Combine(Nile.ConfigPath, $"{Helpers.GetMD5(nileUserInfo.user_id)}.enc");
                     Helpers.EncryptToNileFile(tokensPath, Serialization.ToJson(oldTokens), nileUserInfo.user_id);
+                    FileSystem.DeleteFile(Nile.OldEncryptedTokensPath);
                     return oldTokens;
                 }
                 catch (Exception e)
