@@ -260,15 +260,16 @@ namespace NileLibraryNS
             GlobalProgressOptions globalProgressOptions =
                 new GlobalProgressOptions(LocalizationManager.Instance.GetString(LOC.CommonMigratingGamesOriginal), false)
                     { IsIndeterminate = false };
+            var originalPluginId = Guid.Parse("402674cd-4af6-4886-b6ec-0e695bfa0688");
             playniteAPI.Dialogs.ActivateGlobalProgress(async a =>
             {
                 using (playniteAPI.Database.BufferedUpdate())
                 {
                     var gamesToMigrate = playniteAPI.Database.Games
-                                                    .Where(i => i.PluginId == Guid.Parse("402674cd-4af6-4886-b6ec-0e695bfa0688"))
+                                                    .Where(i => i.PluginId == originalPluginId)
                                                     .ToList();
-                    var migratedGames = new List<string>();
-                    var notImportedGames = new List<string>();
+                    var migratedGames = 0;
+                    var notMigratedGames = 0;
                     if (gamesToMigrate.Count > 0)
                     {
                         var iterator = 0;
@@ -296,32 +297,36 @@ namespace NileLibraryNS
                                     }
                                     else
                                     {
-                                        notImportedGames.Add(game.GameId);
+                                        notMigratedGames++;
                                         game.IsInstalled = false;
                                     }
                                 }
 
                                 playniteAPI.Database.Games.Update(game);
-                                migratedGames.Add(game.GameId);
+                                migratedGames++;
                                 a.CurrentProgressValue = iterator;
+                            }
+                            else
+                            {
+                                notMigratedGames++;
                             }
                         }
 
                         a.CurrentProgressValue = gamesToMigrate.Count() + 1;
-                        if (migratedGames.Count > 0)
+                        if (migratedGames > 0)
                         {
                             playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonMigrationCompleted),
                                 LocalizationManager.Instance.GetString(LOC.CommonMigrateGamesOriginal), MessageBoxButton.OK,
                                 MessageBoxImage.Information);
-                            logger.Info("Successfully migrated " + migratedGames.Count + " game(s) from Amazon Games to Nile.");
+                            logger.Info($"Successfully migrated {migratedGames} game(s) from Amazon Games to Nile.");
                         }
 
-                        if (notImportedGames.Count > 0)
+                        if (notMigratedGames > 0)
                         {
-                            logger.Info(notImportedGames.Count + " game(s) probably needs to be imported or installed again.");
+                            logger.Warn($"{notMigratedGames} game(s) probably needs to be imported or installed again.");
                         }
 
-                        if (migratedGames.Count == 0 && notImportedGames.Count == 0)
+                        if (migratedGames == 0 && notMigratedGames == 0)
                         {
                             playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(LOC.CommonMigrationNoGames));
                         }
@@ -354,12 +359,14 @@ namespace NileLibraryNS
             GlobalProgressOptions globalProgressOptions =
                 new GlobalProgressOptions(LocalizationManager.Instance.GetString(LOC.CommonRevertMigratingGames), false)
                     { IsIndeterminate = false };
+            var originalPluginId = Guid.Parse("402674cd-4af6-4886-b6ec-0e695bfa0688");
             playniteAPI.Dialogs.ActivateGlobalProgress(a =>
             {
                 using (playniteAPI.Database.BufferedUpdate())
                 {
                     var gamesToMigrate = playniteAPI.Database.Games.Where(i => i.PluginId == NileLibrary.Instance.Id).ToList();
-                    var migratedGames = new List<string>();
+                    var migratedGames = 0;
+                    var notMigratedGames = 0;
                     if (gamesToMigrate.Count > 0)
                     {
                         var iterator = 0;
@@ -369,26 +376,34 @@ namespace NileLibraryNS
                         {
                             iterator++;
                             var alreadyExists = playniteAPI.Database.Games.FirstOrDefault(i =>
-                                i.GameId == game.GameId && i.PluginId == NileLibrary.Instance.Id);
+                                i.GameId == game.GameId && i.PluginId == originalPluginId);
                             if (alreadyExists == null)
                             {
-                                game.PluginId = Guid.Parse("402674cd-4af6-4886-b6ec-0e695bfa0688");
+                                game.PluginId = originalPluginId;
                                 playniteAPI.Database.Games.Update(game);
-                                migratedGames.Add(game.GameId);
+                                migratedGames += 1;
                                 a.CurrentProgressValue = iterator;
+                            }
+                            else
+                            {
+                                notMigratedGames += 1;
                             }
                         }
 
                         a.CurrentProgressValue = gamesToMigrate.Count() + 1;
-                        if (migratedGames.Count > 0)
+                        if (migratedGames > 0)
                         {
                             playniteAPI.Dialogs.ShowMessage(LocalizationManager.Instance.GetString(LOC.CommonMigrationCompleted),
                                 LocalizationManager.Instance.GetString(LOC.CommonRevertMigrateGames), MessageBoxButton.OK,
                                 MessageBoxImage.Information);
-                            logger.Info($"Successfully migrated {migratedGames.Count} game(s) from Nile to Amazon.");
+                            logger.Info($"Successfully migrated {migratedGames} game(s) from Nile to Amazon.");
+                        }
+                        if (notMigratedGames > 0)
+                        {
+                            logger.Warn($"{notMigratedGames} game(s) were skipped, cuz already exist at Amazon plugin.");
                         }
 
-                        if (migratedGames.Count == 0)
+                        if (migratedGames == 0)
                         {
                             playniteAPI.Dialogs.ShowErrorMessage(LocalizationManager.Instance.GetString(LOC.CommonMigrationNoGames));
                         }
