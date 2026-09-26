@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("NileLibrary")]
-[assembly: AssemblyCopyright("Copyright © 2025 hawkeye116477\n Copyright © 2020 Josef Nemec")]
+[assembly: AssemblyCopyright("Copyright © 2024-2026 hawkeye116477")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
