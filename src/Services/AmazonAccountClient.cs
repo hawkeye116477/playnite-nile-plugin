@@ -162,6 +162,7 @@ namespace NileLibraryNS.Services
                     authData.response.success.NILE.token_obtain_time = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
                     var finalResponse = Serialization.ToJson(authData.response.success);
                     var userId = authData.response.success.extensions.customer_info.user_id;
+                    Directory.CreateDirectory(Nile.ConfigPath);
                     var tokensPath = Path.Combine(Nile.ConfigPath, $"{Helpers.GetMD5(userId)}.enc");
                     Helpers.EncryptToNileFile(tokensPath, finalResponse, userId);
                     var nileUserInfo = new NileUserInfo
@@ -169,11 +170,6 @@ namespace NileLibraryNS.Services
                         name = authData.response.success.extensions.customer_info.name,
                         user_id = userId
                     };
-                    if (!Directory.Exists(Path.GetDirectoryName(userInfoPath)))
-                    {
-                        FileSystem.CreateDirectory(Path.GetDirectoryName(userInfoPath));
-                    }
-
                     FileSystem.WriteStringToFileSafe(userInfoPath, Serialization.ToJson(nileUserInfo));
                 }
             }
