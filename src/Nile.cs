@@ -162,7 +162,8 @@ namespace NileLibraryNS
                 {
                     if (File.Exists(originalNileInstallListPath))
                     {
-                        if (File.GetLastWriteTime(heroicNileInstallListPath) > File.GetLastWriteTime(originalNileInstallListPath))
+                        if (File.GetLastWriteTime(heroicNileInstallListPath) > File.GetLastWriteTime(originalNileInstallListPath)
+                            && new FileInfo(heroicNileInstallListPath).Length > 2)
                         {
                             nileConfigPath = heroicNileConfigPath;
                         }
@@ -174,11 +175,20 @@ namespace NileLibraryNS
                 }
 
                 var envNileConfigPath = Environment.GetEnvironmentVariable("NILE_CONFIG_PATH");
-                if (!envNileConfigPath.IsNullOrWhiteSpace() && Directory.Exists(envNileConfigPath))
+                if (!envNileConfigPath.IsNullOrWhiteSpace())
                 {
-                    nileConfigPath = envNileConfigPath;
+                    envNileConfigPath = Path.Combine(envNileConfigPath, "nile");
+                    try
+                    {
+                        Directory.CreateDirectory(envNileConfigPath);
+                        nileConfigPath = envNileConfigPath;
+                    }
+                    catch (Exception ex)
+                    {
+                        var logger = LogManager.GetLogger();
+                        logger.Warn(ex, $"Invalid path in NILE_CONFIG_PATH variable: {envNileConfigPath}.");
+                    }
                 }
-
                 return nileConfigPath;
             }
         }
