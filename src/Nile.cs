@@ -149,47 +149,78 @@ namespace NileLibraryNS
 
         public static string OldEncryptedTokensPath => Path.Combine(Path.Combine(NileLibrary.Instance.GetPluginUserDataPath(), "tokens_encrypted.json"));
 
-        public static string ConfigPath
+        public static string ConfigPathForEnv
         {
             get
             {
-                var nileConfigPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "nile");
-                var heroicNileConfigPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "heroic",
-                    "nile_config", "nile");
-                var originalNileInstallListPath = Path.Combine(nileConfigPath, "installed.json");
-                var heroicNileInstallListPath = Path.Combine(heroicNileConfigPath, "installed.json");
-                if (File.Exists(heroicNileInstallListPath))
-                {
-                    if (File.Exists(originalNileInstallListPath))
-                    {
-                        if (File.GetLastWriteTime(heroicNileInstallListPath) > File.GetLastWriteTime(originalNileInstallListPath)
-                            && new FileInfo(heroicNileInstallListPath).Length > 2)
-                        {
-                            nileConfigPath = heroicNileConfigPath;
-                        }
-                    }
-                    else
-                    {
-                        nileConfigPath = heroicNileConfigPath;
-                    }
-                }
-
+                var defaultConfigPath = Path.Combine(NileLibrary.Instance.GetPluginUserDataPath(), "nile_config");
+                var configPath = "";
                 var envNileConfigPath = Environment.GetEnvironmentVariable("NILE_CONFIG_PATH");
                 if (!envNileConfigPath.IsNullOrWhiteSpace())
                 {
-                    envNileConfigPath = Path.Combine(envNileConfigPath, "nile");
                     try
                     {
                         Directory.CreateDirectory(envNileConfigPath);
-                        nileConfigPath = envNileConfigPath;
+                        configPath = envNileConfigPath;
                     }
                     catch (Exception ex)
                     {
                         var logger = LogManager.GetLogger();
-                        logger.Warn(ex, $"Invalid path in NILE_CONFIG_PATH variable: {envNileConfigPath}.");
+                        logger.Warn(ex, $"Invalid path in NILE_CONFIG_PATH variable: {envNileConfigPath}");
                     }
                 }
-                return nileConfigPath;
+                if (configPath.IsNullOrWhiteSpace())
+                {
+                    var configPaths = new List<string>
+                    {
+                        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)),
+                        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "heroic", "nile_config"),
+                        defaultConfigPath
+                    };
+
+                    var loginConfigPath = "";
+                    DateTime lastWrite = DateTime.MinValue;
+                    DateTime loginLastWrite = DateTime.MinValue;
+                    foreach (var singleConfigPath in configPaths)
+                    {
+                        var installedFile = Path.Combine(singleConfigPath, "nile", "installed.json");
+                        var loginFile = Path.Combine(singleConfigPath, "nile", "current_user.json");
+
+                        var installedFileInfo = new FileInfo(installedFile);
+                        if (installedFileInfo.Exists && installedFileInfo.LastWriteTime > lastWrite && installedFileInfo.Length > 2)
+                        {
+                            lastWrite = installedFileInfo.LastWriteTime;
+                            configPath = singleConfigPath;
+                        }
+                        else
+                        {
+                            var loginFileInfo = new FileInfo(loginFile);
+                            if (loginFileInfo.Exists && loginFileInfo.LastWriteTime > loginLastWrite && loginFileInfo.Length > 2)
+                            {
+                                loginLastWrite = installedFileInfo.LastWriteTime;
+                                loginConfigPath = singleConfigPath;
+                            }
+                        }
+                    }
+                    if (configPath.IsNullOrWhiteSpace())
+                    {
+                        configPath = loginConfigPath;
+                    }
+                    if (configPath.IsNullOrWhiteSpace())
+                    {
+                        configPath = defaultConfigPath;
+                    }
+                }
+
+                return configPath;
+            }
+        }
+
+        public static string ConfigPath
+        {
+            get
+            {
+                return Path.Combine(ConfigPathForEnv, "nile");
             }
         }
 
@@ -314,15 +345,10 @@ namespace NileLibraryNS
 
         public static Dictionary<string, string> GetDefaultEnvironmentVariables()
         {
-            var envDict = new Dictionary<string, string>();
-            var heroicNileConfigPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "heroic",
-                "nile_config", "nile");
-            if (ConfigPath == heroicNileConfigPath)
+            Dictionary<string, string> envDict = new()
             {
-                envDict.Add("NILE_CONFIG_PATH",
-                    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "heroic", "nile_config"));
-            }
-
+                { "NILE_CONFIG_PATH", ConfigPathForEnv }
+            };
             return envDict;
         }
 
@@ -377,7 +403,7 @@ namespace NileLibraryNS
                         playniteAPI.Dialogs.ShowErrorMessage(
                             LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteMetadataDownloadError,
                                 new Dictionary<string, IFluentType>
-                                    { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.CommonCheckLog) }), gameName);
+                                { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.CommonCheckLog) }), gameName);
                     }
 
                     logger.Error(syncErrorMessage);
@@ -478,7 +504,7 @@ namespace NileLibraryNS
                                 playniteAPI.Dialogs.ShowErrorMessage(
                                     LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteMetadataDownloadError,
                                         new Dictionary<string, IFluentType>
-                                            { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.CommonCheckLog) }),
+                                        { ["var0"] = (FluentString)LocalizationManager.Instance.GetString(LOC.CommonCheckLog) }),
                                     gameData.name);
                             }
                         }
@@ -637,7 +663,7 @@ namespace NileLibraryNS
                     var result = playniteAPI.Dialogs.ShowMessage(
                         LocalizationManager.Instance.GetString(LOC.CommonNewVersionAvailable,
                             new Dictionary<string, IFluentType>
-                                { ["appName"] = (FluentString)"Nile", ["appVersion"] = (FluentString)newVersion.ToString() }),
+                            { ["appName"] = (FluentString)"Nile", ["appVersion"] = (FluentString)newVersion.ToString() }),
                         LocalizationManager.Instance.GetString(LOC.ThirdPartyPlayniteUpdaterWindowTitle), MessageBoxImage.Information,
                         options);
                     if (result == options[0])
