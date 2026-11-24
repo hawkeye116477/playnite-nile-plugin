@@ -159,4 +159,4 @@ def copy_specific_named_files_with_subdirs(source_dir, destination_dir, file_nam
                     print(f"An error occured during copying file {source_file_path}: {e}")
 
 common_loc_path = pj(main_path, "..", "playnite-common-plugin", "src", "Localization")
-copy_specific_named_files_with_subdirs(common_loc_path, pj(third_party_path, "CommonLocalization"), file_names=["common.ftl", "common-libplugin.ftl"])
+copy_specific_named_files_with_subdirs(common_loc_path, pj(third_party_path, "CommonLocalization"), file_names=["common.ftl", "common-libplugin.ftl", "common-launcher.ftl"])
