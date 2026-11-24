@@ -60,7 +60,7 @@ with tempfile.TemporaryDirectory() as tmpdirname:
                 destination_path = ""
                 if "nile" in filename:
                     destination_path = pj(src_path, "Localization", relative_path)
-                elif filename in ("common.ftl", "common-libplugin.ftl"):
+                elif filename in ("common.ftl", "common-libplugin.ftl", "common-launcher.ftl"):
                     destination_path = pj(main_path, "third_party", "CommonLocalization", relative_path)
                 if destination_path != "":
                     if not os.path.exists(destination_path):
